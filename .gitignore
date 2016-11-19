@@ -1,0 +1,25 @@
+# Tmux
+# ------------------
+tmux/resurrect
+tmux/plugins
+# ------------------
+
+# Vim, Neovim
+# ------------------
+shada/
+bundle/
+.init.vim-rplugin~
+spell/
+.netrwhist
+# vim-plug plugin manager
+autoload/plug.vim
+autoload/plug.vim.old
+# ------------------
+
+# Backup, temp files
+# ------------------
+config_backup/
+*.pyc
+*.bak
+*.bk
+# ------------------

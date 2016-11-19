@@ -1,0 +1,53 @@
+# ===============================================
+# Termite Configuration
+# A keyboard-centric VTE-based terminal
+#
+# Section:
+#   - general options
+#   - color scheme
+# ===============================================
+
+# --- general options ---
+[options]
+font = monaco 16
+allow_bold = false
+cursor_blink = off
+cursor_shape = block
+dynamic_title = true
+mouse_autohide = true
+audible_bell = false
+visible_bell = false
+resize_grip = false
+search_wrap = true
+scrollback_lines = 10000
+scroll_on_output = false
+scroll_on_keystroke = true
+# hide links that are no longer valid in url select overlay mode
+clickable_url = true
+filter_unmatched_urls = true
+
+
+# --- color scheme ---
+[colors]
+# solarized
+foreground = #EBEBFF
+foreground_bold = #EBEBFF
+background = #333333
+cursor = #66ff66
+
+color0 = #1C1C1C
+color1 = #D81860
+color2 = #60FF60
+color3 = #F9FD75
+color4 = #4695C8
+color5 = #A78EDB
+color6 = #43AFCE
+color7 = #F3EBE2
+color8 = #4D4D4D
+color9 = #F00060
+color10 = #70FF70
+color11 = #F9FD80
+color12 = #5A9DC8
+color13 = #B29FDB
+color14 = #69B8CE
+color15 = #EEEEEE

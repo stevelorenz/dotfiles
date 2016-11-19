@@ -1,0 +1,290 @@
+# ================================================
+# i3wm configuration file
+#
+# User   : Zuo Xiang
+# Github : stevelorenz
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+# ================================================
+
+# === General ===
+# ------------------------------------------------
+# Set mod key (Mod1=<Alt>, Mod4=<Super>)
+set $mod Mod4
+
+# Default font
+font pango: Monaco Regular 16
+
+# Start terminal emulator (urxvt, terminator)
+bindsym $mod+Return exec urxvt
+bindsym $mod+t exec terminator
+
+# Start program launcher (rofi)
+# Use rofi, configs saved in ~/.Xresources
+bindsym $mod+d exec rofi -show run -eh 1
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Restart i3 in place (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Wallpaper (feh)
+# Auto set wallpapers after login in, random all mode
+exec --no-startup-id feh --bg-scale --randomize /home/steve/photo/Wallpaper
+# change wallpaper with random all mode
+bindsym $mod+Shift+w  exec --no-startup-id feh --bg-scale --randomize /home/steve/photo/Wallpaper
+
+# Auto start programs
+set $psst --no-startup-id
+exec $psst unclutter  # auto hide cursor
+exec $psst nm-applet  # network manager tray
+exec $psst pamac-tray  # pamac package manager tray
+exec $psst xfce4-power-manager  # xfce4 power manager
+
+# Backlight control (xbacklight)
+bindsym $mod+Shift+b exec --no-startup-id xbacklight +5
+bindsym $mod+Shift+d exec --no-startup-id xbacklight -5
+
+# Volume control (alsa)
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ unmute
+bindsym XF86AudioLowerVolume  exec --no-startup-id amixer -q sset Master 5%- unmute
+bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
+
+# Switch keyboard layout (setxkbmap)
+# ------------------------------------------------
+set $keyboard_mode "switch keyboard: c=ch, d=de, u=us"
+mode $keyboard_mode{
+    bindsym c exec --no-startup-id "setxkbmap ch && fcitx", mode "default"
+    bindsym d exec --no-startup-id "killall fcitx; setxkbmap de", mode "default"
+    bindsym u exec --no-startup-id "killall fcitx; setxkbmap us", mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+i mode $keyboard_mode
+# ------------------------------------------------
+
+# system operations
+# ------------------------------------------------
+set $locker i3lock -e -t -f --image /home/steve/photo/Wallpaper/Apink_Six.png
+set $mode_system "system operation: (l) lock, (e) logout, (s) lock & suspend, (h) lock & hibernate, (r) reboot, (shift+s) shutdown"
+mode $mode_system {
+    bindsym l exec --no-startup-id "$locker", mode "default"
+    bindsym e exec --no-startup-id "i3-msg exit", mode "default"
+    bindsym s exec --no-startup-id "$locker && systemctl suspend", mode "default"
+    bindsym h exec --no-startup-id "$locker && systemctl hibernate", mode "default"
+    bindsym r exec --no-startup-id "systemctl reboot", mode "default"
+    bindsym Shift+s exec --no-startup-id "systemctl poweroff -i", mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+s mode $mode_system
+# ------------------------------------------------
+
+# Shortcut for running some useful programs
+# ------------------------------------------------
+# Screenshooter
+bindsym $mod+p exec xfce4-screenshooter
+bindsym $mod+c exec compton -b
+
+# Fcitx input method
+set $mode_fcitx "fcitx: (r) un, (q)uit "
+mode $mode_fcitx {
+    bindsym r exec --no-startup-id "fcitx", mode "default"
+    bindsym q exec --no-startup-id "killall fcitx", mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+f mode $mode_fcitx
+# ------------------------------------------------
+
+# === Container ===
+# ------------------------------------------------
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Focus the parent container
+bindsym $mod+a focus parent
+# ------------------------------------------------
+
+# === Window ===
+# ------------------------------------------------
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Use mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+colon move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split orientation
+bindsym $mod+h split h
+bindsym $mod+v split v
+bindsym $mod+q split toggle
+
+# Enter full screen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# List open windows to switch to
+bindsym $mod+Tab exec rofi -show window
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+minus scratchpad show
+
+# Navigate workspaces next / previous
+bindsym $mod+Ctrl+Right workspace next
+bindsym $mod+Ctrl+Left workspace prev
+
+# Open specific applications in floating mode
+for_window [class="GParted"] floating enable border normal
+for_window [class="Manjaro Settings Manager"] floating enable border normal
+for_window [class="Pamac-manager"] floating enable
+
+# Resize window (you can also use the mouse for that)
+mode "resize" {
+        # vim like bindings
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
+
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # exit resize mode: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+# ------------------------------------------------
+
+# === Workspace ===
+# ------------------------------------------------
+# Switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# Workspace back and forth (with/without active container)
+workspace_auto_back_and_forth yes
+bindsym $mod+b workspace back_and_forth
+
+# Rename workspace
+bindsym Ctrl+Shift+r exec i3-input -F 'rename workspace to "%s"' -P 'rename current workspace: '
+# ------------------------------------------------
+
+# === Colors ===
+# ------------------------------------------------
+set $base01 #1f222d
+set $base02 #252936
+set $base03 #7780a1
+set $base04 #c0c5ce
+set $base05 #d1d4e0
+set $base06 #c9ccdb
+set $base07 #ffffff
+set $base08 #ee829f
+set $base09 #f99170
+set $base0A #ffefcc
+set $base0B #a5ffe1
+set $base0C #97e0ff
+set $base0D #97bbf7
+set $base0E #c0b7f9
+set $base0F #fcc09e
+# ------------------------------------------------
+
+# === Status Bar ===
+# ------------------------------------------------
+bar {
+        position top
+        font pango:Monaco Regular 18
+        tray_output eDP1  # laptop screen
+        tray_padding 3
+        strip_workspace_numbers yes
+
+        # use i3blocks instead of default i3status
+        status_command i3blocks -c /home/steve/.config/i3/i3blocks.conf
+
+        colors {
+              separator $base03
+              background $base01
+              statusline $base05
+              # object           border  background text
+              focused_workspace  $base01 $base01    $base07
+              active_workspace   $base01 $base02    $base03
+              inactive_workspace $base01 $base01    $base03
+              urgent_workspace   $base01 $base01    $base08
+        }
+}
+# ------------------------------------------------
+
+# === Settings for i3-gaps ===
+# ------------------------------------------------
+# Smart gaps (gaps used if only more than one container on the workspace)
+# smart_gaps on
+
+# set $default_gaps_inner 0
+# set $default_gaps_outer 0
+# gaps inner $default_gaps_inner
+# gaps outer $default_gaps_outer
+#
+# workspace $ws1 gaps inner 0
+# workspace $ws1 gaps outer 0
+# workspace $ws9 gaps inner 0
+# workspace $ws9 gaps outer 0
+# workspace $ws10 gaps inner 0
+# workspace $ws10 gaps outer 0
+# ------------------------------------------------
