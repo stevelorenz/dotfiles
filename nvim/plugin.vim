@@ -22,7 +22,7 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 
 " --- General --------------------------------------------- {
 
-" - Statusline enhancement -
+" - Status line enhancement -
 " -- vim airline --
 Plug 'bling/vim-airline'
     " config symbols
@@ -36,7 +36,7 @@ Plug 'bling/vim-airline'
     let g:airline_symbols.linenr = '¶'
     let g:airline_symbols.branch = '⎇'
 
-  " config extentions
+  " config extensions
   let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#left_sep = ' '
     let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -50,21 +50,21 @@ Plug 'vim-airline/vim-airline-themes'
 " - File system navigation -
 " -- tree explorer --
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
-  let NERDTreeWinSize=35
-  let NERDTreeWinPos="right"
-  let NERDTreeShowBookmarks=1
-  let NERDTreeShowHidden=0
-  let NERDTreeAutoDeleteBuffer=1  "remove buffer by cleaning file
-  let NERDTreeHighlightCursorline=1
-  let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
+  let NERDTreeWinSize = 35
+  let NERDTreeWinPos = "right"
+  let NERDTreeShowBookmarks = 1
+  let NERDTreeShowHidden = 0
+  let NERDTreeAutoDeleteBuffer = 1  "remove buffer by cleaning file
+  let NERDTreeHighlightCursorline = 1
+  let NERDTreeIgnore = [ '\.pyc$', '\.pyo$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '^\.svn$', '^\.hg$' ]
   " open file in new buffer
-  let g:NERDTreeMapOpenSplit='s'
-  let g:NERDTreeMapOpenVSplit='v'
+  let g:NERDTreeMapOpenSplit = 's'
+  let g:NERDTreeMapOpenVSplit = 'v'
 
   " -- tab support --
   Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
-  let g:nerdtree_tabs_open_on_console_startup=0
-  let g:nerdtree_tabs_open_on_gui_startup=0
+  let g:nerdtree_tabs_open_on_console_startup = 0
+  let g:nerdtree_tabs_open_on_gui_startup = 0
 
 " - Insert mode auto-completion for quotes, parens, brackets -
 Plug 'Raimondi/delimitMate'
@@ -120,7 +120,6 @@ Plug 'Lokaltog/vim-easymotion'
 
 " -- intra line --
 Plug 'unblevable/quick-scope'
-  " trigger a highlight only when pressing f and f.
   let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
   let g:qs_first_occurrence_highlight_color = '#afff5f'   " gui vim
   let g:qs_first_occurrence_highlight_color = 155         " terminal vim
@@ -132,10 +131,10 @@ Plug 'terryma/vim-multiple-cursors'
   " use default mapping
   let g:multi_cursor_use_default_mapping=1
   " default mapping
-  let g:multi_cursor_next_key='<C-n>'
-  let g:multi_cursor_prev_key='<C-p>'
-  let g:multi_cursor_skip_key='<C-x>'
-  let g:multi_cursor_quit_key='<Esc>'
+  let g:multi_cursor_next_key = '<C-n>'
+  let g:multi_cursor_prev_key = '<C-p>'
+  let g:multi_cursor_skip_key = '<C-x>'
+  let g:multi_cursor_quit_key = '<Esc>'
 
 " - Show marks -
 Plug 'kshenoy/vim-signature'
@@ -176,9 +175,9 @@ Plug 'neomake/neomake'
 
 " - Dynamically show tags -
 Plug 'majutsushi/tagbar'
-  let tagbar_left=1
-  let tagbar_width=35
-  let g:tagbar_compact=1
+  let tagbar_left = 1
+  let tagbar_width = 35
+  let g:tagbar_compact = 1
   let g:tagbar_autofocus = 1
   " not sort by name but by the position
   let g:tagbar_sort = 0
@@ -231,27 +230,28 @@ Plug 'dyng/ctrlsf.vim'
 " - Code snippets -
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
   " set triggers -> <leader><tab>
-  let g:UltiSnipsExpandTrigger="<leader><tab>"
-  let g:UltiSnipsJumpForwardTrigger="<leader><tab>"
-  let g:UltiSnipsJumpBackwardTrigger="<leader><s-tab>"
-  let g:UltiSnipsEditSplit="vertical"
+  let g:UltiSnipsExpandTrigger = "<leader><tab>"
+  let g:UltiSnipsJumpForwardTrigger = "<leader><tab>"
+  let g:UltiSnipsJumpBackwardTrigger = "<leader><s-tab>"
+  let g:UltiSnipsEditSplit = "vertical"
   " add searching paths
   let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
 " - Using tab for completion -
 Plug 'ervandew/supertab'
-  let g:SuperTabRetainCompletionType=2
-  let g:SuperTabDefaultCompletionType="context"
+  let g:SuperTabRetainCompletionType = 2
+  let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
   let g:SuperTabClosePreviewOnPopupClose = 1
 
 " - Common asynchronous completion framework: deoplete -
+" MARK: Default disabled, call deoplete#enable() to enable deoplete
+
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
 
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-  " default disabled, call deoplete#enable() when needed
   let g:deoplete#enable_at_startup = 0
   let g:deoplete#enable_smart_case = 1
   let g:deoplete#auto_complete_start_length = 2
@@ -288,16 +288,16 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 
 " --- C CPP ----------------------------------------------- {
 
-" - C/Cpp autocompletion -
+" - C/CPP auto completion -
 " TODO: currently not found the best plugin for this
 " Plug 'Rip-Rip/clang_complete', { 'for': ['c','cpp'] }
-  let g:clang_complete_copen=1
-  let g:clang_close_preview=1
+  let g:clang_complete_copen = 1
+  let g:clang_close_preview = 1
   " use libclang instead of clang
-  let g:clang_use_library=1
-  let g:clang_library_path="/lib/libclang.so"
+  let g:clang_use_library = 1
+  let g:clang_library_path = "/lib/libclang.so"
 
-" - Swiching between src and head file -
+" - Switching between src and head files -
 Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
 
 " --- }
@@ -312,7 +312,7 @@ let g:python3_host_prog = '/usr/bin/python3'
 " - Jedi python autocompletion and navigation -
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   " -- mappings --
-  " ctrl + c pop (c)ompletion
+  " ctrl + c: trigger completion
   let g:jedi#completions_command = "<C-C>"
   " follow identifier as far as possible,
   let g:jedi#goto_command = "<leader>d"
@@ -335,8 +335,9 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   let g:jedi#popup_select_first = 1
   let g:jedi#use_splits_not_buffers = "left"
 
-  " default version: python 2, it will search libs of python2 dirs
-  " call #jedi#force_py_version(2 or 3) function
+  " default version: python 2, it will search packages in python2 dirs
+  " for example /usr/lib/python2.7/
+  " call #jedi#force_py_version(2 or 3) function to switch version
   let g:jedi#force_py_version = 2
 
 " - Indent using pep8 style -
@@ -345,7 +346,7 @@ Plug 'vim-scripts/indentpython.vim', { 'for': 'python' }
 
 " - Better folding for python -
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
-  " show docstring
+  " show docstring in fold mode
   let g:SimpylFold_docstring_preview = 1
   autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
   autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
@@ -357,9 +358,8 @@ Plug 'fisadev/vim-isort', { 'for': 'python' }
 
 " --- (X)HTML, CSS, Javascript ------------------------------- {
 
-" - web dev autocompletion -
+" - Expanding abbreviations -
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript', 'xml']}
-  "  set trigger ctrl + Z
   let g:user_emmet_leader_key='<C-Z>'
 
 " --- }
@@ -376,15 +376,17 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 
 " --- Colorscheme ----------------------------------------- {
 
+" Colorscheme that are active updated
+" Stable and inactive ones are stored in colors dir
+
 Plug 'junegunn/seoul256.vim'
   " Range:   233 (darkest) ~ 239 (lightest)
   " Default: 237
   let g:seoul256_background = 235
   let g:seoul256_light_background = 256
 
-Plug 'morhetz/gruvbox'
-
 Plug 'joshdick/onedark.vim'
+
 " --- }
 
 " -------------------- End Config --------------------
