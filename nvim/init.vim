@@ -11,6 +11,7 @@
 "      -> File Encode Settings
 "      -> Keyboard Mapping Settings
 "      -> File Type Settings
+"      -> Neovim Specific
 "      -> Others
 "      -> Theme Settings
 "      -> Helper Functions
@@ -403,22 +404,6 @@ map <F9> :NERDTreeTabsToggle<CR>
 " F10: Toggle Tagbar
 map <F10> :TagbarToggle<CR>
 " ---------------------------------------------------------
-
-" === Neovim Terminal Emulator ===
-" ---------------------------------------------------------
-" esc for changing terminal to normal mode
-tnoremap <Esc> <C-\><C-n>
-
-" using `Alt+{h,j,k,l}` to navigate between windows
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-" ---------------------------------------------------------
 " }
 
 "==========================================
@@ -468,6 +453,33 @@ nnoremap <A-l> <C-w>l
       \ set filetype=vim |
       \ set textwidth=120 |
 " }
+
+"==========================================
+" Neovim Specific
+"==========================================
+" {
+" Python provider program
+" This points Neovim to a specific Python interpreter
+let g:python_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python3'
+
+" Terminal Emulator Key-Mapping
+" ---------------------------------------------------------
+" esc for changing terminal to normal mode
+tnoremap <Esc> <C-\><C-n>
+
+" using `Alt+{h,j,k,l}` to navigate between windows
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+" ---------------------------------------------------------
+" }
+
 
 "==========================================
 " Others

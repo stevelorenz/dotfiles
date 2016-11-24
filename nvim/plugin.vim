@@ -305,10 +305,6 @@ Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
 
 " --- Python ---------------------------------------------- {
 
-" - Neovim python host -
-let g:python_host_prog = '/usr/bin/python2'
-let g:python3_host_prog = '/usr/bin/python3'
-
 " - Jedi python autocompletion and navigation -
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   " -- mappings --
