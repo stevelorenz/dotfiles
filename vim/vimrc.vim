@@ -1,17 +1,18 @@
 " vim: foldmarker={,} foldlevel=0 foldmethod=marker:
 " fold vimrc with marker {}
 "==========================================
-" About:  Init File for NeoVim
-" Author: Xiang, Zuo
-" Email:  xianglinks@gmail.com
+" About: Config File for Vim
+" Maintainer: Xiang, Zuo
+" Email: xianglinks@gmail.com
 " Sections:
-"     # General Settings
-"     # Display Settings
-"     # File Encode Settings
-"     # Keyboard Settings
-"     # File Type Settings
-"     # Others
-"     # Theme Settings
+"    -> General Settings
+"    ->  Display Settings
+"    ->  File Encode Settings
+"    ->  Keyboard Settings
+"    ->  File Type Settings
+"    ->  Others
+"    ->  Theme Settings
+"    -> Helper Functions
 "==========================================
 
 "==========================================
@@ -32,24 +33,27 @@ filetype plugin indent on
 " set vim history in .viminfo
 set history=2000
 
-" autoread file after editing
+" auto read file after editing
 set autoread
 
 " close backup file
 set nobackup
+set nowb
 set noswapfile
-" no Uganda
+
+" no uganda
 set shortmess=atI
 
 " correct backspace
 set backspace=eol,start,indent
+
 " auto wrap to following lines
 set whichwrap+=<,>,h,l
 
 " show contents on screen after exit
 set t_ti= t_te=
 
-" fix vim-multicurse selection bug
+" to fix vim-multicurse selection bug
 " the character under cursor will also be selected
 set selection=inclusive
 set selectmode=key
@@ -93,18 +97,23 @@ set nofoldenable  " do not fold by opening file
 set hidden
 
 " tab indent default settings
-  set tabstop=2      " noc (number of columns) for each tab
-  set shiftwidth=2   " noc for using ident command
-  set softtabstop=2  " noc for each tapping tab
+  set tabstop=2      " noc (number of columns) of each tab
+  set shiftwidth=2   " noc for re-indent operations
+  set softtabstop=2  " noc for tapping tab key, like if softtabstop=12 and tabstop=8
+                     " then a tab key will converted into one tab and 4 whitespaces
   set smarttab       " insert tabs on the start of a line according to shiftwidth, not tabstop
   set expandtab      " convert tab to whitespace, using ctrl-v for real tab
-  set shiftround     " use multiple of shiftwidth when indenting with '<' and '>'
+  set shiftround     " use multiple of shift width when indenting with '<' and '>'
   set autoindent
 
-" enable build-in autocompletion, omnifunc
+" enable build-in auto completion with omnifunc
 set omnifunc=syntaxcomplete#Complete
-" disable preview window
+
+" disable the annoying preview window
 set completeopt-=preview
+
+" completion pop-up menu enhancement
+" use IDE like popping
 set completeopt=longest,menu
 
 " use single line to show the completion in command line
@@ -118,6 +127,27 @@ set wildmenu
   set ignorecase
   set smartcase
 
+" set time in ms to wait for a mapping to complete
+" e.g. (ctrl + F + n), the wait time after enter ctrl + f is set with ttimeoutlen
+set ttimeout
+set ttimeoutlen=100
+
+" delete comment character when joining commented lines
+if v:version > 703 || v:version == 703 && has("patch541")
+  set formatoptions+=j
+endif
+
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command W w !sudo tee % > /dev/null
+
+" don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" visual mode pressing * or # searches for the current selection
+" super useful! from an idea by michael naumann
+vnoremap <silent> * :call VisualSelection('f', '')<CR>
+vnoremap <silent> # :call VisualSelection('b', '')<CR>
 " }
 
 "==========================================
@@ -130,6 +160,7 @@ set gcr=a:block-blinkon0
 " show line number, ruler
 set number
 set ruler
+
 "default stop line breaking
 set nowrap
 
@@ -153,13 +184,8 @@ set laststatus=2
 set cursorline
 set cursorcolumn
 
-" highlighting trailing whitespaces
+" highlighting trailing whitespace
 match ErrorMsg '\s\+$'
-
-" removes trailing spaces
-function! TrimWhiteSpace()
-    %s/\s\+$//e
-endfunction
 
 " highlighting some specific characters
 if has("autocmd")
@@ -177,13 +203,6 @@ au FocusLost * :set norelativenumber number
 au FocusGained * :set relativenumber
 autocmd InsertEnter * :set norelativenumber number
 autocmd InsertLeave * :set relativenumber
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber number
-  else
-    set relativenumber
-  endif
-endfunc
 
 " fix vim color problem in tmux
 " Refer: http://sunaku.github.io/vim-256color-bce.html
@@ -202,24 +221,25 @@ endif
 " default coding
 set encoding=utf-8
 set fileencoding=utf-8
-" Try following codings
+" alternative list of encodings
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 
 " help texts
 set helplang=en
 set termencoding=utf-8
 
-" use unix as the standard file type
+" use unix as the default file type
 set ffs=unix,dos,mac
 set formatoptions+=m
 " }
 
 "==========================================
-" Keyboard Settings
+" Keyboard Mapping Settings
 "==========================================
 " {
 " set leader key
-let mapleader=","
+let mapleader = ","
+let g:mapleader = ","
 
 " map ; to :
 nnoremap ; :
@@ -228,8 +248,6 @@ nnoremap ; :
 nmap <leader>w :w<CR>
 nmap <leader>q :q<CR>
 nmap <leader>Q :q!<CR>
-" close current buffer
-nmap <leader>b :bd<CR>
 
 " map <space> for searching
 map <space> /
@@ -247,7 +265,7 @@ map <Down> <Nop>
 nnoremap <leader><leader>x "_dd
 vnoremap <leader><leader>x "_dd
 
-" mimic emacs line editing in insert mode only
+" mimic emacs line editing in insert mode
 inoremap <C-A> <Home>
 inoremap <C-B> <Left>
 inoremap <C-E> <End>
@@ -257,14 +275,13 @@ inoremap <C-U> <Esc>d0xi
 inoremap <C-Y> <Esc>Pa
 inoremap <C-X><C-S> <Esc>:w<CR>a
 
-" command line shortcut, emaces like
+" command line shortcut, emacs like
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
 " use system clipboard
-" works with xclip pkg
 vnoremap <leader>y "+y
 nmap <leader>p "+p
 
@@ -279,8 +296,10 @@ map <leader>sa ggVG"
 " copy all to system clipboard
 map <leader><leader>ca :%y+<CR>
 
-" dishighlight searching results
-nmap <leader><leader>n :noh<CR>
+" use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
 
 " change window size
   " horizontal: = -
@@ -302,18 +321,24 @@ nnoremap <silent> g* g*zz
 nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
 nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
+" toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
 " === Tab and Buffer===
 " ---------------------------------------------------------
 " --- Buffer---
+  " list all buffers
   nnoremap <leader>l :ls<CR>
+  " switch buffer
   nnoremap [b :bprevious<cr>
   nnoremap ]b :bnext<cr>
-
-  " arrow key switching buffer in normal mode
-  noremap <left> :bp<CR>
-  noremap <right> :bn<CR>
-
-  " quick switching
+  noremap <left> :bprevious<CR>
+  noremap <right> :bnext<CR>
+  " close the current buffer
+  map <leader>bd :Bclose<cr>:tabclose<cr>gT
+  " close all the buffers
+  map <leader>ba :bufdo bd<cr>
+  " quick switching with buffer number
   map <leader>1 :b 1<CR>
   map <leader>2 :b 2<CR>
   map <leader>3 :b 3<CR>
@@ -327,12 +352,10 @@ nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 " --- Tab ---
   map <leader>th :tabfirst<cr>
   map <leader>tl :tablast<cr>
-
   map <leader>tj :tabnext<cr>
   map <leader>tk :tabprev<cr>
   map <leader>tn :tabnext<cr>
   map <leader>tp :tabprev<cr>
-
   map <leader>te :tabedit<cr>
   map <leader>td :tabclose<cr>
   map <leader>tm :tabm<cr>
@@ -340,32 +363,21 @@ nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
 " === F1 - F10 ===
 " ---------------------------------------------------------
-" F1: Close help info
-nmap <F1> :echo<CR>
-imap <F1> <C-o>:echo<CR>
+" F1: avoid to open help info
+nnoremap <F1> :echo<CR>
+inoremap <F1> <C-o>:echo<CR>
 
-" F2: Toggle line number
+" F2: toggle line number
 nnoremap <F2> :call HideNumber()<CR>
-  function! HideNumber()
-    if(&relativenumber == &number)
-      set relativenumber! number!
-    elseif(&number)
-      set number!
-    else
-      set relativenumber!
-    endif
-    set number?
-  endfunc
 
-" F3: Toggle syntax
-map <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
+" F3: toggle syntax highlight
+nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 " ---------------------------------------------------------
 " }
 
 "==========================================
-" File Type Settings
+" File Type Custom Settings
 "==========================================
-
 " {
   " -- c/cpp --
   autocmd FileType *.c, *.cpp, *.h, *.hpp
@@ -373,14 +385,6 @@ map <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
       \ set shiftwidth=4 |
       \ set softtabstop=4 |
 
-  " h, hpp header file add gates
-  function! s:insert_gates()
-    let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-    execute "normal! i#ifndef " . gatename
-    execute "normal! o#define " . gatename . " "
-    execute "normal! Go#endif /* " . gatename . " */"
-    normal! kk
-  endfunction
   autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
   " -- haskell --
@@ -394,9 +398,9 @@ map <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
   autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
       \ set filetype=markdown.mkd |
       \ set textwidth=120 |
-      \ set tabstop=4 |
-      \ set shiftwidth=4 |
-      \ set softtabstop=4 |
+      \ set tabstop=2 |
+      \ set shiftwidth=2 |
+      \ set softtabstop=2 |
 
   " -- python --
   autocmd BufNewFile,BufRead *.py
@@ -431,13 +435,13 @@ map <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 "==========================================
 " {
 " --- CLI ---
-  " use terminal 256 color
-  set t_Co=256
-  " set color scheme
-  set background=dark
-  colorscheme wombat256i
+" use terminal 256 color
+set t_Co=256
+set background=dark
+colorscheme wombat256i
 
 " --- GUI ---
+if has('gui_running')
   set guifont=Monaco\ 10
   set guicursor=a:blinkon0
   set gcr=a:block-blinkon0
@@ -452,18 +456,101 @@ map <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
   set showtabline=1
   set linespace=2
   set noimd
+endif
 
-  hi! link SignColumn   LineNr
-  hi! link ShowMarksHLl DiffAdd
-  hi! link ShowMarksHLu DiffChange
+" fix highlight problem
+hi! link SignColumn   LineNr
+hi! link ShowMarksHLl DiffAdd
+hi! link ShowMarksHLu DiffChange
+highlight clear SpellBad
+highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+highlight clear SpellCap
+highlight SpellCap term=underline cterm=underline
+highlight clear SpellRare
+highlight SpellRare term=underline cterm=underline
+highlight clear SpellLocal
+highlight SpellLocal term=underline cterm=underline
+" }
 
-  " fix highlight problem
-  highlight clear SpellBad
-  highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-  highlight clear SpellCap
-  highlight SpellCap term=underline cterm=underline
-  highlight clear SpellRare
-  highlight SpellRare term=underline cterm=underline
-  highlight clear SpellLocal
-  highlight SpellLocal term=underline cterm=underline
+"==========================================
+" Helper Functions
+"==========================================
+" {
+" toggle line number type
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set norelativenumber number
+  else
+    set relativenumber
+  endif
+endfunc
+
+" hide line number
+function! HideNumber()
+  if(&relativenumber == &number)
+    set relativenumber! number!
+  elseif(&number)
+    set number!
+  else
+    set relativenumber!
+  endif
+  set number?
+endfunc
+
+" removes trailing spaces
+function! TrimWhiteSpace()
+    %s/\s\+$//e
+endfunction
+
+" selection in visual mode
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("Ag \"" . l:pattern . "\" " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+" h, hpp header file add gates
+function! s:insert_gates()
+  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+  execute "normal! i#ifndef " . gatename
+  execute "normal! o#define " . gatename . " "
+  execute "normal! Go#endif /* " . gatename . " */"
+  normal! kk
+endfunction
+
+" don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction
 " }
