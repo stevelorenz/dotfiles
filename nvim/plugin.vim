@@ -1,20 +1,26 @@
 " vim: foldmarker={,} foldlevel=0 foldmethod=marker:
 "=========================================
-" About:  Plugin Configs for NeoVim
-" Author: Xiang,Zuo
-" Email:  xianglinks@gmail.com
+" About: Plugin Configs for NeoVim
+" Maintainer: Xiang, Zuo
+" Email: xianglinks@gmail.com
+" Sections:
+"    -> General
+"    -> General Programming
+"    -> Snippet and General AutoComplete
+"    -> C CPP
+"    -> Python
+"    -> (X)HTML, CSS, Javascript
+"    -> Writing
+"    -> Colorscheme
 "=========================================
 
 " - Using Vim-Plug Plugin Manager -
-" easy to setup, single file
-" super-fast parallel installation/update
-" support on-demand loading for faster startup time
 "
 " ------ Vim-Plug Commands ------
-"     :PlugInstall     install
-"     :PlugUpdate      update
-"     :PlugUpgrade     upgrade
-"     :PlugClean       clean
+"    :PlugInstall     install
+"    :PlugUpdate      update
+"    :PlugUpgrade     upgrade
+"    :PlugClean       clean
 
 call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 
@@ -22,8 +28,8 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 
 " --- General --------------------------------------------- {
 
-" - Status line enhancement -
-" -- vim airline --
+" - Status line enhancement
+" -- vim airline
 Plug 'bling/vim-airline'
     " config symbols
     if !exists('g:airline_symbols')
@@ -43,12 +49,12 @@ Plug 'bling/vim-airline'
     let g:airline#extensions#tabline#buffer_nr_show = 1
     let g:airline#extensions#tabline#buffer_idx_mode = 1
 
-" -- vim-airline theme repository --
+" -- vim-airline theme repository
 Plug 'vim-airline/vim-airline-themes'
   let g:airline_theme = 'simple'
 
-" - File system navigation -
-" -- tree explorer --
+" - File system navigation
+" -- tree explorer
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
   let NERDTreeWinSize = 35
   let NERDTreeWinPos = "right"
@@ -61,17 +67,17 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeTabsToggle' }
   let g:NERDTreeMapOpenSplit = 's'
   let g:NERDTreeMapOpenVSplit = 'v'
 
-  " -- tab support --
-  Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
-  let g:nerdtree_tabs_open_on_console_startup = 0
-  let g:nerdtree_tabs_open_on_gui_startup = 0
+" -- nerdtree tab support
+Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeTabsToggle' }
+let g:nerdtree_tabs_open_on_console_startup = 0
+let g:nerdtree_tabs_open_on_gui_startup = 0
 
-" - Insert mode auto-completion for quotes, parens, brackets -
+" - Insert mode auto-completion for quotes, parens, brackets
 Plug 'Raimondi/delimitMate'
   au FileType python let b:delimitMate_nesting_quotes = ['"']
   au FileType mail let b:delimitMate_expand_inside_quotes = 1
 
-" - Fuzzy file, buffer and mru finder -
+" - Fuzzy file, buffer and MRU finder
 Plug 'ctrlpvim/ctrlp.vim'
   let g:ctrlp_map = '<c-p>'
   let g:ctrlp_cmd = 'CtrlP'
@@ -95,20 +101,20 @@ Plug 'ctrlpvim/ctrlp.vim'
     let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
   endif
 
-" - Surroundings editing -
+" - Surroundings editing
 Plug 'tpope/vim-surround'
 
-" - Enable repeating supported plugin maps with "." -
+" - Enable repeating supported plugin maps with "."
 Plug 'tpope/vim-repeat'
 
-" - Undo tree with branch support -
+" - Undo tree with branch support
 Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
   " save history in ~/.undo
   set undofile
   set undodir=~/.undo
 
-" - Fast cursor motion -
-" -- inter lines --
+" - Fast and easy cursor motion
+" -- inter lines
 Plug 'Lokaltog/vim-easymotion'
   let g:EasyMotion_smartcase = 1
   " default use one <leader> as trigger
@@ -118,7 +124,7 @@ Plug 'Lokaltog/vim-easymotion'
   " s{char}{char} to move to {char}{char}
   nmap s <Plug>(easymotion-overwin-f2)
 
-" -- intra line --
+" -- intra line
 Plug 'unblevable/quick-scope'
   let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
   let g:qs_first_occurrence_highlight_color = '#afff5f'   " gui vim
@@ -126,7 +132,7 @@ Plug 'unblevable/quick-scope'
   let g:qs_second_occurrence_highlight_color = '#5fffff'  " gui vim
   let g:qs_second_occurrence_highlight_color = 81         " terminal vim
 
-" - Multiple cursor editing -
+" - Multiple cursor editing
 Plug 'terryma/vim-multiple-cursors'
   " use default mapping
   let g:multi_cursor_use_default_mapping=1
@@ -136,16 +142,16 @@ Plug 'terryma/vim-multiple-cursors'
   let g:multi_cursor_skip_key = '<C-x>'
   let g:multi_cursor_quit_key = '<Esc>'
 
-" - Show marks -
+" - Show marks
 Plug 'kshenoy/vim-signature'
 
-" - Visually select increasingly larger regions of text -
+" - Visually select increasingly larger regions of text
 Plug 'terryma/vim-expand-region'
   " default mapping
   " + expand selection
   " _ shrink selection
 
-" - Light wrapper for ack, ag, grep etc. -
+" - Light wrapper for ack, ag, grep etc
 Plug 'mileszs/ack.vim'
   " do not move the cursor to the first result automatically
   cnoreabbrev Ack Ack!
@@ -153,12 +159,15 @@ Plug 'mileszs/ack.vim'
   if executable('ag')
     let g:ackprg = 'ag --vimgrep'
   endif
+
+" - Extend machting
+Plug 'vim-scripts/matchit.zip'
 "  --- }
 
 
 " --- General Programming --------------------------------- {
 
-" - Collection of language packs -
+" - Collection of language packs
 Plug 'sheerun/vim-polyglot'
   " -- settings for filetypes --
   let python_highlight_all = 1
@@ -166,14 +175,14 @@ Plug 'sheerun/vim-polyglot'
   " use vimtex plugin, disable latex-box
   let g:polyglot_disabled = ['latex']
 
-" - Async :make and linting framework -
+" - Async :make and linting framework
 Plug 'neomake/neomake'
   " makefile as default marker
   let g:neomake_enabled_makers = ['makeprg']
   " -- set checkers --
   let g:neomake_python_enabled_makers = ['pep8', 'pylint']
 
-" - Dynamically show tags -
+" - Dynamically show tags
 Plug 'majutsushi/tagbar'
   let tagbar_left = 1
   let tagbar_width = 35
@@ -183,11 +192,11 @@ Plug 'majutsushi/tagbar'
   let g:tagbar_sort = 0
   let g:tagbar_autoshowtag = 1
 
-" - Git enhancement -
-" -- awesome git wrapper --
+" - Git integration and enhancement
+" -- awesome git wrapper
 Plug 'tpope/vim-fugitive'
 
-" -- show diff status --
+" -- show git diff and stages/undoes hunks
 Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterToggle'}
   let g:gitgutter_enabled = 0
   let g:gitgutter_realtime = 0
@@ -195,8 +204,8 @@ Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterToggle'}
   " fix remove on saved problem in neovim
   let g:gitgutter_sign_removed_first_line = "^_"
 
-" - Comments and doc string  -
-" -- quick comment --
+" - Comments and doc string
+" -- quick comment
 Plug 'scrooloose/nerdcommenter'
   " not add spaces after comment delimiters
   let g:NERDSpaceDelims = 0
@@ -205,7 +214,7 @@ Plug 'scrooloose/nerdcommenter'
   " enable trimming of trailing whitespace when uncommenting
   let g:NERDTrimTrailingWhitespace = 0
 
-" - Code search, view with edit mode -
+" - Code search, view with edit mode
 Plug 'dyng/ctrlsf.vim'
   " --- mappings ---
   " disable ctrl + f for page forward
@@ -222,12 +231,17 @@ Plug 'dyng/ctrlsf.vim'
   let g:ctrlsf_case_sensitive = 'smart'
   " use ag as default backend
   let g:ctrlsf_ackprg = 'ag'
+
+" - Highlight, Jump and resolve conflict markers
+Plug 'rhysd/conflict-marker.vim'
+  " disable default mappings
+  let g:conflict_marker_enable_mappings = 0
 " --- }
 
 
 " --- Snippet and General AutoComplete ----------------------------- {
 
-" - Code snippets -
+" - Code snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
   " set triggers -> <leader><tab>
   let g:UltiSnipsExpandTrigger = "<leader><tab>"
@@ -237,15 +251,16 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
   " add searching paths
   let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
-" - Using tab for completion -
+" - Using tab for completion
 Plug 'ervandew/supertab'
   let g:SuperTabRetainCompletionType = 2
   let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
   let g:SuperTabClosePreviewOnPopupClose = 1
 
-" - Common asynchronous completion framework: deoplete -
+" - Common asynchronous completion framework: deoplete
 " MARK: Default disabled, call deoplete#enable() to enable deoplete
+" Also maps <F4> to enable it
 
 function! DoRemote(arg)
   UpdateRemotePlugins
@@ -288,7 +303,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 
 " --- C CPP ----------------------------------------------- {
 
-" - C/CPP auto completion -
+" - C/CPP auto completion
 " TODO: currently not found the best plugin for this
 " Plug 'Rip-Rip/clang_complete', { 'for': ['c','cpp'] }
   let g:clang_complete_copen = 1
@@ -297,7 +312,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
   let g:clang_use_library = 1
   let g:clang_library_path = "/lib/libclang.so"
 
-" - Switching between src and head files -
+" - Switching between src and head files
 Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
 
 " --- }
@@ -305,7 +320,7 @@ Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
 
 " --- Python ---------------------------------------------- {
 
-" - Jedi python autocompletion and navigation -
+" - Jedi python autocompletion, navigation
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   " -- mappings --
   " ctrl + c: trigger completion
@@ -336,25 +351,25 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   " call #jedi#force_py_version(2 or 3) function to switch version
   let g:jedi#force_py_version = 2
 
-" - Indent using pep8 style -
+" - Indent using pep8 style
 Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 Plug 'vim-scripts/indentpython.vim', { 'for': 'python' }
 
-" - Better folding for python -
+" - Better folding for python
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
   " show docstring in fold mode
   let g:SimpylFold_docstring_preview = 1
   autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
   autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
-" - Sort imports -
+" - Sort imports
 Plug 'fisadev/vim-isort', { 'for': 'python' }
 " --- }
 
 
 " --- (X)HTML, CSS, Javascript ------------------------------- {
 
-" - Expanding abbreviations -
+" - Expanding abbreviations
 Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript', 'xml']}
   let g:user_emmet_leader_key='<C-Z>'
 

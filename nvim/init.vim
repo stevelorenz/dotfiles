@@ -1,20 +1,20 @@
 " vim: foldmarker={,} foldlevel=0 foldmethod=marker:
 " fold vimrc with marker {}
 "==========================================
-" About:  Init File for NeoVim
+" About: Init File for NeoVim
 " Maintainer: Xiang, Zuo
-" Email:  xianglinks@gmail.com
+" Email: xianglinks@gmail.com
 " Sections:
-"      -> Initial Plugin
-"      -> General Settings
-"      -> Display Settings
-"      -> File Encode Settings
-"      -> Keyboard Mapping Settings
-"      -> File Type Settings
-"      -> Neovim Specific
-"      -> Others
-"      -> Theme Settings
-"      -> Helper Functions
+"    -> Initial Plugin
+"    -> General Settings
+"    -> Display Settings
+"    -> File Encode Settings
+"    -> Keyboard Mapping Settings
+"    -> File Type Settings
+"    -> Neovim Specific
+"    -> Others
+"    -> Theme Settings
+"    -> Helper Functions
 "==========================================
 
 
@@ -60,7 +60,7 @@ set nobackup
 set nowb
 set noswapfile
 
-" no Uganda
+" no uganda
 set shortmess=atI
 
 " correct backspace
@@ -131,7 +131,7 @@ set omnifunc=syntaxcomplete#Complete
 " disable the annoying preview window
 set completeopt-=preview
 
-" - completion pop-up menu enhancement -
+" completion pop-up menu enhancement
 " use IDE like popping
 set completeopt=longest,menu
 
@@ -147,7 +147,7 @@ set wildmenu
   set smartcase
 
 " set time in ms to wait for a mapping to complete
-" e.g. (Ctrl + F + n), the wait time after enter ctrl + f is set with ttimeoutlen
+" e.g. (ctrl + F + n), the wait time after enter ctrl + f is set with ttimeoutlen
 set ttimeout
 set ttimeoutlen=100
 
@@ -346,19 +346,18 @@ map <leader>ss :setlocal spell!<cr>
 " === Tab and Buffer===
 " ---------------------------------------------------------
 " --- Buffer---
+  " list all buffers
   nnoremap <leader>l :ls<CR>
+  " switch buffer
   nnoremap [b :bprevious<cr>
   nnoremap ]b :bnext<cr>
+  noremap <left> :bprevious<CR>
+  noremap <right> :bnext<CR>
   " close the current buffer
   map <leader>bd :Bclose<cr>:tabclose<cr>gT
   " close all the buffers
   map <leader>ba :bufdo bd<cr>
-
-  " arrow key switching buffer in normal mode
-  noremap <left> :bp<CR>
-  noremap <right> :bn<CR>
-
-  " quick switching
+  " quick switching with buffer number
   map <leader>1 :b 1<CR>
   map <leader>2 :b 2<CR>
   map <leader>3 :b 3<CR>
@@ -372,12 +371,10 @@ map <leader>ss :setlocal spell!<cr>
 " --- Tab ---
   map <leader>th :tabfirst<cr>
   map <leader>tl :tablast<cr>
-
   map <leader>tj :tabnext<cr>
   map <leader>tk :tabprev<cr>
   map <leader>tn :tabnext<cr>
   map <leader>tp :tabprev<cr>
-
   map <leader>te :tabedit<cr>
   map <leader>td :tabclose<cr>
   map <leader>tm :tabm<cr>
@@ -385,24 +382,27 @@ map <leader>ss :setlocal spell!<cr>
 
 " === F1 - F10 ===
 " ---------------------------------------------------------
-" F1: Close help info
-nmap <F1> :echo<CR>
-imap <F1> <C-o>:echo<CR>
+" F1: avoid to open help info
+nnoremap <F1> :echo<CR>
+inoremap <F1> <C-o>:echo<CR>
 
-" F2: Toggle line number
+" F2: toggle line number
 nnoremap <F2> :call HideNumber()<CR>
 
-" F3: Toggle syntax
-map <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
+" F3: toggle syntax highlight
+nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
-" F8: Toggle Mundo undo-tree
-map <F8> :MundoToggle<CR>
+" F4: enable deoplete
+nnoremap <F4> : call deoplete#enable()<CR>
 
-" F9: Toggle Nerdtree
-map <F9> :NERDTreeTabsToggle<CR>
+" F8: toggle mundo undo-tree
+nnoremap <F8> :MundoToggle<CR>
 
-" F10: Toggle Tagbar
-map <F10> :TagbarToggle<CR>
+" F9: toggle nerdtree
+nnoremap <F9> :NERDTreeTabsToggle<CR>
+
+" F10: toggle tagbar
+nnoremap <F10> :TagbarToggle<CR>
 " ---------------------------------------------------------
 " }
 
@@ -458,17 +458,18 @@ map <F10> :TagbarToggle<CR>
 " Neovim Specific
 "==========================================
 " {
-" Python provider program
-" This points Neovim to a specific Python interpreter
+" python provider program
+" this points neovim to a specific python interpreter
 let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = '/usr/bin/python3'
 
-" Terminal Emulator Key-Mapping
+" terminal emulator key-mapping
 " ---------------------------------------------------------
 " esc for changing terminal to normal mode
 tnoremap <Esc> <C-\><C-n>
 
-" using `Alt+{h,j,k,l}` to navigate between windows
+" using `alt + {h,j,k,l}` to navigate between windows
+" include terminal windows
 tnoremap <A-h> <C-\><C-n><C-w>h
 tnoremap <A-j> <C-\><C-n><C-w>j
 tnoremap <A-k> <C-\><C-n><C-w>k
@@ -533,6 +534,7 @@ highlight SpellLocal term=underline cterm=underline
 "==========================================
 " Helper Functions
 "==========================================
+" {
 " toggle line number type
 function! NumberToggle()
   if(&relativenumber == 1)
@@ -610,3 +612,4 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+" }
