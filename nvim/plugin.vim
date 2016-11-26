@@ -338,22 +338,25 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   " -- settings --
   let g:jedi#auto_initialization = 1
   let g:jedi#auto_vim_configuration = 1
-  " do not auto pop on dot
+  " disable auto pop on dot
   let g:jedi#popup_on_dot = 0
   " displays function call signatures in insert mode in real-time
   let g:jedi#show_call_signatures = 1
   " default select the first one
   let g:jedi#popup_select_first = 1
   let g:jedi#use_splits_not_buffers = "left"
-
-  " default version: python 2, it will search packages in python2 dirs
-  " for example /usr/lib/python2.7/
-  " call #jedi#force_py_version(2 or 3) function to switch version
+  " set default python version
+  " jedi will search the syspath of default python2 interpreter
+  " for example /usr/lib/python2.7/, ~/.local/lib/python2.7/ etc
+  " call #jedi#force_py_version() function to switch version
   let g:jedi#force_py_version = 2
 
 " - Indent using pep8 style
-Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+Plug 'vim-scripts/pep8', { 'for': 'python' }
 Plug 'vim-scripts/indentpython.vim', { 'for': 'python' }
+
+" - Extend % motion for python
+Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
 
 " - Better folding for python
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
@@ -362,8 +365,10 @@ Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
   autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
   autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
-" - Sort imports
+" - Sort python imports
 Plug 'fisadev/vim-isort', { 'for': 'python' }
+  " disable mapping
+  let g:vim_isort_map = ''
 " --- }
 
 
@@ -378,7 +383,7 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript', 'xml']}
 
 " --- Writing --------------------------------------------- {
 
-" === Latex ===
+" - Editing latex files
 Plug 'lervag/vimtex', { 'for': 'tex' }
   let g:tex_flavor = 'tex'  " default tex type
 

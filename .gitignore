@@ -12,8 +12,8 @@ bundle/
 spell/
 .netrwhist
 # vim-plug plugin manager
-autoload/plug.vim
-autoload/plug.vim.old
+plug.vim
+plug.vim.old
 # ------------------
 
 # Backup, temp files
