@@ -156,9 +156,8 @@ if v:version > 703 || v:version == 703 && has("patch541")
   set formatoptions+=j
 endif
 
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+" :w!! sudo saves the file (useful for handling the permission-denied error)
+cmap w!! w !sudo tee % > /dev/null
 
 " don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -391,9 +390,6 @@ nnoremap <F2> :call HideNumber()<CR>
 
 " F3: toggle syntax highlight
 nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
-
-" F4: enable deoplete
-nnoremap <F4> : call deoplete#enable()<CR>
 
 " F8: toggle mundo undo-tree
 nnoremap <F8> :MundoToggle<CR>

@@ -162,6 +162,12 @@ Plug 'mileszs/ack.vim'
 
 " - Extend machting
 Plug 'vim-scripts/matchit.zip'
+
+"- Display the idention levels
+Plug 'Yggdroot/indentLine'
+  let g:indentLine_enabled = 0
+  let g:indentLine_char = '¦'
+
 "  --- }
 
 
@@ -169,9 +175,9 @@ Plug 'vim-scripts/matchit.zip'
 
 " - Collection of language packs
 Plug 'sheerun/vim-polyglot'
-  " -- settings for filetypes --
+  " -- settings for filetypes
   let python_highlight_all = 1
-  " -- disable for some filetypes --
+  " -- disable for some filetypes
   " use vimtex plugin, disable latex-box
   let g:polyglot_disabled = ['latex']
 
@@ -236,6 +242,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'rhysd/conflict-marker.vim'
   " disable default mappings
   let g:conflict_marker_enable_mappings = 0
+
 " --- }
 
 
@@ -248,56 +255,23 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
   let g:UltiSnipsJumpForwardTrigger = "<leader><tab>"
   let g:UltiSnipsJumpBackwardTrigger = "<leader><s-tab>"
   let g:UltiSnipsEditSplit = "vertical"
-  " add searching paths
+  " searching paths
   let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
 " - Using tab for completion
 Plug 'ervandew/supertab'
-  let g:SuperTabRetainCompletionType = 2
   let g:SuperTabDefaultCompletionType = "context"
   let g:SuperTabContextDefaultCompletionType = "<c-n>"
+  " close preview window when popup closes
   let g:SuperTabClosePreviewOnPopupClose = 1
 
-" - Common asynchronous completion framework: deoplete
-" MARK: Default disabled, call deoplete#enable() to enable deoplete
-" Also maps <F4> to enable it
+" - Speed up vim by updating folds only when called-for.
+Plug 'Konfekt/FastFold'
+  nmap zuz <Plug>(FastFoldUpdate)
+  let g:fastfold_savehook = 1
+  let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+  let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
 
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-  let g:deoplete#enable_at_startup = 0
-  let g:deoplete#enable_smart_case = 1
-  let g:deoplete#auto_complete_start_length = 2
-
-  " <C-h>: close popup and delete backward char.
-  inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-
-  " -- support multiple cursor plugin --
-  function! Multiple_cursors_before()
-      let b:deoplete_disable_auto_complete = 1
-  endfunction
-
-  function! Multiple_cursors_after()
-      let b:deoplete_disable_auto_complete = 0
-  endfunction
-
-  " -- deoplete external plugins --
-  " speed up vim by updating folds only when called-for.
-  Plug 'Konfekt/FastFold'
-    nmap zuz <Plug>(FastFoldUpdate)
-    let g:fastfold_savehook = 1
-    let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
-    let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-
-  " -- deoplete external sources --
-  " include sources
-  Plug 'Shougo/neoinclude.vim'
-  " vimscript source
-  Plug 'Shougo/neco-vim', { 'for': 'vim' }
-  " syntax sources
-  Plug 'Shougo/neco-syntax'
 " --- }
 
 
@@ -306,30 +280,28 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 " - C/CPP auto completion
 " TODO: currently not found the best plugin for this
 " Plug 'Rip-Rip/clang_complete', { 'for': ['c','cpp'] }
-  let g:clang_complete_copen = 1
-  let g:clang_close_preview = 1
-  " use libclang instead of clang
-  let g:clang_use_library = 1
-  let g:clang_library_path = "/lib/libclang.so"
-
-" - Switching between src and head files
-Plug 'vim-scripts/a.vim', { 'for': ['c', 'cpp'] }
-
+  " let g:clang_complete_copen = 1
+  " let g:clang_close_preview = 1
+  " " use libclang instead of clang
+  " let g:clang_use_library = 1
+  " let g:clang_library_path = "/lib/libclang.so"
+ 
 " --- }
 
 
 " --- Python ---------------------------------------------- {
 
-" - Jedi python autocompletion, navigation
+" - Python autocompletion, navigation
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   " -- mappings --
   " ctrl + c: trigger completion
+  " default ctrl + space is used for input methods
   let g:jedi#completions_command = "<C-C>"
   " follow identifier as far as possible,
   let g:jedi#goto_command = "<leader>d"
   " typical goto function
   let g:jedi#goto_assignments_command = "<leader>g"
-  " use Pydoc
+  " show documentation
   let g:jedi#documentation_command = "K"
   " rename in current file
   let g:jedi#rename_command = "<leader>r"
@@ -337,23 +309,23 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
   " -- settings --
   let g:jedi#auto_initialization = 1
-  let g:jedi#auto_vim_configuration = 1
+  let g:jedi#auto_vim_configuration = 0
   " disable auto pop on dot
   let g:jedi#popup_on_dot = 0
+  let g:auto_close_doc = 1
   " displays function call signatures in insert mode in real-time
   let g:jedi#show_call_signatures = 1
   " default select the first one
   let g:jedi#popup_select_first = 1
-  let g:jedi#use_splits_not_buffers = "left"
-  " set default python version
-  " jedi will search the syspath of default python2 interpreter
-  " for example /usr/lib/python2.7/, ~/.local/lib/python2.7/ etc
-  " call #jedi#force_py_version() function to switch version
-  let g:jedi#force_py_version = 2
+  " open new split for 'go to' result
+  let g:jedi#use_splits_not_buffers = "winwidth"
+  " set python interpreter version
+    " default use sys.version_info from 'python' in your $PATH
+    " call jedi#force_py_version(py_version) to set directly
+  let g:jedi#force_py_version = "auto"
 
 " - Indent using pep8 style
-Plug 'vim-scripts/pep8', { 'for': 'python' }
-Plug 'vim-scripts/indentpython.vim', { 'for': 'python' }
+Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
 " - Extend % motion for python
 Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
@@ -369,6 +341,7 @@ Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 Plug 'fisadev/vim-isort', { 'for': 'python' }
   " disable mapping
   let g:vim_isort_map = ''
+
 " --- }
 
 
