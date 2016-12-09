@@ -6,10 +6,11 @@
 " Sections:
 "    -> General
 "    -> General Programming
-"    -> Snippet and General AutoComplete
-"    -> C CPP
-"    -> Python
-"    -> (X)HTML, CSS, Javascript
+"    -> Snippet and General Auto Complete
+"    -> Programming Language Specific
+"      -> C CPP
+"      -> Python
+"      -> (X)HTML, CSS
 "    -> Writing
 "    -> Colorscheme
 "=========================================
@@ -275,9 +276,11 @@ Plug 'Konfekt/FastFold'
 " --- }
 
 
-" --- C CPP ----------------------------------------------- {
+" --- Programming Language Specific ----------------------- {
 
-" - C/CPP auto completion
+" ====== C CPP ======
+" {
+" - Auto completion
 " TODO: currently not found the best plugin for this
 " Plug 'Rip-Rip/clang_complete', { 'for': ['c','cpp'] }
   " let g:clang_complete_copen = 1
@@ -285,13 +288,11 @@ Plug 'Konfekt/FastFold'
   " " use libclang instead of clang
   " let g:clang_use_library = 1
   " let g:clang_library_path = "/lib/libclang.so"
- 
-" --- }
+" }
 
-
-" --- Python ---------------------------------------------- {
-
-" - Python autocompletion, navigation
+" ====== Python ======
+" {
+" - Autocompletion, navigation
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   " -- mappings --
   " ctrl + c: trigger completion
@@ -314,7 +315,7 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   let g:jedi#popup_on_dot = 0
   let g:auto_close_doc = 1
   " displays function call signatures in insert mode in real-time
-  let g:jedi#show_call_signatures = 1
+  let g:jedi#show_call_signatures = 0
   " default select the first one
   let g:jedi#popup_select_first = 1
   " open new split for 'go to' result
@@ -341,15 +342,13 @@ Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 Plug 'fisadev/vim-isort', { 'for': 'python' }
   " disable mapping
   let g:vim_isort_map = ''
+" }
 
-" --- }
-
-
-" --- (X)HTML, CSS, Javascript ------------------------------- {
-
-" - Expanding abbreviations
-Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript', 'xml']}
-  let g:user_emmet_leader_key='<C-Z>'
+" ====== (X)HTML, CSS ======
+" {
+" - Emmet support
+Plug 'mattn/emmet-vim'
+" }
 
 " --- }
 
