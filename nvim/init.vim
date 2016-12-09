@@ -432,7 +432,7 @@ nnoremap <F10> :TagbarToggle<CR>
   " -- python --
   autocmd BufNewFile,BufRead *.py
       \ set filetype=python |
-      \ set textwidth=79 |
+      \ set textwidth=120 |
       \ set tabstop=4 |
       \ set softtabstop=4 |
       \ set shiftwidth=4 |
