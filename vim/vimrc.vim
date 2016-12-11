@@ -8,7 +8,7 @@
 "    -> General Settings
 "    -> Display Settings
 "    -> File Encode Settings
-"    -> Keyboard Settings
+"    -> Keyboard Mapping Settings
 "    -> File Type Settings
 "    -> Others
 "    -> Theme Settings
@@ -137,9 +137,8 @@ if v:version > 703 || v:version == 703 && has("patch541")
   set formatoptions+=j
 endif
 
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+" :w!! sudo saves the file (useful for handling the permission-denied error)
+cmap w!! w !sudo tee % > /dev/null
 
 " don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -245,12 +244,12 @@ let g:mapleader = ","
 nnoremap ; :
 
 " save and exit
-nmap <leader>w :w<CR>
-nmap <leader>q :q<CR>
-nmap <leader>Q :q!<CR>
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>Q :q!<CR>
 
 " map <space> for searching
-map <space> /
+noremap <space> /
 
 " tap kj quickly to normal mode
 inoremap kj <Esc>
@@ -283,7 +282,7 @@ cnoremap <C-e> <End>
 
 " use system clipboard
 vnoremap <leader>y "+y
-nmap <leader>p "+p
+nnoremap <leader>p "+p
 
 " treat long lines as break lines (useful when moving around in them)
 nnoremap k gk
@@ -292,9 +291,10 @@ nnoremap j gj
 nnoremap gj j
 
 " select all in visual mode
-map <leader>sa ggVG"
+nnoremap <leader>sa ggVG"
+
 " copy all to system clipboard
-map <leader><leader>ca :%y+<CR>
+nnoremap <leader><leader>ca :%y+<CR>
 
 " use <C-L> to clear the highlighting of :set hlsearch.
 if maparg('<C-L>', 'n') ==# ''
@@ -304,10 +304,10 @@ endif
 " change window size
   " horizontal: = -
   " vertical: , .
-nmap w=  :resize +3<CR>
-nmap w-  :resize -3<CR>
-nmap w,  :vertical resize -3<CR>
-nmap w.  :vertical resize +3<CR>
+nnoremap w=  :resize +3<CR>
+nnoremap w-  :resize -3<CR>
+nnoremap w,  :vertical resize -3<CR>
+nnoremap w.  :vertical resize +3<CR>
 
 " show searching results at middle of screen
 nnoremap <silent> n nzz
@@ -321,8 +321,8 @@ nnoremap <silent> g* g*zz
 nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
 nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
-" toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+" toggle spell checking
+noremap <leader>ss :setlocal spell!<cr>
 
 " === Tab and Buffer===
 " ---------------------------------------------------------
@@ -330,35 +330,38 @@ map <leader>ss :setlocal spell!<cr>
   " list all buffers
   nnoremap <leader>l :ls<CR>
   " switch buffer
-  nnoremap [b :bprevious<cr>
-  nnoremap ]b :bnext<cr>
+  nnoremap [b :bprevious<CR>
+  nnoremap ]b :bnext<CR>
   noremap <left> :bprevious<CR>
   noremap <right> :bnext<CR>
+  nnoremap ]B :blast<CR>
+  nnoremap [B :bfirst<CR>
   " close the current buffer
-  map <leader>bd :Bclose<cr>:tabclose<cr>gT
-  " close all the buffers
-  map <leader>ba :bufdo bd<cr>
+  nnoremap <leader>bd :Bclose<cr>:tabclose<cr>gT
+  " close all buffers
+  nnoremap <leader>ba :bufdo bd<cr>
+
   " quick switching with buffer number
-  map <leader>1 :b 1<CR>
-  map <leader>2 :b 2<CR>
-  map <leader>3 :b 3<CR>
-  map <leader>4 :b 4<CR>
-  map <leader>5 :b 5<CR>
-  map <leader>6 :b 6<CR>
-  map <leader>7 :b 7<CR>
-  map <leader>8 :b 8<CR>
-  map <leader>9 :b 9<CR>
+  nnoremap <leader>1 :b 1<CR>
+  nnoremap <leader>2 :b 2<CR>
+  nnoremap <leader>3 :b 3<CR>
+  nnoremap <leader>4 :b 4<CR>
+  nnoremap <leader>5 :b 5<CR>
+  nnoremap <leader>6 :b 6<CR>
+  nnoremap <leader>7 :b 7<CR>
+  nnoremap <leader>8 :b 8<CR>
+  nnoremap <leader>9 :b 9<CR>
 
 " --- Tab ---
-  map <leader>th :tabfirst<cr>
-  map <leader>tl :tablast<cr>
-  map <leader>tj :tabnext<cr>
-  map <leader>tk :tabprev<cr>
-  map <leader>tn :tabnext<cr>
-  map <leader>tp :tabprev<cr>
-  map <leader>te :tabedit<cr>
-  map <leader>td :tabclose<cr>
-  map <leader>tm :tabm<cr>
+  nnoremap <leader>th :tabfirst<cr>
+  nnoremap <leader>tl :tablast<cr>
+  nnoremap <leader>tj :tabnext<cr>
+  nnoremap <leader>tk :tabprev<cr>
+  nnoremap <leader>tn :tabnext<cr>
+  nnoremap <leader>tp :tabprev<cr>
+  nnoremap <leader>te :tabedit<cr>
+  nnoremap <leader>td :tabclose<cr>
+  nnoremap <leader>tm :tabm<cr>
 " ---------------------------------------------------------
 
 " === F1 - F10 ===
