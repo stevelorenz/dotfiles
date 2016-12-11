@@ -6,12 +6,12 @@
 " Email: xianglinks@gmail.com
 " Sections:
 "    -> General Settings
-"    ->  Display Settings
-"    ->  File Encode Settings
-"    ->  Keyboard Settings
-"    ->  File Type Settings
-"    ->  Others
-"    ->  Theme Settings
+"    -> Display Settings
+"    -> File Encode Settings
+"    -> Keyboard Settings
+"    -> File Type Settings
+"    -> Others
+"    -> Theme Settings
 "    -> Helper Functions
 "==========================================
 
@@ -405,7 +405,7 @@ nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
   " -- python --
   autocmd BufNewFile,BufRead *.py
       \ set filetype=python |
-      \ set textwidth=79 |
+      \ set textwidth=120 |
       \ set tabstop=4 |
       \ set softtabstop=4 |
       \ set shiftwidth=4 |
