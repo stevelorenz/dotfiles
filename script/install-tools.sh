@@ -4,6 +4,9 @@
 #
 # Author : Zuo Xiang
 # Email  : xianglinks@gmail.com
+#
+# TODOs:
+#   * Better checking for distros, current just for ubuntu and arch.
 
 ####################
 #  Help Functions  #
@@ -41,6 +44,17 @@ install_tmux_plugins() {
   fi
 }
 
+install_vim8() {
+  if have_program apt-get ; then
+    info 'Install vim 8.0 via PPA'
+    sudo apt-get -y install software-properties-common
+    sudo add-apt-repository -y ppa:jonathonf/vim
+    sudo apt-get update
+    sudo apt-get -y install vim
+    success 'Vim 8.0 is installed.'
+  fi
+}
+
 install_neovim() {
   # For ubuntu with apt, install with PPA
   if have_program apt-get ; then
@@ -50,6 +64,7 @@ install_neovim() {
     sudo apt-get update
     sudo apt-get -y install neovim
     success 'Neovim is installed.'
+  # Use pacman for Arch based distro
   elif have_program pacman ; then
     info 'Install neovim via pacman'
     sudo pacman -S neovim
@@ -63,9 +78,13 @@ install_neovim() {
 #  Basic Menu  #
 ################
 
+info 'All tools will be installed with distro package manager or by cloning codes with git.'
+info 'There is no manual building and configuration operations.'
+
 PS3='Please choose the tool to be installed: '
 
 options=("Tmux plugin manager"
+         "Vim 8.0"
          "Neovim"
          "Quit")
 
@@ -74,6 +93,10 @@ do
     case $opt in
         "Tmux plugin manager")
             install_tmux_plugins
+            break
+            ;;
+        "Vim 8.0")
+            install_vim8
             break
             ;;
         "Neovim")

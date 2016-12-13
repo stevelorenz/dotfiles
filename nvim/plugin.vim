@@ -283,7 +283,8 @@ Plug 'Konfekt/FastFold'
 
 " ====== Python ======
 " {
-" - Autocompletion, navigation
+" - Binding to autocompletion library: jedi
+"   Also supports navigation and documentation viewing
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   " -- mappings --
   " ctrl + c: trigger completion
@@ -333,6 +334,9 @@ Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
 Plug 'fisadev/vim-isort', { 'for': 'python' }
   " disable mapping
   let g:vim_isort_map = ''
+
+" - Generate python docstring
+Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 " }
 
 " ====== (X)HTML, CSS ======

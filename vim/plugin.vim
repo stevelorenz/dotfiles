@@ -8,9 +8,10 @@
 "    -> General Programming
 "    -> Snippet and General Auto Complete
 "    -> Programming Language Specific
+"      -> C, CPP
 "      -> Python
 "=========================================
-"
+
 " - Use Vim-Plug Plugin Manager -
 "
 " ------ Vim-Plug Commands ------
@@ -188,9 +189,14 @@ Plug 'Konfekt/FastFold'
 
 " --- Programming Language Specific ----------------------- {
 
+" ====== C, CPP ======
+" {
+" }
+
 " ====== Python ======
 " {
-" - Autocompletion, navigation
+" - Binding to autocompletion library: jedi
+"   Also supports navigation and documentation viewing
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   " -- mappings --
   " ctrl + c: trigger completion
@@ -235,6 +241,9 @@ Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
   let g:SimpylFold_docstring_preview = 1
   autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
   autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+
+" - Generate python docstring
+Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
 " }
 
 " --- }
