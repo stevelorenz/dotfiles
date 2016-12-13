@@ -5,6 +5,7 @@
 " Maintainer: Xiang, Zuo
 " Email: xianglinks@gmail.com
 " Sections:
+"    -> Initial Plugin
 "    -> General Settings
 "    -> Display Settings
 "    -> File Encode Settings
@@ -15,21 +16,39 @@
 "    -> Helper Functions
 "==========================================
 
+
 "==========================================
-" General Settings
+" Initial Plugin: Vim-Plug
 "==========================================
 " {
 " turn off compatible mode to vi
 set nocompatible
 
+" use curl to get plug.vim if not exists
+if empty(glob("~/.vim/autoload"))
+  echo "installing vim-plug plugin manager"
+  silent !mkdir -p ~/.vim/autoload
+  execute '!curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+endif
+
 " enable syntax highlighting
 syntax enable
 syntax on
 
-" enable filetype, plugin and indent detection
+" load plugins and configs
+" ! comment this part to disable all plugins
+if filereadable(expand("~/.vim/plugin.vim"))
+  source ~/.vim/plugin.vim
+endif
+
+" enable file type, plugin and indent detection
 filetype plugin indent on
 " }
 
+"==========================================
+" General Settings
+"==========================================
+" {
 " set vim history in .viminfo
 set history=2000
 
@@ -375,6 +394,9 @@ nnoremap <F2> :call HideNumber()<CR>
 
 " F3: toggle syntax highlight
 nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
+
+" F10: toggle tagbar
+nnoremap <F10> :TagbarToggle<CR>
 " ---------------------------------------------------------
 " }
 

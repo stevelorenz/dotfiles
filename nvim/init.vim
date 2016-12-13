@@ -37,6 +37,7 @@ syntax enable
 syntax on
 
 " load plugins and configs
+" ! comment this part to disable all plugins
 if filereadable(expand("~/.config/nvim/plugin.vim"))
   source ~/.config/nvim/plugin.vim
 endif
