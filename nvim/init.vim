@@ -399,9 +399,6 @@ nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 " F8: toggle mundo undo-tree
 nnoremap <F8> :MundoToggle<CR>
 
-" F9: toggle nerdtree
-nnoremap <F9> :NERDTreeTabsToggle<CR>
-
 " F10: toggle tagbar
 nnoremap <F10> :TagbarToggle<CR>
 " ---------------------------------------------------------

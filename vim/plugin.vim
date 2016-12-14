@@ -1,6 +1,6 @@
 " vim: foldmarker={,} foldlevel=0 foldmethod=marker:
 "=========================================
-" About: Plugin Configs for Vim
+" About: Plugin Configs for Vim/NeoVim
 " Maintainer: Xiang, Zuo
 " Email: xianglinks@gmail.com
 " Sections:
@@ -10,6 +10,9 @@
 "    -> Programming Language Specific
 "      -> C, CPP
 "      -> Python
+"      -> (X)HTML, CSS
+"    -> Documentation and Writing
+"    -> Colorscheme
 "=========================================
 
 " - Use Vim-Plug Plugin Manager -
@@ -29,7 +32,6 @@ call plug#begin('~/.vim/bundle')  " dir for plugin files
 " - Status line enhancement
 " -- vim airline
 Plug 'bling/vim-airline'
-    " config symbols
     if !exists('g:airline_symbols')
         let g:airline_symbols = {}
     endif
@@ -40,7 +42,6 @@ Plug 'bling/vim-airline'
     let g:airline_symbols.linenr = '¶'
     let g:airline_symbols.branch = '⎇'
 
-  " config extensions
   let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#left_sep = ' '
     let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -51,6 +52,15 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
   let g:airline_theme = 'simple'
 
+" - Built-in directory browser: netrw
+  " use tree view
+  let g:netrw_liststyle = 3
+  let g:netrw_banner = 1
+  " set width to 25% of the page
+  let g:netrw_winsize = 25
+  let g:netrw_browse_split = 4
+  let g:netrw_altv = 1
+
 " - Insert mode auto-completion for quotes, parens, brackets
 Plug 'Raimondi/delimitMate'
   au FileType python let b:delimitMate_nesting_quotes = ['"']
@@ -60,7 +70,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'ctrlpvim/ctrlp.vim'
   let g:ctrlp_map = '<c-p>'
   let g:ctrlp_cmd = 'CtrlP'
-  " the dir of the current file, unless it is a subdir of the cwd
+  " use the dir of the current file as searching root
+  " unless it is a subdir of the cwd
   let g:ctrlp_working_path_mode = 'a'
   let g:ctrlp_match_window_bottom = 1
   let g:ctrlp_max_height = 15
@@ -70,22 +81,60 @@ Plug 'ctrlpvim/ctrlp.vim'
   let g:ctrlp_mruf_max = 500
   let g:ctrlp_follow_symlinks = 1
 
-  " ag as backend, really faster
-  " set custom ignored files here
+  " use ack as backend if avaiable
   if executable('ag')
-    " can use a .agignore at cwd to ignore some files
+    " can use a local or global .agignore to ignore files
     let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -f -g ""'
   else
-    "ctrl+p ignore files in .gitignore
+    " use default grep, ignore files in .gitignore
     let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
   endif
+
+" - Surroundings editing
+Plug 'tpope/vim-surround'
+
+" - Enable repeating supported plugin maps with "."
+Plug 'tpope/vim-repeat'
+
+" - Undo tree with branch support
+Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
+  " save history in ~/.undo
+  set undofile
+  set undodir=~/.undo
+
+" - Fast and easy cursor motion
+" -- inter lines
+Plug 'Lokaltog/vim-easymotion'
+  let g:EasyMotion_smartcase = 1
+  " default use one <leader> as trigger
+  map  <leader>f <Plug>(easymotion-bd-f)
+  nmap <leader>f <Plug>(easymotion-overwin-f)
+  " <leader>s{char} to move to {char}
+  " s{char}{char} to move to {char}{char}
+  nmap s <Plug>(easymotion-overwin-f2)
+
+" -- intra line
+Plug 'unblevable/quick-scope'
+  let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+  let g:qs_first_occurrence_highlight_color = '#afff5f'   " gui vim
+  let g:qs_first_occurrence_highlight_color = 155         " terminal vim
+  let g:qs_second_occurrence_highlight_color = '#5fffff'  " gui vim
+  let g:qs_second_occurrence_highlight_color = 81         " terminal vim
+
+" - Multiple cursor editing
+Plug 'terryma/vim-multiple-cursors'
+  " use default mapping
+  let g:multi_cursor_use_default_mapping=1
+  let g:multi_cursor_next_key = '<C-n>'
+  let g:multi_cursor_prev_key = '<C-p>'
+  let g:multi_cursor_skip_key = '<C-x>'
+  let g:multi_cursor_quit_key = '<Esc>'
 
 " - Show marks
 Plug 'kshenoy/vim-signature'
 
 " - Visually select increasingly larger regions of text
 Plug 'terryma/vim-expand-region'
-  " default mapping
   " + expand selection
   " _ shrink selection
 
@@ -93,7 +142,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'mileszs/ack.vim'
   " do not move the cursor to the first result automatically
   cnoreabbrev Ack Ack!
-  " use ag as search command if installed
+  " use ag as backend if avaiable
   if executable('ag')
     let g:ackprg = 'ag --vimgrep'
   endif
@@ -119,6 +168,13 @@ Plug 'sheerun/vim-polyglot'
   " use vimtex plugin, disable latex-box
   let g:polyglot_disabled = ['latex']
 
+" - Async :make and linting framework
+Plug 'neomake/neomake'
+  " use makefile as default marker
+  let g:neomake_enabled_makers = ['makeprg']
+  " -- set language checkers --
+  let g:neomake_python_enabled_makers = ['pep8', 'pylint']
+
 " - Dynamically show tags
 Plug 'majutsushi/tagbar'
   let tagbar_left = 1
@@ -140,8 +196,7 @@ Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterToggle'}
   " fix remove on saved problem in neovim
   let g:gitgutter_sign_removed_first_line = "^_"
 
-" - Comments and doc string
-" -- quick comment
+" - Intensely orgasmic commenting
 Plug 'scrooloose/nerdcommenter'
   " not add spaces after comment delimiters
   let g:NERDSpaceDelims = 0
@@ -149,6 +204,26 @@ Plug 'scrooloose/nerdcommenter'
   let g:NERDCompactSexyComs = 1
   " enable trimming of trailing whitespace when uncommenting
   let g:NERDTrimTrailingWhitespace = 0
+
+" - Code search, view with edit mode
+Plug 'dyng/ctrlsf.vim'
+  " --- mappings ---
+  " disable ctrl + f for page forward
+  map <C-F> <nop>
+  nmap <C-F>f <Plug>CtrlSFPrompt
+  vmap <C-F>f <Plug>CtrlSFVwordPath
+  vmap <C-F>F <Plug>CtrlSFVwordExec
+  nmap <C-F>n <Plug>CtrlSFCwordPath
+  nmap <C-F>p <Plug>CtrlSFPwordPath
+  " open the result of last search
+  nnoremap <C-F>o :CtrlSFOpen<CR>
+  " default use regex pattern
+  let g:ctrlsf_regex_pattern = 1
+  let g:ctrlsf_case_sensitive = 'smart'
+  " use ag as backend if avaiable
+  if executable('ag')
+    let g:ctrlsf_ackprg = 'ag'
+  endif
 
 " - Highlight, Jump and resolve conflict markers
 Plug 'rhysd/conflict-marker.vim'
@@ -196,11 +271,9 @@ Plug 'Konfekt/FastFold'
 " ====== Python ======
 " {
 " - Binding to autocompletion library: jedi
-"   Also supports navigation and documentation viewing
+"   also supports navigation and documentation viewing
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   " -- mappings --
-  " ctrl + c: trigger completion
-  " default ctrl + space is used for input methods
   let g:jedi#completions_command = "<C-C>"
   " follow identifier as far as possible,
   let g:jedi#goto_command = "<leader>d"
@@ -210,6 +283,7 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   let g:jedi#documentation_command = "K"
   " rename in current file
   let g:jedi#rename_command = "<leader>r"
+  " show usages in current file
   let g:jedi#usages_command = "<leader>z"
 
   " -- settings --
@@ -217,11 +291,12 @@ Plug 'davidhalter/jedi-vim', { 'for': 'python' }
   let g:jedi#auto_vim_configuration = 0
   " disable auto pop on dot
   let g:jedi#popup_on_dot = 0
-  let g:auto_close_doc = 1
-  " displays function call signatures in insert mode in real-time
-  let g:jedi#show_call_signatures = 0
   " default select the first one
   let g:jedi#popup_select_first = 1
+  " close doc after completion
+  let g:auto_close_doc = 1
+  " disable function call signatures in insert mode in real-time
+  let g:jedi#show_call_signatures = 0
   " open new split for 'go to' result
   let g:jedi#use_splits_not_buffers = "winwidth"
   " set python interpreter version
@@ -242,11 +317,50 @@ Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
   autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
   autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
+" - Sort python imports
+Plug 'fisadev/vim-isort', { 'for': 'python' }
+  " disable mapping
+  let g:vim_isort_map = ''
+
 " - Generate python docstring
 Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
+  " disable key mappings
+  let g:pydocstring_enable_mapping = 0
+" }
+
+" ====== (X)HTML, CSS ======
+" {
+" - Emmet support
+Plug 'mattn/emmet-vim'
 " }
 
 " --- }
+
+
+" --- Documentation and Writing --------------------------- {
+
+" - Editing latex files
+Plug 'lervag/vimtex', { 'for': 'tex' }
+  let g:tex_flavor = 'tex'  " default tex type
+
+" --- }
+
+
+" --- Colorscheme ----------------------------------------- {
+
+" Colorscheme that are active updated
+" Stable and inactive ones are stored in colors dir
+
+Plug 'junegunn/seoul256.vim'
+  " Range:   233 (darkest) ~ 239 (lightest)
+  " Default: 237
+  let g:seoul256_background = 235
+  let g:seoul256_light_background = 256
+
+Plug 'joshdick/onedark.vim'
+
+" --- }
+
 
 " -------------------- End Config --------------------
 
