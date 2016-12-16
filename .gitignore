@@ -1,19 +1,21 @@
 # Tmux
 # ------------------
 tmux/resurrect
+# plugins installed with tpm
 tmux/plugins
 # ------------------
 
 # Vim, Neovim
 # ------------------
 shada/
+# vim-plug plugin manager
+plug.vim
+plug.vim.old
+# dir for plugins installed with vim-plug
 bundle/
 .init.vim-rplugin~
 spell/
 .netrwhist
-# vim-plug plugin manager
-plug.vim
-plug.vim.old
 # ------------------
 
 # Backup, temp files

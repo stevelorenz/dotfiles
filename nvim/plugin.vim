@@ -96,11 +96,14 @@ Plug 'tpope/vim-surround'
 " - Enable repeating supported plugin maps with "."
 Plug 'tpope/vim-repeat'
 
-" - Undo tree with branch support
-Plug 'simnalamburt/vim-mundo', { 'on': 'MundoToggle' }
-  " save history in ~/.undo
-  set undofile
-  set undodir=~/.undo
+" - Undo history visualizer
+Plug 'mbbill/undotree'
+  let g:undotree_SetFocusWhenToggle = 1
+  " enable persistent undo
+  if has("persistent_undo")
+      set undodir=~/.undodir/
+      set undofile
+  endif
 
 " - Fast and easy cursor motion
 " -- inter lines

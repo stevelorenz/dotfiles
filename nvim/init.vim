@@ -396,8 +396,8 @@ nnoremap <F2> :call HideNumber()<CR>
 " F3: toggle syntax highlight
 nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
-" F8: toggle mundo undo-tree
-nnoremap <F8> :MundoToggle<CR>
+" F8: toggle undo tree visualizer
+nnoremap <F8> :UndotreeToggle<CR>
 
 " F10: toggle tagbar
 nnoremap <F10> :TagbarToggle<CR>

@@ -1,13 +1,18 @@
 # ================================================
-# Zsh Configuration File
+# ZSH Configuration File
+#   > Uses robbyrussell/oh-my-zsh framework.
 #
-#   => uses robbyrussell/oh-my-zsh framework
+# Custom Aliases:
+#   > Source ~/.custom_aliases.sh file.
 #
-# Custom Plugins:
-#   uses default custom dir: ~/.oh-my-zsh/custom
+# General Custom Plugins:
+#     -> fzf: Fast fuzzy finder.
+#          source ~/.fzf.zsh
 #
-#   -> zsh-autosuggestions
-#
+# ZSH Custom Plugins:
+#   > Uses oh-my-zsh custom plugins support: ~/.oh-my-zsh/custom/plugins/.
+#     -> zsh-completions: Additional completion definitions.
+#     -> zsh-autosuggestions: Fish-like autosuggestions.
 # ================================================
 
 # Oh_My_Zsh Configuration
@@ -82,6 +87,9 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
+
+# Load custom aliases
+[ -f ~/.custom_aliases.sh ] && source ~/.custom_aliases.sh
 
 # Load fzf(fast fuzzy finder) plugin
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
