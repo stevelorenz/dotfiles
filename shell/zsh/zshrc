@@ -1,25 +1,22 @@
 # ================================================
 # ZSH Configuration File
-#   > Uses robbyrussell/oh-my-zsh framework.
+#   > Uses robbyrussell/oh-my-zsh framework
 #
 # Custom Aliases:
-#   > Source ~/.custom_aliases.sh file.
+#   > Source ~/.custom_aliases.sh file
 #
 # General Custom Plugins:
-#     -> fzf: Fast fuzzy finder.
+#     -> fzf: Fast fuzzy finder
 #          source ~/.fzf.zsh
 #
 # ZSH Custom Plugins:
-#   > Uses oh-my-zsh custom plugins support: ~/.oh-my-zsh/custom/plugins/.
-#     -> zsh-completions: Additional completion definitions.
-#     -> zsh-autosuggestions: Fish-like autosuggestions.
+#   > Uses oh-my-zsh custom plugins support: ~/.oh-my-zsh/custom/plugins/
+#     -> zsh-completions: Additional completion definitions
+#     -> zsh-autosuggestions: Fish-like autosuggestions
 # ================================================
 
 # Oh_My_Zsh Configuration
 # ----------------------------------------------------------
-# Export system path
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Location on oh my zsh dir
 export ZSH=/home/steve/.oh-my-zsh
 
@@ -70,15 +67,15 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(common-aliases git python pip z zsh-completions zsh-autosuggestions)
 
-# Auto init and load completions
+# Auto load and init completions
 source $ZSH/oh-my-zsh.sh
 autoload -U compinit && compinit
 # ----------------------------------------------------------
 
 
-# User Configuration
+# Custom Configuration
 # ----------------------------------------------------------
-# Manually set your language environment
+# Set language environment
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
@@ -88,9 +85,21 @@ else
   export EDITOR='nvim'
 fi
 
+# Load pyenv for python version management
+if [[ -d ~/.pyenv/ ]]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  # init pyenv and virtualenv plugin
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
+# Add local bin folders
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
 # Load custom aliases
 [ -f ~/.custom_aliases.sh ] && source ~/.custom_aliases.sh
 
-# Load fzf(fast fuzzy finder) plugin
+# Setup fast fuzzy finder, fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # ----------------------------------------------------------

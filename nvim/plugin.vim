@@ -233,6 +233,9 @@ Plug 'rhysd/conflict-marker.vim'
   " disable default mappings
   let g:conflict_marker_enable_mappings = 0
 
+" - Simple template plugin
+Plug 'aperezdc/vim-template'
+
 " --- }
 
 

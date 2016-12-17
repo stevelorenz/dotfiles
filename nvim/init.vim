@@ -414,8 +414,6 @@ nnoremap <F10> :TagbarToggle<CR>
       \ set shiftwidth=4 |
       \ set softtabstop=4 |
 
-  autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
-
   " -- haskell --
   autocmd BufNewFile,BufRead *.hs
       \ set tabstop=8 |
