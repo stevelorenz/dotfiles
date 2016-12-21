@@ -16,6 +16,8 @@ bundle/
 .init.vim-rplugin~
 spell/
 .netrwhist
+# dirs for backup, swap, undo and viminfo
+dirs/
 # ------------------
 
 # Backup, temp files

@@ -1,4 +1,4 @@
-" === ipdb add breakpoints ===
+" === toggle breakpoints with ipdb ===
 " ------------------------------------------------
 " Toggling rather than two different keys + autosave
 " Setting ipdb breakponts

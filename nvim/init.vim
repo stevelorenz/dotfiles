@@ -26,17 +26,26 @@
 set nocompatible
 
 " use curl to get plug.vim if not exists
-if empty(glob("~/.config/nvim/autoload/plug.vim"))
-  echo "installing vim-plug plugin manager"
-  silent !mkdir -p ~/.config/nvim/autoload
-  execute '!curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+let vim_plug_just_installed = 0
+let vim_plug_path = expand('~/.config/nvim/autoload/plug.vim')
+if !filereadable(vim_plug_path)
+    echo "Installing Vim-plug..."
+    echo ""
+    silent !mkdir -p ~/.config/nvim/autoload/
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    let vim_plug_just_installed = 1
+endif
+
+" manually load vim-plug the first time
+if vim_plug_just_installed
+    :execute 'source '.fnameescape(vim_plug_path)
 endif
 
 " enable syntax highlighting
 syntax enable
 syntax on
 
-" load plugins and configs
+" load plugins and configurations
 " ! comment this part to disable all plugins
 if filereadable(expand("~/.config/nvim/plugin.vim"))
   source ~/.config/nvim/plugin.vim
@@ -167,6 +176,24 @@ set lazyredraw
 " super useful! from an idea by michael naumann
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
+
+" better swap, backup and undo storage
+set directory=~/.vim/dirs/tmp
+set backupdir=~/.vim/dirs/backups
+" persistent undos
+set undofile
+set undodir=~/.vim/dirs/undos
+
+" create needed directories if they don't exist
+if !isdirectory(&backupdir)
+    call mkdir(&backupdir, "p")
+endif
+if !isdirectory(&directory)
+    call mkdir(&directory, "p")
+endif
+if !isdirectory(&undodir)
+    call mkdir(&undodir, "p")
+endif
 " }
 
 "==========================================
@@ -436,6 +463,7 @@ nnoremap <F10> :TagbarToggle<CR>
       \ set tabstop=4 |
       \ set softtabstop=4 |
       \ set shiftwidth=4 |
+      \ ab ip import ipdb; ipdb.set_trace() |
 
   " -- tex --
   autocmd BufNewFile,BufRead *.tex set textwidth=120
@@ -490,10 +518,15 @@ nnoremap <A-l> <C-w>l
 "==========================================
 " {
 " --- CLI ---
-" use terminal 256 color
-set t_Co=256
+" use dark background
 set background=dark
-colorscheme wombat256i
+" use 256 colors when possible
+if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
+  let &t_Co = 256
+  colorscheme wombat256i
+else
+  colorscheme wombat
+endif
 
 " --- GUI ---
 if has('gui_running')
@@ -530,6 +563,8 @@ highlight SpellLocal term=underline cterm=underline
 "==========================================
 " Helper Functions
 "==========================================
+" {
+" === General ===
 " {
 " toggle line number type
 function! NumberToggle()
@@ -608,4 +643,5 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+" }
 " }

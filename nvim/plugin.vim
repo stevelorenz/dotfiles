@@ -99,11 +99,6 @@ Plug 'tpope/vim-repeat'
 " - Undo history visualizer
 Plug 'mbbill/undotree'
   let g:undotree_SetFocusWhenToggle = 1
-  " enable persistent undo
-  if has("persistent_undo")
-      set undodir=~/.undodir/
-      set undofile
-  endif
 
 " - Fast and easy cursor motion
 " -- inter lines
@@ -158,6 +153,9 @@ Plug 'Yggdroot/indentLine'
   let g:indentLine_enabled = 0
   let g:indentLine_char = '¦'
 
+" - Search results counter
+Plug 'vim-scripts/IndexedSearch'
+
 "  --- }
 
 
@@ -179,7 +177,7 @@ Plug 'neomake/neomake'
   let g:neomake_python_enabled_makers = ['pep8', 'pylint']
 
 " - Dynamically show tags
-Plug 'majutsushi/tagbar'
+ Plug 'majutsushi/tagbar'
   let tagbar_left = 1
   let tagbar_width = 35
   let g:tagbar_compact = 1
@@ -235,6 +233,8 @@ Plug 'rhysd/conflict-marker.vim'
 
 " - Simple template plugin
 Plug 'aperezdc/vim-template'
+  " disable auto insertion
+  let g:templates_no_autocmd = 1
 
 " --- }
 
