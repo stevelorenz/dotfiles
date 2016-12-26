@@ -497,7 +497,7 @@ if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
   let &t_Co = 256
   colorscheme wombat256i
 else
-  colorscheme wombat
+  colorscheme wombat256mod
 endif
 
 " --- GUI ---

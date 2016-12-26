@@ -27,6 +27,11 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 
 " -------------------- Start Config --------------------
 
+" inspired by spf13, choose collections of plugins to be installed.
+if !exists('g:bundle_groups')
+  let g:bundle_groups=['python', '(x)html', 'javascript', 'tex', 'colorscheme']
+endif
+
 " --- General --------------------------------------------- {
 
 " - Status line enhancement
@@ -97,7 +102,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
 " - Undo history visualizer
-Plug 'mbbill/undotree'
+Plug 'mbbill/undotree', { 'on':  'UndotreeToggle' }
   let g:undotree_SetFocusWhenToggle = 1
 
 " - Fast and easy cursor motion
@@ -114,10 +119,8 @@ Plug 'Lokaltog/vim-easymotion'
 " -- intra line
 Plug 'unblevable/quick-scope'
   let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-  let g:qs_first_occurrence_highlight_color = '#afff5f'   " gui vim
-  let g:qs_first_occurrence_highlight_color = 155         " terminal vim
-  let g:qs_second_occurrence_highlight_color = '#5fffff'  " gui vim
-  let g:qs_second_occurrence_highlight_color = 81         " terminal vim
+  let g:qs_first_occurrence_highlight_color = 155
+  let g:qs_second_occurrence_highlight_color = 81
 
 " - Multiple cursor editing
 Plug 'terryma/vim-multiple-cursors'
@@ -137,7 +140,7 @@ Plug 'terryma/vim-expand-region'
   " _ shrink selection
 
 " - Light wrapper for ack, ag, grep etc
-Plug 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim', { 'on': ['Ack', 'Ack!'] }
   " do not move the cursor to the first result automatically
   cnoreabbrev Ack Ack!
   " use ag as backend if avaiable
@@ -149,12 +152,15 @@ Plug 'mileszs/ack.vim'
 Plug 'vim-scripts/matchit.zip'
 
 "- Display the idention levels
-Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
   let g:indentLine_enabled = 0
   let g:indentLine_char = '¦'
 
 " - Search results counter
 Plug 'vim-scripts/IndexedSearch'
+
+" - Pairs of handy bracket mappings
+Plug 'tpope/vim-unimpaired'
 
 "  --- }
 
@@ -164,9 +170,12 @@ Plug 'vim-scripts/IndexedSearch'
 " - Collection of language packs
 Plug 'sheerun/vim-polyglot'
   " -- settings for filetypes
-  let python_highlight_all = 1
-  " -- disable for some filetypes
-  " use vimtex plugin, disable latex-box
+  " --- python
+  let g:python_highlight_all = 1
+  " --- javascript
+  let g:javascript_plugin_jsdoc = 1
+  " -- disable individual packs
+  " --- use vimtex plugin, disable latex-box
   let g:polyglot_disabled = ['latex']
 
 " - Async :make and linting framework
@@ -177,7 +186,7 @@ Plug 'neomake/neomake'
   let g:neomake_python_enabled_makers = ['pep8', 'pylint']
 
 " - Dynamically show tags
- Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
   let tagbar_left = 1
   let tagbar_width = 35
   let g:tagbar_compact = 1
@@ -207,7 +216,7 @@ Plug 'scrooloose/nerdcommenter'
   let g:NERDTrimTrailingWhitespace = 0
 
 " - Code search, view with edit mode
-Plug 'dyng/ctrlsf.vim'
+Plug 'dyng/ctrlsf.vim', { 'on': 'CtrlSF' }
   " --- mappings ---
   " disable ctrl + f for page forward
   map <C-F> <nop>
@@ -236,6 +245,14 @@ Plug 'aperezdc/vim-template'
   " disable auto insertion
   let g:templates_no_autocmd = 1
 
+" - Eclipse like task list
+Plug 'fisadev/FixedTaskList.vim', { 'on': 'TaskList' }
+
+" - Run commands quickly
+Plug 'thinca/vim-quickrun'
+
+" - Easy code formatting
+Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
 " --- }
 
 
@@ -276,68 +293,86 @@ Plug 'Konfekt/FastFold'
 
 " ====== Python ======
 " {
-" - Binding to autocompletion library: jedi
-"   also supports navigation and documentation viewing
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-  " -- mappings --
-  let g:jedi#completions_command = "<C-C>"
-  " follow identifier as far as possible,
-  let g:jedi#goto_command = "<leader>d"
-  " typical goto function
-  let g:jedi#goto_assignments_command = "<leader>g"
-  " show documentation
-  let g:jedi#documentation_command = "K"
-  " rename in current file
-  let g:jedi#rename_command = "<leader>r"
-  " show usages in current file
-  let g:jedi#usages_command = "<leader>z"
+if count(g:bundle_groups, 'python')
+  " - Binding to autocompletion library: jedi
+  "   also supports navigation and documentation viewing
+  Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+    " -- mappings --
+    let g:jedi#completions_command = "<C-C>"
+    " follow identifier as far as possible,
+    let g:jedi#goto_command = "<leader>d"
+    " typical goto function
+    let g:jedi#goto_assignments_command = "<leader>g"
+    " show documentation
+    let g:jedi#documentation_command = "K"
+    " rename in current file
+    let g:jedi#rename_command = "<leader>r"
+    " show usages in current file
+    let g:jedi#usages_command = "<leader>z"
 
-  " -- settings --
-  let g:jedi#auto_initialization = 1
-  let g:jedi#auto_vim_configuration = 0
-  " disable auto pop on dot
-  let g:jedi#popup_on_dot = 0
-  " default select the first one
-  let g:jedi#popup_select_first = 1
-  " close doc after completion
-  let g:auto_close_doc = 1
-  " disable function call signatures in insert mode in real-time
-  let g:jedi#show_call_signatures = 0
-  " open new split for 'go to' result
-  let g:jedi#use_splits_not_buffers = "winwidth"
-  " set python interpreter version
-    " default use sys.version_info from 'python' in your $PATH
-    " call jedi#force_py_version(py_version) to set directly
-  let g:jedi#force_py_version = "auto"
+    " -- settings --
+    let g:jedi#auto_initialization = 1
+    let g:jedi#auto_vim_configuration = 0
+    " disable auto pop on dot
+    let g:jedi#popup_on_dot = 0
+    " default select the first one
+    let g:jedi#popup_select_first = 1
+    " close doc after completion
+    let g:auto_close_doc = 1
+    " disable function call signatures in insert mode in real-time
+    let g:jedi#show_call_signatures = 0
+    " open new split for 'go to' result
+    let g:jedi#use_splits_not_buffers = "winwidth"
+    " set python interpreter version
+      " default use sys.version_info from 'python' in your $PATH
+      " call jedi#force_py_version(py_version) to set directly
+    let g:jedi#force_py_version = "auto"
 
-" - Indent using pep8 style
-Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+  " - Indent using pep8 style
+  Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 
-" - Extend % motion for python
-Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
+  " - Extend % motion for python
+  Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
 
-" - Better folding for python
-Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
-  " show docstring in fold mode
-  let g:SimpylFold_docstring_preview = 1
-  autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-  autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+  " - Better folding for python
+  Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
+    " show docstring in fold mode
+    let g:SimpylFold_docstring_preview = 1
+    autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+    autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
-" - Sort python imports
-Plug 'fisadev/vim-isort', { 'for': 'python' }
-  " disable mapping
-  let g:vim_isort_map = ''
+  " - Sort python imports
+  Plug 'fisadev/vim-isort', { 'for': 'python' }
+    " disable mapping
+    let g:vim_isort_map = ''
 
-" - Generate python docstring
-Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
-  " disable key mappings
-  let g:pydocstring_enable_mapping = 0
+  " - Generate python docstring
+  Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
+    " disable key mappings
+    let g:pydocstring_enable_mapping = 0
+endif
 " }
 
-" ====== (X)HTML, CSS ======
+" ====== (X)HTML ======
 " {
-" - Emmet support
-Plug 'mattn/emmet-vim'
+if count(g:bundle_groups, '(x)html')
+  " - Emmet support
+  Plug 'mattn/emmet-vim'
+
+  " - Highlight matched tags
+  Plug 'Valloric/MatchTagAlways'
+endif
+" }
+
+" ====== Javascript ======
+" {
+if count(g:bundle_groups, 'javascript')
+  " - Tern plugin for vim
+  Plug 'ternjs/tern_for_vim'
+
+  " - Syntax for javascript libraries
+  Plug 'othree/javascript-libraries-syntax.vim'
+endif
 " }
 
 " --- }
@@ -346,8 +381,10 @@ Plug 'mattn/emmet-vim'
 " --- Documentation and Writing --------------------------- {
 
 " - Editing latex files
-Plug 'lervag/vimtex', { 'for': 'tex' }
-  let g:tex_flavor = 'tex'  " default tex type
+if count(g:bundle_groups, 'tex')
+  Plug 'lervag/vimtex', { 'for': 'tex' }
+    let g:tex_flavor = 'tex'  " default tex type
+endif
 
 " --- }
 
@@ -357,13 +394,15 @@ Plug 'lervag/vimtex', { 'for': 'tex' }
 " Colorscheme that are active updated
 " Stable and inactive ones are stored in colors dir
 
-Plug 'junegunn/seoul256.vim'
-  " Range:   233 (darkest) ~ 239 (lightest)
-  " Default: 237
-  let g:seoul256_background = 235
-  let g:seoul256_light_background = 256
+if count(g:bundle_groups, 'colorscheme')
+  Plug 'junegunn/seoul256.vim'
+    " Range:   233 (darkest) ~ 239 (lightest)
+    " Default: 237
+    let g:seoul256_background = 235
+    let g:seoul256_light_background = 256
 
-Plug 'joshdick/onedark.vim'
+  Plug 'joshdick/onedark.vim'
+endif
 
 " --- }
 
