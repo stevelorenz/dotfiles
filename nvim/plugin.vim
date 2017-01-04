@@ -28,6 +28,8 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 " -------------------- Start Config --------------------
 
 " inspired by spf13, choose collections of plugins to be installed.
+" remove element in the list to disable a collection of plugins.
+" for example, remove 'python' will disable all plugins in the python section.
 if !exists('g:bundle_groups')
   let g:bundle_groups=['python', '(x)html', 'javascript', 'tex', 'colorscheme']
 endif
@@ -357,10 +359,11 @@ endif
 " {
 if count(g:bundle_groups, '(x)html')
   " - Emmet support
-  Plug 'mattn/emmet-vim'
+  Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript'] }
+    let g:user_emmet_leader_key='<C-E>'
 
   " - Highlight matched tags
-  Plug 'Valloric/MatchTagAlways'
+  Plug 'Valloric/MatchTagAlways', { 'for': ['html', 'css', 'javascript'] }
 endif
 " }
 
@@ -368,10 +371,10 @@ endif
 " {
 if count(g:bundle_groups, 'javascript')
   " - Tern plugin for vim
-  Plug 'ternjs/tern_for_vim'
+  Plug 'ternjs/tern_for_vim', { 'for': ['html', 'css', 'javascript'] }
 
   " - Syntax for javascript libraries
-  Plug 'othree/javascript-libraries-syntax.vim'
+  Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['html', 'css', 'javascript'] }
 endif
 " }
 

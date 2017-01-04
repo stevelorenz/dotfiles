@@ -30,3 +30,6 @@ alias psmem10='ps auxf | sort -nr -k 4 | head -10'
 # Compiled with GTK2, for python2 and python3
 alias vim-py2='vim.gtk-py2'
 alias vim-py3='vim.gtk'
+
+# Clear tmux-resurrect history
+alias clear-resurrect='rm -rf ~/.tmux/resurrect/*'
