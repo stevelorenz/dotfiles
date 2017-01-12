@@ -255,6 +255,17 @@ Plug 'thinca/vim-quickrun'
 
 " - Easy code formatting
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
+
+" - Use Zeal: Offline documentation viewer
+Plug 'KabbAmine/zeavim.vim', {'on': [
+            \   'Zeavim', 'Docset',
+            \   '<Plug>Zeavim',
+            \   '<Plug>ZVVisSelection',
+            \   '<Plug>ZVKeyDocset',
+            \   '<Plug>ZVMotion'
+            \ ]}
+  let g:zv_disable_mapping = 1
+
 " --- }
 
 
@@ -291,6 +302,9 @@ Plug 'Konfekt/FastFold'
 
 " ====== C, CPP ======
 " {
+" - Simplify Doxygen documentation
+Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c', 'cpp'] }
+  let g:DoxygenToolkit_briefTag_funcName = "yes"
 " }
 
 " ====== Python ======

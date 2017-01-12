@@ -9,7 +9,7 @@
 
 # --- general options ---
 [options]
-font = monaco 16
+font = monaco:style=regular 12
 allow_bold = false
 cursor_blink = off
 cursor_shape = block
@@ -51,3 +51,5 @@ color12 = #5A9DC8
 color13 = #B29FDB
 color14 = #69B8CE
 color15 = #EEEEEE
+
+# vim: ft=dosini cms=#%s

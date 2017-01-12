@@ -5,12 +5,13 @@ systems), which allows user to set up his **unique** environment **quickly and c
 
 This is a snapshot of my dot files.
 
-## Recommended Tools
+## My Recommended Tools
 
 #### General Programming
 
 - [Neovim](https://neovim.io/): Vim-fork focused on extensibility and agility.
 - [Ag](https://github.com/ggreer/the_silver_searcher): Fast code-searching tool.
+- [Cheerytree](http://www.giuspen.com/cherrytree/): : A hierarchical note taking application.
 - [ZEAL](https://zealdocs.org/): A offline documentation browser for developers.
 
 #### Python Dev

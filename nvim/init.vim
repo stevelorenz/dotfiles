@@ -10,7 +10,7 @@
 "    -> Display Settings
 "    -> File Encode Settings
 "    -> Keyboard Mapping Settings
-"    -> File Type Settings
+"    -> File Type Custom Settings
 "    -> Neovim Specific
 "    -> Others
 "    -> Theme Settings
@@ -463,7 +463,6 @@ nnoremap <F10> :TagbarToggle<CR>
       \ set tabstop=4 |
       \ set softtabstop=4 |
       \ set shiftwidth=4 |
-      \ ab ip import ipdb; ipdb.set_trace() |
 
   " -- tex --
   autocmd BufNewFile,BufRead *.tex set textwidth=120

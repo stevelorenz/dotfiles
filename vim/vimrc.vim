@@ -10,7 +10,7 @@
 "    -> Display Settings
 "    -> File Encode Settings
 "    -> Keyboard Mapping Settings
-"    -> File Type Settings
+"    -> File Type Custom Settings
 "    -> Others
 "    -> Theme Settings
 "    -> Helper Functions
@@ -143,6 +143,9 @@ set completeopt-=preview
 " completion pop-up menu enhancement
 " use IDE like popping
 set completeopt=longest,menu
+
+" do not scan included files
+set complete-=i
 
 " use single line to show the completion in command line
 set wildmenu
@@ -463,7 +466,6 @@ nnoremap <F10> :TagbarToggle<CR>
       \ set tabstop=4 |
       \ set softtabstop=4 |
       \ set shiftwidth=4 |
-      \ ab ip import ipdb; ipdb.set_trace() |
 
   " -- tex --
   autocmd BufNewFile,BufRead *.tex set textwidth=120
@@ -614,6 +616,28 @@ function! <SID>BufcloseCloseIt()
    if buflisted(l:currentBufNum)
      execute("bdelete! ".l:currentBufNum)
    endif
+endfunction
+
+" Replace function.
+" confirm: if confirm for every replace
+" wholeword: if match the whole word
+" replace: string to be replaced
+function! Replace(confirm, wholeword, replace)
+    wa
+    let flag = ''
+    if a:confirm
+        let flag .= 'gec'
+    else
+        let flag .= 'ge'
+    endif
+    let search = ''
+    if a:wholeword
+        let search .= '\<' . escape(expand('<cword>'), '/\.*$^~[') . '\>'
+    else
+        let search .= expand('<cword>')
+    endif
+    let replace = escape(a:replace, '/\&~')
+    execute 'argdo %s/' . search . '/' . replace . '/' . flag . '| update'
 endfunction
 " }
 " }

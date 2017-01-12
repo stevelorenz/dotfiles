@@ -303,6 +303,9 @@ Plug 'Konfekt/FastFold'
 
 " ====== C, CPP ======
 " {
+" - Simplify Doxygen documentation
+Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c', 'cpp'] }
+  let g:DoxygenToolkit_briefTag_funcName = "yes"
 " }
 
 " ====== Python ======
