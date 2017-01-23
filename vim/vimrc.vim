@@ -3,6 +3,7 @@
 " About: Vimrc File
 " Maintainer: Xiang, Zuo
 " Email: xianglinks@gmail.com
+" Version: 1.0
 " Sections:
 "    -> Initial Plugin
 "    -> General Settings
