@@ -301,6 +301,8 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     let g:SuperTabContextDefaultCompletionType = "<c-n>"
     " close preview window when popup closes
     let g:SuperTabClosePreviewOnPopupClose = 1
+    " remember last completion type until 'esc' to normal mode
+    let g:SuperTabRetainCompletionType=2
 
     " - Speed up vim by updating folds only when called-for.
     Plug 'Konfekt/FastFold'

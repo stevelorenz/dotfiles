@@ -12,7 +12,6 @@
 "    -> Keyboard Mapping Settings
 "    -> File Type Custom Settings
 "    -> Dev Tools Settings
-"    -> Theme Settings
 "    -> Helper Functions
 "==========================================
 
@@ -96,13 +95,13 @@ set magic
 set title
 
 " close error bell
-set novisualbell         " don't beep
-set noerrorbells         " don't beep
+set novisualbell " don't beep
+set noerrorbells " don't beep
 set t_vb=
 set tm=500
 
 " restore cursor position when opening file
-" based on .viminfo file
+" based on viminfo file
 autocmd BufReadPost *
             \ if line("'\"") > 1 && line("'\"") <= line("$") |
             \   exe "normal! g`\"" |
@@ -110,12 +109,13 @@ autocmd BufReadPost *
 
 " default folding settings
 set foldenable
-" manual
-" indent
-" expr
-" syntax
-" diff
-" marker
+" foldmethod:
+" - manual
+" - indent
+" - expr
+" - syntax
+" - diff
+" - marker
 set foldmethod=indent
 set foldlevel=99
 set nofoldenable  " do not fold by opening file
@@ -133,18 +133,25 @@ set expandtab      " convert tab to whitespace, using ctrl-v for real tab
 set shiftround     " use multiple of shift width when indenting with '<' and '>'
 set autoindent
 
-" enable build-in auto completion with omnifunc
-set omnifunc=syntaxcomplete#Complete
+" - completeopt: A comma separated list of options for insert mode completion
+" menu: Use a popup menu to show the possible completions.
+" menuone: Use menu also when there is only one match.
+" noinsert and noselect: force user to select and insert text
+set completeopt=menu,menuone,noinsert,noselect
 
-" disable the annoying preview window
-set completeopt-=preview
-
-" completion pop-up menu enhancement
-" use IDE like popping
-set completeopt=longest,menu
-
+" - keyword completion
 " do not scan included files
 set complete-=i
+
+" - built-in omni completion
+" SyntaxComplete.vim
+" setup SyntaxComplete for filetype that does not have specific OMNI script
+if has("autocmd") && exists("+omnifunc")
+    autocmd Filetype *
+                \ if &omnifunc == "" |
+                \ setlocal omnifunc=syntaxcomplete#Complete |
+                \ endif
+endif
 
 " use single line to show the completion in command line
 set wildmenu
@@ -197,6 +204,7 @@ if !isdirectory(&undodir)
     call mkdir(&undodir, "p")
 endif
 
+" system clipboard
 if has('clipboard')
     if has('unnamedplus')  " When possible use + register for copy-paste
         set clipboard=unnamed,unnamedplus
@@ -204,6 +212,11 @@ if has('clipboard')
         set clipboard=unnamed
     endif
 endif
+
+" new splits
+set splitright " puts new vsplit windows to the right of the current
+set splitbelow " puts new split windows to the bottom of the current
+
 " }
 
 "==========================================
@@ -270,8 +283,49 @@ if &term =~ '256color'
     set t_ut=
 endif
 
-set splitright " puts new vsplit windows to the right of the current
-set splitbelow " puts new split windows to the bottom of the current
+" use dark background
+set background=dark
+" use 256 colors when possible
+" wombat, my favorite colorscheme
+if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
+    let &t_Co = 256
+    colorscheme wombat256i
+else
+    colorscheme wombat256mod
+endif
+
+" GUI specific {
+if has('gui_running')
+    set guifont=Monaco\ 10
+    set guicursor=a:blinkon0
+    set gcr=a:block-blinkon0
+    " hide menu bars
+    set guioptions-=l
+    set guioptions-=L
+    set guioptions-=r
+    set guioptions-=R
+    set guioptions-=m
+    set guioptions-=T
+    set guitablabel=%M\ %t
+    set showtabline=1
+    set linespace=2
+    set noimd
+endif
+" }
+
+" better highlight
+hi! link SignColumn   LineNr
+hi! link ShowMarksHLl DiffAdd
+hi! link ShowMarksHLu DiffChange
+highlight clear SpellBad
+highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+highlight clear SpellCap
+highlight SpellCap term=underline cterm=underline
+highlight clear SpellRare
+highlight SpellRare term=underline cterm=underline
+highlight clear SpellLocal
+highlight SpellLocal term=underline cterm=underline
+
 " }
 
 "==========================================
@@ -478,6 +532,7 @@ autocmd BufNewFile,BufRead *.js,*.html,*.css
 "==========================================
 " {
 " Ctags {
+" extend search directory
 set tags=./tags;/,~/.vimtags
 
 " make tags placed in .git/tags file available in all levels of a repository
@@ -487,62 +542,6 @@ if gitroot != ''
 endif
 " }
 
-" Normal Vim omni-completion {
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-" }
-" }
-
-"==========================================
-" Theme Settings
-"==========================================
-" {
-" --- CLI ---
-" use dark background
-set background=dark
-" use 256 colors when possible
-if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
-    let &t_Co = 256
-    colorscheme wombat256i
-else
-    colorscheme wombat256mod
-endif
-
-" --- GUI ---
-if has('gui_running')
-    set guifont=Monaco\ 10
-    set guicursor=a:blinkon0
-    set gcr=a:block-blinkon0
-    " hide menu bars
-    set guioptions-=l
-    set guioptions-=L
-    set guioptions-=r
-    set guioptions-=R
-    set guioptions-=m
-    set guioptions-=T
-    set guitablabel=%M\ %t
-    set showtabline=1
-    set linespace=2
-    set noimd
-endif
-
-" fix highlight problem
-hi! link SignColumn   LineNr
-hi! link ShowMarksHLl DiffAdd
-hi! link ShowMarksHLu DiffChange
-highlight clear SpellBad
-highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-highlight clear SpellCap
-highlight SpellCap term=underline cterm=underline
-highlight clear SpellRare
-highlight SpellRare term=underline cterm=underline
-highlight clear SpellLocal
-highlight SpellLocal term=underline cterm=underline
 " }
 
 "==========================================
