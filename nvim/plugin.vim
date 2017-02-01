@@ -71,14 +71,15 @@ if count(g:bundle_groups, 'general')
     let g:netrw_browse_split = 4
     let g:netrw_altv = 1
 
-    " - Insert mode auto-completion for quotes, parens, brackets
+    " - Insert mode auto-completion for quotes, parentheses, brackets
     Plug 'Raimondi/delimitMate'
     au FileType python let b:delimitMate_nesting_quotes = ['"']
     au FileType mail let b:delimitMate_expand_inside_quotes = 1
 
     " - Fuzzy file, buffer and MRU finder
     Plug 'ctrlpvim/ctrlp.vim'
-    let g:ctrlp_map = '<c-p>'
+    " map it to ctrl+p plus p, use <C-P> for multiple search plugins
+    let g:ctrlp_map = '<C-P>p'
     let g:ctrlp_cmd = 'CtrlP'
     " use the dir of the current file as searching root
     " unless it is a subdir of the cwd
@@ -91,7 +92,7 @@ if count(g:bundle_groups, 'general')
     let g:ctrlp_mruf_max = 500
     let g:ctrlp_follow_symlinks = 1
 
-    " use ack as backend if avaiable
+    " use ack as backend if available
     if executable('ag')
         " can use a local or global .agignore to ignore files
         let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -f -g ""'
@@ -104,6 +105,7 @@ if count(g:bundle_groups, 'general')
 
     " - Extension to ctrlp, for fuzzy command finder
     Plug 'fisadev/vim-ctrlp-cmdpalette', { 'on': 'CtrlPCmdPalette' }
+    nnoremap <C-P>c :CtrlPCmdPalette<CR>
 
     " - Surroundings editing
     Plug 'tpope/vim-surround'
@@ -153,15 +155,15 @@ if count(g:bundle_groups, 'general')
     Plug 'mileszs/ack.vim', { 'on': ['Ack', 'Ack!'] }
     " do not move the cursor to the first result automatically
     cnoreabbrev Ack Ack!
-    " use ag as backend if avaiable
+    " use ag as backend if available
     if executable('ag')
         let g:ackprg = 'ag --vimgrep'
     endif
 
-    " - Extend machting
+    " - Extend matching
     Plug 'vim-scripts/matchit.zip'
 
-    "- Display the idention levels
+    "- Display the indention levels
     Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
     let g:indentLine_enabled = 0
     let g:indentLine_char = '¦'
@@ -171,6 +173,9 @@ if count(g:bundle_groups, 'general')
 
     " - Pairs of handy bracket mappings
     Plug 'tpope/vim-unimpaired'
+
+    " - Underlines the word under the cursor
+    Plug 'itchyny/vim-cursorword'
 endif
 
 "  --- }
@@ -244,7 +249,7 @@ if count(g:bundle_groups, 'general_programming')
     " default use regex pattern
     let g:ctrlsf_regex_pattern = 1
     let g:ctrlsf_case_sensitive = 'smart'
-    " use ag as backend if avaiable
+    " use ag as backend if available
     if executable('ag')
         let g:ctrlsf_ackprg = 'ag'
     endif
@@ -387,11 +392,11 @@ endif
 " (X)HTML {
 if count(g:bundle_groups, '(x)html')
     " - Emmet support
-    Plug 'mattn/emmet-vim', { 'for': ['html', 'css', 'javascript'] }
+    Plug 'mattn/emmet-vim', { 'for': ['xml', 'html', 'css', 'javascript'] }
     let g:user_emmet_leader_key='<C-E>'
 
     " - Highlight matched tags
-    Plug 'Valloric/MatchTagAlways', { 'for': ['html', 'css', 'javascript'] }
+    Plug 'Valloric/MatchTagAlways', { 'for': ['xml', 'html', 'css', 'javascript'] }
 endif
 " }
 
