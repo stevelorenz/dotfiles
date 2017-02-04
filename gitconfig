@@ -1,26 +1,26 @@
 [user]
-  name = Zuo Xiang
-  email = xianglinks@gmail.com
+    name = Zuo Xiang
+    email = xianglinks@gmail.com
 [core]
-  editor = vim
-  whitespace = cr-at-eol
+    editor = vim
+    whitespace = cr-at-eol
 [color]
-  interactive = auto
-  status = auto
-  diff = auto
-  branch = auto
+    interactive = auto
+    status = auto
+    diff = auto
+    branch = auto
 [push]
-  default = simple
+    default = simple
 [merge]
-  tool = vimdiff
+    tool = vimdiff
 [alias]
-  br = branch
-  co = checkout
-  ci = commit
-  # Repo maintenance
-  mt = "!git gc && git prune && git fsck"
-  st = status
-  last = log -1
-  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  # Reset all not commit changes
-  unstage = reset --hard HEAD
+    br = branch
+    co = checkout
+    ci = commit
+    # Repository maintenance
+    mt = "!git gc && git prune && git fsck"
+    st = status
+    last = log -1
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    # Reset all uncommitted changes
+    unstage = reset --hard HEAD
