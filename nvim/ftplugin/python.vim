@@ -1,6 +1,8 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 
 " Toggle breakpoints for ipdb {
+" Only support python2
+if has('python')
 python << EOF
 import vim
 import re
@@ -9,10 +11,8 @@ ipdb_breakpoint = 'import ipdb; ipdb.set_trace()'
 
 def set_breakpoint():
     breakpoint_line = int(vim.eval('line(".")')) - 1
-
     current_line = vim.current.line
     white_spaces = re.search('^(\s*)', current_line).group(1)
-
     vim.current.buffer.append(white_spaces + ipdb_breakpoint, breakpoint_line)
 
 def remove_breakpoints():
@@ -31,4 +31,4 @@ def toggle_breakpoint():
 
 vim.command('map <f7> :py toggle_breakpoint()<cr>')
 EOF
-" }
+endif
