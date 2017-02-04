@@ -1,14 +1,19 @@
+# vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 # ================================================
-# i3wm configuration file
-#
-# User   : Zuo Xiang
+# About: i3wm configuration file
+# Maintainer: Xiang, Zuo
+# Email: xianglinks@gmail.com
 # Github : stevelorenz
-#
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+# Sections:
+#    -> General
+#    -> Container
+#    -> Window
+#    -> Workspace
+#    -> Colors
+#    -> Status Bar
 # ================================================
 
-# === General ===
-# ------------------------------------------------
+# === General === {
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 
@@ -55,7 +60,6 @@ bindsym XF86AudioLowerVolume  exec --no-startup-id amixer -q sset Master 5%- unm
 bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
 
 # Switch keyboard layout (setxkbmap)
-# ------------------------------------------------
 set $keyboard_mode "switch keyboard: c=ch, d=de, u=us"
 mode $keyboard_mode{
     bindsym c exec --no-startup-id "setxkbmap ch && fcitx", mode "default"
@@ -65,10 +69,8 @@ mode $keyboard_mode{
     bindsym Escape mode "default"
 }
 bindsym $mod+Shift+i mode $keyboard_mode
-# ------------------------------------------------
 
 # system operations
-# ------------------------------------------------
 set $locker i3lock -e -t -f --image /home/steve/photo/Wallpaper/Apink_Six.png
 set $mode_system "system operation: (l) lock, (e) logout, (s) lock & suspend, (h) lock & hibernate, (r) reboot, (shift+s) shutdown"
 mode $mode_system {
@@ -82,10 +84,8 @@ mode $mode_system {
     bindsym Escape mode "default"
 }
 bindsym $mod+Shift+s mode $mode_system
-# ------------------------------------------------
 
 # Shortcut for running some useful programs
-# ------------------------------------------------
 # Screenshooter
 bindsym $mod+p exec xfce4-screenshooter
 bindsym $mod+c exec compton -b
@@ -99,10 +99,9 @@ mode $mode_fcitx {
     bindsym Escape mode "default"
 }
 bindsym $mod+Shift+f mode $mode_fcitx
-# ------------------------------------------------
+# }
 
-# === Container ===
-# ------------------------------------------------
+# === Container === {
 # Change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
@@ -110,10 +109,9 @@ bindsym $mod+e layout toggle split
 
 # Focus the parent container
 bindsym $mod+a focus parent
-# ------------------------------------------------
+# }
 
-# === Window ===
-# ------------------------------------------------
+# === Window === {
 # Kill focused window
 bindsym $mod+Shift+q kill
 
@@ -175,26 +173,25 @@ for_window [class="Pamac-manager"] floating enable
 
 # Resize window (you can also use the mouse for that)
 mode "resize" {
-        # vim like bindings
-        bindsym h resize shrink width 5 px or 5 ppt
-        bindsym j resize grow height 5 px or 5 ppt
-        bindsym k resize shrink height 5 px or 5 ppt
-        bindsym l resize grow width 5 px or 5 ppt
-
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # exit resize mode: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    # vim like bindings
+    bindsym h resize shrink width 5 px or 5 ppt
+    bindsym j resize grow height 5 px or 5 ppt
+    bindsym k resize shrink height 5 px or 5 ppt
+    bindsym l resize grow width 5 px or 5 ppt
+    
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+    
+    # exit resize mode: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
-# ------------------------------------------------
+# }
 
-# === Workspace ===
-# ------------------------------------------------
+# === Workspace === {
 # Switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -225,10 +222,9 @@ bindsym $mod+b workspace back_and_forth
 
 # Rename workspace
 bindsym Ctrl+Shift+r exec i3-input -F 'rename workspace to "%s"' -P 'rename current workspace: '
-# ------------------------------------------------
+# }
 
-# === Colors ===
-# ------------------------------------------------
+# === Colors === {
 set $base01 #1f222d
 set $base02 #252936
 set $base03 #7780a1
@@ -244,47 +240,28 @@ set $base0C #97e0ff
 set $base0D #97bbf7
 set $base0E #c0b7f9
 set $base0F #fcc09e
-# ------------------------------------------------
+# }
 
-# === Status Bar ===
-# ------------------------------------------------
+# === Status Bar === {
 bar {
-        position top
-        font pango:Monaco Regular 18
-        tray_output eDP1  # laptop screen
-        tray_padding 3
-        strip_workspace_numbers yes
-
-        # use i3blocks instead of default i3status
-        status_command i3blocks -c /home/steve/.config/i3/i3blocks.conf
-
-        colors {
-              separator $base03
-              background $base01
-              statusline $base05
-              # object           border  background text
-              focused_workspace  $base01 $base01    $base07
-              active_workspace   $base01 $base02    $base03
-              inactive_workspace $base01 $base01    $base03
-              urgent_workspace   $base01 $base01    $base08
-        }
+    position top
+    font pango:Monaco Regular 18
+    tray_output eDP1
+    tray_padding 3
+    strip_workspace_numbers yes
+    
+    # Use i3blocks instead of the default i3status
+    status_command i3blocks -c /home/steve/.config/i3/i3blocks.conf
+    
+    colors {
+        separator $base03
+        background $base01
+        statusline $base05
+        #object, border, background, text
+        focused_workspace  $base01 $base01 $base07
+        active_workspace   $base01 $base02 $base03
+        inactive_workspace $base01 $base01 $base03
+        urgent_workspace   $base01 $base01 $base08
+    }
 }
-# ------------------------------------------------
-
-# === Settings for i3-gaps ===
-# ------------------------------------------------
-# Smart gaps (gaps used if only more than one container on the workspace)
-# smart_gaps on
-
-# set $default_gaps_inner 0
-# set $default_gaps_outer 0
-# gaps inner $default_gaps_inner
-# gaps outer $default_gaps_outer
-#
-# workspace $ws1 gaps inner 0
-# workspace $ws1 gaps outer 0
-# workspace $ws9 gaps inner 0
-# workspace $ws9 gaps outer 0
-# workspace $ws10 gaps inner 0
-# workspace $ws10 gaps outer 0
-# ------------------------------------------------
+# }
