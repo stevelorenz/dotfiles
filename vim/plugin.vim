@@ -177,6 +177,9 @@ if count(g:bundle_groups, 'general')
     " - Underlines the word under the cursor
     Plug 'itchyny/vim-cursorword'
 endif
+    
+    " - Keep and restore fcitx state when leaving/re-entering insert mode
+    Plug 'vim-scripts/fcitx.vim'
 
 "  --- }
 
