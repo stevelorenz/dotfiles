@@ -2,12 +2,23 @@
 #
 # ~/.xinitrc
 #
-# Executed by startx (run your window manager from here)
+# Read by xinit and by its front-end startx. It is mainly used to execute
+# desktop environments, window managers and other programs when starting the X
+# server.
 
-xrdb -load ~/.Xresources
+# Load resources
+[[ -f ~/.Xresources ]] && xrdb -merge "${HOME}/.Xresources"
 
 # Turn off beep
 set b off
 
-# Auto hide cursor
+# Hide mouse pointer
 unclutter &
+
+# Set default Chinese input method
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+
+# Launch i3 window manager
+exec i3

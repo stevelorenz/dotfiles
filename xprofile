@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# ~/.xprofile
+#
+# Execute commands at the beginning of the X user session - before the window manager is started.
+#
+# Set default Chinese input method
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
