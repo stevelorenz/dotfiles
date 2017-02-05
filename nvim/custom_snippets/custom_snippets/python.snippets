@@ -1,0 +1,89 @@
+#######################################################################
+#                       Python Custom Snippets                        #
+#######################################################################
+
+# === general ===
+# -----------------------------------------------
+snippet main "if main"
+if __name__ == '__main__':
+    main()
+    ${1}
+endsnippet
+# -----------------------------------------------
+
+# === built-in functions ===
+# -----------------------------------------------
+snippet fcisi "isinstance"
+isinstance(${1}, ${2})
+endsnippet
+
+snippet super "super function to get superclass"
+super(${1}, self).__init__()
+endsnippet
+# -----------------------------------------------
+
+# === fast import ===
+# -----------------------------------------------
+snippet immath "import mostly used math modules"
+import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt
+${1}
+endsnippet
+
+snippet ipdb "import ipdb and set trace for debug"
+import ipdb; ipdb.set_trace()
+endsnippet
+# -----------------------------------------------
+
+# === doctring style ===
+# -----------------------------------------------
+snippet dshl "head lines"
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+${1}
+
+
+@ Contact : Zuo Xiang
+@ Email   : xianglinks@gmail.com
+"""
+endsnippet
+
+snippet dsrf "rst style docstring for function"
+:param ${1}:
+:type ${2}:
+:returns: ${3}
+:retype: ${4}
+:raises ${5}:
+endsnippet
+
+snippet dsrc "rst style docstring for class"
+"""${1} TODO
+
+"""
+endsnippet
+
+snippet dsgf "google style docstring for function"
+"""${1}
+
+Args:
+    arg (type):
+
+Returns:
+
+Raises:
+
+"""
+endsnippet
+
+snippet dsgc "google style doctring for class"
+"""${1}
+
+Attributes:
+
+Methods:
+
+"""
+endsnippet
+# -----------------------------------------------

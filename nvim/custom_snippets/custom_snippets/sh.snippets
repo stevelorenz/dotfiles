@@ -1,0 +1,86 @@
+#######################################################################
+#                        Shell Script Snippets                        #
+#######################################################################
+
+# === Comments ===
+# -----------------------------------------------
+snippet cmhl "head line"
+#!/bin/bash
+#
+#
+#
+# Author :
+# Email  :
+endsnippet
+
+snippet cmfun "function comments"
+#######################################
+# Description
+# Globals:
+#
+# Arguments:
+#
+# Returns:
+#
+#######################################
+endsnippet
+
+snippet cmtodo "todo comments"
+# TODO(): (bug ####)
+endsnippet
+# -----------------------------------------------
+
+# === Snippets ===
+# -----------------------------------------------
+snippet cupath "relative path to current script"
+script_path=$(dirname "\$0")
+${1}
+endsnippet
+
+snippet ckroot "check the root authority"
+if [[ "$(whoami)" != "root" ]]; then
+  echo "you need root authority to run this script"
+  exit
+fi
+${1}
+endsnippet
+
+snippet casest "case statement google style"
+case "${1}" in
+  a)
+    variable="..."
+    some_command "${variable}" "${other_expr}" ...
+    ;;
+  absolute)
+    actions="relative"
+    another_command "${actions}" "${other_expr}" ...
+    ;;
+  *)
+    error "Unexpected expression '${expression}'"
+    ;;
+esac
+endsnippet
+
+snippet getopts "arg parser with getopts"
+while getopts "a${1}" opt; do
+  # case for options
+  case $opt in
+    a)
+      echo "this is -a option the arg is ! $OPTARG"
+      ;;
+  esac
+done
+endsnippet
+
+snippet logo "echo ascii art logo"
+asd() {
+cat <<"EOT"
+
+${1} ascii art logo
+
+EOT
+}
+
+asd
+endsnippet
+# -----------------------------------------------

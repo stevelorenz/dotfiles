@@ -240,15 +240,13 @@ if count(g:bundle_groups, 'general_programming')
     " - Code search, view with edit mode
     Plug 'dyng/ctrlsf.vim', { 'on': 'CtrlSF' }
     " --- mappings ---
-    " disable ctrl + f for page forward
-    map <C-F> <nop>
-    nmap <C-F>f <Plug>CtrlSFPrompt
-    vmap <C-F>f <Plug>CtrlSFVwordPath
-    vmap <C-F>F <Plug>CtrlSFVwordExec
-    nmap <C-F>n <Plug>CtrlSFCwordPath
-    nmap <C-F>p <Plug>CtrlSFPwordPath
+    nmap <C-P>f <Plug>CtrlSFPrompt
+    vmap <C-P>f <Plug>CtrlSFVwordPath
+    vmap <C-P>F <Plug>CtrlSFVwordExec
+    nmap <C-P>n <Plug>CtrlSFCwordPath
+    nmap <C-P>p <Plug>CtrlSFPwordPath
     " open the result of last search
-    nnoremap <C-F>o :CtrlSFOpen<CR>
+    nnoremap <C-P>o :CtrlSFOpen<CR>
     " default use regex pattern
     let g:ctrlsf_regex_pattern = 1
     let g:ctrlsf_case_sensitive = 'smart'
