@@ -176,8 +176,12 @@ if count(g:bundle_groups, 'general')
 
     " - Underlines the word under the cursor
     Plug 'itchyny/vim-cursorword'
+
+    " - Better whitespace highlighting
+    Plug 'ntpeters/vim-better-whitespace'
+
 endif
-    
+
 "  --- }
 
 

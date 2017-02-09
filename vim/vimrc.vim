@@ -254,9 +254,6 @@ set laststatus=2
 set cursorline
 set cursorcolumn
 
-" highlight problematic white space
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
-
 " highlighting some specific characters
 if has("autocmd")
     " highlight TODO, FIXME, NOTE, etc.

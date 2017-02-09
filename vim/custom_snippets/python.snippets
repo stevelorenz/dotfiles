@@ -1,29 +1,26 @@
+# vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker=[,] foldlevel=0 foldmethod=marker:
 #######################################################################
 #                       Python Custom Snippets                        #
 #######################################################################
 
-# === general ===
-# -----------------------------------------------
+# === general === [
 snippet main "if main"
 if __name__ == '__main__':
-    main()
-    ${1}
+    main()${1}
 endsnippet
-# -----------------------------------------------
+# ]
 
-# === built-in functions ===
-# -----------------------------------------------
-snippet fcisi "isinstance"
+# === built-in function === [
+snippet isi "isinstance"
 isinstance(${1}, ${2})
 endsnippet
 
 snippet super "super function to get superclass"
 super(${1}, self).__init__()
 endsnippet
-# -----------------------------------------------
+# ]
 
-# === fast import ===
-# -----------------------------------------------
+# === fast import === [
 snippet immath "import mostly used math modules"
 import numpy as np
 import pandas as pd
@@ -34,10 +31,9 @@ endsnippet
 snippet ipdb "import ipdb and set trace for debug"
 import ipdb; ipdb.set_trace()
 endsnippet
-# -----------------------------------------------
+# ]
 
-# === doctring style ===
-# -----------------------------------------------
+# === doctring === [
 snippet dshl "head lines"
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
@@ -86,4 +82,4 @@ Methods:
 
 """
 endsnippet
-# -----------------------------------------------
+# ]
