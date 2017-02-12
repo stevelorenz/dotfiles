@@ -22,7 +22,8 @@ font pango: Monaco Regular 16
 
 # Start terminal emulator (urxvt, terminator)
 bindsym $mod+Return exec urxvt
-bindsym $mod+t exec terminator
+bindsym $mod+t exec termite
+# bindsym $mod+t exec terminator
 
 # Start program launcher (rofi)
 # Use rofi, configs saved in ~/.Xresources

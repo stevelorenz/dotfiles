@@ -1,15 +1,15 @@
-# ===============================================
+# ================================================
 # Termite Configuration
-# A keyboard-centric VTE-based terminal
+#   A keyboard-centric VTE-based terminal
 #
 # Section:
 #   - general options
 #   - color scheme
-# ===============================================
+# ================================================
 
 # --- general options ---
 [options]
-font = monaco:style=regular 12
+font = monaco 16
 allow_bold = false
 cursor_blink = off
 cursor_shape = block
@@ -29,7 +29,7 @@ filter_unmatched_urls = true
 
 # --- color scheme ---
 [colors]
-# solarized
+# based on solarized
 foreground = #EBEBFF
 foreground_bold = #EBEBFF
 background = #333333
@@ -51,5 +51,3 @@ color12 = #5A9DC8
 color13 = #B29FDB
 color14 = #69B8CE
 color15 = #EEEEEE
-
-# vim: ft=dosini cms=#%s

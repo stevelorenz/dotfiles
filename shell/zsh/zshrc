@@ -95,7 +95,7 @@ if [[ -d ~/.pyenv/ ]]; then
 fi
 
 # Add local bin folders
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Load custom aliases
 [ -f ~/.custom_aliases.sh ] && source ~/.custom_aliases.sh
