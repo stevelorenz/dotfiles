@@ -180,6 +180,11 @@ if count(g:bundle_groups, 'general')
     " - Better whitespace highlighting
     Plug 'ntpeters/vim-better-whitespace'
 
+    " - Netrw enhancement
+    Plug 'tpope/vim-vinegar'
+    " hide dotfiles
+    let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+
 endif
 
 "  --- }
