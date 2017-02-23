@@ -493,6 +493,10 @@ nnoremap <F8> :UndotreeToggle<CR>
 
 " F10: toggle tagbar
 nnoremap <F10> :TagbarToggle<CR>
+
+" F12: Reload sytax highlighting
+noremap <F12> <Esc>:syntax sync fromstart<CR>
+inoremap <F12> <C-o>:syntax sync fromstart<CR>
 " ---------------------------------------------------------
 " }
 
