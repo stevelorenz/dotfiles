@@ -26,7 +26,6 @@ scroll_on_keystroke = true
 clickable_url = true
 filter_unmatched_urls = true
 
-
 # --- color scheme ---
 [colors]
 # based on solarized

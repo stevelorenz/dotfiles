@@ -179,12 +179,12 @@ mode "resize" {
     bindsym j resize grow height 5 px or 5 ppt
     bindsym k resize shrink height 5 px or 5 ppt
     bindsym l resize grow width 5 px or 5 ppt
-    
+
     bindsym Left resize shrink width 10 px or 10 ppt
     bindsym Down resize grow height 10 px or 10 ppt
     bindsym Up resize shrink height 10 px or 10 ppt
     bindsym Right resize grow width 10 px or 10 ppt
-    
+
     # exit resize mode: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -247,13 +247,13 @@ set $base0F #fcc09e
 bar {
     position top
     font pango:Monaco Regular 18
-    tray_output eDP1
+    # tray_output eDP1
     tray_padding 3
     strip_workspace_numbers yes
-    
+
     # Use i3blocks instead of the default i3status
     status_command i3blocks -c /home/steve/.config/i3/i3blocks.conf
-    
+
     colors {
         separator $base03
         background $base01
