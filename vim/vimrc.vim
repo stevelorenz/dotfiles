@@ -491,6 +491,9 @@ nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 " F8: toggle undo tree visualizer
 nnoremap <F8> :UndotreeToggle<CR>
 
+" F9: list available snippets
+" Check config of UltiSnips in plugin.vim
+
 " F10: toggle tagbar
 nnoremap <F10> :TagbarToggle<CR>
 

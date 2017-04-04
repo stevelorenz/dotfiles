@@ -301,6 +301,7 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
     " set triggers -> <leader><tab>
     let g:UltiSnipsExpandTrigger = "<leader><tab>"
+    let g:UltiSnipsListSnippets = "<f9>"
     let g:UltiSnipsJumpForwardTrigger = "<leader><tab>"
     let g:UltiSnipsJumpBackwardTrigger = "<leader><s-tab>"
     let g:UltiSnipsEditSplit = "vertical"
