@@ -508,7 +508,7 @@ inoremap <F12> <C-o>:syntax sync fromstart<CR>
 "==========================================
 " {
 " -- c/cpp --
-autocmd BufNewFile,BufRead *.c, *.cpp, *.h, *.hpp
+autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
             \ set tabstop=4 |
             \ set shiftwidth=4 |
             \ set softtabstop=4 |
