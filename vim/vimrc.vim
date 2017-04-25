@@ -663,5 +663,14 @@ function! ToggleBG()
         set background=dark
     endif
 endfunction
+
+" Generate database for ctags and cscope
+function! GeDBCC()
+    !find ./ -name "*.c" -o -name "*.h" > ./cscope.files
+    " -b: quite mode
+    " -q: generate cscope.in.out and cscope.po.out to make it faster
+    !cscope -Rbq -i ./cscope.files
+    !ctags -R --exclude=.git
+endfunction
 " }
 " }
