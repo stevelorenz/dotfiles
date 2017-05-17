@@ -334,6 +334,9 @@ endif
 " - Simplify Doxygen documentation
 Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c', 'cpp'] }
 let g:DoxygenToolkit_briefTag_funcName = "yes"
+
+"- Additional Vim syntax highlighting for C++
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp'] }
 " }
 
 " Python {

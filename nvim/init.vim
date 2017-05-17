@@ -511,9 +511,11 @@ inoremap <F12> <C-o>:syntax sync fromstart<CR>
 " {
 " -- c/cpp --
 autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
-            \ set tabstop=4 |
-            \ set shiftwidth=4 |
-            \ set softtabstop=4 |
+            \ set tabstop=8 |
+            \ set shiftwidth=8 |
+            \ set softtabstop=8 |
+            \ set textwidth=80 |
+            \ set expandtab ! |
 
 " -- markdown --
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
@@ -660,10 +662,10 @@ function! <SID>BufcloseCloseIt()
     endif
 endfunction
 
-" Replace function.
-" confirm: if confirm for every replace
-" wholeword: if match the whole word
-" replace: string to be replaced
+" replace function.
+" - confirm: if confirm for every replace
+" - wholeword: if match the whole word
+" - replace: string to be replaced
 function! Replace(confirm, wholeword, replace)
     wa
     let flag = ''
@@ -682,7 +684,7 @@ function! Replace(confirm, wholeword, replace)
     execute 'argdo %s/' . search . '/' . replace . '/' . flag . '| update'
 endfunction
 
-" Toggle background
+" toggle background
 function! ToggleBG()
     let s:tbg = &background
     " Inversion
@@ -692,14 +694,28 @@ function! ToggleBG()
         set background=dark
     endif
 endfunction
+" }
 
-" Generate database for ctags and cscope
+" Dev {
+" generate database for ctags and cscope
 function! GeDBCC()
     !find ./ -name "*.c" -o -name "*.h" > ./cscope.files
     " -b: quite mode
     " -q: generate cscope.in.out and cscope.po.out to make it faster
     !cscope -Rbq -i ./cscope.files
     !ctags -R --exclude=.git
+endfunction
+
+" extract variable
+function! ExtractVariable()
+    let name = input("Variable name: ")
+    if name == ''
+        return
+    endif
+    normal! gv
+    exec "normal c" . name
+    exec "normal! O" . name . " = "
+    normal! $p
 endfunction
 " }
 " }
