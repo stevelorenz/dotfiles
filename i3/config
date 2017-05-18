@@ -20,10 +20,12 @@ set $mod Mod4
 # Default font
 font pango: Monaco Regular 16
 
-# Start terminal emulator (urxvt, terminator)
+# Start terminal emulator
+set $term termite
 bindsym $mod+Return exec urxvt
-bindsym $mod+t exec termite
-# bindsym $mod+t exec terminator
+bindsym $mod+Shift+Return exec urxvt -e tmux
+bindsym $mod+t exec $term
+bindsym $mod+Shift+t exec $term -e tmux
 
 # Start program launcher (rofi)
 # Use rofi, configs saved in ~/.Xresources
@@ -89,7 +91,10 @@ bindsym $mod+Shift+s mode $mode_system
 # Shortcut for running some useful programs
 # Screenshooter
 bindsym $mod+p exec xfce4-screenshooter
+# Compositing manager
 bindsym $mod+c exec compton -b
+# System monitor
+bindsym $mod+i exec $term -e htop
 
 # Fcitx input method
 set $mode_fcitx "fcitx: (r) un, (q)uit "
@@ -265,4 +270,12 @@ bar {
         urgent_workspace   $base01 $base01 $base08
     }
 }
+# }
+
+# === Gap === {
+hide_edge_borders both
+for_window [class="^.*"] border pixel 0
+# Set inner and outer gap width
+gaps inner 15
+gaps outer 15
 # }
