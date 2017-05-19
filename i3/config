@@ -105,6 +105,10 @@ mode $mode_fcitx {
     bindsym Escape mode "default"
 }
 bindsym $mod+Shift+f mode $mode_fcitx
+
+# Function buttons
+bindsym $mod+F2	exec --no-startup-id arandr
+bindsym $mod+F5	exec --no-startup-id sudo systemctl restart NetworkManager
 # }
 
 # === Container === {
@@ -195,6 +199,9 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+
+# Flash the current focused window
+bindsym $mod+grave exec --no-startup-id bash ~/.config/i3/flash_win.sh
 # }
 
 # === Workspace === {
@@ -277,5 +284,5 @@ hide_edge_borders both
 for_window [class="^.*"] border pixel 0
 # Set inner and outer gap width
 gaps inner 15
-gaps outer 15
+gaps outer 10
 # }
