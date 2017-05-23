@@ -95,6 +95,8 @@ bindsym $mod+p exec xfce4-screenshooter
 bindsym $mod+c exec compton -b
 # System monitor
 bindsym $mod+i exec $term -e htop
+# Ranger file manager
+bindsym $mod+m exec $term -e ranger
 
 # Fcitx input method
 set $mode_fcitx "fcitx: (r) un, (q)uit "
@@ -282,7 +284,53 @@ bar {
 # === Gap === {
 hide_edge_borders both
 for_window [class="^.*"] border pixel 0
+
 # Set inner and outer gap width
-gaps inner 15
-gaps outer 10
+set $default_gaps_inner 15
+set $default_gaps_outer 10
+gaps inner $default_gaps_inner
+gaps outer $default_gaps_outer
+
+# Remove and restore gaps
+set $mode_gaps (0) remove gaps (d) default gaps (i) modify inner gaps (o) modify outer gaps
+mode "$mode_gaps" {
+    bindsym 0 mode "default", exec --no-startup-id i3-msg "gaps inner current set 0" && i3-msg "gaps outer current set 0"
+    bindsym d mode "default", exec --no-startup-id i3-msg "gaps inner current set $default_gaps_inner" && i3-msg "gaps outer current set $default_gaps_outer"
+    bindsym o mode "$mode_gaps_outer"
+    bindsym i mode "$mode_gaps_inner"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps_inner" {
+    bindsym plus  gaps inner current plus 5
+    bindsym minus gaps inner current minus 5
+    bindsym 0 mode "default", gaps inner current set 0
+    bindsym d mode "default", gaps inner current set $default_gaps_inner
+
+    bindsym Shift+plus  gaps inner all plus 5
+    bindsym Shift+minus gaps inner all minus 5
+    bindsym Shift+0     mode "default", gaps inner all set 0
+    bindsym Shift+d     mode "default", gaps inner all set $default_gaps_inner
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+    bindsym plus  gaps outer current plus 5
+    bindsym minus gaps outer current minus 5
+    bindsym 0 mode "default", gaps outer current set 0
+    bindsym d mode "default", gaps outer current set $default_gaps_outer
+
+    bindsym Shift+plus  gaps outer all plus 5
+    bindsym Shift+minus gaps outer all minus 5
+    bindsym Shift+0     mode "default", gaps outer all set 0
+    bindsym Shift+d     mode "default", gaps outer all set $default_gaps_outer
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
 # }

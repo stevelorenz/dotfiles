@@ -185,6 +185,12 @@ if count(g:bundle_groups, 'general')
     " hide dotfiles
     let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 
+    " - Autosave
+    Plug '907th/vim-auto-save'
+    let g:auto_save = 1
+    " save every time you leave insert mode
+    let g:auto_save_events = ["InsertLeave"]
+
 endif
 
 "  --- }
