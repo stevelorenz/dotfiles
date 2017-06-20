@@ -394,6 +394,9 @@ if count(g:bundle_groups, 'python')
     autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
     autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
+    " - Text objects, folding
+    Plug 'tweekmonster/braceless.vim', { 'for': 'python' }
+
     " - Sort python imports
     Plug 'fisadev/vim-isort', { 'for': 'python' }
     " disable mapping

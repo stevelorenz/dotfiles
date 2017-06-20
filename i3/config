@@ -52,6 +52,7 @@ exec $psst unclutter  # auto hide cursor
 exec $psst nm-applet  # network manager tray
 exec $psst pamac-tray  # pamac package manager tray
 exec $psst xfce4-power-manager  # xfce4 power manager
+exec $psst xfce4-clipman  # xfce4 clipboard manager
 
 # Backlight control (xbacklight)
 bindsym $mod+Shift+b exec --no-startup-id xbacklight +5
@@ -288,8 +289,9 @@ for_window [class="^.*"] border pixel 0
 # Set inner and outer gap width
 set $default_gaps_inner 15
 set $default_gaps_outer 10
-gaps inner $default_gaps_inner
-gaps outer $default_gaps_outer
+# Default no gap
+gaps inner 0
+gaps outer 0
 
 # Remove and restore gaps
 set $mode_gaps (0) remove gaps (d) default gaps (i) modify inner gaps (o) modify outer gaps
