@@ -1,86 +1,51 @@
-#!/bin/bash
-# ------------------------------------------------------------------
-# Description: Setup configuration of most used tools
-# ------------------------------------------------------------------
+#! /bin/sh
+#
+# About: Set configs of my most used tools
+#
+# config-tools.sh
+# Copyright (C) 2017 steve <steve@steve-pc>
 
-# --- Environment --------------------------------------------------
-_ME=$(basename "${0}")
-VERSION=0.1.0
+DOTFILES_DIR="$HOME/.cache/dotfiles"
+CUR_DATE=$(date +%Y-%m-%d)
 
-# --- Functions ----------------------------------------------------
-function _print_help() {
-    # Print the program help information.
-    cat <<HEREDOC
-
-    Usage:
-    ${_ME} [--options] [<arguments>]
-
-    Options:
-    -v Config VIM with plugins.
-    -h Display this help information.
-HEREDOC
-}
-
-function config_vim() {
-    printf "Config VIM...\n"
-    if [ -d ~/dotfiles/ ]; then
-        rm -rf ~/dotfiles/
-    fi
-    git clone https://github.com/stevelorenz/dotfiles.git ~/dotfiles
-    if [ -d ~/.vim ]; then
-        rm -rf ~/.vim
-    fi
-    cp -r ~/dotfiles/vim/ ~/.vim
-    ln -s ~/.vim/vimrc.vim ~/.vimrc
-}
-
-function config_tmux() {
-    printf "Config TMUX...\n"
-    if [ -d ~/dotfiles/ ]; then
-        rm -rf ~/dotfiles/
-    fi
-    git clone https://github.com/stevelorenz/dotfiles.git ~/dotfiles
-    if [ -d ~/.tmux ]; then
-        rm -rf ~/.tmux
-    fi
-    cp -r ~/dotfiles/tmux/ ~/.tmux
-    ln -s ~/.tmux/tmux_no_plugins.conf ~/.tmux.conf
-}
-
-# --- Option processing --------------------------------------------
-if [ $# == 0 ] ; then
-    _print_help
-    exit 1;
+if ! type git > /dev/null; then
+    printf "Git is not installed, please install git.\n"
 fi
 
-while getopts ":vbh" optname
-do
-    case "$optname" in
-        "v")
-            config_vim
-            exit 0;
+if [[ -d "$DOTFILES_DIR" ]]; then
+    printf "[Warning] The dotfiles directory exists in the ~/.cache/ \n"
+    read -n1 -p "Do you want to (b)ackup it, (r)emove it or doing (n)othing? (b/r/n) " choice
+    printf "\n"
+    case $choice in
+        b)
+            printf "Backup the dotfile folder...\n"
+            cp "$HOME/.cache/dotfiles/" "$HOME/.cache/dotfiles_backup_$CUR_DATE"
+            rm -rf "$DOTFILES_DIR"
             ;;
-        "t")
-            config_tmux
-            exit 0;
+        r)
+            printf "Remove the dotfile folder...\n"
+            rm -rf "$DOTFILES_DIR"
             ;;
-        "h")
-            _print_help
-            exit 0;
-            ;;
-        "?")
-            echo "Unknown option $OPTARG"
-            exit 0;
-            ;;
-        ":")
-            echo "No argument value for option $OPTARG"
-            exit 0;
-            ;;
-        *)
-            echo "Unknown error while processing options"
-            exit 0;
+        n)
+            printf "The script exists...\n"
+            exit
             ;;
     esac
-done
+fi
 
-shift $(($OPTIND - 1))
+mkdir -p "$DOTFILES_DIR"
+git clone https://github.com/stevelorenz/dotfiles.git "$DOTFILES_DIR"
+
+printf "\n[Config] Copy and link vim config...\n"
+cp -r "$DOTFILES_DIR/vim" "$HOME/.vim"
+ln -s "$HOME/.vim/vimrc.vim" "$HOME/.vimrc"
+
+printf "\n[Config] Copy and link tmux config...\n"
+cp -r "$DOTFILES_DIR/tmux" "$HOME/.tmux"
+ln -s "$HOME/.tmux/tmux_no_plugins.conf" "$HOME/.tmux.conf"
+
+##############
+#  Cleanups  #
+##############
+
+rm -rf "$DOTFILES_DIR"

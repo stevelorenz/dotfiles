@@ -102,4 +102,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Setup fast fuzzy finder, fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Alias for the fuck
+eval $(thefuck --alias fuck)
 # ----------------------------------------------------------
