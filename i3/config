@@ -53,6 +53,7 @@ exec $psst nm-applet  # network manager tray
 exec $psst pamac-tray  # pamac package manager tray
 exec $psst xfce4-power-manager  # xfce4 power manager
 exec $psst xfce4-clipman  # xfce4 clipboard manager
+exec $psst workrave # prevention and recovery of Repetitive Strain Injury
 
 # Backlight control (xbacklight)
 bindsym $mod+Shift+b exec --no-startup-id xbacklight +5
@@ -112,6 +113,14 @@ bindsym $mod+Shift+f mode $mode_fcitx
 # Function buttons
 bindsym $mod+F2	exec --no-startup-id arandr
 bindsym $mod+F5	exec --no-startup-id sudo systemctl restart NetworkManager
+# }
+
+# === Border === {
+# Hide all borders
+hide_edge_borders both
+for_window [class="^.*"] border pixel 0
+new_window normal
+new_float normal
 # }
 
 # === Container === {
@@ -283,15 +292,16 @@ bar {
 # }
 
 # === Gap === {
-hide_edge_borders both
-for_window [class="^.*"] border pixel 0
-
-# Set inner and outer gap width
-set $default_gaps_inner 15
-set $default_gaps_outer 10
-# Default no gap
+# Default no gaps
 gaps inner 0
 gaps outer 0
+
+# Enable gaps to only be used if there is more than one container on the workspace
+smart_gaps on
+
+# Set default inner and outer gap width
+set $default_gaps_inner 15
+set $default_gaps_outer 10
 
 # Remove and restore gaps
 set $mode_gaps (0) remove gaps (d) default gaps (i) modify inner gaps (o) modify outer gaps
@@ -334,5 +344,4 @@ mode "$mode_gaps_outer" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-
 # }

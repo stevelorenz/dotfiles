@@ -8,7 +8,7 @@
 iface="${BLOCK_INSTANCE}"
 dt=3
 unit=Mb
-printf_command="printf \"D:%5.1f U:%5.1f %s/s\n\", rx, wx, unit;"
+printf_command="printf \"D:%4.1f U:%4.1f %s/s\n\", rx, wx, unit;"
 
 function default_interface {
     ip route | awk '/^default via/ {print $5; exit}'

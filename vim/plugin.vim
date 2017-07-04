@@ -191,6 +191,9 @@ if count(g:bundle_groups, 'general')
     " save every time you leave insert mode
     let g:auto_save_events = ["InsertLeave"]
 
+    " Show contents of the registers
+    Plug 'junegunn/vim-peekaboo'
+
 endif
 
 "  --- }
@@ -394,6 +397,9 @@ if count(g:bundle_groups, 'python')
     autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
     autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
+    " - Text objects, folding
+    Plug 'tweekmonster/braceless.vim', { 'for': 'python' }
+
     " - Sort python imports
     Plug 'fisadev/vim-isort', { 'for': 'python' }
     " disable mapping
@@ -454,6 +460,10 @@ if count(g:bundle_groups, 'colorscheme')
     let g:seoul256_light_background = 256
 
     Plug 'joshdick/onedark.vim'
+
+    Plug 'liuchengxu/space-vim-dark'
+
+    Plug 'ashfinal/vim-colors-violet'
 endif
 
 " --- }

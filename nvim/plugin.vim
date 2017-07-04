@@ -191,6 +191,9 @@ if count(g:bundle_groups, 'general')
     " save every time you leave insert mode
     let g:auto_save_events = ["InsertLeave"]
 
+    " Show contents of the registers
+    Plug 'junegunn/vim-peekaboo'
+
 endif
 
 "  --- }
@@ -457,6 +460,10 @@ if count(g:bundle_groups, 'colorscheme')
     let g:seoul256_light_background = 256
 
     Plug 'joshdick/onedark.vim'
+
+    Plug 'liuchengxu/space-vim-dark'
+
+    Plug 'ashfinal/vim-colors-violet'
 endif
 
 " --- }
