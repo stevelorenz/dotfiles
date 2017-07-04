@@ -42,9 +42,9 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # Wallpaper (feh)
 # Auto set wallpapers after login in, random all mode
-exec --no-startup-id feh --bg-scale --randomize /home/steve/photo/Wallpaper
+exec --no-startup-id feh --bg-scale --randomize $HOME/photo/Wallpaper
 # change wallpaper with random all mode
-bindsym $mod+Shift+w  exec --no-startup-id feh --bg-scale --randomize /home/steve/photo/Wallpaper
+bindsym $mod+Shift+w  exec --no-startup-id feh --bg-scale --randomize $HOME/photo/Wallpaper
 
 # Auto start programs
 set $psst --no-startup-id
@@ -76,7 +76,7 @@ mode $keyboard_mode{
 bindsym $mod+Shift+i mode $keyboard_mode
 
 # system operations
-set $locker i3lock -e -t -f --image /home/steve/photo/Wallpaper/Apink_Six.png
+set $locker i3lock -e -t -f --image $HOME/photo/Wallpaper/Apink_Six.png
 set $mode_system "system operation: (l) lock, (e) logout, (s) lock & suspend, (h) lock & hibernate, (r) reboot, (shift+s) shutdown"
 mode $mode_system {
     bindsym l exec --no-startup-id "$locker", mode "default"
@@ -276,7 +276,7 @@ bar {
     strip_workspace_numbers yes
 
     # Use i3blocks instead of the default i3status
-    status_command i3blocks -c /home/steve/.config/i3/i3blocks.conf
+    status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
 
     colors {
         separator $base03
