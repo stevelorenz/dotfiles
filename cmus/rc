@@ -1,5 +1,14 @@
+# ----------------------------------------------------------
+# CMUS Config File
+# ----------------------------------------------------------
+
 colorscheme night
 
+# Set the password for remote control
+set passwd=cmus-stevel
+
+# Do not set system volume
+set softvol=true
 # Use cmus with alsa
 set output_plugin=alsa
 set dsp.alsa.device=default
