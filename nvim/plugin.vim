@@ -318,13 +318,52 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
     " - Use tab for completion
-    Plug 'ervandew/supertab'
-    let g:SuperTabDefaultCompletionType = "context"
-    let g:SuperTabContextDefaultCompletionType = "<c-n>"
-    " close preview window when popup closes
-    let g:SuperTabClosePreviewOnPopupClose = 1
-    " remember last completion type until 'esc' to normal mode
-    let g:SuperTabRetainCompletionType=2
+    " Plug 'ervandew/supertab'
+    " let g:SuperTabDefaultCompletionType = "context"
+    " let g:SuperTabContextDefaultCompletionType = "<c-n>"
+    " " close preview window when popup closes
+    " let g:SuperTabClosePreviewOnPopupClose = 1
+    " " remember last completion type until 'esc' to normal mode
+    " let g:SuperTabRetainCompletionType=2
+
+    " - Dark powered asynchronous completion framework for neovim {
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_smart_case = 1
+    let g:deoplete#skip_chars = ['(', ')', '<', '>']
+    let g:deoplete#max_abbr_width = 35
+    let g:deoplete#max_menu_width = 20
+
+    " use tab to select completions
+    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    inoremap <expr><S-tab> pumvisible() ? "\<c-p>": "\<S-tab>"
+    " <C-h>, <BS>: close popup and delete backword char
+    inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+    inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+    " <CR>: close popup and save indent
+    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function() abort
+        return deoplete#close_popup() . "\<CR>"
+    endfunction
+    " close the documentation window when completion is done
+    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+    " - deoplete sources
+    Plug 'zchee/deoplete-jedi'
+
+    " - disable deoplete for certain file types
+    autocmd FileType tex let b:deoplete_disable_auto_complete = 1
+    " }
+
+    " - Fast, Extensible, Async Completion Framework for Neovim {
+    " Plug 'roxma/nvim-completion-manager'
+    " set shortmess+=c
+    " " Use this mapping to hide the menu and also start a new line.
+    " inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+    " " Use tab to select popup menu
+    " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    " }
 
     " - Speed up vim by updating folds only when called-for.
     Plug 'Konfekt/FastFold'
