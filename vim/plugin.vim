@@ -180,19 +180,27 @@ if count(g:bundle_groups, 'general')
     " - Better whitespace highlighting
     Plug 'ntpeters/vim-better-whitespace'
 
-    " - Netrw enhancement
-    Plug 'tpope/vim-vinegar'
-    " hide dotfiles
-    let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
-
     " - Autosave
     Plug '907th/vim-auto-save'
     let g:auto_save = 0
     " save every time you leave insert mode
     let g:auto_save_events = ["InsertLeave"]
 
-    " Show contents of the registers
+    " - Show contents of the registers
     Plug 'junegunn/vim-peekaboo'
+
+    " - A tree explorer
+    Plug 'scrooloose/nerdtree'
+    let NERDTreeMinimalUI = 1
+    let NERDTreeDirArrows = 1
+    let g:NERDTreeHighlightCursorline = 0
+    " close vim if nerdtree is the last buffer
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType")
+                \&& b:NERDTreeType == "primary") | q | endif
+    " disable cursor line in nerdtree window
+    autocmd FileType nerdtree setlocal nocursorline
+    " ignored files
+    let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git$[[dir]]', '.swap', '.tmp']
 
 endif
 
