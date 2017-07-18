@@ -5,16 +5,4 @@ Favorite and **mostly used** tools should be configurable with config-files(usua
 
 This is a snapshot of my dot files.
 
-## My Recommended Tools
-
-#### General Programming
-
-- [Neovim](https://neovim.io/): Vim-fork focused on extensibility and agility.
-- [Ag](https://github.com/ggreer/the_silver_searcher): Fast code-searching tool.
-- [Cheerytree](http://www.giuspen.com/cherrytree/): : A hierarchical note taking application.
-- [ZEAL](https://zealdocs.org/): A offline documentation browser for developers.
-
-#### Python Dev
-
-- [Pylint](https://www.pylint.org/): Code analysis for Python.
-- [Autopep8](https://github.com/hhatto/autopep8): Automatically formats Python code to conform to the PEP 8 style guide.
+## [My Recommended Tools](./tools_list.md)

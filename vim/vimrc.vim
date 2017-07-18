@@ -12,8 +12,10 @@
 "    -> Keyboard Mapping Settings
 "    -> File Type Custom Settings
 "    -> Dev Tools Settings
+"    -> Theme Settings
 "    -> Helper Functions
 "==========================================
+
 
 "==========================================
 " Initial Plugin: Vim-Plug
@@ -216,6 +218,9 @@ endif
 " new splits
 set splitright " puts new vsplit windows to the right of the current
 set splitbelow " puts new split windows to the bottom of the current
+
+" ctags location
+set tags=./tags;/
 
 " }
 
@@ -436,6 +441,21 @@ nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 " toggle spell checking
 noremap <leader>ss :setlocal spell!<cr>
 
+" move lines
+nnoremap <silent> <C-k> :move-2<cr>
+nnoremap <silent> <C-j> :move+<cr>
+nnoremap <silent> <C-h> <<
+nnoremap <silent> <C-l> >>
+xnoremap <silent> <C-k> :move-2<cr>gv
+xnoremap <silent> <C-j> :move'>+<cr>gv
+xnoremap <silent> <C-h> <gv
+xnoremap <silent> <C-l> >gv
+xnoremap < <gv
+xnoremap > >gv
+
+" close quickfix/location window
+noremap <leader>c :cclose<bar>lclose<cr>
+
 " === Tab and Buffer===
 " ---------------------------------------------------------
 " --- Buffer---
@@ -490,6 +510,9 @@ nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
 " F6: toggle nerdtree file explorer
 nnoremap <F6> :NERDTreeToggle<CR>
+
+" F7: insert ipdb trace point
+" Python configs in autoload
 
 " F8: toggle undo tree visualizer
 nnoremap <F8> :UndotreeToggle<CR>

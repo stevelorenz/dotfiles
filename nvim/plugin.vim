@@ -3,16 +3,17 @@
 " About: Plugin Configs for Vim/NeoVim
 " Maintainer: Xiang, Zuo
 " Email: xianglinks@gmail.com
-" Version: 1.0
 " Sections:
 "    -> General
 "    -> General Programming
+"    -> General Editing
 "    -> Snippet and General Auto Complete
 "    -> Programming Language Specific
 "      -> C, CPP
 "      -> Python
 "      -> (X)HTML
 "      -> Javascript
+"      -> (La)Tex
 "    -> Documentation and Writing
 "    -> Colorscheme
 "=========================================
@@ -33,7 +34,8 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 " remove element in the list to disable a collection of plugins.
 " for example, remove 'python' will disable all plugins in the python section.
 if !exists('g:bundle_groups')
-    let g:bundle_groups=['general', 'general_programming', 'snippet_autocomplete', 'python', '(x)html', 'javascript', 'tex', 'colorscheme']
+    let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
+                \ 'c_cpp', 'python', '(x)html', 'javascript', 'tex', 'colorscheme']
 endif
 
 " --- General --------------------------------------------- {
@@ -71,10 +73,19 @@ if count(g:bundle_groups, 'general')
     let g:netrw_browse_split = 4
     let g:netrw_altv = 1
 
-    " - Insert mode auto-completion for quotes, parentheses, brackets
-    Plug 'Raimondi/delimitMate'
-    au FileType python let b:delimitMate_nesting_quotes = ['"']
-    au FileType mail let b:delimitMate_expand_inside_quotes = 1
+    " - A tree explorer
+    Plug 'scrooloose/nerdtree'
+    let g:NERDTreeWinPos = "right"
+    let NERDTreeMinimalUI = 1
+    let NERDTreeDirArrows = 1
+    let g:NERDTreeHighlightCursorline = 0
+    " close vim if nerdtree is the last buffer
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType")
+                \&& b:NERDTreeType == "primary") | q | endif
+    " disable cursor line in nerdtree window
+    autocmd FileType nerdtree setlocal nocursorline
+    " ignored files
+    let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git$[[dir]]', '.swap', '.tmp']
 
     " - Fuzzy file, buffer and MRU finder
     Plug 'ctrlpvim/ctrlp.vim'
@@ -107,12 +118,6 @@ if count(g:bundle_groups, 'general')
     Plug 'fisadev/vim-ctrlp-cmdpalette', { 'on': 'CtrlPCmdPalette' }
     nnoremap <C-P>c :CtrlPCmdPalette<CR>
 
-    " - Surroundings editing
-    Plug 'tpope/vim-surround'
-
-    " - Enable repeating supported plugin maps with "."
-    Plug 'tpope/vim-repeat'
-
     " - Undo history visualizer
     Plug 'mbbill/undotree', { 'on':  'UndotreeToggle' }
     let g:undotree_SetFocusWhenToggle = 1
@@ -133,15 +138,6 @@ if count(g:bundle_groups, 'general')
     let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
     let g:qs_first_occurrence_highlight_color = 155
     let g:qs_second_occurrence_highlight_color = 81
-
-    " - Multiple cursor editing
-    Plug 'terryma/vim-multiple-cursors'
-    " use default mapping
-    let g:multi_cursor_use_default_mapping=1
-    let g:multi_cursor_next_key = '<C-n>'
-    let g:multi_cursor_prev_key = '<C-p>'
-    let g:multi_cursor_skip_key = '<C-x>'
-    let g:multi_cursor_quit_key = '<Esc>'
 
     " - Show marks
     Plug 'kshenoy/vim-signature'
@@ -171,41 +167,49 @@ if count(g:bundle_groups, 'general')
     " - Search results counter
     Plug 'vim-scripts/IndexedSearch'
 
-    " - Pairs of handy bracket mappings
-    Plug 'tpope/vim-unimpaired'
-
-    " - Underlines the word under the cursor
-    Plug 'itchyny/vim-cursorword'
-
-    " - Better whitespace highlighting
-    Plug 'ntpeters/vim-better-whitespace'
-
-    " - Autosave
-    Plug '907th/vim-auto-save'
-    let g:auto_save = 0
-    " save every time you leave insert mode
-    let g:auto_save_events = ["InsertLeave"]
-
-    " - Show contents of the registers
-    Plug 'junegunn/vim-peekaboo'
-
-    " - A tree explorer
-    Plug 'scrooloose/nerdtree'
-    let NERDTreeMinimalUI = 1
-    let NERDTreeDirArrows = 1
-    let g:NERDTreeHighlightCursorline = 0
-    " close vim if nerdtree is the last buffer
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType")
-                \&& b:NERDTreeType == "primary") | q | endif
-    " disable cursor line in nerdtree window
-    autocmd FileType nerdtree setlocal nocursorline
-    " ignored files
-    let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git$[[dir]]', '.swap', '.tmp']
-
 endif
 
 "  --- }
 
+" --- General Editing ------------------------------------- {
+
+if count(g:bundle_groups, 'general_editing')
+
+    " - Insert mode auto-completion for quotes, parentheses, brackets
+    Plug 'Raimondi/delimitMate'
+    au FileType python let b:delimitMate_nesting_quotes = ['"']
+    au FileType mail let b:delimitMate_expand_inside_quotes = 1
+
+    " - Surroundings editing
+    Plug 'tpope/vim-surround'
+
+    " - Enable repeating supported plugin maps with "."
+    Plug 'tpope/vim-repeat'
+
+    " - Multiple cursor editing
+    Plug 'terryma/vim-multiple-cursors'
+    " use default mapping
+    let g:multi_cursor_use_default_mapping=1
+    let g:multi_cursor_next_key = '<C-n>'
+    let g:multi_cursor_prev_key = '<C-p>'
+    let g:multi_cursor_skip_key = '<C-x>'
+    let g:multi_cursor_quit_key = '<Esc>'
+
+    " - Underlines the word under the cursor
+    Plug 'itchyny/vim-cursorword'
+
+    " - Pairs of handy bracket mappings
+    Plug 'tpope/vim-unimpaired'
+
+    " - Better whitespace highlighting
+    Plug 'ntpeters/vim-better-whitespace'
+
+    " - Show contents of the registers
+    Plug 'junegunn/vim-peekaboo'
+
+endif
+
+"  --- }
 
 " --- General Programming --------------------------------- {
 
@@ -222,11 +226,18 @@ if count(g:bundle_groups, 'general_programming')
     let g:polyglot_disabled = ['latex']
 
     " - Async :make and linting framework
-    Plug 'neomake/neomake'
-    " use makefile as default marker
-    let g:neomake_enabled_makers = ['makeprg']
-    " -- set language checkers --
-    let g:neomake_python_enabled_makers = ['pep8', 'pylint']
+    if has('nvim') || v:version > 800
+        Plug 'neomake/neomake'
+        " use makefile as default marker
+        let g:neomake_enabled_makers = ['makeprg']
+        " -- set language checkers --
+        let g:neomake_python_enabled_makers = ['pep8', 'pylint']
+    endif
+
+    " - Asynchronous Lint Engine
+    " if has('nvim') || v:version > 800
+    " Plug 'w0rp/ale'
+    " endif
 
     " - Dynamically show tags
     Plug 'majutsushi/tagbar'
@@ -325,43 +336,46 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     " searching paths
     let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
-    " - Use tab for completion
-    " Plug 'ervandew/supertab'
-    " let g:SuperTabDefaultCompletionType = "context"
-    " let g:SuperTabContextDefaultCompletionType = "<c-n>"
-    " " close preview window when popup closes
-    " let g:SuperTabClosePreviewOnPopupClose = 1
-    " " remember last completion type until 'esc' to normal mode
-    " let g:SuperTabRetainCompletionType=2
+    " - Autocomplete framework
+    if has('nvim')
+        " - Dark powered asynchronous completion framework for neovim {
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+        let g:deoplete#enable_at_startup = 1
+        let g:deoplete#enable_smart_case = 1
+        let g:deoplete#skip_chars = ['(', ')', '<', '>']
+        let g:deoplete#max_abbr_width = 35
+        let g:deoplete#max_menu_width = 20
 
-    " - Dark powered asynchronous completion framework for neovim {
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#enable_smart_case = 1
-    let g:deoplete#skip_chars = ['(', ')', '<', '>']
-    let g:deoplete#max_abbr_width = 35
-    let g:deoplete#max_menu_width = 20
+        " use tab to select completions
+        inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+        inoremap <expr><S-tab> pumvisible() ? "\<c-p>": "\<S-tab>"
+        " <C-h>, <BS>: close popup and delete backword char
+        inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+        inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+        " <CR>: close popup and save indent
+        inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+        function! s:my_cr_function() abort
+            return deoplete#close_popup() . "\<CR>"
+        endfunction
+        " close the documentation window when completion is done
+        autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-    " use tab to select completions
-    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-    inoremap <expr><S-tab> pumvisible() ? "\<c-p>": "\<S-tab>"
-    " <C-h>, <BS>: close popup and delete backword char
-    inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-    " <CR>: close popup and save indent
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    function! s:my_cr_function() abort
-        return deoplete#close_popup() . "\<CR>"
-    endfunction
-    " close the documentation window when completion is done
-    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+        " - deoplete sources
+        Plug 'zchee/deoplete-jedi'
 
-    " - deoplete sources
-    Plug 'zchee/deoplete-jedi'
-
-    " - disable deoplete for certain file types
-    autocmd FileType tex let b:deoplete_disable_auto_complete = 1
-    " }
+        " - disable deoplete for certain file types
+        autocmd FileType tex let b:deoplete_disable_auto_complete = 1
+        " }
+    else
+        " - Use basic supertab for completion
+        Plug 'ervandew/supertab'
+        let g:SuperTabDefaultCompletionType = "context"
+        let g:SuperTabContextDefaultCompletionType = "<c-n>"
+        " close preview window when popup closes
+        let g:SuperTabClosePreviewOnPopupClose = 1
+        " remember last completion type until 'esc' to normal mode
+        let g:SuperTabRetainCompletionType=2
+    endif
 
     " - Fast, Extensible, Async Completion Framework for Neovim {
     " Plug 'roxma/nvim-completion-manager'
@@ -387,12 +401,14 @@ endif
 " --- Programming Language Specific ----------------------- {
 
 " C, CPP {
-" - Simplify Doxygen documentation
-Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c', 'cpp'] }
-let g:DoxygenToolkit_briefTag_funcName = "yes"
+if count(g:bundle_groups, 'c_cpp')
+    " - Simplify Doxygen documentation
+    Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c', 'cpp'] }
+    let g:DoxygenToolkit_briefTag_funcName = "yes"
 
-"- Additional Vim syntax highlighting for C++
-Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp'] }
+    "- Additional Vim syntax highlighting for C++
+    Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp'] }
+endif
 " }
 
 " Python {
