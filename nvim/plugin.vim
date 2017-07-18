@@ -167,6 +167,9 @@ if count(g:bundle_groups, 'general')
     " - Search results counter
     Plug 'vim-scripts/IndexedSearch'
 
+    " - Enhancing in-buffer search experience
+    Plug 'junegunn/vim-slash'
+
 endif
 
 "  --- }
@@ -226,7 +229,7 @@ if count(g:bundle_groups, 'general_programming')
     let g:polyglot_disabled = ['latex']
 
     " - Async :make and linting framework
-    if has('nvim') || v:version > 800
+    if has('nvim') || v:version >= 800
         Plug 'neomake/neomake'
         " use makefile as default marker
         let g:neomake_enabled_makers = ['makeprg']
@@ -235,7 +238,7 @@ if count(g:bundle_groups, 'general_programming')
     endif
 
     " - Asynchronous Lint Engine
-    " if has('nvim') || v:version > 800
+    " if has('nvim') || v:version >= 800
     " Plug 'w0rp/ale'
     " endif
 

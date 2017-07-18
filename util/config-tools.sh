@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/bash
 #
 # About: Set configs of my most used tools
 #
@@ -9,12 +9,13 @@ DOTFILES_DIR="$HOME/.cache/dotfiles"
 CUR_DATE=$(date +%Y-%m-%d)
 
 if ! type git > /dev/null; then
-    printf "Git is not installed, please install git.\n"
+    printf "[Warning] Git is not installed, please install git.\n"
+    exit 1
 fi
 
 if [[ -d "$DOTFILES_DIR" ]]; then
     printf "[Warning] The dotfiles directory exists in the ~/.cache/ \n"
-    read -n1 -p "Do you want to (b)ackup it, (r)emove it or doing (n)othing? (b/r/n) " choice
+    read -n1 -p -r "Do you want to (b)ackup it, (r)emove it or doing (n)othing? (b/r/n) " choice
     printf "\n"
     case $choice in
         b)
@@ -36,13 +37,32 @@ fi
 mkdir -p "$DOTFILES_DIR"
 git clone https://github.com/stevelorenz/dotfiles.git "$DOTFILES_DIR"
 
+VIMDIR="$HOME/.vim"
+NVIMDIR="$HOME/.config/nvim"
+TMUXDIR="$HOME/.tmux"
+
 printf "\n[Config] Copy and link vim config...\n"
+if [[ -d  "$VIMDIR" ]]; then
+    printf "[Warning] vim config dir already exists, rename it to ~/.vim_%s\n" "$CUR_DATE"
+    mv "$HOME/.vim" "$HOME/.vim_$CUR_DATE"
+fi
 cp -r "$DOTFILES_DIR/vim" "$HOME/.vim"
-ln -s "$HOME/.vim/vimrc.vim" "$HOME/.vimrc"
+ln -sf "$HOME/.vim/vimrc.vim" "$HOME/.vimrc"
+
+printf "\n[Config] Copy neovim config...\n"
+if [[ -d  "$NVIMDIR" ]]; then
+    printf "[Warning] neovim config dir already exists, rename it to ~/.config/nvim_%s\n" "$CUR_DATE"
+    mv "$HOME/.config/nvim" "$HOME/.config/nvim_$CUR_DATE"
+fi
+cp -r "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 
 printf "\n[Config] Copy and link tmux config...\n"
+if [[ -d  "$TMUXDIR" ]]; then
+    printf "[Warning] tmux dir already exists, rename it to ~/.tmux_%s\n" "$CUR_DATE"
+    mv "$HOME/.tmux" "$HOME/.tmux_$CUR_DATE"
+fi
 cp -r "$DOTFILES_DIR/tmux" "$HOME/.tmux"
-ln -s "$HOME/.tmux/tmux_no_plugins.conf" "$HOME/.tmux.conf"
+ln -s "$HOME/.tmux/tmux.conf" "$HOME/.tmux.conf"
 
 ##############
 #  Cleanups  #

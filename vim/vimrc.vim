@@ -413,11 +413,6 @@ nnoremap <leader>sa ggVG"
 " copy all to system clipboard
 nnoremap <leader><leader>ca :%y+<CR>
 
-" use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-    nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-endif
-
 " change window size
 " horizontal: = -
 " vertical: , .
