@@ -62,10 +62,21 @@ if [[ -d  "$TMUXDIR" ]]; then
     mv "$HOME/.tmux" "$HOME/.tmux_$CUR_DATE"
 fi
 cp -r "$DOTFILES_DIR/tmux" "$HOME/.tmux"
-ln -s "$HOME/.tmux/tmux.conf" "$HOME/.tmux.conf"
+ln -sf "$HOME/.tmux/tmux.conf" "$HOME/.tmux.conf"
+
+printf "\n[Config] Copy common dev config files...\n"
+cp -f "$DOTFILES_DIR/dev_tool/agignore" "$HOME/.agignore"
+cp -f "$DOTFILES_DIR/dev_tool/ctags" "$HOME/.ctags"
+cp -f "$DOTFILES_DIR/dev_tool/gdbinit" "$HOME/.gdbinit"
+mkdir -p "$HOME/.config/pip"
+cp -f "$DOTFILES_DIR/dev_tool/python_dev/pip.conf" "$HOME/.config/pip/pip.conf"
+mkdir -p "$HOME/.config/cmus"
+cp -rfT "$DOTFILES_DIR/cmus" "$HOME/.config/cmus"
+cp -f "$DOTFILES_DIR/gitconfig" "$HOME/.gitconfig"
 
 ##############
 #  Cleanups  #
 ##############
 
+printf "[CLEANUP] Remove dotfile directory."
 rm -rf "$DOTFILES_DIR"

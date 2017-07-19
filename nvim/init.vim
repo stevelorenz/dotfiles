@@ -368,8 +368,10 @@ nnoremap <leader>Q :q!<CR>
 " map <space> for searching
 noremap <space> /
 
-" tap kj quickly to normal mode
-inoremap kj <Esc>
+" tap jk quickly to normal mode
+inoremap jk <Esc>
+xnoremap jk <Esc>
+cnoremap jk <C-c>
 
 " close arrow keys in insert mode
 map <Left> <Nop>
@@ -448,8 +450,20 @@ xnoremap <silent> <C-l> >gv
 xnoremap < <gv
 xnoremap > >gv
 
-" close quickfix/location window
-noremap <leader>c :cclose<bar>lclose<cr>
+" tags
+nnoremap <C-]> g<C-]>
+nnoremap g[ :pop<cr>
+
+" ctrl+s for update
+inoremap <C-s> <C-O>:update<cr>
+nnoremap <C-s> :update<cr>
+
+" open/close quickfix/location window
+noremap <leader>c :copen<cr>
+noremap <leader><leader>c :cclose<bar>lclose<cr>
+
+" qq to record, Q to replay
+nnoremap Q @q
 
 " === Tab and Buffer===
 " ---------------------------------------------------------
