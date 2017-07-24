@@ -174,6 +174,7 @@ endif
 
 "  --- }
 
+
 " --- General Editing ------------------------------------- {
 
 if count(g:bundle_groups, 'general_editing')
@@ -213,6 +214,7 @@ if count(g:bundle_groups, 'general_editing')
 endif
 
 "  --- }
+
 
 " --- General Programming --------------------------------- {
 
