@@ -15,7 +15,7 @@ fi
 
 if [[ -d "$DOTFILES_DIR" ]]; then
     printf "[Warning] The dotfiles directory exists in the ~/.cache/ \n"
-    read -n1 -p -r "Do you want to (b)ackup it, (r)emove it or doing (n)othing? (b/r/n) " choice
+    read -p "Do you want to (b)ackup it, (r)emove it or doing (n)othing? " choice
     printf "\n"
     case $choice in
         b)
@@ -28,8 +28,7 @@ if [[ -d "$DOTFILES_DIR" ]]; then
             rm -rf "$DOTFILES_DIR"
             ;;
         n)
-            printf "The script exists...\n"
-            exit
+            printf "Doing nothing...\n"
             ;;
     esac
 fi
@@ -74,9 +73,5 @@ mkdir -p "$HOME/.config/cmus"
 cp -rfT "$DOTFILES_DIR/cmus" "$HOME/.config/cmus"
 cp -f "$DOTFILES_DIR/gitconfig" "$HOME/.gitconfig"
 
-##############
-#  Cleanups  #
-##############
-
-printf "[CLEANUP] Remove dotfile directory."
+printf "[CLEANUP] Remove dotfile directory.\n"
 rm -rf "$DOTFILES_DIR"

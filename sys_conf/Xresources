@@ -59,10 +59,10 @@ urxvt.url-launcher:        /usr/bin/firefox
 
 ! Set main and alternative fonts
 urxvt*font: xft:monaco:style=regular:size=16:antialias=true, \
-            xft:dejavu sans mono:style=book:size=17:antialias=true, \
-            xft:wenquanyi bitmap song:size=16:antialias=true, \
-            xft:freeserif:style=regular, \
-            xft:unifont:style=medium:antialias=false
+                             xft:dejavu sans mono:style=book:size=17:antialias=true, \
+                             xft:wenquanyi bitmap song:size=16:antialias=true, \
+                             xft:freeserif:style=regular, \
+                             xft:unifont:style=medium:antialias=false
 ! Disable bold font
 urxvt*boldFont:
 ! Reduce letter space by one pixel

@@ -18,7 +18,7 @@
 # Oh_My_Zsh Configuration
 # ----------------------------------------------------------
 # Location on oh my zsh dir
-export ZSH=/home/steve/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Default prompt theme
 ZSH_THEME="robbyrussell"
