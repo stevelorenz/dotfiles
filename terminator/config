@@ -1,0 +1,39 @@
+[global_config]
+  always_on_top = True
+  always_split_with_profile = True
+  borderless = True
+  enabled_plugins = ,
+  homogeneous_tabbar = False
+  inactive_color_offset = 0.6
+  scroll_tabbar = True
+  tab_position = hidden
+  title_font = Monaco 16
+  title_hide_sizetext = True
+  title_use_system_font = False
+  window_state = maximise
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = default
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    allow_bold = False
+    background_color = "#282828"
+    background_darkness = 1.0
+    cursor_blink = False
+    cursor_color = "#4e9a06"
+    font = Monaco 16
+    foreground_color = "#ebdbb2"
+    icon_bell = False
+    palette = "#000000:#cc0000:#4e9a06:#c4a000:#3465a4:#75507b:#06989a:#d3d7cf:#555753:#ef2929:#8ae234:#fce94f:#729fcf:#ad7fa8:#34e2e2:#eeeeec"
+    scrollback_lines = 3000
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
