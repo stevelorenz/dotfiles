@@ -21,11 +21,13 @@ set $mod Mod4
 font pango: Monaco Regular 16
 
 # Start terminal emulator
-set $term termite
-bindsym $mod+Return exec urxvt
-bindsym $mod+Shift+Return exec urxvt -e tmux
-bindsym $mod+t exec $term
-bindsym $mod+Shift+t exec $term -e tmux
+set $term_1 termite
+set $term_2 urxvt
+set $term_3 terminator
+bindsym $mod+t exec $term_1
+bindsym $mod+Shift+t exec $term_1 -e tmux
+bindsym $mod+Return exec $term_2
+bindsym $mod+Shift+Return exec $term_2 -e tmux
 
 # Start program launcher (rofi)
 # Use rofi, configs saved in ~/.Xresources
@@ -138,10 +140,10 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+q kill
 
 # Change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
@@ -151,18 +153,18 @@ bindsym $mod+Right focus right
 floating_modifier $mod
 
 # Move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+colon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split orientation
-bindsym $mod+h split h
-bindsym $mod+v split v
+bindsym $mod+apostrophe split h
+bindsym $mod+slash split v
 bindsym $mod+q split toggle
 
 # Enter full screen mode for the focused container
