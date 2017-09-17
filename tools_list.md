@@ -1,21 +1,16 @@
-# List of My Favorite Tools #
+# List of My Favorite/Must-have Tools #
 
-## System Monitoring ##
+## Research ##
 
-### General ###
+- [Mendely](https://www.mendeley.com/): Reference management
+- [Cherrytree](http://www.giuspen.com/cherrytree/)
 
-- [dastat](http://dag.wiee.rs/home-made/dstat/): Versatile resource statistics tool
-
-### Processor ###
-
-### Networking ###
-
-## Programming ##
+## Coding ##
 
 ### Editor ###
 
-- [vim](http://www.vim.org/): My main editor, the ubiquitous text editor
-- [neovim](https://neovim.io/): Literally the future of vim
+- [Vim](http://www.vim.org/): My main editor, the ubiquitous text editor
+- [Neovim](https://neovim.io/): Literally the future of vim
 
 ## Searcher ##
 
@@ -26,3 +21,9 @@
 ## Web & Frontend ##
 
 - [httpie](https://github.com/jakubroztocil/httpie): Modern command line HTTP client
+
+## Language Specific ##
+
+### Python ###
+
+- [flake8](https://pypi.python.org/pypi/flake8): The modular source code checker: pep8, pyflakes and co
