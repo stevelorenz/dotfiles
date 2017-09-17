@@ -102,7 +102,6 @@ if count(g:bundle_groups, 'general')
     " buffer of most recently used files
     let g:ctrlp_mruf_max = 500
     let g:ctrlp_follow_symlinks = 1
-
     " use ack as backend if available
     if executable('ag')
         " can use a local or global .agignore to ignore files
@@ -113,7 +112,6 @@ if count(g:bundle_groups, 'general')
         " use default grep, ignore files in .gitignore
         let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
     endif
-
     " - Extension to ctrlp, for fuzzy command finder
     Plug 'fisadev/vim-ctrlp-cmdpalette', { 'on': 'CtrlPCmdPalette' }
     nnoremap <C-P>c :CtrlPCmdPalette<CR>
@@ -132,7 +130,6 @@ if count(g:bundle_groups, 'general')
     " <leader>s{char} to move to {char}
     " s{char}{char} to move to {char}{char}
     nmap s <Plug>(easymotion-overwin-f2)
-
     " -- intra line
     Plug 'unblevable/quick-scope'
     let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -211,6 +208,10 @@ if count(g:bundle_groups, 'general_editing')
     " - Show contents of the registers
     Plug 'junegunn/vim-peekaboo'
 
+    " - Text object
+    Plug 'kana/vim-textobj-user'
+    Plug 'kana/vim-textobj-indent'"
+
 endif
 
 "  --- }
@@ -256,7 +257,7 @@ if count(g:bundle_groups, 'general_programming')
 
     " - Git integration and enhancement
     " -- awesome git wrapper
-    Plug 'tpope/vim-fugitive'
+    "Plug 'tpope/vim-fugitive'
     " -- show git diff and stages/undoes hunks
     Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterToggle'}
     let g:gitgutter_enabled = 0
@@ -295,9 +296,9 @@ if count(g:bundle_groups, 'general_programming')
     endif
 
     " - Highlight, Jump and resolve conflict markers
-    Plug 'rhysd/conflict-marker.vim', { 'on': 'ConflictMarkerNextHunk' }
-    " disable default mappings
-    let g:conflict_marker_enable_mappings = 0
+    "Plug 'rhysd/conflict-marker.vim', { 'on': 'ConflictMarkerNextHunk' }
+    "" disable default mappings
+    "let g:conflict_marker_enable_mappings = 0
 
     " - Simple template plugin
     Plug 'aperezdc/vim-template'
@@ -308,20 +309,20 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'fisadev/FixedTaskList.vim', { 'on': 'TaskList' }
 
     " - Run commands quickly
-    Plug 'thinca/vim-quickrun', { 'on': 'QuickRun' }
+    "Plug 'thinca/vim-quickrun', { 'on': 'QuickRun' }
 
     " - Easy code formatting
     Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
 
     " - Use Zeal: Offline documentation viewer
-    Plug 'KabbAmine/zeavim.vim', {'on': [
-                \   'Zeavim', 'Docset',
-                \   '<Plug>Zeavim',
-                \   '<Plug>ZVVisSelection',
-                \   '<Plug>ZVKeyDocset',
-                \   '<Plug>ZVMotion'
-                \ ]}
-    let g:zv_disable_mapping = 1
+    "Plug 'KabbAmine/zeavim.vim', {'on': [
+                "\   'Zeavim', 'Docset',
+                "\   '<Plug>Zeavim',
+                "\   '<Plug>ZVVisSelection',
+                "\   '<Plug>ZVKeyDocset',
+                "\   '<Plug>ZVMotion'
+                "\ ]}
+    "let g:zv_disable_mapping = 1
 endif
 
 " --- }
