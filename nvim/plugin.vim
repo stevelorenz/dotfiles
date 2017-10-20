@@ -317,12 +317,12 @@ if count(g:bundle_groups, 'general_programming')
 
     " - Use Zeal: Offline documentation viewer
     "Plug 'KabbAmine/zeavim.vim', {'on': [
-                "\   'Zeavim', 'Docset',
-                "\   '<Plug>Zeavim',
-                "\   '<Plug>ZVVisSelection',
-                "\   '<Plug>ZVKeyDocset',
-                "\   '<Plug>ZVMotion'
-                "\ ]}
+    "\   'Zeavim', 'Docset',
+    "\   '<Plug>Zeavim',
+    "\   '<Plug>ZVVisSelection',
+    "\   '<Plug>ZVKeyDocset',
+    "\   '<Plug>ZVMotion'
+    "\ ]}
     "let g:zv_disable_mapping = 1
 endif
 
@@ -347,7 +347,8 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     if has('nvim')
         " - Dark powered asynchronous completion framework for neovim {
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-        let g:deoplete#enable_at_startup = 1
+        " call deoplete#toggle() when needed
+        "let g:deoplete#enable_at_startup = 1
         let g:deoplete#enable_smart_case = 1
         let g:deoplete#skip_chars = ['(', ')', '<', '>']
         let g:deoplete#max_abbr_width = 35
