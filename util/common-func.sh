@@ -1,7 +1,6 @@
-#! /bin/bash
+#!/bin/bash
 # About: Common functions used by other util scripts
-# common-func.sh
-# Copyright (C) 2017 stack <stack@comnets-desktop>
+# Email: xianglinks@gmail.com
 
 DOTFILES_REPO='https://github.com/stevelorenz/dotfiles.git'
 DOTFILES_DIR="$HOME/.cache/dotfiles"
@@ -16,7 +15,7 @@ function clone_dotfiles() {
 
     if [[ -d "$DOTFILES_DIR" ]]; then
         echo "[Warning] The dotfiles directory exists($DOTFILES_DIR)"
-        read -p "Do you want to (b)ackup it, (r)emove it or doing (n)othing? " choice
+        read -rp "Do you want to (b)ackup it, (r)emove it or doing (n)othing? " choice
         echo
         case $choice in
             b)
