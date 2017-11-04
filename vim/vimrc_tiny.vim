@@ -427,6 +427,41 @@ nnoremap <leader>te :tabedit<cr>
 nnoremap <leader>td :tabclose<cr>
 nnoremap <leader>tm :tabm<cr>
 " ---------------------------------------------------------
+" }
+
+"==========================================
+" File Type Custom Settings
+"==========================================
+" {
+" -- c/cpp --
+autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
+            \ set tabstop=8 |
+            \ set shiftwidth=8 |
+            \ set softtabstop=8 |
+            \ set textwidth=80 |
+            \ set expandtab ! |
+
+" -- markdown --
+autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
+            \ set filetype=markdown |
+            \ set textwidth=120 |
+            \ set tabstop=2 |
+            \ set shiftwidth=2 |
+            \ set softtabstop=2 |
+
+" -- python --
+autocmd BufNewFile,BufRead *.py
+            \ set filetype=python |
+            \ set textwidth=120 |
+
+" -- web dev --
+autocmd BufNewFile,BufRead *.js,*.html,*.css
+            \ set expandtab!
+
+" -- config file --
+autocmd BufNewFile,BufRead *.ini,*.conf
+            \ set filetype=dosini
+" }
 
 "==========================================
 " Helper Functions

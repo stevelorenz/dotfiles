@@ -568,6 +568,11 @@ autocmd BufNewFile,BufRead *.py
 " -- web dev --
 autocmd BufNewFile,BufRead *.js,*.html,*.css
             \ set expandtab!
+
+" -- config file --
+autocmd BufNewFile,BufRead *.ini,*.conf
+            \ set filetype=dosini
+
 " }
 
 "==========================================
