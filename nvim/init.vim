@@ -564,7 +564,6 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
 autocmd BufNewFile,BufRead *.py
             \ set filetype=python |
             \ set textwidth=80 |
-            " \ set foldmethod=indent |
 
 " -- web dev --
 autocmd BufNewFile,BufRead *.js,*.html,*.css

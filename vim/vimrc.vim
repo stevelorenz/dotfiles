@@ -561,7 +561,7 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
 " -- python --
 autocmd BufNewFile,BufRead *.py
             \ set filetype=python |
-            \ set textwidth=120 |
+            \ set textwidth=80 |
 
 " -- web dev --
 autocmd BufNewFile,BufRead *.js,*.html,*.css

@@ -11,6 +11,7 @@
 "    -> Programming Language Specific
 "      -> C, CPP
 "      -> Python
+"      -> Golang
 "      -> (X)HTML
 "      -> Javascript
 "      -> (La)Tex
@@ -35,7 +36,7 @@ call plug#begin('~/.vim/bundle')  " dir for plugin files
 " for example, remove 'python' will disable all plugins in the python section.
 if !exists('g:bundle_groups')
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', '(x)html', 'javascript', 'tex', 'colorscheme']
+                \ 'c_cpp', 'python', 'golang', '(x)html', 'javascript', 'tex', 'colorscheme']
 endif
 
 " --- General --------------------------------------------- {
@@ -316,12 +317,12 @@ if count(g:bundle_groups, 'general_programming')
 
     " - Use Zeal: Offline documentation viewer
     "Plug 'KabbAmine/zeavim.vim', {'on': [
-                "\   'Zeavim', 'Docset',
-                "\   '<Plug>Zeavim',
-                "\   '<Plug>ZVVisSelection',
-                "\   '<Plug>ZVKeyDocset',
-                "\   '<Plug>ZVMotion'
-                "\ ]}
+    "\   'Zeavim', 'Docset',
+    "\   '<Plug>Zeavim',
+    "\   '<Plug>ZVVisSelection',
+    "\   '<Plug>ZVKeyDocset',
+    "\   '<Plug>ZVMotion'
+    "\ ]}
     "let g:zv_disable_mapping = 1
 endif
 
@@ -346,7 +347,8 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     if has('nvim')
         " - Dark powered asynchronous completion framework for neovim {
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-        let g:deoplete#enable_at_startup = 1
+        " call deoplete#toggle() when needed
+        "let g:deoplete#enable_at_startup = 1
         let g:deoplete#enable_smart_case = 1
         let g:deoplete#skip_chars = ['(', ')', '<', '>']
         let g:deoplete#max_abbr_width = 35
@@ -463,8 +465,8 @@ if count(g:bundle_groups, 'python')
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
     " show docstring in fold mode
     let g:SimpylFold_docstring_preview = 1
-    autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-    autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+    " autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+    " autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
     " - Text objects, folding
     Plug 'tweekmonster/braceless.vim', { 'for': 'python' }
@@ -478,6 +480,12 @@ if count(g:bundle_groups, 'python')
     Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
     " disable key mappings
     let g:pydocstring_enable_mapping = 0
+endif
+" }
+
+" Golang {
+if count(g:bundle_groups, 'golang')
+    Plug 'fatih/vim-go', { 'for': ['go'] }
 endif
 " }
 

@@ -11,6 +11,7 @@
 "    -> Programming Language Specific
 "      -> C, CPP
 "      -> Python
+"      -> Golang
 "      -> (X)HTML
 "      -> Javascript
 "      -> (La)Tex
@@ -35,7 +36,7 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 " for example, remove 'python' will disable all plugins in the python section.
 if !exists('g:bundle_groups')
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', '(x)html', 'javascript', 'tex', 'colorscheme']
+                \ 'c_cpp', 'python', 'golang', '(x)html', 'javascript', 'tex', 'colorscheme']
 endif
 
 " --- General --------------------------------------------- {
@@ -480,6 +481,12 @@ if count(g:bundle_groups, 'python')
     Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
     " disable key mappings
     let g:pydocstring_enable_mapping = 0
+endif
+" }
+
+" Golang {
+if count(g:bundle_groups, 'golang')
+    Plug 'fatih/vim-go', { 'for': ['go'] }
 endif
 " }
 
