@@ -465,8 +465,8 @@ if count(g:bundle_groups, 'python')
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
     " show docstring in fold mode
     let g:SimpylFold_docstring_preview = 1
-    autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-    autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+    " autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+    " autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
     " - Text objects, folding
     Plug 'tweekmonster/braceless.vim', { 'for': 'python' }
