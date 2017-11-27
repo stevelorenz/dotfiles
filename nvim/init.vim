@@ -292,10 +292,10 @@ set background=dark
 if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
     let &t_Co = 256
     "colorscheme wombat256i
-    colorscheme onedark
+    colorscheme space-vim-dark
 else
     "colorscheme wombat256mod
-    colorscheme onedark
+    colorscheme space-vim-dark
 endif
 
 " GUI specific {
@@ -552,14 +552,6 @@ autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
             \ set textwidth=80 |
             \ set expandtab ! |
 
-" -- markdown --
-autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
-            \ set filetype=markdown |
-            \ set textwidth=120 |
-            \ set tabstop=2 |
-            \ set shiftwidth=2 |
-            \ set softtabstop=2 |
-
 " -- python --
 autocmd BufNewFile,BufRead *.py
             \ set filetype=python |
@@ -568,6 +560,20 @@ autocmd BufNewFile,BufRead *.py
 " -- web dev --
 autocmd BufNewFile,BufRead *.js,*.html,*.css
             \ set expandtab!
+
+" -- markdown --
+autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
+            \ set filetype=markdown |
+            \ set textwidth=120 |
+            \ set tabstop=2 |
+            \ set shiftwidth=2 |
+            \ set softtabstop=2 |
+
+" -- tex --
+autocmd BufNewFile,BufRead *.tex
+            \ set filetype=tex |
+            \ set textwidth=120 |
+
 
 " -- config file --
 autocmd BufNewFile,BufRead *.ini,*.conf

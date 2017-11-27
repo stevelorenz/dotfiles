@@ -542,6 +542,8 @@ if count(g:bundle_groups, 'colorscheme')
     Plug 'liuchengxu/space-vim-dark'
 
     Plug 'ashfinal/vim-colors-violet'
+
+    Plug 'dracula/vim'
 endif
 
 " --- }
