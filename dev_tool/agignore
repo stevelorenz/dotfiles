@@ -45,3 +45,9 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+
+###########
+#  Latex  #
+###########
+
+*.pdf
