@@ -11,7 +11,8 @@
 # --- General Options ---
 
 [options]
-font = monaco 16
+# font = monaco 16
+font = hack 16
 allow_bold = false
 cursor_blink = off
 cursor_shape = block

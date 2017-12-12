@@ -18,7 +18,8 @@
 set $mod Mod4
 
 # Default font
-font pango: Monaco Regular 16
+# font pango: Monaco Regular 16
+font pango: Hack Regular 16
 
 # Start terminal emulator
 set $term_1 termite
@@ -56,6 +57,7 @@ exec $psst pamac-tray  # pamac package manager tray
 exec $psst xfce4-power-manager  # xfce4 power manager
 exec $psst xfce4-clipman  # xfce4 clipboard manager
 exec $psst workrave # prevention and recovery of Repetitive Strain Injury
+# exec $pass xrandr --dpi 192  # better for HDPI screen
 
 # Backlight control (xbacklight)
 bindsym $mod+Shift+b exec --no-startup-id xbacklight +5
@@ -248,7 +250,7 @@ workspace_auto_back_and_forth yes
 bindsym $mod+b workspace back_and_forth
 
 # Rename workspace
-bindsym Ctrl+Shift+r exec i3-input -F 'rename workspace to "%s"' -P 'rename current workspace: '
+# bindsym Ctrl+Shift+r exec i3-input -F 'rename workspace to "%s"' -P 'rename current workspace: '
 # }
 
 # === Colors === {
@@ -272,7 +274,8 @@ set $base0F #fcc09e
 # === Status Bar === {
 bar {
     position top
-    font pango:Monaco Regular 18
+    # font pango:Monaco Regular 18
+    font pango:Hack Regular 18
     # tray_output eDP1
     tray_padding 3
     strip_workspace_numbers yes
