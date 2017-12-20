@@ -286,9 +286,9 @@ if &term =~ '256color'
 endif
 
 " True color in neovim wasn't added until 0.1.5
-if has('nvim-0.1.5')
-    set termguicolors
-endif
+" if has('nvim-0.1.5')
+"     set termguicolors
+" endif
 
 " use dark background
 set background=dark
