@@ -325,6 +325,14 @@ if count(g:bundle_groups, 'general_programming')
     "\   '<Plug>ZVMotion'
     "\ ]}
     "let g:zv_disable_mapping = 1
+
+    " - Complete function parameters
+    Plug 'tenfyzhong/CompleteParameter.vim'
+    inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+    smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+    imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+    smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+    imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 endif
 
 " --- }
