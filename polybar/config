@@ -16,7 +16,7 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/top]
-;monitor = ${env:MONITOR:HDMI-1}
+monitor = ${env:MONITOR:}
 width = 100%
 height = 27
 ;offset-x = 1%
@@ -43,8 +43,8 @@ font-0 = Hack:pixelsize=12;1
 font-1 = Hack:pixelsize=12;1
 font-2 = siji:pixelsize=12;1
 
-modules-left = i3 xwindow
-modules-right = cpu memory filesystem wlan eth temperature battery volume xkeyboard date
+modules-left = i3
+modules-right = cpu memory filesystem wlan eth temperature battery xkeyboard date
 
 tray-position = right
 tray-padding = 3
@@ -99,7 +99,7 @@ label-unmounted-foreground = ${colors.foreground-alt}
 [module/i3]
 type = internal/i3
 
-pin-workspaces = false
+pin-workspaces = true
 
 ; This will split the workspace name on ':'
 ; Default: false
@@ -111,8 +111,7 @@ strip-wsnumbers = true
 index-sort = true
 
 ; Create click handler used to focus workspace
-; Default: true
-enable-click = false
+enable-click = true
 
 ; Create scroll handlers used to cycle workspaces
 ; Default: true
@@ -132,6 +131,24 @@ reverse-scroll = false
 ; containing 'code' in the label
 ; Default: false
 fuzzy-match = true
+
+format = <label-state> <label-mode>
+label-mode = %mode%
+label-mode-padding = 1
+label-mode-background = #e60053
+
+label-focused = %index%
+label-focused-foreground = #ffffff
+label-focused-background = #3f3f3f
+label-focused-underline = #fba922
+label-focused-padding = 1
+
+label-unfocused = %index%
+label-unfocused-padding = 1
+
+label-separator = |
+label-separator-padding = 1
+label-separator-foreground = #ffb52a
 
 [module/xbacklight]
 type = internal/xbacklight

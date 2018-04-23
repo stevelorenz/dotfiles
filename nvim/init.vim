@@ -524,6 +524,9 @@ nnoremap <F2> :call HideNumber()<CR>
 " F3: toggle syntax highlight
 nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
+" F5: toggle deoplete autocompletion
+nnoremap <F5> :call deoplete#toggle()<CR>
+
 " F6: toggle nerdtree file explorer
 nnoremap <F6> :NERDTreeToggle<CR>
 
