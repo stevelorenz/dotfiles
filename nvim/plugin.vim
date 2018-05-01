@@ -257,6 +257,22 @@ if count(g:bundle_groups, 'general_programming')
     let g:tagbar_sort = 0
     let g:tagbar_autoshowtag = 1
 
+    " - Tags management
+    Plug 'ludovicchabant/vim-gutentags'
+    set tags=./.tags;,.tags
+    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+    let g:gutentags_ctags_tagfile = '.tags'
+    " Add ctags extra arguments
+    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+    " put tags file to the cache directory
+    let s:vim_tags = expand('~/.cache/tags')
+    let g:gutentags_cache_dir = s:vim_tags
+    if !isdirectory(s:vim_tags)
+        silent! call mkdir(s:vim_tags, 'p')
+    endif
+
     " - Git integration and enhancement
     " -- awesome git wrapper
     "Plug 'tpope/vim-fugitive'
@@ -357,7 +373,7 @@ if count(g:bundle_groups, 'snippet_autocomplete')
         " - Dark powered asynchronous completion framework for neovim {
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
         " call deoplete#toggle() when needed
-        "let g:deoplete#enable_at_startup = 1
+        let g:deoplete#enable_at_startup = 1
         let g:deoplete#enable_smart_case = 1
         let g:deoplete#skip_chars = ['(', ')', '<', '>']
         let g:deoplete#max_abbr_width = 35
