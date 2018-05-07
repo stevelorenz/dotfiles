@@ -135,8 +135,8 @@ if count(g:bundle_groups, 'general')
     " -- intra line
     Plug 'unblevable/quick-scope'
     let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-    let g:qs_first_occurrence_highlight_color = 155
-    let g:qs_second_occurrence_highlight_color = 81
+    "let g:qs_first_occurrence_highlight_color = 155
+    "let g:qs_second_occurrence_highlight_color = 81
 
     " - Show marks
     Plug 'kshenoy/vim-signature'
