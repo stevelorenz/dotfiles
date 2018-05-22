@@ -559,6 +559,7 @@ autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
             \ set softtabstop=8 |
             \ set textwidth=80 |
             \ set expandtab ! |
+            \ set foldmethod=syntax |
 
 " -- python --
 autocmd BufNewFile,BufRead *.py
