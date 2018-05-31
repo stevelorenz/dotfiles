@@ -234,18 +234,24 @@ if count(g:bundle_groups, 'general_programming')
     let g:polyglot_disabled = ['latex']
 
     " - Async :make and linting framework
-    if has('nvim') || v:version >= 800
-        Plug 'neomake/neomake'
-        " use makefile as default marker
-        let g:neomake_enabled_makers = ['makeprg']
-        " -- set language checkers --
-        let g:neomake_python_enabled_makers = ['pep8', 'pylint']
-    endif
+    "if has('nvim') || v:version >= 800
+    "Plug 'neomake/neomake'
+    "" use makefile as default marker
+    "let g:neomake_enabled_makers = ['makeprg']
+    "" -- set language checkers --
+    "let g:neomake_python_enabled_makers = ['pep8', 'pylint']
+    "endif
 
     " - Asynchronous Lint Engine
-    " if has('nvim') || v:version >= 800
-    " Plug 'w0rp/ale'
-    " endif
+    if has('nvim') || v:version >= 800
+        Plug 'w0rp/ale'
+        let g:ale_sign_column_always = 1
+        let g:ale_set_loclist = 0
+        let g:ale_set_quickfix = 1
+        "let g:ale_open_list = 1
+        let g:ale_lint_on_text_changed = 'never'
+        let g:ale_lint_on_enter = 0
+    endif
 
     " - Dynamically show tags
     Plug 'majutsushi/tagbar'
@@ -435,6 +441,9 @@ endif
 
 " C, CPP {
 if count(g:bundle_groups, 'c_cpp')
+    " - C support for vim
+    Plug 'WolfgangMehner/c-support'
+
     " - Simplify Doxygen documentation
     Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c', 'cpp'] }
     let g:DoxygenToolkit_briefTag_funcName = "yes"

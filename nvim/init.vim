@@ -554,9 +554,9 @@ inoremap <F12> <C-o>:syntax sync fromstart<CR>
 " {
 " -- c/cpp --
 autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
-            \ set tabstop=8 |
-            \ set shiftwidth=8 |
-            \ set softtabstop=8 |
+            \ set tabstop=4 |
+            \ set shiftwidth=4 |
+            \ set softtabstop=4 |
             \ set textwidth=80 |
             \ set expandtab ! |
             \ set foldmethod=syntax |
