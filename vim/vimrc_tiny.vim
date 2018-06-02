@@ -161,9 +161,6 @@ endif
 set splitright " puts new vsplit windows to the right of the current
 set splitbelow " puts new split windows to the bottom of the current
 
-" ctags location
-set tags=./tags;/
-
 " }
 
 "==========================================

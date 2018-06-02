@@ -549,6 +549,16 @@ autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
             \ set softtabstop=8 |
             \ set textwidth=80 |
             \ set expandtab ! |
+            \ set foldmethod=syntax |
+
+" -- python --
+autocmd BufNewFile,BufRead *.py
+            \ set filetype=python |
+            \ set textwidth=80 |
+
+" -- web dev --
+autocmd BufNewFile,BufRead *.js,*.html,*.css
+            \ set expandtab!
 
 " -- markdown --
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
@@ -558,10 +568,10 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set shiftwidth=2 |
             \ set softtabstop=2 |
 
-" -- python --
-autocmd BufNewFile,BufRead *.py
-            \ set filetype=python |
-            \ set textwidth=80 |
+" -- tex --
+autocmd BufNewFile,BufRead *.tex
+            \ set filetype=tex |
+            \ set textwidth=120 |
 
 " -- web dev --
 autocmd BufNewFile,BufRead *.js,*.html,*.css
@@ -576,15 +586,9 @@ autocmd BufNewFile,BufRead *.ini,*.conf
 " Dev Tools Settings
 "==========================================
 " {
-" Ctags {
-" extend search directory
-set tags=./tags;/,~/.vimtags
-
-" make tags placed in .git/tags file available in all levels of a repository
-let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
-if gitroot != ''
-    let &tags = &tags . ',' . gitroot . '/.git/tags'
-endif
+" Gtags {
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = expand('~/.gtags.conf')
 " }
 
 " }

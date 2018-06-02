@@ -63,7 +63,8 @@ if count(g:bundle_groups, 'general')
 
     " -- vim-airline theme repository
     Plug 'vim-airline/vim-airline-themes'
-    let g:airline_theme = 'simple'
+    "let g:airline_theme = 'simple'
+    let g:airline_theme = 'onedark'
 
     " - Built-in directory browser: netrw
     " use tree view
@@ -134,8 +135,8 @@ if count(g:bundle_groups, 'general')
     " -- intra line
     Plug 'unblevable/quick-scope'
     let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-    let g:qs_first_occurrence_highlight_color = 155
-    let g:qs_second_occurrence_highlight_color = 81
+    "let g:qs_first_occurrence_highlight_color = 155
+    "let g:qs_second_occurrence_highlight_color = 81
 
     " - Show marks
     Plug 'kshenoy/vim-signature'
@@ -233,18 +234,24 @@ if count(g:bundle_groups, 'general_programming')
     let g:polyglot_disabled = ['latex']
 
     " - Async :make and linting framework
-    if has('nvim') || v:version >= 800
-        Plug 'neomake/neomake'
-        " use makefile as default marker
-        let g:neomake_enabled_makers = ['makeprg']
-        " -- set language checkers --
-        let g:neomake_python_enabled_makers = ['pep8', 'pylint']
-    endif
+    "if has('nvim') || v:version >= 800
+    "Plug 'neomake/neomake'
+    "" use makefile as default marker
+    "let g:neomake_enabled_makers = ['makeprg']
+    "" -- set language checkers --
+    "let g:neomake_python_enabled_makers = ['pep8', 'pylint']
+    "endif
 
     " - Asynchronous Lint Engine
-    " if has('nvim') || v:version >= 800
-    " Plug 'w0rp/ale'
-    " endif
+    if has('nvim') || v:version >= 800
+        Plug 'w0rp/ale'
+        let g:ale_sign_column_always = 1
+        let g:ale_set_loclist = 0
+        let g:ale_set_quickfix = 1
+        "let g:ale_open_list = 1
+        let g:ale_lint_on_text_changed = 'never'
+        let g:ale_lint_on_enter = 0
+    endif
 
     " - Dynamically show tags
     Plug 'majutsushi/tagbar'
@@ -255,6 +262,31 @@ if count(g:bundle_groups, 'general_programming')
     " not sort by name but by the position
     let g:tagbar_sort = 0
     let g:tagbar_autoshowtag = 1
+
+    " - Tags management
+    Plug 'ludovicchabant/vim-gutentags'
+    set tags=./.tags;,.tags
+    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+    let g:gutentags_ctags_tagfile = '.tags'
+    " Add suppport for ctags and gtags
+    let g:gutentags_modules = []
+    if executable('ctags')
+        let g:gutentags_modules += ['ctags']
+        let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+        let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+        let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+    endif
+    if executable('gtags-cscope') && executable('gtags')
+        let g:gutentags_modules += ['gtags_cscope']
+        let g:gutentags_auto_add_gtags_cscope = 0
+    endif
+
+    " put tags file to the cache directory
+    let s:vim_tags = expand('~/.cache/tags')
+    let g:gutentags_cache_dir = s:vim_tags
+    if !isdirectory(s:vim_tags)
+        silent! call mkdir(s:vim_tags, 'p')
+    endif
 
     " - Git integration and enhancement
     " -- awesome git wrapper
@@ -324,6 +356,14 @@ if count(g:bundle_groups, 'general_programming')
     "\   '<Plug>ZVMotion'
     "\ ]}
     "let g:zv_disable_mapping = 1
+
+    " - Complete function parameters
+    Plug 'tenfyzhong/CompleteParameter.vim'
+    inoremap <silent><expr> ( complete_parameter#pre_complete("()")
+    smap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+    imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
+    smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+    imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
 endif
 
 " --- }
@@ -348,7 +388,7 @@ if count(g:bundle_groups, 'snippet_autocomplete')
         " - Dark powered asynchronous completion framework for neovim {
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
         " call deoplete#toggle() when needed
-        "let g:deoplete#enable_at_startup = 1
+        let g:deoplete#enable_at_startup = 1
         let g:deoplete#enable_smart_case = 1
         let g:deoplete#skip_chars = ['(', ')', '<', '>']
         let g:deoplete#max_abbr_width = 35
@@ -410,6 +450,9 @@ endif
 
 " C, CPP {
 if count(g:bundle_groups, 'c_cpp')
+    " - C support for vim
+    Plug 'WolfgangMehner/c-support'
+
     " - Simplify Doxygen documentation
     Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c', 'cpp'] }
     let g:DoxygenToolkit_briefTag_funcName = "yes"
@@ -541,6 +584,8 @@ if count(g:bundle_groups, 'colorscheme')
     Plug 'liuchengxu/space-vim-dark'
 
     Plug 'ashfinal/vim-colors-violet'
+
+    Plug 'dracula/vim'
 endif
 
 " --- }

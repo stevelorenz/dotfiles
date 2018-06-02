@@ -219,9 +219,6 @@ endif
 set splitright " puts new vsplit windows to the right of the current
 set splitbelow " puts new split windows to the bottom of the current
 
-" ctags location
-set tags=./tags;/
-
 " }
 
 "==========================================
@@ -621,15 +618,9 @@ nnoremap <A-l> <C-w>l
 " Dev Tools Settings
 "==========================================
 " {
-" Ctags {
-" extend search directory
-set tags=./tags;/,~/.vimtags
-
-" make tags placed in .git/tags file available in all levels of a repository
-let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
-if gitroot != ''
-    let &tags = &tags . ',' . gitroot . '/.git/tags'
-endif
+" Gtags {
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = expand('~/.gtags.conf')
 " }
 
 " }
