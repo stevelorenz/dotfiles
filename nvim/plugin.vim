@@ -367,6 +367,12 @@ if count(g:bundle_groups, 'general_programming')
     imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
     smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
     imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+
+    " - Preview tags, files and functions
+    Plug 'skywind3000/vim-preview'
+    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+
 endif
 
 " --- }
