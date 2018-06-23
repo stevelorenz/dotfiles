@@ -332,6 +332,8 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
+" 80 characters line
+set colorcolumn=81
 " }
 
 "==========================================
@@ -551,9 +553,9 @@ inoremap <F12> <C-o>:syntax sync fromstart<CR>
 " {
 " -- c/cpp --
 autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
-            \ set tabstop=4 |
-            \ set shiftwidth=4 |
-            \ set softtabstop=4 |
+            \ set tabstop=8 |
+            \ set shiftwidth=8 |
+            \ set softtabstop=8 |
             \ set textwidth=80 |
             \ set expandtab ! |
             \ set foldmethod=syntax |

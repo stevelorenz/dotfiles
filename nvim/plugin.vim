@@ -397,7 +397,7 @@ if count(g:bundle_groups, 'snippet_autocomplete')
         " - Dark powered asynchronous completion framework for neovim {
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
         " call deoplete#toggle() when needed
-        let g:deoplete#enable_at_startup = 1
+        let g:deoplete#enable_at_startup = 0
         let g:deoplete#enable_smart_case = 1
         let g:deoplete#skip_chars = ['(', ')', '<', '>']
         let g:deoplete#max_abbr_width = 35
@@ -460,7 +460,10 @@ endif
 " C, CPP {
 if count(g:bundle_groups, 'c_cpp')
     " - C support for vim
-    Plug 'WolfgangMehner/c-support'
+    "Plug 'WolfgangMehner/c-support', { 'for': ['c', 'cpp'] }
+
+    " - Linux coding style
+    Plug 'vivien/vim-linux-coding-style', { 'for': ['c', 'cpp'] }
 
     " - Simplify Doxygen documentation
     Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c', 'cpp'] }

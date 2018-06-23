@@ -65,7 +65,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(common-aliases extract git python pip z zsh-completions zsh-autosuggestions colored-man-pages vagrant)
+plugins=(common-aliases extract git python pip z zsh-completions zsh-autosuggestions colored-man-pages vagrant golang)
 
 # Auto load and init completions
 source $ZSH/oh-my-zsh.sh
@@ -103,6 +103,16 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 # Setup fast fuzzy finder, fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Alias for the fuck
-eval $(thefuck --alias fuck)
+# Cheat for cheat sheets
+export CHEATCOLORS=true
+
+# BCC tracing tools and man pages
+if [[ -d /usr/share/bcc ]]; then
+    MANPATH=/usr/share/bcc/man:$MANPATH
+    PATH=/usr/share/bcc/tools:$PATH
+fi
+
+# GO PATH
+export GOPATH=$HOME/.go
+export PATH="$PATH:$HOME/.go/bin"
 # ----------------------------------------------------------
