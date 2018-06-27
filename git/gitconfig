@@ -24,3 +24,5 @@
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     # Reset all uncommitted changes
     unstage = reset --hard HEAD
+[commit]
+	template = /home/zuo/.git_commit_msg.txt
