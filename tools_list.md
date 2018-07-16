@@ -12,6 +12,10 @@
 - [Vim](http://www.vim.org/): My main editor, the ubiquitous text editor
 - [Neovim](https://neovim.io/): Literally the future of vim
 
+### Debugger ###
+
+-[GDB Dashboard](https://github.com/cyrus-and/gdb-dashboard): Modular visual interface for GDB in Python
+
 ## Searcher ##
 
 - [ag](https://github.com/ggreer/the_silver_searcher): A code-searching tool similar to ack, but faster
