@@ -290,14 +290,13 @@ endif
 " use dark background
 set background=dark
 " use 256 colors when possible
-" wombat, my favorite colorscheme
 if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
     let &t_Co = 256
     "colorscheme wombat256i
-    colorscheme space-vim-dark
+    colorscheme onedark
 else
     "colorscheme wombat256mod
-    colorscheme space-vim-dark
+    colorscheme onedark
 endif
 
 " GUI specific {
