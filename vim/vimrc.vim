@@ -328,6 +328,8 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
+" 80 characters line
+set colorcolumn=81
 " }
 
 "==========================================
@@ -368,8 +370,8 @@ nnoremap <leader>Q :q!<CR>
 " map <space> for searching
 noremap <space> /
 
-" tap jk quickly to normal mode
 inoremap jk <Esc>
+" tap jk quickly to normal mode
 xnoremap jk <Esc>
 cnoremap jk <C-c>
 
@@ -517,6 +519,9 @@ nnoremap <F2> :call HideNumber()<CR>
 " F3: toggle syntax highlight
 nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
+" F5: toggle deoplete autocompletion
+nnoremap <F5> :call deoplete#toggle()<CR>
+
 " F6: toggle nerdtree file explorer
 nnoremap <F6> :NERDTreeToggle<CR>
 
@@ -563,6 +568,13 @@ autocmd BufNewFile,BufRead *.js,*.html,*.css
 " -- markdown --
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set filetype=markdown |
+            \ set textwidth=120 |
+            \ set tabstop=2 |
+            \ set shiftwidth=2 |
+            \ set softtabstop=2 |
+
+" -- restructured text --
+autocmd BufNewFile,BufRead *.rst
             \ set textwidth=120 |
             \ set tabstop=2 |
             \ set shiftwidth=2 |

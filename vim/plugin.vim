@@ -36,7 +36,7 @@ call plug#begin('~/.vim/bundle')  " dir for plugin files
 " for example, remove 'python' will disable all plugins in the python section.
 if !exists('g:bundle_groups')
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', 'golang', '(x)html', 'javascript', 'tex', 'colorscheme']
+                \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'text', 'colorscheme']
 endif
 
 " --- General --------------------------------------------- {
@@ -249,6 +249,7 @@ if count(g:bundle_groups, 'general_programming')
         let g:ale_set_loclist = 0
         let g:ale_set_quickfix = 1
         "let g:ale_open_list = 1
+        let g:ale_lint_on_save = 'never'
         let g:ale_lint_on_text_changed = 'never'
         let g:ale_lint_on_enter = 0
     endif
@@ -288,6 +289,9 @@ if count(g:bundle_groups, 'general_programming')
         silent! call mkdir(s:vim_tags, 'p')
     endif
 
+    " Gtags-scope support
+    Plug 'skywind3000/gutentags_plus'
+
     " - Git integration and enhancement
     " -- awesome git wrapper
     "Plug 'tpope/vim-fugitive'
@@ -311,7 +315,7 @@ if count(g:bundle_groups, 'general_programming')
     let g:NERDTrimTrailingWhitespace = 1
 
     " - Code search, view with edit mode
-    Plug 'dyng/ctrlsf.vim', { 'on': 'CtrlSF' }
+    Plug 'dyng/ctrlsf.vim'
     " --- mappings ---
     nmap <C-P>f <Plug>CtrlSFPrompt
     vmap <C-P>f <Plug>CtrlSFVwordPath
@@ -364,6 +368,12 @@ if count(g:bundle_groups, 'general_programming')
     imap <c-j> <Plug>(complete_parameter#goto_next_parameter)
     smap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
     imap <c-k> <Plug>(complete_parameter#goto_previous_parameter)
+
+    " - Preview tags, files and functions
+    Plug 'skywind3000/vim-preview'
+    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+
 endif
 
 " --- }
@@ -451,7 +461,10 @@ endif
 " C, CPP {
 if count(g:bundle_groups, 'c_cpp')
     " - C support for vim
-    Plug 'WolfgangMehner/c-support'
+    "Plug 'WolfgangMehner/c-support', { 'for': ['c', 'cpp'] }
+
+    " - Linux coding style
+    Plug 'vivien/vim-linux-coding-style', { 'for': ['c', 'cpp'] }
 
     " - Simplify Doxygen documentation
     Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c', 'cpp'] }
@@ -527,7 +540,7 @@ endif
 " }
 
 " Golang {
-if count(g:bundle_groups, 'golang')
+if count(g:bundle_groups, 'go')
     Plug 'fatih/vim-go', { 'for': ['go'] }
 endif
 " }
@@ -559,9 +572,11 @@ endif
 " --- Documentation and Writing --------------------------- {
 
 " - Editing latex files
-if count(g:bundle_groups, 'tex')
+if count(g:bundle_groups, 'text')
     Plug 'lervag/vimtex', { 'for': 'tex' }
     let g:tex_flavor = 'tex'  " default tex type
+
+    Plug 'junegunn/goyo.vim'
 endif
 
 " --- }

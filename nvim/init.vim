@@ -576,11 +576,21 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set shiftwidth=2 |
             \ set softtabstop=2 |
 
+" -- restructured text --
+autocmd BufNewFile,BufRead *.rst
+            \ set textwidth=120 |
+            \ set tabstop=2 |
+            \ set shiftwidth=2 |
+            \ set softtabstop=2 |
+
 " -- tex --
 autocmd BufNewFile,BufRead *.tex
             \ set filetype=tex |
             \ set textwidth=120 |
 
+" -- web dev --
+autocmd BufNewFile,BufRead *.js,*.html,*.css
+            \ set expandtab!
 
 " -- config file --
 autocmd BufNewFile,BufRead *.ini,*.conf
@@ -598,8 +608,8 @@ let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = '/usr/bin/python3'
 
 " terminal emulator key-mapping
-" ---------------------------------------------------------
 " esc for changing terminal to normal mode
+" ---------------------------------------------------------
 tnoremap <Esc> <C-\><C-n>
 
 " using `alt + {h,j,k,l}` to navigate between windows
