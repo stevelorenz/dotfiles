@@ -51,12 +51,17 @@ bindsym $mod+Shift+w  exec --no-startup-id feh --bg-scale --randomize $HOME/phot
 
 # Auto start programs
 set $psst --no-startup-id
-exec $psst unclutter  # auto hide cursor
-exec $psst nm-applet  # network manager tray
-exec $psst pamac-tray  # pamac package manager tray
-exec $psst xfce4-power-manager  # xfce4 power manager
-exec $psst xfce4-clipman  # xfce4 clipboard manager
-exec $psst workrave # prevention and recovery of Repetitive Strain Injury
+exec --no-startup-id unclutter  # auto hide cursor
+exec --no-startup-id nm-applet  # network manager tray
+exec --no-startup-id pamac-tray  # pamac package manager tray
+exec --no-startup-id xfce4-power-manager  # xfce4 power manager
+exec --no-startup-id xfce4-clipman  # xfce4 clipboard manager
+exec --no-startup-id workrave # prevention and recovery of Repetitive Strain Injury
+exec --no-startup-id volumeicon # alsa volume icon
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id xautolock -time 10 -locker blurlock
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
 # exec $pass xrandr --dpi 192  # better for HDPI screen
 
 # Backlight control (xbacklight)
@@ -123,7 +128,7 @@ bindsym $mod+F5	exec --no-startup-id sudo systemctl restart NetworkManager
 # Hide all borders
 hide_edge_borders both
 for_window [class="^.*"] border pixel 0
-new_window normal
+# new_window normal
 new_float normal
 # }
 
@@ -165,8 +170,8 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split orientation
-bindsym $mod+apostrophe split h
-bindsym $mod+slash split v
+bindsym $mod+apostrophe split h;exec notify-send 'tile horizontally'
+bindsym $mod+slash split v;exec notify-send 'tile vertically'
 bindsym $mod+q split toggle
 
 # Enter full screen mode for the focused container
@@ -276,28 +281,30 @@ set $base0F #fcc09e
 # }
 
 # === Status Bar === {
-bar {
-    position top
-    # font pango:Monaco Regular 18
-    font pango:Hack Regular 18
-    # tray_output eDP1
-    tray_padding 3
-    strip_workspace_numbers yes
-
-    # Use i3blocks instead of the default i3status
-    status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
-
-    colors {
-        separator $base03
-        background $base01
-        statusline $base05
-        #object, border, background, text
-        focused_workspace  $base01 $base01 $base07
-        active_workspace   $base01 $base02 $base03
-        inactive_workspace $base01 $base01 $base03
-        urgent_workspace   $base01 $base01 $base08
-    }
-}
+# Launch polybar as status bar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# bar {
+#     position top
+#     # font pango:Monaco Regular 18
+#     font pango:Hack Regular 18
+#     # tray_output eDP1
+#     tray_padding 3
+#     strip_workspace_numbers yes
+#
+#     # Use i3blocks instead of the default i3status
+#     status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
+#
+#     colors {
+#         separator $base03
+#         background $base01
+#         statusline $base05
+#         #object, border, background, text
+#         focused_workspace  $base01 $base01 $base07
+#         active_workspace   $base01 $base02 $base03
+#         inactive_workspace $base01 $base01 $base03
+#         urgent_workspace   $base01 $base01 $base08
+#     }
+# }
 # }
 
 # === Gap === {
