@@ -19,7 +19,7 @@ set $mod Mod4
 
 # Default font
 # font pango: Monaco Regular 16
-font pango: Hack Regular 16
+font pango: Hack Regular 13
 
 # Start terminal emulator
 set $term_1 termite
@@ -29,6 +29,9 @@ bindsym $mod+t exec $term_1
 bindsym $mod+Shift+t exec $term_1 -e tmux
 bindsym $mod+Return exec $term_2
 bindsym $mod+Shift+Return exec $term_2 -e tmux
+
+# Avoid exiting FF or other APP accidentally
+bindsym Ctrl+q exec echo "hug" > /dev/null
 
 # Start program launcher (rofi)
 # Use rofi, configs saved in ~/.Xresources
@@ -85,7 +88,7 @@ mode $keyboard_mode{
 bindsym $mod+Shift+i mode $keyboard_mode
 
 # system operations
-set $locker i3lock -e -t -f --image $HOME/photo/Wallpaper/Apink_Six.png
+set $locker i3exit lock
 set $mode_system "system operation: (l) lock, (e) logout, (s) lock & suspend, (h) lock & hibernate, (r) reboot, (shift+s) shutdown"
 mode $mode_system {
     bindsym l exec --no-startup-id "$locker", mode "default"
