@@ -6,7 +6,7 @@
 # ----------------------------------------------------------
 # show git branch information
 parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
 # set prompt
@@ -22,4 +22,10 @@ alias l='ls -CF'
 
 alias ee='nvim'
 alias ..='cd ..'
+# ----------------------------------------------------------
+
+# Color
+# ----------------------------------------------------------
+# cyan for ls directories
+LS_COLORS=$LS_COLORS:'di=0;36:' ; export LS_COLORS
 # ----------------------------------------------------------

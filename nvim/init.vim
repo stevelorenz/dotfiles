@@ -333,6 +333,12 @@ highlight SpellLocal term=underline cterm=underline
 
 " 80 characters line
 set colorcolumn=81
+
+" Always show the sign column
+set signcolumn=yes
+
+" Disable concealing
+let g:tex_conceal = ""
 " }
 
 "==========================================
@@ -358,9 +364,9 @@ set formatoptions+=m
 " Keyboard Mapping Settings
 "==========================================
 " {
-" set leader key
-let mapleader = ","
-let g:mapleader = ","
+" set leader key to space
+let mapleader = " "
+let g:mapleader = " "
 
 " map ; to :
 nnoremap ; :
@@ -371,7 +377,7 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader>Q :q!<CR>
 
 " map <space> for searching
-noremap <space> /
+"noremap <space> /
 
 " tap jk quickly to normal mode
 inoremap jk <Esc>
@@ -522,6 +528,9 @@ nnoremap <F2> :call HideNumber()<CR>
 " F3: toggle syntax highlight
 nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
+" F4: Preview a tag circularly
+nnoremap <F4> :PreviewTag<CR>
+
 " F5: toggle deoplete autocompletion
 nnoremap <F5> :call deoplete#toggle()<CR>
 
@@ -604,12 +613,14 @@ autocmd BufNewFile,BufRead *.ini,*.conf
 " {
 " python provider program
 " this points neovim to a specific python interpreter
-let g:python_host_prog = '/usr/bin/python2'
+" ISSUE: If python_host_prog is set, the neovim searches for python2 neovim module when open a new
+" python file and throw exception, even if python3 neovim module is already installed.
+"let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = '/usr/bin/python3'
 
 " terminal emulator key-mapping
-" esc for changing terminal to normal mode
 " ---------------------------------------------------------
+" esc for changing terminal to normal mode
 tnoremap <Esc> <C-\><C-n>
 
 " using `alt + {h,j,k,l}` to navigate between windows
@@ -741,14 +752,16 @@ function! Replace(confirm, wholeword, replace)
     execute 'argdo %s/' . search . '/' . replace . '/' . flag . '| update'
 endfunction
 
-" toggle background
+" toggle background, only used for presentation
 function! ToggleBG()
     let s:tbg = &background
     " Inversion
     if s:tbg == "dark"
         set background=light
+        colorscheme desert
     else
         set background=dark
+        colorscheme desert
     endif
 endfunction
 " }

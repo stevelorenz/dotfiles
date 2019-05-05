@@ -17,6 +17,9 @@
 "      -> (La)Tex
 "    -> Documentation and Writing
 "    -> Colorscheme
+"
+" MARK: Currently there are too many plugins and I plan to DISABLE some that are not essential for
+" my daily usage. After some testing, I will remove some of them in the next stable version.
 "=========================================
 
 " - Use Vim-Plug Plugin Manager -
@@ -91,8 +94,8 @@ if count(g:bundle_groups, 'general')
 
     " - Fuzzy file, buffer and MRU finder
     Plug 'ctrlpvim/ctrlp.vim'
-    " map it to ctrl+p plus p, use <C-P> for multiple search plugins
-    let g:ctrlp_map = '<C-P>p'
+    " map it to space plus p, use <C-P> for multiple search plugins
+    let g:ctrlp_map = '<space>p'
     let g:ctrlp_cmd = 'CtrlP'
     " use the dir of the current file as searching root
     " unless it is a subdir of the cwd
@@ -159,9 +162,11 @@ if count(g:bundle_groups, 'general')
     Plug 'vim-scripts/matchit.zip'
 
     "- Display the indention levels
-    Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
-    let g:indentLine_enabled = 0
+    "Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
+    Plug 'Yggdroot/indentLine',
+    let g:indentLine_enabled = 1
     let g:indentLine_char = '¦'
+    let g:indentLine_setConceal = 0
 
     " - Search results counter
     Plug 'vim-scripts/IndexedSearch'
@@ -213,6 +218,8 @@ if count(g:bundle_groups, 'general_editing')
     " - Text object
     Plug 'kana/vim-textobj-user'
     Plug 'kana/vim-textobj-indent'"
+    Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
+    Plug 'sgur/vim-textobj-parameter'
 
 endif
 
@@ -254,6 +261,7 @@ if count(g:bundle_groups, 'general_programming')
         let g:ale_lint_on_enter = 0
     endif
 
+    " - TODO: Check LeaderF if it can replace tagbar
     " - Dynamically show tags
     Plug 'majutsushi/tagbar'
     let tagbar_left = 1
@@ -269,7 +277,7 @@ if count(g:bundle_groups, 'general_programming')
     set tags=./.tags;,.tags
     let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
     let g:gutentags_ctags_tagfile = '.tags'
-    " Add suppport for ctags and gtags
+    " Add suppport for ctags and gtags, gtags is disabled by default
     let g:gutentags_modules = []
     if executable('ctags')
         let g:gutentags_modules += ['ctags']
@@ -277,10 +285,10 @@ if count(g:bundle_groups, 'general_programming')
         let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
         let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
     endif
-    if executable('gtags-cscope') && executable('gtags')
-        let g:gutentags_modules += ['gtags_cscope']
-        let g:gutentags_auto_add_gtags_cscope = 0
-    endif
+    " if executable('gtags-cscope') && executable('gtags')
+    "     let g:gutentags_modules += ['gtags_cscope']
+    "     let g:gutentags_auto_add_gtags_cscope = 0
+    " endif
 
     " put tags file to the cache directory
     let s:vim_tags = expand('~/.cache/tags')
@@ -294,14 +302,16 @@ if count(g:bundle_groups, 'general_programming')
 
     " - Git integration and enhancement
     " -- awesome git wrapper
-    "Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-fugitive'
     " -- show git diff and stages/undoes hunks
-    Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterToggle'}
-    let g:gitgutter_enabled = 0
-    let g:gitgutter_realtime = 0
-    let g:gitgutter_eager = 0
-    " fix remove on saved problem in neovim
-    let g:gitgutter_sign_removed_first_line = "^_"
+    " Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterToggle'}
+    " let g:gitgutter_enabled = 0
+    " let g:gitgutter_realtime = 0
+    " let g:gitgutter_eager = 0
+    " " fix remove on saved problem in neovim
+    " let g:gitgutter_sign_removed_first_line = "^_"
+    " -- show git diff asynchronously
+    Plug 'mhinz/vim-signify'
 
     " - Intensely orgasmic commenting
     Plug 'scrooloose/nerdcommenter'
@@ -390,6 +400,8 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     let g:UltiSnipsJumpForwardTrigger = "<leader><tab>"
     let g:UltiSnipsJumpBackwardTrigger = "<leader><s-tab>"
     let g:UltiSnipsEditSplit = "vertical"
+    " Fully disable snipmate
+    "let g:UltiSnipsEnableSnipMate = 0
     " searching paths
     let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
@@ -398,7 +410,7 @@ if count(g:bundle_groups, 'snippet_autocomplete')
         " - Dark powered asynchronous completion framework for neovim {
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
         " call deoplete#toggle() when needed
-        let g:deoplete#enable_at_startup = 1
+        let g:deoplete#enable_at_startup = 0
         let g:deoplete#enable_smart_case = 1
         let g:deoplete#skip_chars = ['(', ')', '<', '>']
         let g:deoplete#max_abbr_width = 35
