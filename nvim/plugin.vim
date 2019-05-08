@@ -38,8 +38,12 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 " remove element in the list to disable a collection of plugins.
 " for example, remove 'python' will disable all plugins in the python section.
 if !exists('g:bundle_groups')
+    " All available groups
+    "let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
+    "            \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'text', 'colorscheme']
+    "
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'text', 'colorscheme']
+                \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'colorscheme']
 endif
 
 " --- General --------------------------------------------- {
@@ -215,7 +219,7 @@ if count(g:bundle_groups, 'general_editing')
     " - Show contents of the registers
     Plug 'junegunn/vim-peekaboo'
 
-    " - Text object
+    " - Text objects
     Plug 'kana/vim-textobj-user'
     Plug 'kana/vim-textobj-indent'"
     Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
@@ -253,12 +257,28 @@ if count(g:bundle_groups, 'general_programming')
     if has('nvim') || v:version >= 800
         Plug 'w0rp/ale'
         let g:ale_sign_column_always = 1
+        " ALE automatically updates the loclist which makes it impossible to use some other plugins
+        " such as GV
         let g:ale_set_loclist = 0
         let g:ale_set_quickfix = 1
         "let g:ale_open_list = 1
         let g:ale_lint_on_save = 'never'
         let g:ale_lint_on_text_changed = 'never'
         let g:ale_lint_on_enter = 0
+
+        " Add default fixers
+        let g:ale_fixers = {
+                    \   'javascript': ['prettier'],
+                    \   'javascript.jsx': ['prettier'],
+                    \   'json': ['prettier'],
+                    \   'scss': ['prettier'],
+                    \   'bash': ['shfmt'],
+                    \   'zsh': ['shfmt'],
+                    \   'elixir': ['mix_format'],
+                    \   'ruby': ['rubocop'],
+                    \   'rust': ['rustfmt'],
+                    \   'elm': ['elm-format'],
+                    \}
     endif
 
     " - TODO: Check LeaderF if it can replace tagbar
@@ -588,7 +608,7 @@ if count(g:bundle_groups, 'text')
     Plug 'lervag/vimtex', { 'for': 'tex' }
     let g:tex_flavor = 'tex'  " default tex type
 
-    Plug 'junegunn/goyo.vim'
+    "Plug 'junegunn/goyo.vim'
 endif
 
 " --- }

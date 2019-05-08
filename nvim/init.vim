@@ -219,6 +219,13 @@ endif
 set splitright " puts new vsplit windows to the right of the current
 set splitbelow " puts new split windows to the bottom of the current
 
+" treat dash separated words as a word text object
+set iskeyword+=-
+
+" make scrolling faster
+set ttyfast
+set lazyredraw
+
 " }
 
 "==========================================
@@ -334,11 +341,34 @@ highlight SpellLocal term=underline cterm=underline
 " 80 characters line
 set colorcolumn=81
 
-" Always show the sign column
+" always show the sign column
 set signcolumn=yes
 
-" Disable concealing
+" disable concealing
 let g:tex_conceal = ""
+
+" show invisible characters
+set list
+" display extra whitespace
+set listchars=tab:»·,trail:·,nbsp:·
+
+" highlight fenced code blocks in markdown
+let g:markdown_fenced_languages = [
+            \ 'html',
+            \ 'elm',
+            \ 'vim',
+            \ 'js=javascript',
+            \ 'json',
+            \ 'python',
+            \ 'ruby',
+            \ 'elixir',
+            \ 'sql',
+            \ 'bash=sh'
+            \ ]
+
+" enable folding in bash files
+let g:sh_fold_enabled=1
+
 " }
 
 "==========================================
