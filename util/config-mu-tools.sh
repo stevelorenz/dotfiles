@@ -57,18 +57,17 @@ if [[ -d  "$NVIMDIR" ]]; then
 fi
 cp -r "$DOTFILES_DIR/vim" "$HOME/.config/nvim"
 
-printf "\n[Config] Copy and link tmux config...\n"
-if [[ -d  "$TMUXDIR" ]]; then
-    printf "[Warning] tmux dir already exists, rename it to ~/.tmux_%s\n" "$CUR_DATE"
-    mv "$HOME/.tmux" "$HOME/.tmux_$CUR_DATE"
-fi
-cp -r "$DOTFILES_DIR/tmux" "$HOME/.tmux"
-ln -sf "$HOME/.tmux/tmux.conf" "$HOME/.tmux.conf"
+#printf "\n[Config] Copy and link tmux config...\n"
+#if [[ -d  "$TMUXDIR" ]]; then
+#    printf "[Warning] tmux dir already exists, rename it to ~/.tmux_%s\n" "$CUR_DATE"
+#    mv "$HOME/.tmux" "$HOME/.tmux_$CUR_DATE"
+#fi
+#cp -r "$DOTFILES_DIR/tmux" "$HOME/.tmux"
+#ln -sf "$HOME/.tmux/tmux.conf" "$HOME/.tmux.conf"
 
 printf "\n[Config] Copy common dev config files...\n"
 cp -f "$DOTFILES_DIR/dev_tool/agignore" "$HOME/.agignore"
 cp -f "$DOTFILES_DIR/dev_tool/ctags" "$HOME/.ctags"
-cp -f "$DOTFILES_DIR/dev_tool/gdbinit" "$HOME/.gdbinit"
 mkdir -p "$HOME/.config/pip"
 cp -f "$DOTFILES_DIR/dev_tool/python_dev/pip.conf" "$HOME/.config/pip/pip.conf"
 mkdir -p "$HOME/.config/cmus"
