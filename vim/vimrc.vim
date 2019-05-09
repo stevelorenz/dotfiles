@@ -1,9 +1,9 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 "==========================================
-" About: Vimrc File
+" About: Zuo's Config File for VIM/NeoVIM
 " Maintainer: Xiang, Zuo
 " Email: xianglinks@gmail.com
-" Version: 1.0
+" Version: 1.3
 " Sections:
 "    -> Initial Plugin
 "    -> General Settings
@@ -11,6 +11,7 @@
 "    -> File Encode Settings
 "    -> Keyboard Mapping Settings
 "    -> File Type Custom Settings
+"    -> NeoVIM Specific
 "    -> Dev Tools Settings
 "    -> Theme Settings
 "    -> Helper Functions
@@ -26,12 +27,18 @@ set nocompatible
 
 " use curl to get plug.vim if not exists
 let vim_plug_just_installed = 0
-let vim_plug_path = expand('~/.vim/autoload/plug.vim')
+
+if has('nvim')
+    let vim_plug_path = expand('~/.config/nvim/autoload/plug.vim')
+else
+    let vim_plug_path = expand('~/.vim/autoload/plug.vim')
+endif
+
 if !filereadable(vim_plug_path)
     echo "Installing Vim-plug..."
     echo ""
-    silent !mkdir -p ~/.vim/autoload
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    silent !mkdir -p ~/.config/nvim/autoload/
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     let vim_plug_just_installed = 1
 endif
 
@@ -46,8 +53,14 @@ syntax on
 
 " load plugins and configurations in ./plugin.vim
 " MARK: comment this part to disable all plugins
-if filereadable(expand("~/.vim/plugin.vim"))
-    source ~/.vim/plugin.vim
+if has('nvim')
+    if filereadable(expand("~/.config/nvim/plugin.vim"))
+        source ~/.config/nvim/plugin.vim
+    endif
+else
+    if filereadable(expand("~/.vim/plugin.vim"))
+        source ~/.vim/plugin.vim
+    endif
 endif
 
 " enable file type, plugin and indent detection
@@ -187,13 +200,12 @@ set lazyredraw
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
-" better swap, backup, undo and info storage
+" better swap, backup and undo storage
 set directory=~/.vim/dirs/tmp
 set backupdir=~/.vim/dirs/backups
 " persistent undos
 set undofile
 set undodir=~/.vim/dirs/undos
-set viminfo+=n~/.vim/dirs/viminfo
 
 " create needed directories if they don't exist
 if !isdirectory(&backupdir)
@@ -219,8 +231,12 @@ endif
 set splitright " puts new vsplit windows to the right of the current
 set splitbelow " puts new split windows to the bottom of the current
 
-" ctags location
-set tags=./tags;/
+" treat dash separated words as a word text object
+set iskeyword+=-
+
+" make scrolling faster
+set ttyfast
+set lazyredraw
 
 " }
 
@@ -285,15 +301,21 @@ if &term =~ '256color'
     set t_ut=
 endif
 
+" True color in neovim wasn't added until 0.1.5
+" if has('nvim-0.1.5')
+"     set termguicolors
+" endif
+
 " use dark background
 set background=dark
 " use 256 colors when possible
-" wombat, my favorite colorscheme
 if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
     let &t_Co = 256
-    colorscheme wombat256i
+    "colorscheme wombat256i
+    colorscheme onedark
 else
-    colorscheme wombat256mod
+    "colorscheme wombat256mod
+    colorscheme onedark
 endif
 
 " GUI specific {
@@ -330,6 +352,35 @@ highlight SpellLocal term=underline cterm=underline
 
 " 80 characters line
 set colorcolumn=81
+
+" always show the sign column
+set signcolumn=yes
+
+" disable concealing
+let g:tex_conceal = ""
+
+" show invisible characters
+set list
+" display extra whitespace
+set listchars=tab:»·,trail:·,nbsp:·
+
+" highlight fenced code blocks in markdown
+let g:markdown_fenced_languages = [
+            \ 'html',
+            \ 'elm',
+            \ 'vim',
+            \ 'js=javascript',
+            \ 'json',
+            \ 'python',
+            \ 'ruby',
+            \ 'elixir',
+            \ 'sql',
+            \ 'bash=sh'
+            \ ]
+
+" enable folding in bash files
+let g:sh_fold_enabled=1
+
 " }
 
 "==========================================
@@ -355,9 +406,9 @@ set formatoptions+=m
 " Keyboard Mapping Settings
 "==========================================
 " {
-" set leader key
-let mapleader = ","
-let g:mapleader = ","
+" set leader key to space
+let mapleader = " "
+let g:mapleader = " "
 
 " map ; to :
 nnoremap ; :
@@ -368,10 +419,10 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader>Q :q!<CR>
 
 " map <space> for searching
-noremap <space> /
+"noremap <space> /
 
-inoremap jk <Esc>
 " tap jk quickly to normal mode
+inoremap jk <Esc>
 xnoremap jk <Esc>
 cnoremap jk <C-c>
 
@@ -519,6 +570,9 @@ nnoremap <F2> :call HideNumber()<CR>
 " F3: toggle syntax highlight
 nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
+" F4: Preview a tag circularly
+nnoremap <F4> :PreviewTag<CR>
+
 " F5: toggle deoplete autocompletion
 nnoremap <F5> :call deoplete#toggle()<CR>
 
@@ -592,6 +646,41 @@ autocmd BufNewFile,BufRead *.js,*.html,*.css
 " -- config file --
 autocmd BufNewFile,BufRead *.ini,*.conf
             \ set filetype=dosini
+
+" }
+
+"==========================================
+" Neovim Specific
+"==========================================
+" {
+if has('nvim')
+    " python provider program
+    " this points neovim to a specific python interpreter
+    " ISSUE: If python_host_prog is set, the neovim searches for python2 neovim module when open a new
+    " python file and throw exception, even if python3 neovim module is already installed.
+    "let g:python_host_prog = '/usr/bin/python2'
+    let g:python3_host_prog = '/usr/bin/python3'
+
+    " terminal emulator key-mapping
+    " ---------------------------------------------------------
+    " esc for changing terminal to normal mode
+    tnoremap <Esc> <C-\><C-n>
+
+    " using `alt + {h,j,k,l}` to navigate between windows
+    " include terminal windows
+    tnoremap <A-h> <C-\><C-n><C-w>h
+    tnoremap <A-j> <C-\><C-n><C-w>j
+    tnoremap <A-k> <C-\><C-n><C-w>k
+    tnoremap <A-l> <C-\><C-n><C-w>l
+    nnoremap <A-h> <C-w>h
+    nnoremap <A-j> <C-w>j
+    nnoremap <A-k> <C-w>k
+    nnoremap <A-l> <C-w>l
+
+    " interactive find replace preview
+    set inccommand=nosplit
+endif
+" ---------------------------------------------------------
 " }
 
 "==========================================
@@ -710,14 +799,16 @@ function! Replace(confirm, wholeword, replace)
     execute 'argdo %s/' . search . '/' . replace . '/' . flag . '| update'
 endfunction
 
-" toggle background
+" toggle background, only used for presentation
 function! ToggleBG()
     let s:tbg = &background
     " Inversion
     if s:tbg == "dark"
         set background=light
+        colorscheme desert
     else
         set background=dark
+        colorscheme desert
     endif
 endfunction
 " }

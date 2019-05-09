@@ -1,9 +1,7 @@
 #!/bin/bash
 #
-# About: Set configs of my most used tools
+# About: Configure of my most used tools
 #
-# config-tools.sh
-# Copyright (C) 2017 steve <steve@steve-pc>
 
 DOTFILES_DIR="$HOME/.cache/dotfiles"
 CUR_DATE=$(date +%Y-%m-%d)
@@ -40,6 +38,10 @@ VIMDIR="$HOME/.vim"
 NVIMDIR="$HOME/.config/nvim"
 TMUXDIR="$HOME/.tmux"
 
+mkdir -p $VIMDIR
+mkdir -p $NVIMDIR
+mkdir -p $TMUXDIR
+
 printf "\n[Config] Copy and link vim config...\n"
 if [[ -d  "$VIMDIR" ]]; then
     printf "[Warning] vim config dir already exists, rename it to ~/.vim_%s\n" "$CUR_DATE"
@@ -53,7 +55,7 @@ if [[ -d  "$NVIMDIR" ]]; then
     printf "[Warning] neovim config dir already exists, rename it to ~/.config/nvim_%s\n" "$CUR_DATE"
     mv "$HOME/.config/nvim" "$HOME/.config/nvim_$CUR_DATE"
 fi
-cp -r "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
+cp -r "$DOTFILES_DIR/vim" "$HOME/.config/nvim"
 
 printf "\n[Config] Copy and link tmux config...\n"
 if [[ -d  "$TMUXDIR" ]]; then

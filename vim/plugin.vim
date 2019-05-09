@@ -17,6 +17,9 @@
 "      -> (La)Tex
 "    -> Documentation and Writing
 "    -> Colorscheme
+"
+" MARK: Currently there are too many plugins and I plan to DISABLE some that are not essential for
+" my daily usage. After some testing, I will remove some of them in the next stable version.
 "=========================================
 
 " - Use Vim-Plug Plugin Manager -
@@ -27,7 +30,7 @@
 "    :PlugUpgrade     upgrade
 "    :PlugClean       clean
 
-call plug#begin('~/.vim/bundle')  " dir for plugin files
+call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 
 " -------------------- Start Config --------------------
 
@@ -35,8 +38,12 @@ call plug#begin('~/.vim/bundle')  " dir for plugin files
 " remove element in the list to disable a collection of plugins.
 " for example, remove 'python' will disable all plugins in the python section.
 if !exists('g:bundle_groups')
+    " All available groups
+    "let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
+    "            \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'text', 'colorscheme']
+    "
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'text', 'colorscheme']
+                \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'colorscheme']
 endif
 
 " --- General --------------------------------------------- {
@@ -76,47 +83,59 @@ if count(g:bundle_groups, 'general')
     let g:netrw_altv = 1
 
     " - A tree explorer
-    Plug 'scrooloose/nerdtree'
-    let g:NERDTreeWinPos = "right"
-    let NERDTreeMinimalUI = 1
-    let NERDTreeDirArrows = 1
-    let g:NERDTreeHighlightCursorline = 0
-    " close vim if nerdtree is the last buffer
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType")
-                \&& b:NERDTreeType == "primary") | q | endif
-    " disable cursor line in nerdtree window
-    autocmd FileType nerdtree setlocal nocursorline
-    " ignored files
-    let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git$[[dir]]', '.swap', '.tmp']
+    " Plug 'scrooloose/nerdtree'
+    " let g:NERDTreeWinPos = "right"
+    " let NERDTreeMinimalUI = 1
+    " let NERDTreeDirArrows = 1
+    " let g:NERDTreeHighlightCursorline = 0
+    " " close vim if nerdtree is the last buffer
+    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType")
+    "             \&& b:NERDTreeType == "primary") | q | endif
+    " " disable cursor line in nerdtree window
+    " autocmd FileType nerdtree setlocal nocursorline
+    " " ignored files
+    " let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git$[[dir]]', '.swap', '.tmp']
 
-    " - Fuzzy file, buffer and MRU finder
-    Plug 'ctrlpvim/ctrlp.vim'
-    " map it to ctrl+p plus p, use <C-P> for multiple search plugins
-    let g:ctrlp_map = '<C-P>p'
-    let g:ctrlp_cmd = 'CtrlP'
-    " use the dir of the current file as searching root
-    " unless it is a subdir of the cwd
-    let g:ctrlp_working_path_mode = 'a'
-    let g:ctrlp_match_window_bottom = 1
-    let g:ctrlp_max_height = 15
-    " from bottom to top
-    let g:ctrlp_match_window_reversed = 1
-    " buffer of most recently used files
-    let g:ctrlp_mruf_max = 500
-    let g:ctrlp_follow_symlinks = 1
-    " use ack as backend if available
-    if executable('ag')
-        " can use a local or global .agignore to ignore files
-        let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -f -g ""'
-    elseif executable('ack')
-        let g:ctrlp_user_command = 'ack %s --nocolor -f'
+    if has('python') || has('python3')
+        " An asynchronous fuzzy finder which is used to quickly locate files, buffers, mrus, tags, etc. in large project.
+        Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+        noremap <m-f> :cclose<cr>:LeaderfFunction!<cr>
+        noremap <m-t> :cclose<cr>:LeaderfBufTag!<cr>
+        let g:Lf_MruMaxFiles = 2048
+        let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+        " LeaderF with tags
+        let g:Lf_GtagsAutoGenerate = 1
     else
-        " use default grep, ignore files in .gitignore
-        let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+        " - Fuzzy file, buffer and MRU finder
+        Plug 'ctrlpvim/ctrlp.vim'
+        " map it to space plus p, use <C-P> for multiple search plugins
+        let g:ctrlp_map = '<space>p'
+        let g:ctrlp_cmd = 'CtrlP'
+        " use the dir of the current file as searching root
+        " unless it is a subdir of the cwd
+        let g:ctrlp_working_path_mode = 'a'
+        let g:ctrlp_match_window_bottom = 1
+        let g:ctrlp_max_height = 15
+        " from bottom to top
+        let g:ctrlp_match_window_reversed = 1
+        " buffer of most recently used files
+        let g:ctrlp_mruf_max = 500
+        let g:ctrlp_follow_symlinks = 1
+        " use ack as backend if available
+        if executable('ag')
+            " can use a local or global .agignore to ignore files
+            let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -f -g ""'
+        elseif executable('ack')
+            let g:ctrlp_user_command = 'ack %s --nocolor -f'
+        else
+            " use default grep, ignore files in .gitignore
+            let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+        endif
+        " - Extension to ctrlp, for fuzzy command finder
+        Plug 'fisadev/vim-ctrlp-cmdpalette', { 'on': 'CtrlPCmdPalette' }
+        nnoremap <C-P>c :CtrlPCmdPalette<CR>
     endif
-    " - Extension to ctrlp, for fuzzy command finder
-    Plug 'fisadev/vim-ctrlp-cmdpalette', { 'on': 'CtrlPCmdPalette' }
-    nnoremap <C-P>c :CtrlPCmdPalette<CR>
+
 
     " - Undo history visualizer
     Plug 'mbbill/undotree', { 'on':  'UndotreeToggle' }
@@ -159,15 +178,20 @@ if count(g:bundle_groups, 'general')
     Plug 'vim-scripts/matchit.zip'
 
     "- Display the indention levels
-    Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
-    let g:indentLine_enabled = 0
+    "Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
+    Plug 'Yggdroot/indentLine',
+    let g:indentLine_enabled = 1
     let g:indentLine_char = '¦'
+    let g:indentLine_setConceal = 0
 
     " - Search results counter
     Plug 'vim-scripts/IndexedSearch'
 
     " - Enhancing in-buffer search experience
     Plug 'junegunn/vim-slash'
+
+    " - Beakdown VIM's --startuptime output
+    Plug 'tweekmonster/startuptime.vim'
 
 endif
 
@@ -202,7 +226,7 @@ if count(g:bundle_groups, 'general_editing')
     Plug 'itchyny/vim-cursorword'
 
     " - Pairs of handy bracket mappings
-    Plug 'tpope/vim-unimpaired'
+    "Plug 'tpope/vim-unimpaired'
 
     " - Better whitespace highlighting
     Plug 'ntpeters/vim-better-whitespace'
@@ -210,9 +234,11 @@ if count(g:bundle_groups, 'general_editing')
     " - Show contents of the registers
     Plug 'junegunn/vim-peekaboo'
 
-    " - Text object
+    " - Text objects
     Plug 'kana/vim-textobj-user'
     Plug 'kana/vim-textobj-indent'"
+    Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
+    Plug 'sgur/vim-textobj-parameter'
 
 endif
 
@@ -246,14 +272,31 @@ if count(g:bundle_groups, 'general_programming')
     if has('nvim') || v:version >= 800
         Plug 'w0rp/ale'
         let g:ale_sign_column_always = 1
+        " ALE automatically updates the loclist which makes it impossible to use some other plugins
+        " such as GV
         let g:ale_set_loclist = 0
         let g:ale_set_quickfix = 1
         "let g:ale_open_list = 1
         let g:ale_lint_on_save = 'never'
         let g:ale_lint_on_text_changed = 'never'
         let g:ale_lint_on_enter = 0
+
+        " Add default fixers
+        let g:ale_fixers = {
+                    \   'javascript': ['prettier'],
+                    \   'javascript.jsx': ['prettier'],
+                    \   'json': ['prettier'],
+                    \   'scss': ['prettier'],
+                    \   'bash': ['shfmt'],
+                    \   'zsh': ['shfmt'],
+                    \   'elixir': ['mix_format'],
+                    \   'ruby': ['rubocop'],
+                    \   'rust': ['rustfmt'],
+                    \   'elm': ['elm-format'],
+                    \}
     endif
 
+    " - TODO: Check LeaderF if it can replace tagbar
     " - Dynamically show tags
     Plug 'majutsushi/tagbar'
     let tagbar_left = 1
@@ -269,7 +312,7 @@ if count(g:bundle_groups, 'general_programming')
     set tags=./.tags;,.tags
     let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
     let g:gutentags_ctags_tagfile = '.tags'
-    " Add suppport for ctags and gtags
+    " Add suppport for ctags and gtags, gtags is disabled by default
     let g:gutentags_modules = []
     if executable('ctags')
         let g:gutentags_modules += ['ctags']
@@ -277,10 +320,10 @@ if count(g:bundle_groups, 'general_programming')
         let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
         let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
     endif
-    if executable('gtags-cscope') && executable('gtags')
-        let g:gutentags_modules += ['gtags_cscope']
-        let g:gutentags_auto_add_gtags_cscope = 0
-    endif
+    "if executable('gtags-cscope') && executable('gtags')
+    "    let g:gutentags_modules += ['gtags_cscope']
+    "    let g:gutentags_auto_add_gtags_cscope = 0
+    "endif
 
     " put tags file to the cache directory
     let s:vim_tags = expand('~/.cache/tags')
@@ -290,18 +333,20 @@ if count(g:bundle_groups, 'general_programming')
     endif
 
     " Gtags-scope support
-    Plug 'skywind3000/gutentags_plus'
+    " Plug 'skywind3000/gutentags_plus'
 
     " - Git integration and enhancement
     " -- awesome git wrapper
-    "Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-fugitive'
     " -- show git diff and stages/undoes hunks
-    Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterToggle'}
-    let g:gitgutter_enabled = 0
-    let g:gitgutter_realtime = 0
-    let g:gitgutter_eager = 0
-    " fix remove on saved problem in neovim
-    let g:gitgutter_sign_removed_first_line = "^_"
+    " Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterToggle'}
+    " let g:gitgutter_enabled = 0
+    " let g:gitgutter_realtime = 0
+    " let g:gitgutter_eager = 0
+    " " fix remove on saved problem in neovim
+    " let g:gitgutter_sign_removed_first_line = "^_"
+    " -- show git diff asynchronously
+    Plug 'mhinz/vim-signify'
 
     " - Intensely orgasmic commenting
     Plug 'scrooloose/nerdcommenter'
@@ -390,6 +435,8 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     let g:UltiSnipsJumpForwardTrigger = "<leader><tab>"
     let g:UltiSnipsJumpBackwardTrigger = "<leader><s-tab>"
     let g:UltiSnipsEditSplit = "vertical"
+    " Fully disable snipmate
+    "let g:UltiSnipsEnableSnipMate = 0
     " searching paths
     let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
@@ -398,7 +445,7 @@ if count(g:bundle_groups, 'snippet_autocomplete')
         " - Dark powered asynchronous completion framework for neovim {
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
         " call deoplete#toggle() when needed
-        let g:deoplete#enable_at_startup = 1
+        let g:deoplete#enable_at_startup = 0
         let g:deoplete#enable_smart_case = 1
         let g:deoplete#skip_chars = ['(', ')', '<', '>']
         let g:deoplete#max_abbr_width = 35
@@ -576,7 +623,7 @@ if count(g:bundle_groups, 'text')
     Plug 'lervag/vimtex', { 'for': 'tex' }
     let g:tex_flavor = 'tex'  " default tex type
 
-    Plug 'junegunn/goyo.vim'
+    "Plug 'junegunn/goyo.vim'
 endif
 
 " --- }
