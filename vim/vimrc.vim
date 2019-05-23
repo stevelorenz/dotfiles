@@ -597,8 +597,8 @@ nnoremap <F8> :UndotreeToggle<CR>
 " F9: list available snippets
 " Check config of UltiSnips in plugin.vim
 
-" F10: toggle tagbar
-nnoremap <F10> :TagbarToggle<CR>
+" F10: toggle vista (Tag/Symbols viewer)
+nnoremap <F10> :Vista!!<CR>
 
 " F12: Reload sytax highlighting
 noremap <F12> <Esc>:syntax sync fromstart<CR>

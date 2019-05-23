@@ -102,18 +102,18 @@ if count(g:bundle_groups, 'general')
     let g:netrw_altv = 1
 
     " - A tree explorer
-    " Plug 'scrooloose/nerdtree'
-    " let g:NERDTreeWinPos = "right"
-    " let NERDTreeMinimalUI = 1
-    " let NERDTreeDirArrows = 1
-    " let g:NERDTreeHighlightCursorline = 0
-    " " close vim if nerdtree is the last buffer
-    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType")
-    "             \&& b:NERDTreeType == "primary") | q | endif
-    " " disable cursor line in nerdtree window
-    " autocmd FileType nerdtree setlocal nocursorline
-    " " ignored files
-    " let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git$[[dir]]', '.swap', '.tmp']
+    Plug 'scrooloose/nerdtree'
+    let g:NERDTreeWinPos = "right"
+    let NERDTreeMinimalUI = 1
+    let NERDTreeDirArrows = 1
+    let g:NERDTreeHighlightCursorline = 0
+    " close vim if nerdtree is the last buffer
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType")
+                \&& b:NERDTreeType == "primary") | q | endif
+    " disable cursor line in nerdtree window
+    autocmd FileType nerdtree setlocal nocursorline
+    " ignored files
+    let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git$[[dir]]', '.swap', '.tmp']
 
     if has('python') || has('python3')
         " An asynchronous fuzzy finder which is used to quickly locate files, buffers, mrus, tags, etc. in large project.
