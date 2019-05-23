@@ -43,7 +43,7 @@ if !exists('g:bundle_groups')
     "            \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'text', 'colorscheme']
     "
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'colorscheme']
+                \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'colorscheme', 'test']
 endif
 
 " --- General --------------------------------------------- {
@@ -51,27 +51,46 @@ endif
 if count(g:bundle_groups, 'general')
     " - Status line enhancement
     " -- vim airline
-    Plug 'bling/vim-airline'
-    if !exists('g:airline_symbols')
-        let g:airline_symbols = {}
-    endif
-    let g:airline_left_sep = '▶'
-    let g:airline_left_alt_sep = '❯'
-    let g:airline_right_sep = '◀'
-    let g:airline_right_alt_sep = '❮'
-    let g:airline_symbols.linenr = '¶'
-    let g:airline_symbols.branch = '⎇'
+    "Plug 'bling/vim-airline'
+    "if !exists('g:airline_symbols')
+    "    let g:airline_symbols = {}
+    "endif
+    "let g:airline_left_sep = '▶'
+    "let g:airline_left_alt_sep = '❯'
+    "let g:airline_right_sep = '◀'
+    "let g:airline_right_alt_sep = '❮'
+    "let g:airline_symbols.linenr = '¶'
+    "let g:airline_symbols.branch = '⎇'
 
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#left_sep = ' '
-    let g:airline#extensions#tabline#left_alt_sep = '|'
-    let g:airline#extensions#tabline#buffer_nr_show = 1
-    let g:airline#extensions#tabline#buffer_idx_mode = 1
+    "let g:airline#extensions#tabline#enabled = 1
+    "let g:airline#extensions#tabline#left_sep = ' '
+    "let g:airline#extensions#tabline#left_alt_sep = '|'
+    "let g:airline#extensions#tabline#buffer_nr_show = 1
+    "let g:airline#extensions#tabline#buffer_idx_mode = 1
 
-    " -- vim-airline theme repository
-    Plug 'vim-airline/vim-airline-themes'
-    "let g:airline_theme = 'simple'
-    let g:airline_theme = 'onedark'
+    "" -- vim-airline theme repository
+    "Plug 'vim-airline/vim-airline-themes'
+    ""let g:airline_theme = 'simple'
+    "let g:airline_theme = 'onedark'
+
+    " -- lightline: a light and configurable statusline/tabline plugin for Vim
+    Plug 'itchyny/lightline.vim'
+    let g:lightline = {
+                \ 'colorscheme': 'one',
+                \ 'active': {
+                \   'left': [ [ 'mode', 'paste' ],
+                \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+                \ },
+                \ 'component_function': {
+                \   'gitbranch': 'fugitive#head'
+                \ },
+                \ }
+
+    " lightline plugin for buffer line
+    Plug 'mengelbrecht/lightline-bufferline'
+    let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+    let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+    let g:lightline.component_type   = {'buffers': 'tabsel'}
 
     " - Built-in directory browser: netrw
     " use tree view
@@ -143,14 +162,14 @@ if count(g:bundle_groups, 'general')
 
     " - Fast and easy cursor motion
     " -- inter lines
-    Plug 'Lokaltog/vim-easymotion'
-    let g:EasyMotion_smartcase = 1
-    " default use one <leader> as trigger
-    map  <leader>f <Plug>(easymotion-bd-f)
-    nmap <leader>f <Plug>(easymotion-overwin-f)
-    " <leader>s{char} to move to {char}
-    " s{char}{char} to move to {char}{char}
-    nmap s <Plug>(easymotion-overwin-f2)
+    "Plug 'Lokaltog/vim-easymotion'
+    "let g:EasyMotion_smartcase = 1
+    "" default use one <leader> as trigger
+    "map  <leader>f <Plug>(easymotion-bd-f)
+    "nmap <leader>f <Plug>(easymotion-overwin-f)
+    "" <leader>s{char} to move to {char}
+    "" s{char}{char} to move to {char}{char}
+    "nmap s <Plug>(easymotion-overwin-f2)
     " -- intra line
     Plug 'unblevable/quick-scope'
     let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -281,6 +300,15 @@ if count(g:bundle_groups, 'general_programming')
         let g:ale_lint_on_text_changed = 'never'
         let g:ale_lint_on_enter = 0
 
+        " declare enabled linters
+        let g:ale_linters = {
+                    \   'python': ['flake8'],
+                    \}
+
+        " language specfic settings
+        let g:ale_python_flake8_args = '--ignore=E501,E226'
+        let g:ale_python_flake8_options = '--ignore=E501,E226'
+
         " Add default fixers
         let g:ale_fixers = {
                     \   'javascript': ['prettier'],
@@ -296,41 +324,44 @@ if count(g:bundle_groups, 'general_programming')
                     \}
     endif
 
-    " - TODO: Check LeaderF if it can replace tagbar
+    " - Viewer & Finder for LSP symbols and tags
+    Plug 'liuchengxu/vista.vim'
+    let g:vista_sidebar_position= 'vertical topleft'
+
     " - Dynamically show tags
-    Plug 'majutsushi/tagbar'
-    let tagbar_left = 1
-    let tagbar_width = 35
-    let g:tagbar_compact = 1
-    let g:tagbar_autofocus = 1
-    " not sort by name but by the position
-    let g:tagbar_sort = 0
-    let g:tagbar_autoshowtag = 1
+    "Plug 'majutsushi/tagbar'
+    "let tagbar_left = 1
+    "let tagbar_width = 35
+    "let g:tagbar_compact = 1
+    "let g:tagbar_autofocus = 1
+    "" not sort by name but by the position
+    "let g:tagbar_sort = 0
+    "let g:tagbar_autoshowtag = 1
 
     " - Tags management
-    Plug 'ludovicchabant/vim-gutentags'
-    set tags=./.tags;,.tags
-    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-    let g:gutentags_ctags_tagfile = '.tags'
-    " Add suppport for ctags and gtags, gtags is disabled by default
-    let g:gutentags_modules = []
-    if executable('ctags')
-        let g:gutentags_modules += ['ctags']
-        let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-        let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-        let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-    endif
-    "if executable('gtags-cscope') && executable('gtags')
-    "    let g:gutentags_modules += ['gtags_cscope']
-    "    let g:gutentags_auto_add_gtags_cscope = 0
+    "Plug 'ludovicchabant/vim-gutentags'
+    "set tags=./.tags;,.tags
+    "let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+    "let g:gutentags_ctags_tagfile = '.tags'
+    "" Add suppport for ctags and gtags, gtags is disabled by default
+    "let g:gutentags_modules = []
+    "if executable('ctags')
+    "    let g:gutentags_modules += ['ctags']
+    "    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+    "    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+    "    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
     "endif
+    ""if executable('gtags-cscope') && executable('gtags')
+    ""    let g:gutentags_modules += ['gtags_cscope']
+    ""    let g:gutentags_auto_add_gtags_cscope = 0
+    ""endif
 
-    " put tags file to the cache directory
-    let s:vim_tags = expand('~/.cache/tags')
-    let g:gutentags_cache_dir = s:vim_tags
-    if !isdirectory(s:vim_tags)
-        silent! call mkdir(s:vim_tags, 'p')
-    endif
+    "" put tags file to the cache directory
+    "let s:vim_tags = expand('~/.cache/tags')
+    "let g:gutentags_cache_dir = s:vim_tags
+    "if !isdirectory(s:vim_tags)
+    "    silent! call mkdir(s:vim_tags, 'p')
+    "endif
 
     " Gtags-scope support
     " Plug 'skywind3000/gutentags_plus'
@@ -349,15 +380,18 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'mhinz/vim-signify'
 
     " - Intensely orgasmic commenting
-    Plug 'scrooloose/nerdcommenter'
-    " Add spaces after comment delimiters by default
-    let g:NERDSpaceDelims = 0
-    " Use compact syntax for prettified multi-line comments
-    let g:NERDCompactSexyComs = 1
-    " Allow commenting and inverting empty lines (useful when commenting a region)
-    let g:NERDCommentEmptyLines = 1
-    " Enable trimming of trailing whitespace when uncommenting
-    let g:NERDTrimTrailingWhitespace = 1
+    "Plug 'scrooloose/nerdcommenter'
+    "" Add spaces after comment delimiters by default
+    "let g:NERDSpaceDelims = 0
+    "" Use compact syntax for prettified multi-line comments
+    "let g:NERDCompactSexyComs = 1
+    "" Allow commenting and inverting empty lines (useful when commenting a region)
+    "let g:NERDCommentEmptyLines = 1
+    "" Enable trimming of trailing whitespace when uncommenting
+    "let g:NERDTrimTrailingWhitespace = 1
+
+    " Comment stuff out
+    Plug 'tpope/vim-commentary'
 
     " - Code search, view with edit mode
     Plug 'dyng/ctrlsf.vim'
@@ -473,13 +507,13 @@ if count(g:bundle_groups, 'snippet_autocomplete')
         " }
     else
         " - Use basic supertab for completion
-        Plug 'ervandew/supertab'
-        let g:SuperTabDefaultCompletionType = "context"
-        let g:SuperTabContextDefaultCompletionType = "<c-n>"
-        " close preview window when popup closes
-        let g:SuperTabClosePreviewOnPopupClose = 1
-        " remember last completion type until 'esc' to normal mode
-        let g:SuperTabRetainCompletionType=2
+        " Plug 'ervandew/supertab'
+        " let g:SuperTabDefaultCompletionType = "context"
+        " let g:SuperTabContextDefaultCompletionType = "<c-n>"
+        " " close preview window when popup closes
+        " let g:SuperTabClosePreviewOnPopupClose = 1
+        " " remember last completion type until 'esc' to normal mode
+        " let g:SuperTabRetainCompletionType=2
     endif
 
     " - Fast, Extensible, Async Completion Framework for Neovim {
@@ -588,7 +622,10 @@ endif
 
 " Golang {
 if count(g:bundle_groups, 'go')
-    Plug 'fatih/vim-go', { 'for': ['go'] }
+    " Go development plugin for Vim
+    Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoUpdateBinaries' }
+    " An autocompletion daemon for the Go programming language
+    Plug 'mdempsky/gocode', { 'for': ['go'], 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 endif
 " }
 
@@ -648,6 +685,15 @@ if count(g:bundle_groups, 'colorscheme')
     Plug 'ashfinal/vim-colors-violet'
 
     Plug 'dracula/vim'
+endif
+
+" --- }
+"
+" --- Plugins Under Test ---------------------------------- {
+
+if count(g:bundle_groups, 'test')
+    " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
+    Plug 'gyim/vim-boxdraw'
 endif
 
 " --- }

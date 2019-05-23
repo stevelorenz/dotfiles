@@ -15,6 +15,9 @@
 "    -> Dev Tools Settings
 "    -> Theme Settings
 "    -> Helper Functions
+"
+" Inspired By:
+"
 "==========================================
 
 
@@ -240,6 +243,8 @@ set iskeyword+=-
 set ttyfast
 set lazyredraw
 
+" cursor can be positioned where there is no actual character
+set virtualedit=all
 " }
 
 "==========================================
@@ -333,7 +338,7 @@ if has('gui_running')
     set guioptions-=m
     set guioptions-=T
     set guitablabel=%M\ %t
-    set showtabline=1
+    set showtabline=2
     set linespace=2
     set noimd
 endif
@@ -383,6 +388,8 @@ let g:markdown_fenced_languages = [
 " enable folding in bash files
 let g:sh_fold_enabled=1
 
+" always show tabline
+set showtabline=2
 " }
 
 "==========================================
