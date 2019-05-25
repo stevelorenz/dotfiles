@@ -44,7 +44,7 @@ font-1 = Hack:pixelsize=12;1
 font-2 = siji:pixelsize=12;1
 
 modules-left = i3
-modules-right = cpu memory filesystem wlan eth temperature battery xkeyboard date
+modules-right = cpu memory filesystem temperature battery xkeyboard date
 
 tray-position = right
 tray-padding = 3
@@ -175,8 +175,12 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format = <label>
+format = <label> <ramp-coreload>
 label = CPU %percentage%%
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
 
 [module/memory]
 type = internal/memory
@@ -195,8 +199,8 @@ format-connected = <ramp-signal> <label-connected>
 format-connected-underline = #9f78e1
 label-connected = %essid%
 
-format-disconnected =
-;format-disconnected = <label-disconnected>
+;format-disconnected =
+format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
@@ -216,12 +220,11 @@ interval = 3.0
 format-connected-underline = #55aa55
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
+label-connected = %ifname% %downspeed:3%%
 
-format-disconnected =
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
+label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/date]

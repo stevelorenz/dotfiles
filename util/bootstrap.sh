@@ -28,29 +28,57 @@ lnif() {
 }
 
 
-function deploy_vim() {
-    msg "Deploy VIM/NeoVIM dotfiles."
-    src_dir="$SCRIPTPATH/../vim"
-    dst_dirs="$HOME/.vim $HOME/.config/nvim"
-    dotfiles="vimrc.vim plugin.vim after colors custom_snippets ftplugin vimrc_tiny.vim"
+# Deploy dotfiles
+function deploy_dotfiles() {
 
-    for dir in $dst_dirs; do
+    declare src_dir="$1" dst_dirs="$2" dotfiles="$3" name="$4"
+
+    for dst_dir in $dst_dirs; do
+        mkdir -p "$dst_dir"
         for file in $dotfiles; do
-            if [[ -e "$dir/$file" ]]; then
-                warning "$file already exits in $dir. Are you sure to overwrite it? ([y]/n)"
+            dst_file=$file
+            if [[ -e "$dst_dir/$dst_file" ]]; then
+                warning "$dst_file already exits in $dst_dir. Are you sure to overwrite it? ([y]/n)"
                 read -r -n 1;
                 if [[ ! $REPLY ]] || [[ $REPLY =~ ^[Yy]$ ]]; then
-                    lnif "$src_dir/$file" "$dir/$file"
+                    lnif "$src_dir/$file" "$dst_dir/$dst_file"
                 fi
             else
-                ln -sn "$src_dir/$file" "$dir/$file"
+                ln -sn "$src_dir/$file" "$dst_dir/$dst_file"
             fi
         done
     done
-    ln -sf "/home/zuo/.vim/vimrc.vim" "/home/zuo/.vimrc"
-
     ret="$?"
-    success "VIM/NeoVIM dotfiles have been deployed."
+    success "$name dotfiles have been deployed."
 }
 
-deploy_vim
+# *** Tool with multiple dotfiles
+msg "Deploy VIM/NeoVIM dotfiles"
+src_dir=$(realpath "$SCRIPTPATH/../vim")
+dst_dirs="$HOME/.vim $HOME/.config/nvim"
+dotfiles="vimrc.vim plugin.vim after colors custom_snippets ftplugin vimrc_tiny.vim"
+name="VIM/NeoVIM"
+deploy_dotfiles "$src_dir" "$dst_dirs" "$dotfiles" "$name"
+ln -sf "/home/zuo/.vim/vimrc.vim" "/home/zuo/.vimrc"
+
+msg "Deploy Polybar dotfiles"
+src_dir=$(realpath "$SCRIPTPATH/../polybar")
+dst_dir="$HOME/.config/polybar"
+dotfiles="config launch.sh"
+name="Polybar"
+deploy_dotfiles "$src_dir" "$dst_dir" "$dotfiles" "$name"
+
+# *** Loop over tool with single file dotfile
+names="I3WM Termite"
+src_dirs="$(realpath "$SCRIPTPATH/../i3") $(realpath "$SCRIPTPATH/../termite")"
+dst_dirs="$HOME/.config/i3 $HOME/.config/termite"
+dotfiles="config config"
+names_arr=($names)
+src_dirs_arr=($src_dirs)
+dst_dirs_arr=($dst_dirs)
+dotfiles_arr=($dotfiles)
+
+for (( i = 0; i < ${#names_arr[@]}; i++ )); do
+    msg "Deploy ${names_arr[$i]} dotfile"
+    deploy_dotfiles "${src_dirs_arr[$i]}" "${dst_dirs_arr[$i]}" "${dotfiles_arr[$i]}" "${names_arr[$i]}"
+done
