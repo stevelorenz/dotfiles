@@ -56,10 +56,10 @@ function deploy_dotfiles() {
 msg "Deploy VIM/NeoVIM dotfiles"
 src_dir=$(realpath "$SCRIPTPATH/../vim")
 dst_dirs="$HOME/.vim $HOME/.config/nvim"
-dotfiles="vimrc.vim plugin.vim after colors custom_snippets ftplugin vimrc_tiny.vim"
+dotfiles="vimrc.vim plugin.vim after colors custom_snippets ftplugin vimrc_tiny.vim init.vim"
 name="VIM/NeoVIM"
 deploy_dotfiles "$src_dir" "$dst_dirs" "$dotfiles" "$name"
-ln -sf "/home/zuo/.vim/vimrc.vim" "/home/zuo/.vimrc"
+ln -sf "$HOME/.vim/vimrc.vim" "$HOME/.vimrc"
 
 msg "Deploy Polybar dotfiles"
 src_dir=$(realpath "$SCRIPTPATH/../polybar")

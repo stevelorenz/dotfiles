@@ -123,7 +123,7 @@ if count(g:bundle_groups, 'general')
         let g:Lf_MruMaxFiles = 2048
         let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
         " LeaderF with tags
-        let g:Lf_GtagsAutoGenerate = 1
+        let g:Lf_GtagsAutoGenerate = 0
     else
         " - Fuzzy file, buffer and MRU finder
         Plug 'ctrlpvim/ctrlp.vim'
