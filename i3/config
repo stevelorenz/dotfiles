@@ -24,11 +24,11 @@ font pango: Hack Regular 13
 # Start terminal emulator
 set $term_1 termite
 set $term_2 urxvt
-set $term_3 terminator
+set $term_3 st
 bindsym $mod+t exec $term_1
 bindsym $mod+Shift+t exec $term_1 -e tmux
-bindsym $mod+Return exec $term_2
-bindsym $mod+Shift+Return exec $term_2 -e tmux
+bindsym $mod+Return exec $term_3
+bindsym $mod+Shift+Return exec $term_3 -e tmux
 
 # Avoid exiting FF or other APP accidentally
 bindsym Ctrl+q exec echo "hug" > /dev/null
