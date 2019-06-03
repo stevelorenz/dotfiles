@@ -4,7 +4,7 @@
 !! Transparency (0-1):
 st.alpha: 0.95
 !! Set a default font and font size as below:
-st.font: Hack:size=16:antialias=true,autohint=true;
+st.font: Hack:size=13:antialias=true,autohint=true,bold=false;
 
 ! ------------------------------------------------------------------------------
 ! Xterm Terminal Emulator Settings

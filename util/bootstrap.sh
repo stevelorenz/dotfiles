@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 SCRIPTPATH="$( cd "$(dirname "$0")" || exit ; pwd -P )"
+DFPATH=$(realpath "$SCRIPTPATH/../")
 
 msg() {
     printf '%b\n' "$1" >&2
@@ -69,10 +70,10 @@ name="Polybar"
 deploy_dotfiles "$src_dir" "$dst_dir" "$dotfiles" "$name"
 
 # *** Loop over tool with single file dotfile
-names="I3WM Termite"
-src_dirs="$(realpath "$SCRIPTPATH/../i3") $(realpath "$SCRIPTPATH/../termite")"
-dst_dirs="$HOME/.config/i3 $HOME/.config/termite"
-dotfiles="config config"
+names="I3WM Termite Zathura Alacritty"
+src_dirs="$DFPATH/i3 $DFPATH/termite $DFPATH/zathura $DFPATH/alacritty"
+dst_dirs="$HOME/.config/i3 $HOME/.config/termite $HOME/.config/zathura/ $HOME/.config/alacritty"
+dotfiles="config config zathurarc alacritty.yml"
 names_arr=($names)
 src_dirs_arr=($src_dirs)
 dst_dirs_arr=($dst_dirs)
