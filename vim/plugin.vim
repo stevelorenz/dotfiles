@@ -240,6 +240,20 @@ if count(g:bundle_groups, 'general_editing')
     let g:multi_cursor_prev_key = '<C-p>'
     let g:multi_cursor_skip_key = '<C-x>'
     let g:multi_cursor_quit_key = '<Esc>'
+    " Avoid deoplete gibberish
+    func! Multiple_cursors_before()
+        if deoplete#is_enabled()
+            call deoplete#disable()
+            let g:deoplete_is_enable_before_multi_cursors = 1
+        else
+            let g:deoplete_is_enable_before_multi_cursors = 0
+        endif
+    endfunc
+    func! Multiple_cursors_after()
+        if g:deoplete_is_enable_before_multi_cursors
+            call deoplete#enable()
+        endif
+    endfunc
 
     " - Underlines the word under the cursor
     Plug 'itchyny/vim-cursorword'
@@ -290,6 +304,7 @@ if count(g:bundle_groups, 'general_programming')
     " - Asynchronous Lint Engine
     if has('nvim') || v:version >= 800
         Plug 'w0rp/ale'
+        let g:ale_enabled=0
         let g:ale_sign_column_always = 1
         " ALE automatically updates the loclist which makes it impossible to use some other plugins
         " such as GV
@@ -298,7 +313,7 @@ if count(g:bundle_groups, 'general_programming')
         "let g:ale_open_list = 1
         let g:ale_lint_on_save = 'never'
         let g:ale_lint_on_text_changed = 'never'
-        let g:ale_lint_on_enter = 0
+        let g:ale_lint_on_enter = 'never'
 
         " declare enabled linters
         let g:ale_linters = {
@@ -403,6 +418,8 @@ if count(g:bundle_groups, 'general_programming')
     nmap <C-P>p <Plug>CtrlSFPwordPath
     " open the result of last search
     nnoremap <C-P>o :CtrlSFOpen<CR>
+    autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
+                \ let g:ctrlsf_indent = 8
     " default use regex pattern
     let g:ctrlsf_regex_pattern = 1
     let g:ctrlsf_case_sensitive = 'smart'
@@ -694,6 +711,10 @@ endif
 if count(g:bundle_groups, 'test')
     " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
     Plug 'gyim/vim-boxdraw'
+
+    " Configuration for rust.
+    Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+
 endif
 
 " --- }
