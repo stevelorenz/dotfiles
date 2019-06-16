@@ -33,9 +33,12 @@ bindsym $mod+Shift+Return exec $term_3 -e tmux
 # Avoid exiting FF or other APP accidentally
 bindsym Ctrl+q exec echo "hug" > /dev/null
 
-# Start program launcher (rofi)
+# Start program launcher Rofi
 # Use rofi, configs saved in ~/.Xresources
 bindsym $mod+d exec rofi -show run -eh 1
+
+# Start Dmenu
+bindsym $mod+Shift+m exec dmenu_run
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload

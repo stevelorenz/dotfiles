@@ -6,19 +6,67 @@
 ;
 ;=====================================================
 
+[settings]
+screenchange-reload = true
+throttle-output = 5
+throttle-output-for = 10
+throttle-input-for = 30
+compositing-background = over
+compositing-foreground = over
+compositing-overline = over
+compositing-underline = over
+compositing-border = over
+
+[global/wm]
+margin-top = 0
+margin-bottom = 0
+
 [colors]
-background = #222
+; Default theme =========
 background-alt = #444
-foreground = #dfdfdf
 foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
-alert = #bd2c40
+;background = #222
+;foreground = #dfdfdf
+;alert = #bd2c40
+
+; Nord theme ============
+;background = #292d3e
+;foreground = #c0c5ce
+;alert = #bd2c40
+;volume-min = #a3be8c
+;volume-med = #ebcb8b
+;volume-max = #bf616a
+;; =======================
+
+; Gotham theme ==========
+background = #0a0f14
+foreground = #99d1ce
+alert = #d26937
+volume-min = #2aa889
+volume-med = #edb443
+volume-max = #c23127
+;; =======================
+
+; INTRCPTR theme ============
+;background = ${xrdb:color0:#222}
+;background = #aa000000
+;background-alt = #444
+;foreground = ${xrdb:color7:#222}
+;foreground = #fff
+;foreground-alt = #555
+;primary = #ffb52a
+;secondary = #e60053
+;alert = #bd2c40
 
 [bar/top]
 monitor = ${env:MONITOR:}
+monitor-strict = false
+override-redirect = false
+bottom = false
 width = 100%
-height = 27
+height = 30
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 6.0
@@ -30,28 +78,30 @@ foreground = ${colors.foreground}
 line-size = 3
 line-color = #f00
 
-border-size = 4
+border-size = 0
 border-color = #00000000
 
 padding-left = 0
-padding-right = 2
+padding-right = 3
 
 module-margin-left = 1
 module-margin-right = 2
 
 font-0 = Hack:pixelsize=12;1
 font-1 = Hack:pixelsize=12;1
-font-2 = siji:pixelsize=12;1
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=8;1"
+font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=8;1"
+font-4 = "Font Awesome 5 Brands:pixelsize=8;1"
 
-modules-left = i3
-modules-right = cpu memory filesystem temperature battery xkeyboard date
+modules-left = ewmh
+modules-right = cpu memory filesystem temperature battery xkeyboard volume date
 
 tray-position = right
 tray-padding = 3
 tray-maxsize = 20
 tray-scale = 1.1
-;tray-transparent = true
-;tray-background = #0063ff
+tray-transparent = true
+; tray-background = #0063ff
 
 ;wm-restack = bspwm
 ;wm-restack = i3
@@ -64,9 +114,31 @@ scroll-down = i3wm-wsprev
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+;;;;;;;;;;;;;
+;  Modules  ;
+;;;;;;;;;;;;;
+
+[module/arrow1]
+; grey to Blue
+type = custom/text
+content = "%{T2} %{T-}"
+content-font = 2
+content-foreground = #C3E88D
+content-background = #292d3e
+
 [module/xwindow]
+;https://github.com/jaagr/polybar/wiki/Module:-xwindow
 type = internal/xwindow
-label = %title:0:30:...%
+
+; Available tokens:
+;   %title%
+; Default: %title%
+label = %title%
+label-maxlen = 20
+
+format-prefix = "  "
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -95,6 +167,57 @@ mount-2 = /tmp
 label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
+
+[module/ewmh]
+type = internal/xworkspaces
+
+pin-workspaces = false
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+
+;extra icons to choose from
+;http://fontawesome.io/cheatsheet/
+;       v     
+
+icon-0 = 1;
+icon-1 = 2;
+icon-2 = 3;
+icon-3 = 4;
+icon-4 = 5;
+icon-5 = 6;
+icon-6 = 7;
+icon-7 = 8;
+#icon-8 = 9;
+#icon-9 = 10;
+icon-default = " "
+format = <label-state>
+label-monitor = %name%
+
+label-active = %name%
+label-active-foreground = ${colors.foreground}
+label-active-background = ${colors.background}
+label-active-underline= #6790eb
+label-active-padding = 1
+
+label-occupied = %name%
+label-occupied-background = ${colors.background}
+label-occupied-padding = 1
+
+label-urgent = %name%
+label-urgent-foreground = ${colors.foreground}
+label-urgent-background = ${colors.alert}
+label-urgent-underline = ${colors.alert}
+label-urgent-padding = 1
+
+label-empty = %name%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 1
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
+
+################################################################################
 
 [module/i3]
 type = internal/i3
@@ -150,6 +273,71 @@ label-separator = |
 label-separator-padding = 1
 label-separator-foreground = #ffb52a
 
+[module/bspwm]
+type = internal/bspwm
+
+enable-click = true
+enable-scroll = true
+reverse-scroll = true
+pin-workspaces = true
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+;ws-icon-8 = 9;
+;ws-icon-9 = 10;
+;ws-icon-default = " "
+
+
+format = <label-state> <label-mode>
+
+label-focused = %icon%
+label-focused-background = ${colors.background}
+label-focused-underline= #6790eb
+label-focused-padding = 4
+label-focused-foreground = ${colors.foreground}
+
+label-occupied = %icon%
+label-occupied-padding = 2
+label-occupied-background = ${colors.background}
+
+label-urgent = %icon%
+label-urgent-padding = 2
+
+label-empty = %icon%
+label-empty-foreground = ${colors.foreground}
+label-empty-padding = 2
+label-empty-background = ${colors.background}
+label-monocle = "  "
+label-monocle-foreground = ${colors.foreground}
+label-tiled = "  "
+label-tiled-foreground = ${colors.foreground}
+label-fullscreen = "  "
+label-fullscreen-foreground = ${colors.foreground}
+label-floating = "  "
+label-floating-foreground = ${colors.foreground}
+label-pseudotiled = "  "
+label-pseudotiled-foreground = ${colors.foreground}
+label-locked = "  "
+label-locked-foreground = ${colors.foreground}
+label-sticky = "  "
+label-sticky-foreground = ${colors.foreground}
+label-private =  "     "
+label-private-foreground = ${colors.foreground}
+
+; Separator in between workspaces
+;label-separator = |
+;label-separator-padding = 10
+;label-separator-foreground = #ffb52a
+
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+
 [module/xbacklight]
 type = internal/xbacklight
 
@@ -176,7 +364,7 @@ card = intel_backlight
 type = internal/cpu
 interval = 2
 format = <label> <ramp-coreload>
-label = CPU %percentage%%
+label = CPU %percentage:%%
 ramp-coreload-0 = ▁
 ramp-coreload-1 = ▂
 ramp-coreload-2 = ▃
@@ -188,7 +376,9 @@ interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
-label = RAM %gb_used%/%gb_free%
+; label = RAM %gb_used%/%gb_free%
+label = %percentage_used%%
+format = MEM <label>
 
 [module/wlan]
 type = internal/network
@@ -227,21 +417,33 @@ label-connected = %ifname% %downspeed:3%%
 label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
+[module/networkspeedup]
+;https://github.com/jaagr/polybar/wiki/Module:-network
+type = internal/network
+interface = wlp58s0
+label-connected = "%upspeed:7%"
+format-connected = <label-connected>
+format-connected-prefix = " "
+format-connected-prefix-foreground = #292d3e
+format-connected-foreground = #292d3e
+format-connected-background = #C3E88D
+
 [module/date]
+;https://github.com/jaagr/polybar/wiki/Module:-date
 type = internal/date
+; Seconds to sleep between updates
 interval = 5
-
-date =
-date-alt = " %Y-%m-%d"
-
-time = %H:%M
-time-alt = %H:%M:%S
-
-format-prefix = 
-format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
-
-label = %date% %time%
+; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+date = " %a %b %d, %Y"
+date-alt = " %a %b %d, %Y"
+time = %l:%M%p
+time-alt = %l:%M%p
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground}
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+label = "%date% %time% "
 
 [module/volume]
 type = internal/volume
@@ -254,7 +456,7 @@ format-muted-prefix = " "
 format-muted-foreground = ${colors.foreground-alt}
 label-muted = sound muted
 
-bar-volume-width = 10
+bar-volume-width = 3
 bar-volume-foreground-0 = #55aa55
 bar-volume-foreground-1 = #55aa55
 bar-volume-foreground-2 = #55aa55
@@ -300,22 +502,37 @@ animation-charging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
+warn-temperature = 70
+
+; Thermal zone to use
+; To list all the zone types, run
+; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
+; Default: 0
 thermal-zone = 0
-warn-temperature = 60
+
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+; hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input
 
 format = <ramp> <label>
-format-underline = #f50a4d
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-underline = #c72581
 format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-
+format-warn-underline = #c7254f
 label = %temperature%
-label-warn = %temperature%
-label-warn-foreground = ${colors.secondary}
+label-warn =  %temperature%
+label-warn-foreground = #c7254f
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-foreground =${colors.foreground}
 
 [module/powermenu]
 type = custom/menu
@@ -346,15 +563,16 @@ menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
-[settings]
-screenchange-reload = true
-;compositing-background = xor
-;compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
+[module/kernel]
+type = custom/script
+exec = uname -r
+tail = false
+interval = 1024
 
-[global/wm]
-margin-top = 5
-margin-bottom = 5
+format-foreground = ${colors.foreground}
+format-background = ${colors.background}
+format-prefix = "  "
+format-prefix-foreground = #0084FF
+format-underline = #4B5665
 
 ; vim:ft=dosini
