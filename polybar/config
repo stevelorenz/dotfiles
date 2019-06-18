@@ -93,13 +93,13 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=8;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=8;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=8;1"
 
-modules-left = ewmh
+modules-left = i3
 modules-right = cpu memory filesystem temperature battery xkeyboard volume date
 
 tray-position = right
 tray-padding = 3
 tray-maxsize = 20
-tray-scale = 1.1
+tray-scale = 1
 tray-transparent = true
 ; tray-background = #0063ff
 
@@ -269,8 +269,9 @@ label-focused-padding = 1
 label-unfocused = %index%
 label-unfocused-padding = 1
 
-label-separator = |
-label-separator-padding = 1
+; label-separator = |
+label-separator =
+label-separator-padding = 0.5
 label-separator-foreground = #ffb52a
 
 [module/bspwm]

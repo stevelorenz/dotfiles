@@ -70,10 +70,10 @@ name="Polybar"
 deploy_dotfiles "$src_dir" "$dst_dir" "$dotfiles" "$name"
 
 # *** Loop over tool with single file dotfile
-names="I3WM Termite Zathura Alacritty"
-src_dirs="$DFPATH/i3 $DFPATH/termite $DFPATH/zathura $DFPATH/alacritty"
-dst_dirs="$HOME/.config/i3 $HOME/.config/termite $HOME/.config/zathura/ $HOME/.config/alacritty"
-dotfiles="config config zathurarc alacritty.yml"
+names="I3WM Termite Zathura Alacritty Ranger"
+src_dirs="$DFPATH/i3 $DFPATH/termite $DFPATH/zathura $DFPATH/alacritty $DFPATH/ranger"
+dst_dirs="$HOME/.config/i3 $HOME/.config/termite $HOME/.config/zathura/ $HOME/.config/alacritty $HOME/.config/ranger"
+dotfiles="config config zathurarc alacritty.yml rc.conf"
 names_arr=($names)
 src_dirs_arr=($src_dirs)
 dst_dirs_arr=($dst_dirs)
