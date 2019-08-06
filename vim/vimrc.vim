@@ -635,6 +635,7 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set tabstop=2 |
             \ set shiftwidth=2 |
             \ set softtabstop=2 |
+            \ set spell |
 
 " -- restructured text --
 autocmd BufNewFile,BufRead *.rst
@@ -642,11 +643,13 @@ autocmd BufNewFile,BufRead *.rst
             \ set tabstop=2 |
             \ set shiftwidth=2 |
             \ set softtabstop=2 |
+            \ set spell |
 
 " -- tex --
 autocmd BufNewFile,BufRead *.tex
             \ set filetype=tex |
             \ set textwidth=120 |
+            \ set spell |
 
 " -- web dev --
 autocmd BufNewFile,BufRead *.js,*.html,*.css

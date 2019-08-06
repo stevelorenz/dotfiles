@@ -43,7 +43,7 @@ if !exists('g:bundle_groups')
     "            \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'text', 'colorscheme']
     "
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'colorscheme', 'test']
+                \ 'c_cpp', 'python', '(x)html', 'javascript', 'colorscheme', 'test']
 endif
 
 " --- General --------------------------------------------- {
@@ -304,14 +304,14 @@ if count(g:bundle_groups, 'general_programming')
     " - Asynchronous Lint Engine
     if has('nvim') || v:version >= 800
         Plug 'w0rp/ale'
-        let g:ale_enabled=0
+        let g:ale_enabled=1
         let g:ale_sign_column_always = 1
         " ALE automatically updates the loclist which makes it impossible to use some other plugins
         " such as GV
         let g:ale_set_loclist = 0
         let g:ale_set_quickfix = 1
         "let g:ale_open_list = 1
-        let g:ale_lint_on_save = 'never'
+        let g:ale_lint_on_save = 1
         let g:ale_lint_on_text_changed = 'never'
         let g:ale_lint_on_enter = 'never'
 
@@ -354,29 +354,29 @@ if count(g:bundle_groups, 'general_programming')
     "let g:tagbar_autoshowtag = 1
 
     " - Tags management
-    "Plug 'ludovicchabant/vim-gutentags'
-    "set tags=./.tags;,.tags
-    "let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-    "let g:gutentags_ctags_tagfile = '.tags'
-    "" Add suppport for ctags and gtags, gtags is disabled by default
-    "let g:gutentags_modules = []
-    "if executable('ctags')
-    "    let g:gutentags_modules += ['ctags']
-    "    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-    "    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-    "    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+    Plug 'ludovicchabant/vim-gutentags'
+    set tags=./.tags;,.tags
+    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+    let g:gutentags_ctags_tagfile = '.tags'
+    " Add suppport for ctags and gtags, gtags is disabled by default
+    let g:gutentags_modules = []
+    if executable('ctags')
+        let g:gutentags_modules += ['ctags']
+        let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+        let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+        let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+    endif
+    "if executable('gtags-cscope') && executable('gtags')
+    "    let g:gutentags_modules += ['gtags_cscope']
+    "    let g:gutentags_auto_add_gtags_cscope = 0
     "endif
-    ""if executable('gtags-cscope') && executable('gtags')
-    ""    let g:gutentags_modules += ['gtags_cscope']
-    ""    let g:gutentags_auto_add_gtags_cscope = 0
-    ""endif
 
-    "" put tags file to the cache directory
-    "let s:vim_tags = expand('~/.cache/tags')
-    "let g:gutentags_cache_dir = s:vim_tags
-    "if !isdirectory(s:vim_tags)
-    "    silent! call mkdir(s:vim_tags, 'p')
-    "endif
+    " put tags file to the cache directory
+    let s:vim_tags = expand('~/.cache/tags')
+    let g:gutentags_cache_dir = s:vim_tags
+    if !isdirectory(s:vim_tags)
+        silent! call mkdir(s:vim_tags, 'p')
+    endif
 
     " Gtags-scope support
     " Plug 'skywind3000/gutentags_plus'
@@ -443,6 +443,7 @@ if count(g:bundle_groups, 'general_programming')
 
     " - Run commands quickly
     "Plug 'thinca/vim-quickrun', { 'on': 'QuickRun' }
+    Plug 'skywind3000/asyncrun.vim'
 
     " - Easy code formatting
     Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
@@ -496,7 +497,7 @@ if count(g:bundle_groups, 'snippet_autocomplete')
         " - Dark powered asynchronous completion framework for neovim {
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
         " call deoplete#toggle() when needed
-        let g:deoplete#enable_at_startup = 0
+        let g:deoplete#enable_at_startup = 1
         let g:deoplete#enable_smart_case = 1
         let g:deoplete#skip_chars = ['(', ')', '<', '>']
         let g:deoplete#max_abbr_width = 35
@@ -714,6 +715,10 @@ if count(g:bundle_groups, 'test')
 
     " Configuration for rust.
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+
+    " Vim Markdown mode
+    Plug 'godlygeek/tabular'
+    Plug 'plasticboy/vim-markdown'
 
 endif
 
