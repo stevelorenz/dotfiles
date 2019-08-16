@@ -102,18 +102,18 @@ if count(g:bundle_groups, 'general')
     let g:netrw_altv = 1
 
     " - A tree explorer
-    Plug 'scrooloose/nerdtree'
-    let g:NERDTreeWinPos = "right"
-    let NERDTreeMinimalUI = 1
-    let NERDTreeDirArrows = 1
-    let g:NERDTreeHighlightCursorline = 0
-    " close vim if nerdtree is the last buffer
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType")
-                \&& b:NERDTreeType == "primary") | q | endif
-    " disable cursor line in nerdtree window
-    autocmd FileType nerdtree setlocal nocursorline
-    " ignored files
-    let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git$[[dir]]', '.swap', '.tmp']
+    "Plug 'scrooloose/nerdtree'
+    "let g:NERDTreeWinPos = "right"
+    "let NERDTreeMinimalUI = 1
+    "let NERDTreeDirArrows = 1
+    "let g:NERDTreeHighlightCursorline = 0
+    "" close vim if nerdtree is the last buffer
+    "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType")
+    "            \&& b:NERDTreeType == "primary") | q | endif
+    "" disable cursor line in nerdtree window
+    "autocmd FileType nerdtree setlocal nocursorline
+    "" ignored files
+    "let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git$[[dir]]', '.swap', '.tmp']
 
     if has('python') || has('python3')
         " An asynchronous fuzzy finder which is used to quickly locate files, buffers, mrus, tags, etc. in large project.
@@ -383,7 +383,7 @@ if count(g:bundle_groups, 'general_programming')
 
     " - Git integration and enhancement
     " -- awesome git wrapper
-    Plug 'tpope/vim-fugitive'
+    " Plug 'tpope/vim-fugitive'
     " -- show git diff and stages/undoes hunks
     " Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterToggle'}
     " let g:gitgutter_enabled = 0
@@ -439,7 +439,7 @@ if count(g:bundle_groups, 'general_programming')
     let g:templates_no_autocmd = 1
 
     " - Eclipse like task list
-    Plug 'fisadev/FixedTaskList.vim', { 'on': 'TaskList' }
+    " Plug 'fisadev/FixedTaskList.vim', { 'on': 'TaskList' }
 
     " - Run commands quickly
     "Plug 'thinca/vim-quickrun', { 'on': 'QuickRun' }
@@ -493,56 +493,46 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
     " - Autocomplete framework
-    if has('nvim')
-        " - Dark powered asynchronous completion framework for neovim {
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-        " call deoplete#toggle() when needed
-        let g:deoplete#enable_at_startup = 1
-        let g:deoplete#enable_smart_case = 1
-        let g:deoplete#skip_chars = ['(', ')', '<', '>']
-        let g:deoplete#max_abbr_width = 35
-        let g:deoplete#max_menu_width = 20
+    "if has('nvim')
+    "    " - Dark powered asynchronous completion framework for neovim {
+    "    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    "    " call deoplete#toggle() when needed
+    "    let g:deoplete#enable_at_startup = 1
+    "    let g:deoplete#enable_smart_case = 1
+    "    let g:deoplete#skip_chars = ['(', ')', '<', '>']
+    "    let g:deoplete#max_abbr_width = 35
+    "    let g:deoplete#max_menu_width = 20
 
-        " use tab to select completions
-        inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-        inoremap <expr><S-tab> pumvisible() ? "\<c-p>": "\<S-tab>"
-        " <C-h>, <BS>: close popup and delete backword char
-        inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-        inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-        " <CR>: close popup and save indent
-        inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-        function! s:my_cr_function() abort
-            return deoplete#close_popup() . "\<CR>"
-        endfunction
-        " close the documentation window when completion is done
-        autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+    "    " use tab to select completions
+    "    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    "    inoremap <expr><S-tab> pumvisible() ? "\<c-p>": "\<S-tab>"
+    "    " <C-h>, <BS>: close popup and delete backword char
+    "    inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+    "    inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+    "    " <CR>: close popup and save indent
+    "    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+    "    function! s:my_cr_function() abort
+    "        return deoplete#close_popup() . "\<CR>"
+    "    endfunction
+    "    " close the documentation window when completion is done
+    "    autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-        " - deoplete sources
-        Plug 'zchee/deoplete-jedi'
+    "    " - deoplete sources
+    "    Plug 'zchee/deoplete-jedi'
 
-        " - disable deoplete for certain file types
-        autocmd FileType tex let b:deoplete_disable_auto_complete = 1
-        " }
-    else
-        " - Use basic supertab for completion
-        " Plug 'ervandew/supertab'
-        " let g:SuperTabDefaultCompletionType = "context"
-        " let g:SuperTabContextDefaultCompletionType = "<c-n>"
-        " " close preview window when popup closes
-        " let g:SuperTabClosePreviewOnPopupClose = 1
-        " " remember last completion type until 'esc' to normal mode
-        " let g:SuperTabRetainCompletionType=2
-    endif
-
-    " - Fast, Extensible, Async Completion Framework for Neovim {
-    " Plug 'roxma/nvim-completion-manager'
-    " set shortmess+=c
-    " " Use this mapping to hide the menu and also start a new line.
-    " inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-    " " Use tab to select popup menu
-    " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-    " }
+    "    " - disable deoplete for certain file types
+    "    autocmd FileType tex let b:deoplete_disable_auto_complete = 1
+    "    " }
+    "else
+    "    " - Use basic supertab for completion
+    "    " Plug 'ervandew/supertab'
+    "    " let g:SuperTabDefaultCompletionType = "context"
+    "    " let g:SuperTabContextDefaultCompletionType = "<c-n>"
+    "    " " close preview window when popup closes
+    "    " let g:SuperTabClosePreviewOnPopupClose = 1
+    "    " " remember last completion type until 'esc' to normal mode
+    "    " let g:SuperTabRetainCompletionType=2
+    "endif
 
     " - Speed up vim by updating folds only when called-for.
     Plug 'Konfekt/FastFold'
@@ -641,9 +631,9 @@ endif
 " Golang {
 if count(g:bundle_groups, 'go')
     " Go development plugin for Vim
-    Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoUpdateBinaries' }
+    " Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoUpdateBinaries' }
     " An autocompletion daemon for the Go programming language
-    Plug 'mdempsky/gocode', { 'for': ['go'], 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+    " Plug 'mdempsky/gocode', { 'for': ['go'], 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
 endif
 " }
 
@@ -661,7 +651,7 @@ endif
 " Javascript {
 if count(g:bundle_groups, 'javascript')
     " - Tern plugin for vim
-    Plug 'ternjs/tern_for_vim', { 'for': ['html', 'css', 'javascript'] }
+    " Plug 'ternjs/tern_for_vim', { 'for': ['html', 'css', 'javascript'] }
 
     " - Syntax for javascript libraries
     Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['html', 'css', 'javascript'] }
@@ -700,9 +690,9 @@ if count(g:bundle_groups, 'colorscheme')
 
     Plug 'liuchengxu/space-vim-dark'
 
-    Plug 'ashfinal/vim-colors-violet'
+    " Plug 'ashfinal/vim-colors-violet'
 
-    Plug 'dracula/vim'
+    " Plug 'dracula/vim'
 endif
 
 " --- }
@@ -719,6 +709,51 @@ if count(g:bundle_groups, 'test')
     " Vim Markdown mode
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
+
+    " Plug 'Shougo/neoinclude.vim'
+
+    if has('nvim')
+        " - Fast, Extensible, Async Completion Framework for Neovim {
+        Plug 'ncm2/ncm2'
+        Plug 'roxma/nvim-yarp'
+
+        " enable ncm2 for all buffers
+        autocmd BufEnter * call ncm2#enable_for_buffer()
+
+        " IMPORTANT: :help Ncm2PopupOpen for more information
+        set completeopt=noinsert,menuone,noselect
+
+        " NOTE: you need to install completion sources to get completions. Check
+        " our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
+        " general
+        Plug 'ncm2/ncm2-bufword'
+        Plug 'ncm2/ncm2-path'
+        Plug 'ncm2/ncm2-neoinclude' | Plug 'Shougo/neoinclude.vim'
+        " snippets
+        Plug 'ncm2/ncm2-ultisnips'
+        " c/cpp
+        Plug 'ncm2/ncm2-pyclang'
+        let g:ncm2_pyclang#library_path = '/usr/lib/libclang.so'
+        " python
+        Plug 'ncm2/ncm2-jedi'
+
+        " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+        " found' messages
+        set shortmess+=c
+
+        " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+        inoremap <c-c> <ESC>
+
+        " When the <Enter> key is pressed while the popup menu is visible, it only
+        " hides the menu. Use this mapping to close the menu and also start a new
+        " line.
+        inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+        " Use <TAB> to select the popup menu:
+        inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+        inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+        " }
+    endif
 
 endif
 
