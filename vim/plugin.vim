@@ -649,19 +649,12 @@ endif
 " Stable and inactive ones are stored in colors dir
 
 if count(g:bundle_groups, 'colorscheme')
-    Plug 'junegunn/seoul256.vim'
-    " Range:   233 (darkest) ~ 239 (lightest)
-    " Default: 237
-    let g:seoul256_background = 235
-    let g:seoul256_light_background = 256
+    Plug 'lifepillar/vim-solarized8'
+    let g:solarized_italics = 0
 
     Plug 'joshdick/onedark.vim'
 
     Plug 'liuchengxu/space-vim-dark'
-
-    " Plug 'ashfinal/vim-colors-violet'
-
-    " Plug 'dracula/vim'
 endif
 
 " --- }

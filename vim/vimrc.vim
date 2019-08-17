@@ -313,11 +313,9 @@ set background=dark
 " use 256 colors when possible
 if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
     let &t_Co = 256
-    "colorscheme wombat256i
-    colorscheme onedark
+    colorscheme solarized8
 else
-    "colorscheme wombat256mod
-    colorscheme onedark
+    colorscheme solarized8
 endif
 
 " GUI specific {
