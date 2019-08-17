@@ -714,10 +714,8 @@ function! ToggleBG()
     " Inversion
     if s:tbg == "dark"
         set background=light
-        colorscheme desert
     else
         set background=dark
-        colorscheme desert
     endif
 endfunction
 " }

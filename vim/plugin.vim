@@ -679,49 +679,58 @@ if count(g:bundle_groups, 'test')
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
 
-    " Slim, Fast and Hackable Completion Framework for Neovim.
-    if has('nvim')
-        " - NCM2 and its sources {
-        Plug 'ncm2/ncm2'
-        Plug 'roxma/nvim-yarp'
+    " " Slim, Fast and Hackable Completion Framework for Neovim.
+    " if has('nvim')
+    "     " - NCM2 and its sources {
+    "     Plug 'ncm2/ncm2'
+    "     Plug 'roxma/nvim-yarp'
 
-        " enable ncm2 for all buffers
-        autocmd BufEnter * call ncm2#enable_for_buffer()
+    "     " enable ncm2 for all buffers
+    "     autocmd BufEnter * call ncm2#enable_for_buffer()
 
-        " IMPORTANT: :help Ncm2PopupOpen for more information
-        set completeopt=noinsert,menuone,noselect
+    "     " IMPORTANT: :help Ncm2PopupOpen for more information
+    "     set completeopt=noinsert,menuone,noselect
 
-        " NOTE: you need to install completion sources to get completions. Check
-        " our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
-        " general
-        Plug 'ncm2/ncm2-bufword'
-        Plug 'ncm2/ncm2-path'
-        Plug 'ncm2/ncm2-neoinclude' | Plug 'Shougo/neoinclude.vim'
-        " snippets
-        Plug 'ncm2/ncm2-ultisnips'
-        " c/cpp
-        Plug 'ncm2/ncm2-pyclang'
-        let g:ncm2_pyclang#library_path = '/usr/lib/libclang.so'
-        " python
-        Plug 'ncm2/ncm2-jedi'
+    "     " NOTE: you need to install completion sources to get completions. Check
+    "     " our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
+    "     " general
+    "     Plug 'ncm2/ncm2-bufword'
+    "     Plug 'ncm2/ncm2-path'
+    "     Plug 'ncm2/ncm2-neoinclude' | Plug 'Shougo/neoinclude.vim'
+    "     " snippets
+    "     Plug 'ncm2/ncm2-ultisnips'
+    "     " c/cpp
+    "     Plug 'ncm2/ncm2-pyclang'
+    "     let g:ncm2_pyclang#library_path = '/usr/lib/libclang.so'
+    "     " python
+    "     Plug 'ncm2/ncm2-jedi'
 
-        " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
-        " found' messages
-        set shortmess+=c
+    "     " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+    "     " found' messages
+    "     set shortmess+=c
 
-        " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-        inoremap <c-c> <ESC>
+    "     " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+    "     inoremap <c-c> <ESC>
 
-        " When the <Enter> key is pressed while the popup menu is visible, it only
-        " hides the menu. Use this mapping to close the menu and also start a new
-        " line.
-        inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+    "     " When the <Enter> key is pressed while the popup menu is visible, it only
+    "     " hides the menu. Use this mapping to close the menu and also start a new
+    "     " line.
+    "     inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
-        " Use <TAB> to select the popup menu:
-        inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-        inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-        " }
-    endif
+    "     " Use <TAB> to select the popup menu:
+    "     inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    "     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    "     " }
+    " endif
+
+    " Lightweight chained completion
+    Plug 'lifepillar/vim-mucomplete'
+    " shut off completion messages
+    " if vim beeps during completion
+    set shortmess+=c
+    set belloff+=ctrlg
+    let g:mucomplete#enable_auto_at_startup = 1
+    let g:mucomplete#completion_delay = 1
 endif
 
 " --- }
