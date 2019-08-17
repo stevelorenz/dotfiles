@@ -17,9 +17,11 @@
 "      -> (La)Tex
 "    -> Documentation and Writing
 "    -> Colorscheme
+"    -> Test: plugins under test
 "
 " MARK: Currently there are too many plugins and I plan to DISABLE some that are not essential for
 " my daily usage. After some testing, I will remove some of them in the next stable version.
+" "Old" or disabled plugins's configuration is only commented out for potential backwark hopping.
 "=========================================
 
 " - Use Vim-Plug Plugin Manager -
@@ -102,6 +104,7 @@ if count(g:bundle_groups, 'general')
     let g:netrw_altv = 1
 
     " - A tree explorer
+    " TODO: Try defx from Shougo
     "Plug 'scrooloose/nerdtree'
     "let g:NERDTreeWinPos = "right"
     "let NERDTreeMinimalUI = 1
@@ -179,11 +182,6 @@ if count(g:bundle_groups, 'general')
     " - Show marks
     Plug 'kshenoy/vim-signature'
 
-    " - Visually select increasingly larger regions of text
-    Plug 'terryma/vim-expand-region'
-    " + expand selection
-    " _ shrink selection
-
     " - Light wrapper for ack, ag, grep etc
     Plug 'mileszs/ack.vim', { 'on': ['Ack', 'Ack!'] }
     " do not move the cursor to the first result automatically
@@ -194,7 +192,7 @@ if count(g:bundle_groups, 'general')
     endif
 
     " - Extend matching
-    Plug 'vim-scripts/matchit.zip'
+    " Plug 'vim-scripts/matchit.zip'
 
     "- Display the indention levels
     "Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
@@ -257,9 +255,6 @@ if count(g:bundle_groups, 'general_editing')
 
     " - Underlines the word under the cursor
     Plug 'itchyny/vim-cursorword'
-
-    " - Pairs of handy bracket mappings
-    "Plug 'tpope/vim-unimpaired'
 
     " - Better whitespace highlighting
     Plug 'ntpeters/vim-better-whitespace'
@@ -394,18 +389,7 @@ if count(g:bundle_groups, 'general_programming')
     " -- show git diff asynchronously
     Plug 'mhinz/vim-signify'
 
-    " - Intensely orgasmic commenting
-    "Plug 'scrooloose/nerdcommenter'
-    "" Add spaces after comment delimiters by default
-    "let g:NERDSpaceDelims = 0
-    "" Use compact syntax for prettified multi-line comments
-    "let g:NERDCompactSexyComs = 1
-    "" Allow commenting and inverting empty lines (useful when commenting a region)
-    "let g:NERDCommentEmptyLines = 1
-    "" Enable trimming of trailing whitespace when uncommenting
-    "let g:NERDTrimTrailingWhitespace = 1
-
-    " Comment stuff out
+    " - Comment stuff out
     Plug 'tpope/vim-commentary'
 
     " - Code search, view with edit mode
@@ -428,25 +412,18 @@ if count(g:bundle_groups, 'general_programming')
         let g:ctrlsf_ackprg = 'ag'
     endif
 
-    " - Highlight, Jump and resolve conflict markers
-    "Plug 'rhysd/conflict-marker.vim', { 'on': 'ConflictMarkerNextHunk' }
-    "" disable default mappings
-    "let g:conflict_marker_enable_mappings = 0
-
     " - Simple template plugin
     Plug 'aperezdc/vim-template'
     " disable auto insertion
     let g:templates_no_autocmd = 1
-
-    " - Eclipse like task list
-    " Plug 'fisadev/FixedTaskList.vim', { 'on': 'TaskList' }
 
     " - Run commands quickly
     "Plug 'thinca/vim-quickrun', { 'on': 'QuickRun' }
     Plug 'skywind3000/asyncrun.vim'
 
     " - Easy code formatting
-    Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
+    " Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
+    Plug 'sbdchd/neoformat', {'on': 'Neoformat'}
 
     " - Use Zeal: Offline documentation viewer
     "Plug 'KabbAmine/zeavim.vim', {'on': [
@@ -600,12 +577,6 @@ if count(g:bundle_groups, 'python')
     " call jedi#force_py_version(py_version) to set directly
     let g:jedi#force_py_version = "auto"
 
-    " - Indent using pep8 style
-    Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
-
-    " - Extend % motion for python
-    Plug 'vim-scripts/python_match.vim', { 'for': 'python' }
-
     " - Better folding for python
     Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
     " show docstring in fold mode
@@ -667,8 +638,6 @@ endif
 if count(g:bundle_groups, 'text')
     Plug 'lervag/vimtex', { 'for': 'tex' }
     let g:tex_flavor = 'tex'  " default tex type
-
-    "Plug 'junegunn/goyo.vim'
 endif
 
 " --- }
@@ -710,10 +679,9 @@ if count(g:bundle_groups, 'test')
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
 
-    " Plug 'Shougo/neoinclude.vim'
-
+    " Slim, Fast and Hackable Completion Framework for Neovim.
     if has('nvim')
-        " - Fast, Extensible, Async Completion Framework for Neovim {
+        " - NCM2 and its sources {
         Plug 'ncm2/ncm2'
         Plug 'roxma/nvim-yarp'
 
@@ -754,7 +722,6 @@ if count(g:bundle_groups, 'test')
         inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
         " }
     endif
-
 endif
 
 " --- }
