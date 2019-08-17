@@ -1,7 +1,6 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 "==========================================
-" About: Tiny VIM Config File
-"        Used for servers or cloud OS
+" About: Tiny VIM Config File Without Any Plugins
 " Maintainer: Xiang, Zuo
 " Email: xianglinks@gmail.com
 "==========================================
@@ -10,6 +9,13 @@
 " General Settings
 "==========================================
 " {
+" turn off compatible mode to vi
+set nocompatible
+
+" enable syntax highlighting
+syntax enable
+syntax on
+
 " set vim history in .viminfo
 set history=2000
 
@@ -97,6 +103,16 @@ set completeopt=menu,menuone,noinsert,noselect
 " do not scan included files
 set complete-=i
 
+" - built-in omni completion
+" SyntaxComplete.vim
+" setup SyntaxComplete for filetype that does not have specific OMNI script
+if has("autocmd") && exists("+omnifunc")
+    autocmd Filetype *
+                \ if &omnifunc == "" |
+                \ setlocal omnifunc=syntaxcomplete#Complete |
+                \ endif
+endif
+
 " use single line to show the completion in command line
 set wildmenu
 
@@ -161,6 +177,15 @@ endif
 set splitright " puts new vsplit windows to the right of the current
 set splitbelow " puts new split windows to the bottom of the current
 
+" treat dash separated words as a word text object
+set iskeyword+=-
+
+" make scrolling faster
+set ttyfast
+set lazyredraw
+
+" cursor can be positioned where there is no actual character
+set virtualedit=all
 " }
 
 "==========================================
@@ -230,10 +255,29 @@ set background=dark
 " wombat, my favorite colorscheme
 if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
     let &t_Co = 256
-    colorscheme desert
+    colorscheme slate
 else
-    colorscheme desert
+    colorscheme slate
 endif
+
+" GUI specific {
+if has('gui_running')
+    set guifont=Monaco\ 10
+    set guicursor=a:blinkon0
+    set gcr=a:block-blinkon0
+    " hide menu bars
+    set guioptions-=l
+    set guioptions-=L
+    set guioptions-=r
+    set guioptions-=R
+    set guioptions-=m
+    set guioptions-=T
+    set guitablabel=%M\ %t
+    set showtabline=2
+    set linespace=2
+    set noimd
+endif
+" }
 
 " better highlight
 hi! link SignColumn   LineNr
@@ -248,6 +292,39 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
+" 80 characters line
+set colorcolumn=81
+
+" always show the sign column
+set signcolumn=yes
+
+" disable concealing
+let g:tex_conceal = ""
+
+" show invisible characters
+set list
+" display extra whitespace
+set listchars=tab:»·,trail:·,nbsp:·
+
+" highlight fenced code blocks in markdown
+let g:markdown_fenced_languages = [
+            \ 'html',
+            \ 'elm',
+            \ 'vim',
+            \ 'js=javascript',
+            \ 'json',
+            \ 'python',
+            \ 'ruby',
+            \ 'elixir',
+            \ 'sql',
+            \ 'bash=sh'
+            \ ]
+
+" enable folding in bash files
+let g:sh_fold_enabled=1
+
+" always show tabline
+set showtabline=2
 " }
 
 "==========================================
@@ -273,9 +350,9 @@ set formatoptions+=m
 " Keyboard Mapping Settings
 "==========================================
 " {
-" set leader key
-let mapleader = ","
-let g:mapleader = ","
+" set leader key to space
+let mapleader = " "
+let g:mapleader = " "
 
 " map ; to :
 nnoremap ; :
@@ -286,7 +363,7 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader>Q :q!<CR>
 
 " map <space> for searching
-noremap <space> /
+"noremap <space> /
 
 " tap jk quickly to normal mode
 inoremap jk <Esc>
@@ -437,6 +514,16 @@ autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
             \ set softtabstop=8 |
             \ set textwidth=80 |
             \ set expandtab ! |
+            \ set foldmethod=syntax |
+
+" -- python --
+autocmd BufNewFile,BufRead *.py
+            \ set filetype=python |
+            \ set textwidth=80 |
+
+" -- web dev --
+autocmd BufNewFile,BufRead *.js,*.html,*.css
+            \ set expandtab!
 
 " -- markdown --
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
@@ -445,11 +532,21 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set tabstop=2 |
             \ set shiftwidth=2 |
             \ set softtabstop=2 |
+            \ set spell |
 
-" -- python --
-autocmd BufNewFile,BufRead *.py
-            \ set filetype=python |
+" -- restructured text --
+autocmd BufNewFile,BufRead *.rst
             \ set textwidth=120 |
+            \ set tabstop=2 |
+            \ set shiftwidth=2 |
+            \ set softtabstop=2 |
+            \ set spell |
+
+" -- tex --
+autocmd BufNewFile,BufRead *.tex
+            \ set filetype=tex |
+            \ set textwidth=120 |
+            \ set spell |
 
 " -- web dev --
 autocmd BufNewFile,BufRead *.js,*.html,*.css
@@ -458,6 +555,52 @@ autocmd BufNewFile,BufRead *.js,*.html,*.css
 " -- config file --
 autocmd BufNewFile,BufRead *.ini,*.conf
             \ set filetype=dosini
+
+" }
+
+"==========================================
+" Neovim Specific
+"==========================================
+" {
+if has('nvim')
+    " python provider program
+    " this points neovim to a specific python interpreter
+    " ISSUE: If python_host_prog is set, the neovim searches for python2 neovim module when open a new
+    " python file and throw exception, even if python3 neovim module is already installed.
+    "let g:python_host_prog = '/usr/bin/python2'
+    let g:python3_host_prog = '/usr/bin/python3'
+
+    " terminal emulator key-mapping
+    " ---------------------------------------------------------
+    " esc for changing terminal to normal mode
+    tnoremap <Esc> <C-\><C-n>
+
+    " using `alt + {h,j,k,l}` to navigate between windows
+    " include terminal windows
+    tnoremap <A-h> <C-\><C-n><C-w>h
+    tnoremap <A-j> <C-\><C-n><C-w>j
+    tnoremap <A-k> <C-\><C-n><C-w>k
+    tnoremap <A-l> <C-\><C-n><C-w>l
+    nnoremap <A-h> <C-w>h
+    nnoremap <A-j> <C-w>j
+    nnoremap <A-k> <C-w>k
+    nnoremap <A-l> <C-w>l
+
+    " interactive find replace preview
+    set inccommand=nosplit
+endif
+" ---------------------------------------------------------
+" }
+
+"==========================================
+" Dev Tools Settings
+"==========================================
+" {
+" Gtags {
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = expand('~/.gtags.conf')
+" }
+
 " }
 
 "==========================================
@@ -565,14 +708,16 @@ function! Replace(confirm, wholeword, replace)
     execute 'argdo %s/' . search . '/' . replace . '/' . flag . '| update'
 endfunction
 
-" toggle background
+" toggle background, only used for presentation
 function! ToggleBG()
     let s:tbg = &background
     " Inversion
     if s:tbg == "dark"
         set background=light
+        colorscheme desert
     else
         set background=dark
+        colorscheme desert
     endif
 endfunction
 " }

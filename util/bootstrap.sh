@@ -60,7 +60,7 @@ dst_dirs="$HOME/.vim $HOME/.config/nvim"
 dotfiles="vimrc.vim plugin.vim after colors custom_snippets ftplugin vimrc_tiny.vim init.vim"
 name="VIM/NeoVIM"
 deploy_dotfiles "$src_dir" "$dst_dirs" "$dotfiles" "$name"
-ln -sf "$HOME/.vim/vimrc.vim" "$HOME/.vimrc"
+ln -sf "$HOME/.vim/vimrc_tiny.vim" "$HOME/.vimrc"
 
 msg "Deploy Polybar dotfiles"
 src_dir=$(realpath "$SCRIPTPATH/../polybar")
