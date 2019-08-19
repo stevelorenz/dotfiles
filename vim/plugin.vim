@@ -45,7 +45,7 @@ if !exists('g:bundle_groups')
     "            \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'text', 'colorscheme']
     "
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', '(x)html', 'javascript', 'colorscheme', 'test']
+                \ 'c_cpp', 'python', 'text', 'colorscheme', 'test']
 endif
 
 " --- General --------------------------------------------- {
@@ -53,29 +53,6 @@ endif
 if count(g:bundle_groups, 'general')
 
     " - Status line enhancement
-    " -- vim airline
-    "Plug 'bling/vim-airline'
-    "if !exists('g:airline_symbols')
-    "    let g:airline_symbols = {}
-    "endif
-    "let g:airline_left_sep = '▶'
-    "let g:airline_left_alt_sep = '❯'
-    "let g:airline_right_sep = '◀'
-    "let g:airline_right_alt_sep = '❮'
-    "let g:airline_symbols.linenr = '¶'
-    "let g:airline_symbols.branch = '⎇'
-
-    "let g:airline#extensions#tabline#enabled = 1
-    "let g:airline#extensions#tabline#left_sep = ' '
-    "let g:airline#extensions#tabline#left_alt_sep = '|'
-    "let g:airline#extensions#tabline#buffer_nr_show = 1
-    "let g:airline#extensions#tabline#buffer_idx_mode = 1
-
-    "" -- vim-airline theme repository
-    "Plug 'vim-airline/vim-airline-themes'
-    ""let g:airline_theme = 'simple'
-    "let g:airline_theme = 'onedark'
-
     " -- lightline: a light and configurable statusline/tabline plugin for Vim
     Plug 'itchyny/lightline.vim'
     let g:lightline = {
@@ -103,9 +80,6 @@ if count(g:bundle_groups, 'general')
     let g:netrw_winsize = 25
     let g:netrw_browse_split = 4
     let g:netrw_altv = 1
-
-    " - A tree explorer
-    " TODO: Try defx from Shougo
 
     if has('python') || has('python3')
         " An asynchronous fuzzy finder which is used to quickly locate files, buffers, mrus, tags, etc. in large project.
@@ -184,9 +158,6 @@ if count(g:bundle_groups, 'general')
     if executable('ag')
         let g:ackprg = 'ag --vimgrep'
     endif
-
-    " - Extend matching
-    " Plug 'vim-scripts/matchit.zip'
 
     "- Display the indention levels
     "Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
@@ -337,6 +308,7 @@ if count(g:bundle_groups, 'general_programming')
 
     " - Git integration and enhancement
     " -- awesome git wrapper
+    " ISSUE: high startup time.
     " Plug 'tpope/vim-fugitive'
     " -- show git diff asynchronously
     Plug 'mhinz/vim-signify'
@@ -496,8 +468,8 @@ endif
 
 " Golang {
 if count(g:bundle_groups, 'go')
-    " Go development plugin for Vim
-    " Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoUpdateBinaries' }
+    " - Go development plugin for Vim
+    Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoUpdateBinaries' }
 endif
 " }
 
