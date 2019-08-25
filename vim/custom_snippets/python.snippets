@@ -6,7 +6,11 @@
 # === general === [
 snippet main "if main"
 if __name__ == '__main__':
-    main()${1}
+	main()${1}
+endsnippet
+
+snippet nco "no coverage"
+# pragma: no cover ${1}
 endsnippet
 # ]
 
@@ -64,7 +68,7 @@ snippet dsgf "google style docstring for function"
 """${1}
 
 Args:
-    arg (type):
+	arg (type):
 
 Returns:
 
