@@ -294,9 +294,9 @@ if count(g:bundle_groups, 'general_programming')
         let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
         let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
     endif
-    if executable('cscope')
-        let g:gutentags_modules += ['cscope']
-    endif
+    " if executable('cscope')
+    "     let g:gutentags_modules += ['cscope']
+    " endif
     "if executable('gtags-cscope') && executable('gtags')
     "    let g:gutentags_modules += ['gtags_cscope']
     "    let g:gutentags_auto_add_gtags_cscope = 0
