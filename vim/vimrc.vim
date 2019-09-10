@@ -1,9 +1,10 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 "==========================================
 " About: Zuo's Config File for VIM/NeoVIM
+"        I use this configuration for my daily development. Mainly for Python, C and GO.
+"
 " Maintainer: Xiang, Zuo
 " Email: xianglinks@gmail.com
-" Version: 1.3
 " Sections:
 "    -> Initial Plugin
 "    -> General Settings
@@ -15,9 +16,6 @@
 "    -> Dev Tools Settings
 "    -> Theme Settings
 "    -> Helper Functions
-"
-" Inspired By:
-"
 "==========================================
 
 
