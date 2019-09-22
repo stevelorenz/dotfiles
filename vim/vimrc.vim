@@ -26,27 +26,22 @@
 " turn off compatible mode to vi
 set nocompatible
 
+" use curl to get plug.vim if not exists
 if has('nvim')
-    " use curl to get plug.vim if not exists
-    let vim_plug_just_installed = 0
     let vim_plug_path = expand('~/.config/nvim/autoload/plug.vim')
-    if !filereadable(vim_plug_path)
-        echo "Installing Vim-plug..."
-        echo ""
-        silent !mkdir -p ~/.config/nvim/autoload/
-        silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        let vim_plug_just_installed = 1
-    endif
-    " manually load vim-plug the first time
-    if vim_plug_just_installed
-        :execute 'source '.fnameescape(vim_plug_path)
+    if empty(glob(vim_plug_path))
+        silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync
+        source ~/.config/nvim/vimrc.vim
     endif
 else
-    if empty(glob('~/.vim/autoload/plug.vim'))
+    let vim_plug_path = expand("~/.vim/autoload/plug.vim")
+    if empty(glob(vim_plug_path))
         silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        autocmd VimEnter * PlugInstall --sync | source ~/.vim/vimrc.vim
-        let vim_plug_just_installed = 1
+            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall --sync
+        source ~/.vimrc
     endif
 endif
 
@@ -54,16 +49,15 @@ endif
 syntax enable
 syntax on
 
-" load plugins and configurations in ./plugin.vim
+" load plugins and configurations in plugin.vim
 " MARK: comment this part to disable all plugins
 if has('nvim')
-    if filereadable(expand("~/.config/nvim/plugin.vim"))
-        source ~/.config/nvim/plugin.vim
-    endif
+    let plugrc = expand("~/.config/nvim/plugin.vim")
 else
-    if filereadable(expand("~/.vim/plugin.vim"))
-        source ~/.vim/plugin.vim
-    endif
+    let plugrc = expand("~/.vim/plugin.vim")
+endif
+if filereadable(plugrc)
+    :execute 'source '.fnameescape(plugrc)
 endif
 
 " enable file type, plugin and indent detection
@@ -75,7 +69,7 @@ filetype plugin indent on
 "==========================================
 " {
 " set vim history in .viminfo
-set history=2000
+set history=10000
 
 " auto read file after editing
 set autoread
@@ -149,7 +143,7 @@ set softtabstop=4  " noc for tapping tab key
 set smarttab       " insert tabs on the start of a line according to shiftwidth, not tabstop
 set expandtab      " convert tab to whitespace, using ctrl-v for real tab
 set shiftround     " use multiple of shift width when indenting with '<' and '>'
-set autoindent
+set autoindent     " indent at the same level of the previous line
 
 " - completeopt: A comma separated list of options for insert mode completion
 " menu: Use a popup menu to show the possible completions.
@@ -192,8 +186,8 @@ if v:version > 703 || v:version == 703 && has("patch541")
     set formatoptions+=j
 endif
 
-" :w!! sudo saves the file (useful for handling the permission-denied error)
-cmap w!! w !sudo tee % > /dev/null
+" :W sudo saves the file (useful for handling the permission-denied error)
+command! W w !sudo tee % > /dev/null
 
 " don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -204,10 +198,13 @@ vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
 " better swap, backup and undo storage
+" neovim also put these files in .vim/dirs
 set directory=~/.vim/dirs/tmp
 set backupdir=~/.vim/dirs/backups
 " persistent undos
 set undofile
+set undolevels=1000      " maximum number of changes that can be undone
+set undoreload=10000     " maximum number lines to save for undo on a buffer reload
 set undodir=~/.vim/dirs/undos
 
 " create needed directories if they don't exist
@@ -243,12 +240,27 @@ set lazyredraw
 
 " cursor can be positioned where there is no actual character
 set virtualedit=all
+
+" automatically write a file when leaving a modified buffer
+set autowrite
+
+" always report changed lines
+set report=0
+
+" ignore pattern for expanding wildcards
+set wildignore+=*swp,*.class,*.pyc
+set wildignore+=*/tmp/*,*.o,*.obj,*.so     " Unix
+set wildignore+=*\\tmp\\*,*.exe            " Windows
 " }
 
 "==========================================
 " Display Settings
 "==========================================
 " {
+
+" Show as much as possible of the last line
+set display=lastline
+
 " stop cursor blinking
 set gcr=a:block-blinkon0
 
@@ -270,7 +282,7 @@ set scrolloff=8
 set showmatch
 
 " how many tenths of a second to blink when matching brackets
-set matchtime=2
+set matchtime=5
 
 " always show the status line - use 2 lines for the status bar
 set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
@@ -353,6 +365,8 @@ set colorcolumn=81
 
 " always show the sign column
 set signcolumn=yes
+" signcolumn should match background
+highlight clear SignColumn
 
 " disable concealing
 let g:tex_conceal = ""
@@ -360,7 +374,7 @@ let g:tex_conceal = ""
 " show invisible characters
 set list
 " display extra whitespace
-set listchars=tab:»·,trail:·,nbsp:·
+set listchars=tab:→\ ,eol:↵,trail:·,extends:↷,precedes:↶
 
 " highlight fenced code blocks in markdown
 let g:markdown_fenced_languages = [
@@ -381,10 +395,15 @@ let g:sh_fold_enabled=1
 
 " always show tabline
 set showtabline=2
+
+set linespace=0
+
+" avoid the pop up menu occupying the whole screen
+set pumheight=20
 " }
 
 "==========================================
-" File Encode Settings
+" File General Settings
 "==========================================
 " {
 " default coding
@@ -398,7 +417,7 @@ set helplang=en
 set termencoding=utf-8
 
 " use unix as the default file type
-set ffs=unix,dos,mac
+set fileformats=unix,dos,mac
 set formatoptions+=m
 " }
 
