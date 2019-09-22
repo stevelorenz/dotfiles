@@ -473,7 +473,9 @@ endif
 " Golang {
 if count(g:bundle_groups, 'go')
     " - Go development plugin for Vim
-    Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoUpdateBinaries' }
+    " Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoUpdateBinaries' }
+    " Run GoUpdateBinaries  manually, it takes time during every update
+    Plug 'fatih/vim-go', { 'for': ['go']}
 endif
 " }
 
@@ -504,6 +506,7 @@ endif
 if count(g:bundle_groups, 'text')
     Plug 'lervag/vimtex', { 'for': 'tex' }
     let g:tex_flavor = 'tex'  " default tex type
+    let g:vimtex_compiler_progname = 'nvr'
 endif
 
 " --- }
@@ -530,15 +533,23 @@ endif
 
 if count(g:bundle_groups, 'test')
 
-    " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
+    " - Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
     Plug 'gyim/vim-boxdraw'
 
-    " Configuration for rust.
+    " - Configuration for rust.
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 
-    " Vim Markdown mode
+    " - Vim Markdown mode
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
+
+    " - Changes Vim working directory to project root
+    Plug 'airblade/vim-rooter'
+    let g:rooter_manual_only = 1
+
+    " - Jump to any location
+    Plug 'justinmk/vim-sneak'
+    let g:sneak#label = 1
 
 endif
 
