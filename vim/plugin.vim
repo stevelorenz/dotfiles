@@ -45,7 +45,7 @@ if !exists('g:bundle_groups')
     "            \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'text', 'colorscheme']
     "
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', 'text', 'colorscheme', 'test']
+                \ 'c_cpp', 'python', 'go', 'text', 'colorscheme', 'test']
 endif
 
 " --- General --------------------------------------------- {
@@ -350,7 +350,7 @@ if count(g:bundle_groups, 'general_programming')
     " - Easy code formatting
     " Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
     Plug 'sbdchd/neoformat', {'on': 'Neoformat'}
-    let g:neoformat_enabled_python = ['yapf', 'autopep8', 'docformatter']
+    let g:neoformat_enabled_python = ['black', 'autopep8', 'docformatter']
 
     " - Preview tags, files and functions
     Plug 'skywind3000/vim-preview'
@@ -470,6 +470,12 @@ if count(g:bundle_groups, 'python')
 endif
 " }
 
+" Rust {
+if count(g:bundle_groups, 'rust')
+    " - Configuration for rust.
+    Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+endif
+
 " Golang {
 if count(g:bundle_groups, 'go')
     " - Go development plugin for Vim
@@ -536,9 +542,6 @@ if count(g:bundle_groups, 'test')
     " - Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
     Plug 'gyim/vim-boxdraw'
 
-    " - Configuration for rust.
-    Plug 'rust-lang/rust.vim', { 'for': 'rust' }
-
     " - Vim Markdown mode
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
@@ -550,6 +553,9 @@ if count(g:bundle_groups, 'test')
     " - Jump to any location
     Plug 'justinmk/vim-sneak'
     let g:sneak#label = 1
+
+    " - Generate table of contents for Markdown files
+    Plug 'mzlogin/vim-markdown-toc'
 
 endif
 

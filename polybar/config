@@ -438,7 +438,8 @@ interval = 5
 ; NOTE: if you want to use syntax tags here you need to use %%{...}
 date = " %a %b %d, %Y"
 date-alt = " %a %b %d, %Y"
-time = %l:%M%p
+;time = %l:%M%p
+time = %H:%M
 time-alt = %l:%M%p
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground}
