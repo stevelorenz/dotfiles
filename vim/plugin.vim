@@ -382,6 +382,7 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     " - Autocomplete framework
     " Lightweight chained completion
     Plug 'lifepillar/vim-mucomplete'
+    set completeopt+=menuone,noselect,noinsert
     " shut off completion messages and disable beep
     set shortmess+=c
     set belloff+=ctrlg
@@ -481,7 +482,7 @@ if count(g:bundle_groups, 'go')
     " - Go development plugin for Vim
     " Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoUpdateBinaries' }
     " Run GoUpdateBinaries  manually, it takes time during every update
-    Plug 'fatih/vim-go', { 'for': ['go']}
+    " Plug 'fatih/vim-go', { 'for': ['go']}
 endif
 " }
 
@@ -556,6 +557,9 @@ if count(g:bundle_groups, 'test')
 
     " - Generate table of contents for Markdown files
     Plug 'mzlogin/vim-markdown-toc'
+
+    " - Modern generic interactive finder and dispatcher for Vim and NeoVim
+    Plug 'liuchengxu/vim-clap'
 
 endif
 
