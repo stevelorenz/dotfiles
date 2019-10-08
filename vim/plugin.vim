@@ -561,6 +561,20 @@ if count(g:bundle_groups, 'test')
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
     Plug 'liuchengxu/vim-clap'
 
+    " - Language server protocol (LSP) support
+    Plug 'autozimu/LanguageClient-neovim', {
+                \ 'branch': 'next',
+                \ 'do': 'bash install.sh',
+                \ }
+    " Required for operations modifying multiple buffers like rename.
+    set hidden
+
+    let g:LanguageClient_serverCommands = {
+                \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+                \ 'c': ['clangd'],
+                \ 'cpp': ['clangd'],
+                \ }
+
 endif
 
 " --- }

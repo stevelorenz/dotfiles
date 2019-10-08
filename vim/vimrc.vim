@@ -592,8 +592,8 @@ nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 " F4: Preview a tag circularly
 nnoremap <F4> :PreviewTag<CR>
 
-" F5: toggle deoplete autocompletion
-nnoremap <F5> :call deoplete#toggle()<CR>
+" F5: LSP client context menu
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 
 " F6: toggle nerdtree file explorer
 nnoremap <F6> :NERDTreeToggle<CR>
