@@ -11,7 +11,7 @@
 "    -> Programming Language Specific
 "      -> C, CPP
 "      -> Python
-"      -> Golang
+"      -> Rust
 "      -> (X)HTML
 "      -> Javascript
 "      -> (La)Tex
@@ -45,7 +45,7 @@ if !exists('g:bundle_groups')
     "            \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'text', 'colorscheme']
     "
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', 'go', 'text', 'colorscheme', 'test']
+                \ 'c_cpp', 'python', 'rust', 'text', 'colorscheme', 'test']
 endif
 
 " --- General --------------------------------------------- {
@@ -479,6 +479,8 @@ endif
 
 " Golang {
 if count(g:bundle_groups, 'go')
+    "- MARK: vim-go plans to drop support for Neovim
+    " So the gopls is used via LSP client for go development
     " - Go development plugin for Vim
     " Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoUpdateBinaries' }
     " Run GoUpdateBinaries  manually, it takes time during every update
@@ -566,14 +568,18 @@ if count(g:bundle_groups, 'test')
                 \ 'branch': 'next',
                 \ 'do': 'bash install.sh',
                 \ }
-    " Required for operations modifying multiple buffers like rename.
+    " required for operations modifying multiple buffers like rename.
     set hidden
-
     let g:LanguageClient_serverCommands = {
-                \ 'rust': ['rustup', 'run', 'stable', 'rls'],
                 \ 'c': ['clangd'],
                 \ 'cpp': ['clangd'],
+                \ 'go': ['gopls'],
+                \ 'python': ['pyls'],
+                \ 'rust': ['rustup', 'run', 'stable', 'rls'],
                 \ }
+    let g:LanguageClient_diagnosticsEnable = 0
+    let g:LanguageClient_fzfContextMenu = 0
+    let g:LanguageClient_useVirtualText = 0
 
 endif
 
