@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# upgrade-zsh-plugins.sh
+
+ZSH_CUSTOM_LOC="$HOME/.oh-my-zsh/custom"
+
+echo "Update zsh-autosuggestions..."
+cd "$ZSH_CUSTOM_LOC/plugins/zsh-autosuggestions"
+git pull
+echo "Update zsh-completions..."
+cd "$ZSH_CUSTOM_LOC/plugins/zsh-completions"
+git pull

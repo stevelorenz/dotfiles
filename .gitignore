@@ -1,3 +1,7 @@
+bin/bin/nvim
+nvim/.config/nvim/bundle/
+cmus/.config/cmus/playlists/
+
 # Tmux
 # ------------------
 tmux/resurrect

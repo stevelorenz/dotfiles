@@ -1,0 +1,149 @@
+#!/bin/bash
+# ------------------------------------------------------------------
+# About : Some regular system maintenances for Linux OS
+# Email : xianglinks@gmail.com
+#
+# Ref   : 1. Manjaro Wiki -- Security
+#         2. Arch Wiki -- S.M.A.R.T
+# ------------------------------------------------------------------
+
+VERSION=0.1
+USAGE="Usage: command -hv args"
+
+# --- Colored Output  ----------------------------------------------
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+# --- Function Definition ------------------------------------------
+function Usage() {
+    echo
+    printf "${GREEN}Common System Maintenances${NC} for ${RED}Linux${NC} Distros.\n"
+    echo ""
+    echo "Usage: command options"
+    echo ""
+    echo "Options:"
+    printf "  -c\tCheck OS common errors.\n"
+    printf "  -m\tScan malwares.\n"
+    printf "  -t\tTrim SSD (mount point of root and home).\n"
+    printf "  -s\tShow multiple system statistics.\n"
+    printf "  -H\tCheck hardware health.\n"
+}
+
+function check_root() {
+    if [[ $EUID -ne 0 ]]; then
+        echo "This command must be run as root!"
+        exit 1
+    fi
+}
+
+function check_error() {
+    printf "[...] Check for errors.\n\n"
+    printf "(1) Check if systemd services have entered in a failed state:\n"
+    systemctl --failed
+    printf "(2) List all broken symlinks:\n"
+    find -xtype l -print
+}
+
+function anti_malware() {
+    printf "(1) Scan virsuses with clamAV.\n"
+    printf "[...] Update clamAV database.\n"
+    sudo freshclam
+
+    read -p "Do you want to scan the home dir (y/n) " choice
+    if [[ $choice == 'y' ]]; then
+        sudo clamscan -r $HOME -l "/var/log/clamav/last_scan.log"
+    fi
+
+    printf "(1) Scan Rootkit with Rkhunter.\n"
+    sudo rkhunter --update
+    sudo rkhunter --check --sk
+}
+
+function trim_ssd() {
+    echo "[...] Trim root and home dirs"
+    echo "---------------------"
+    LOG=/var/log/trim.log
+    echo "*** $(date -R) ***" | sudo tee --append $LOG >/dev/null
+    sudo fstrim -v / | sudo tee --append $LOG >/dev/null
+    sudo fstrim -v /home | sudo tee --append $LOG >/dev/null
+    echo $'\n' | sudo tee --append $LOG >/dev/null
+    cat /var/log/trim.log
+    echo "---------------------"
+    printf "${GREEN}[OK] ${NC}Trim finished."
+
+    choose=n
+    echo
+    read -rp "Do you want to clean trim.log (y/n default n)? > " choose
+    if [[ $choose == y ]]; then
+        echo | sudo tee $LOG >/dev/null
+    fi
+}
+
+function sys_stats() {
+    echo "[Stats] IO Stats"
+    iostat
+}
+
+function check_hd_health() {
+    echo "[HD Health Check]"
+    check_root
+
+    # - Check storage device with S.M.A.R.T
+    echo "---------------------"
+    echo "# Storage Device:"
+    smartctl -H /dev/sda
+}
+
+# --- Option processing --------------------------------------------
+if [ $# == 0 ]; then
+    Usage
+    exit 1
+fi
+
+while getopts ":cvhHmts" optname; do
+    case "$optname" in
+    "c")
+        check_error
+        exit 0
+        ;;
+    "m")
+        anti_malware
+        exit 0
+        ;;
+    "h")
+        Usage
+        exit 0
+        ;;
+    "t")
+        trim_ssd
+        exit 0
+        ;;
+    "s")
+        sys_stats
+        exit 0
+        ;;
+    "H")
+        check_hd_health
+        exit 0
+        ;;
+    "v")
+        echo "Version $VERSION"
+        exit 0
+        ;;
+    "?")
+        echo "Unknown option $OPTARG"
+        exit 0
+        ;;
+    ":")
+        echo "No argument value for option $OPTARG"
+        exit 0
+        ;;
+    *)
+        echo "Unknown error while processing options"
+        exit 0
+        ;;
+    esac
+done
+
+shift $(($OPTIND - 1))
