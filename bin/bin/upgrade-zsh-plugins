@@ -5,8 +5,8 @@
 ZSH_CUSTOM_LOC="$HOME/.oh-my-zsh/custom"
 
 echo "Update zsh-autosuggestions..."
-cd "$ZSH_CUSTOM_LOC/plugins/zsh-autosuggestions"
+cd "$ZSH_CUSTOM_LOC/plugins/zsh-autosuggestions" || exit
 git pull
 echo "Update zsh-completions..."
-cd "$ZSH_CUSTOM_LOC/plugins/zsh-completions"
+cd "$ZSH_CUSTOM_LOC/plugins/zsh-completions" || exit
 git pull

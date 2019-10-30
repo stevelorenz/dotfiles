@@ -8,7 +8,6 @@
 # ------------------------------------------------------------------
 
 VERSION=0.1
-USAGE="Usage: command -hv args"
 
 # --- Colored Output  ----------------------------------------------
 RED='\033[0;31m'
@@ -42,7 +41,7 @@ function check_error() {
     printf "(1) Check if systemd services have entered in a failed state:\n"
     systemctl --failed
     printf "(2) List all broken symlinks:\n"
-    find -xtype l -print
+    find ./ -xtype l -print
 }
 
 function anti_malware() {
@@ -50,9 +49,9 @@ function anti_malware() {
     printf "[...] Update clamAV database.\n"
     sudo freshclam
 
-    read -p "Do you want to scan the home dir (y/n) " choice
+    read -rp "Do you want to scan the home dir (y/n) " choice
     if [[ $choice == 'y' ]]; then
-        sudo clamscan -r $HOME -l "/var/log/clamav/last_scan.log"
+        sudo clamscan -r "$HOME" -l "/var/log/clamav/last_scan.log"
     fi
 
     printf "(1) Scan Rootkit with Rkhunter.\n"
@@ -133,14 +132,17 @@ while getopts ":cvhHmts" optname; do
         ;;
     "?")
         echo "Unknown option $OPTARG"
+        USAGE
         exit 0
         ;;
     ":")
         echo "No argument value for option $OPTARG"
+        USAGE
         exit 0
         ;;
     *)
         echo "Unknown error while processing options"
+        USAGE
         exit 0
         ;;
     esac

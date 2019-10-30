@@ -1,6 +1,7 @@
 bin/bin/nvim
 nvim/.config/nvim/bundle/
-cmus/.config/cmus/playlists/
+cmus/.config/cmus/*
+!cmus/.config/cmus/rc
 
 # Tmux
 # ------------------

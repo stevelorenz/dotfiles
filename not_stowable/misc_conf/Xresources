@@ -5,6 +5,7 @@
 st.alpha: 0.95
 !! Set a default font and font size as below:
 st.font: Hack:size=13:antialias=true,autohint=true,bold=false;
+st.bold_font: 0
 
 ! ------------------------------------------------------------------------------
 ! Xterm Terminal Emulator Settings
