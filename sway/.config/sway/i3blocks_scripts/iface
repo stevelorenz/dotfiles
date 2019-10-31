@@ -1,0 +1,33 @@
+#!/bin/sh
+
+if [[ -n $BLOCK_INSTANCE ]];then
+	IF=$BLOCK_INSTANCE
+else
+	IF=$(ip route | awk '/^default/ {print $5 ; exit }')
+fi
+
+[[ ! -d /sys/class/net/${IF} ]] && exit
+
+if [[ "$(cat /sys/class/net/$IF/operstate)" = 'down' ]]; then
+	echo down # full text
+	echo down # short text
+	echo \#FF0000
+	exit
+fi
+
+case $1 in
+	-4)
+		AF=inet ;;
+	-6)
+	 	AF=inet6 ;;
+	*)
+		AF=inet6? ;;
+esac
+
+IPADDR=$(ip addr show $IF | perl -n -e "/$AF ([^\/]+).* scope global/ && print \$1 and exit")
+
+case $BLOCK_BUTTON in
+	3) echo -n "$IPADDR" | xclip -q -se c ;;
+esac
+
+echo "$IPADDR" # full text
