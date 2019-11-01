@@ -8,6 +8,8 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
+# Font
+font pango: Hack Regular 13
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -15,6 +17,7 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 set $term xfce4-terminal
+set $term2 st
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
@@ -50,22 +53,26 @@ exec swayidle -w \
 #
 # Example configuration:
 #
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    tap enabled
+    natural_scroll disabled
+    middle_emulation enabled
+    scroll_method two_finger
+    dwt enabled
+}
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
 
 ### Auto start programs
-exec nm-applet
-exec pamac-tray
-exec volumeicon
+# To be checked, if trays (of following tools) work on wayland...
+exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec_always mako
+exec_always nm-applet
+# exec_always pamac-tray
+# exec_always volumeicon
 
 ### Key bindings
 #
@@ -73,12 +80,19 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec $term2
+
+    # Avoid exiting FF or other APP accidentally
+    bindsym Ctrl+q exec echo "hug" > /dev/null
 
     # Kill focused window
     bindsym $mod+Shift+q kill
 
     # Start your launcher
     bindsym $mod+d exec $menu
+
+    # Start Dmenu
+    bindsym $mod+Shift+m exec dmenu_run
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -143,6 +157,10 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
     bindsym $mod+Shift+0 move container to workspace 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
+
+    # Move focused workspace between monitors
+    bindsym $mod+Ctrl+Right move workspace to output right
+    bindsym $mod+Ctrl+Left move workspace to output left
 #
 # Layout stuff:
 #
@@ -180,6 +198,22 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+#
+# Media keys
+#
+    # Volume setting.
+    bindsym XF86AudioRaiseVolume exec amixer -q sset Master 5%+ unmute
+    bindsym XF86AudioLowerVolume  exec amixer -q sset Master 5%- unmute
+    bindsym XF86AudioMute exec amixer -q set Master toggle
+
+    # Sreen brightness controls
+    bindsym XF86MonBrightnessUp exec brightnessctl s +10%
+    bindsym XF86MonBrightnessDown exec brightnessctl s -10%
+
+    # Screenshots
+    bindsym Print exec grim \"$HOME/Pictures/Screenshot_$(date +%Y%m%d)_$(date +%H%M%S).png"
+
 #
 # Resizing containers:
 #
@@ -219,6 +253,16 @@ mode $mode_system {
 }
 bindsym $mod+Shift+s mode $mode_system
 
+# Fcitx input method
+set $mode_fcitx "fcitx: (r) un, (q)uit "
+mode $mode_fcitx {
+    bindsym r exec "fcitx", mode "default"
+    bindsym q exec "killall fcitx", mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+f mode $mode_fcitx
+
 #
 # Status Bar:
 #
@@ -239,5 +283,60 @@ bar {
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }
+
+### Gaps
+# Default no gaps
+gaps inner 0
+gaps outer 0
+
+# Enable gaps to only be used if there is more than one container on the workspace
+smart_gaps on
+
+# Set default inner and outer gap width
+set $default_gaps_inner 15
+set $default_gaps_outer 10
+
+# Remove and restore gaps
+set $mode_gaps (0) remove gaps (d) default gaps (i) modify inner gaps (o) modify outer gaps
+mode "$mode_gaps" {
+    bindsym 0 mode "default", exec i3-msg "gaps inner current set 0" && i3-msg "gaps outer current set 0"
+    bindsym d mode "default", exec i3-msg "gaps inner current set $default_gaps_inner" && i3-msg "gaps outer current set $default_gaps_outer"
+    bindsym o mode "$mode_gaps_outer"
+    bindsym i mode "$mode_gaps_inner"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps_inner" {
+    bindsym plus  gaps inner current plus 5
+    bindsym minus gaps inner current minus 5
+    bindsym 0 mode "default", gaps inner current set 0
+    bindsym d mode "default", gaps inner current set $default_gaps_inner
+
+    bindsym Shift+plus  gaps inner all plus 5
+    bindsym Shift+minus gaps inner all minus 5
+    bindsym Shift+0     mode "default", gaps inner all set 0
+    bindsym Shift+d     mode "default", gaps inner all set $default_gaps_inner
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+    bindsym plus  gaps outer current plus 5
+    bindsym minus gaps outer current minus 5
+    bindsym 0 mode "default", gaps outer current set 0
+    bindsym d mode "default", gaps outer current set $default_gaps_outer
+
+    bindsym Shift+plus  gaps outer all plus 5
+    bindsym Shift+minus gaps outer all minus 5
+    bindsym Shift+0     mode "default", gaps outer all set 0
+    bindsym Shift+d     mode "default", gaps outer all set $default_gaps_outer
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+# }
 
 include /etc/sway/config.d/*
