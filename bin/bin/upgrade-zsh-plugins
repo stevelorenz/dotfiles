@@ -1,12 +1,32 @@
 #!/bin/bash
 #
-# upgrade-zsh-plugins.sh
+# About: Upgrade manually installed ZSH plugins from https://github.com/zsh-users
+#        Plugins are loaded by oh-my-zsh
+#
 
 ZSH_CUSTOM_LOC="$HOME/.oh-my-zsh/custom"
 
-echo "Update zsh-autosuggestions..."
-cd "$ZSH_CUSTOM_LOC/plugins/zsh-autosuggestions" || exit
-git pull
-echo "Update zsh-completions..."
-cd "$ZSH_CUSTOM_LOC/plugins/zsh-completions" || exit
-git pull
+function fetch_plugin() {
+    pname=$1
+    git clone "https://github.com/zsh-users/$pname" "$ZSH_CUSTOM_LOC/plugins/$pname"
+}
+
+function upgrade_plugin() {
+    declare dir=$1
+    cd "$dir" || exit
+    git pull
+}
+
+declare -a plugins=("zsh-autosuggestions" "zsh-completions")
+
+for pname in "${plugins[@]}"; do
+    echo "Plugin name: $pname"
+    plug_dir="$ZSH_CUSTOM_LOC/plugins/$pname"
+    if [[ -d "$plug_dir" ]]; then
+        upgrade_plugin "$plug_dir"
+    else
+        echo "Can not find the installed plugin, install it now via git."
+        fetch_plugin "$pname"
+    fi
+done
+exit 0

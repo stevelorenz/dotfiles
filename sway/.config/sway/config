@@ -28,6 +28,7 @@ set $locker swaylock -f -c 000000
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+default_border none
 #
 # Example configuration:
 #
@@ -213,6 +214,7 @@ exec_always nm-applet
 
     # Screenshots
     bindsym Print exec grim \"$HOME/Pictures/Screenshot_$(date +%Y%m%d)_$(date +%H%M%S).png"
+    bindsym Shift+Print exec exec grim -g "$(slurp)" - | wl-copy
 
 #
 # Resizing containers:

@@ -18,7 +18,7 @@
 # Oh_My_Zsh Configuration
 # ----------------------------------------------------------
 # Location on oh my zsh dir
-export ZSH=$HOME/.oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
 
 # Default prompt theme
 ZSH_THEME="robbyrussell"
@@ -66,7 +66,8 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(common-aliases extract git python pip z zsh-completions zsh-autosuggestions colored-man-pages vagrant archlinux cp rsync tmux go)
+plugins=(colored-man-pages extract git go python pip rust tmux vagrant z
+    zsh-completions zsh-autosuggestions)
 
 # Auto load and init completions
 source $ZSH/oh-my-zsh.sh
@@ -80,23 +81,24 @@ autoload -U compinit && compinit
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
+export SUDO_EDITOR=vim
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR='vim'
 else
     export EDITOR='nvim'
 fi
 
-# Load pyenv for python version management
-if [[ -d ~/.pyenv/ ]]; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    # init pyenv and virtualenv plugin
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-fi
+# # Load pyenv for python version management
+# if [[ -d ~/.pyenv/ ]]; then
+#     export PYENV_ROOT="$HOME/.pyenv"
+#     export PATH="$PYENV_ROOT/bin:$PATH"
+#     # init pyenv and virtualenv plugin
+#     eval "$(pyenv init -)"
+#     eval "$(pyenv virtualenv-init -)"
+# fi
 
 # Add local bin folders
-export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 
 # Load custom aliases
 [ -f ~/.custom_aliases.sh ] && source ~/.custom_aliases.sh
@@ -107,22 +109,24 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 # Source xprofile
 [ -f ~/.xprofile ] && source ~/.xprofile
 
-# Cheat for cheat sheets
-export CHEATCOLORS=true
+# # Cheat for cheat sheets
+# export CHEATCOLORS=true
 
 # BCC tracing tools and man pages
 if [[ -d /usr/share/bcc ]]; then
-    MANPATH=/usr/share/bcc/man:$MANPATH
-    PATH=/usr/share/bcc/tools:$PATH
+    export MANPATH="/usr/share/bcc/man:$MANPATH"
+    export PATH="/usr/share/bcc/tools:$PATH"
 fi
 
 # GO PATH
-export GOPATH=$HOME/.go
+export GOPATH="$HOME/.go"
 export PATH="$PATH:$GOPATH/bin"
 
 # Ruby PATH
-export RUBYPATH=$HOME/.gem/ruby/2.6.0/
+export RUBYPATH="$HOME/.gem/ruby/2.6.0/"
 export PATH="$PATH:$RUBYPATH/bin"
 
-export SUDO_EDITOR=vim
+# Rust Cargo PATH
+export CARGOPATH="$HOME/.cargo/"
+export PATH="$PATH:$CARGOPATH/bin"
 # ----------------------------------------------------------
