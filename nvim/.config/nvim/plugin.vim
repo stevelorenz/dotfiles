@@ -255,12 +255,14 @@ if count(g:bundle_groups, 'general_programming')
 
         " declare enabled linters
         let g:ale_linters = {
-                    \   'python': ['flake8'],
+                    \   'python': ['flake8', 'pylint'],
                     \}
 
         " language specfic settings
         let g:ale_python_flake8_args = '--ignore=E501,E226,E126'
         let g:ale_python_flake8_options = '--ignore=E501,E226,E126'
+        let g:ale_python_pylint_args = '-E'
+        let g:ale_python_pylint_options = '-E'
 
         " Add default fixers
         let g:ale_fixers = {

@@ -2,6 +2,9 @@ bin/bin/nvim
 nvim/.config/nvim/bundle/
 cmus/.config/cmus/*
 !cmus/.config/cmus/rc
+emacs/**/elpa/
+emacs/**/auto-save-list/
+emacs/**/init.el/~
 
 # Tmux
 # ------------------

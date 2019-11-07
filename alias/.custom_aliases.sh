@@ -28,6 +28,7 @@ alias psmem10='ps auxf | sort -nr -k 4 | head -10'
 
 # Default editor
 alias e='nvim'
+alias em='emacs -nw'
 
 # Vim "variants" on Ubuntu
 ##  Compiled with GTK2, for python2 and python3
