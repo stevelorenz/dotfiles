@@ -1,4 +1,5 @@
 bin/bin/nvim
+bin/bin/Cutter
 nvim/.config/nvim/bundle/
 cmus/.config/cmus/*
 !cmus/.config/cmus/rc

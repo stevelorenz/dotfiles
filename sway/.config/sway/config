@@ -163,6 +163,11 @@ exec_always nm-applet
     # Move focused workspace between monitors
     bindsym $mod+Ctrl+Right move workspace to output right
     bindsym $mod+Ctrl+Left move workspace to output left
+
+    # Workspace back and forth (with/without active container)
+    workspace_auto_back_and_forth yes
+    bindsym $mod+tab workspace back_and_forth
+
 #
 # Layout stuff:
 #

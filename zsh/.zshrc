@@ -129,4 +129,8 @@ export PATH="$PATH:$RUBYPATH/bin"
 # Rust Cargo PATH
 export CARGOPATH="$HOME/.cargo/"
 export PATH="$PATH:$CARGOPATH/bin"
+
+# Dotnet PATH
+export DOTNETPATH="$HOME/.dotnet/tools"
+export PATH="$PATH:$DOTNETPATH"
 # ----------------------------------------------------------
