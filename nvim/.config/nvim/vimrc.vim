@@ -676,11 +676,10 @@ autocmd BufNewFile,BufRead *.ini,*.conf
 "==========================================
 " {
 if has('nvim')
-    " python provider program
-    " this points neovim to a specific python interpreter
-    " ISSUE: If python_host_prog is set, the neovim searches for python2 neovim module when open a new
-    " python file and throw exception, even if python3 neovim module is already installed.
-    "let g:python_host_prog = '/usr/bin/python2'
+    " Neovim Python integration
+    " disable Python2 support
+    let g:loaded_python_provider = 0
+    let g:python_host_prog = '/usr/bin/python2'
     let g:python3_host_prog = '/usr/bin/python3'
 
     " terminal emulator key-mapping

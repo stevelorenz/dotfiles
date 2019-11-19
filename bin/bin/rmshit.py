@@ -49,6 +49,13 @@ shittyfiles = [
     "~/.w3m/",
     "~/.subversion/",
     "~/nvvp_workspace/",  # created empty even when the path is set differently in nvvp
+    "./.node_repl_history",
+    "./.LfCache/",
+    "./.clamtk/",
+    "./.xsession-errors",
+    "./.xsession-errors.old",
+    "./.sunpinyin",
+    "./.doom.d/",
 ]
 
 
