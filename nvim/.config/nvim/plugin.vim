@@ -90,6 +90,7 @@ if count(g:bundle_groups, 'general')
         let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
         " LeaderF with tags
         let g:Lf_GtagsAutoGenerate = 0
+        let g:Lf_WindowPosition = 'popup'
     else
         " - Fuzzy file, buffer and MRU finder
         Plug 'ctrlpvim/ctrlp.vim'
@@ -175,6 +176,10 @@ if count(g:bundle_groups, 'general')
     " - Beakdown VIM's --startuptime output
     Plug 'tweekmonster/startuptime.vim'
 
+    " - Changes Vim working directory to project root
+    Plug 'airblade/vim-rooter'
+    let g:rooter_manual_only = 1
+
 endif
 
 "  --- }
@@ -218,6 +223,10 @@ if count(g:bundle_groups, 'general_editing')
     Plug 'kana/vim-textobj-indent'"
     Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
     Plug 'sgur/vim-textobj-parameter'
+
+    " - Jump to any location
+    Plug 'justinmk/vim-sneak'
+    let g:sneak#label = 1
 
 endif
 
@@ -551,17 +560,6 @@ if count(g:bundle_groups, 'test')
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
 
-    " - Changes Vim working directory to project root
-    Plug 'airblade/vim-rooter'
-    let g:rooter_manual_only = 1
-
-    " - Jump to any location
-    Plug 'justinmk/vim-sneak'
-    let g:sneak#label = 1
-
-    " - Generate table of contents for Markdown files
-    Plug 'mzlogin/vim-markdown-toc'
-
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
     Plug 'liuchengxu/vim-clap'
 
@@ -581,6 +579,9 @@ if count(g:bundle_groups, 'test')
     let g:LanguageClient_diagnosticsEnable = 0
     let g:LanguageClient_fzfContextMenu = 0
     let g:LanguageClient_useVirtualText = 0
+
+    " - Reveal the commit messages under the cursor
+    Plug 'rhysd/git-messenger.vim'
 
 endif
 
