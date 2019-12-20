@@ -122,6 +122,11 @@ fi
 export GOPATH="$HOME/.go"
 export PATH="$PATH:$GOPATH/bin"
 
+# Lua/Luarocks PATH
+if [[ -d $HOME/.luarocks ]]; then
+    eval $(luarocks path)
+fi
+
 # Ruby PATH
 export RUBYPATH="$HOME/.gem/ruby/2.6.0/"
 export PATH="$PATH:$RUBYPATH/bin"

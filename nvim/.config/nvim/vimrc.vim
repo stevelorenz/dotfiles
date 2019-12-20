@@ -629,14 +629,19 @@ autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
             \ set expandtab ! |
             \ set foldmethod=syntax |
 
-" -- python --
-autocmd BufNewFile,BufRead *.py
-            \ set filetype=python |
-            \ set textwidth=80 |
+" -- config file --
+autocmd BufNewFile,BufRead *.ini,*.conf
+            \ set filetype=dosini
 
-" -- web dev --
-autocmd BufNewFile,BufRead *.js,*.html,*.css
-            \ set expandtab!
+" -- latex --
+autocmd BufNewFile,BufRead *.tex
+            \ set filetype=tex |
+            \ set textwidth=120 |
+            \ set spell |
+
+" -- lua --
+autocmd BufNewFile,BufRead *.lua
+            \ let g:lua_complete_omni=1
 
 " -- markdown --
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
@@ -647,6 +652,11 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set softtabstop=2 |
             \ set spell |
 
+" -- python --
+autocmd BufNewFile,BufRead *.py
+            \ set filetype=python |
+            \ set textwidth=80 |
+
 " -- restructured text --
 autocmd BufNewFile,BufRead *.rst
             \ set textwidth=120 |
@@ -655,19 +665,9 @@ autocmd BufNewFile,BufRead *.rst
             \ set softtabstop=2 |
             \ set spell |
 
-" -- tex --
-autocmd BufNewFile,BufRead *.tex
-            \ set filetype=tex |
-            \ set textwidth=120 |
-            \ set spell |
-
 " -- web dev --
 autocmd BufNewFile,BufRead *.js,*.html,*.css
             \ set expandtab!
-
-" -- config file --
-autocmd BufNewFile,BufRead *.ini,*.conf
-            \ set filetype=dosini
 
 " }
 
