@@ -36,7 +36,7 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 
 " -------------------- Start Config --------------------
 
-" inspired by spf13, choose collections of plugins to be installed.
+" Inspired by spf13, choose collections of plugins to be installed.
 " remove element in the list to disable a collection of plugins.
 " for example, remove 'python' will disable all plugins in the python section.
 if !exists('g:bundle_groups')
@@ -129,14 +129,8 @@ if count(g:bundle_groups, 'general')
 
     " - Fast and easy cursor motion
     " -- inter lines
-    "Plug 'Lokaltog/vim-easymotion'
-    "let g:EasyMotion_smartcase = 1
-    "" default use one <leader> as trigger
-    "map  <leader>f <Plug>(easymotion-bd-f)
-    "nmap <leader>f <Plug>(easymotion-overwin-f)
-    "" <leader>s{char} to move to {char}
-    "" s{char}{char} to move to {char}{char}
-    "nmap s <Plug>(easymotion-overwin-f2)
+    Plug 'justinmk/vim-sneak'
+    let g:sneak#label = 1
     " -- intra line
     Plug 'unblevable/quick-scope'
     let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -223,10 +217,6 @@ if count(g:bundle_groups, 'general_editing')
     Plug 'kana/vim-textobj-indent'"
     Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
     Plug 'sgur/vim-textobj-parameter'
-
-    " - Jump to any location
-    Plug 'justinmk/vim-sneak'
-    let g:sneak#label = 1
 
 endif
 
@@ -321,9 +311,6 @@ if count(g:bundle_groups, 'general_programming')
     endif
 
     " - Git integration and enhancement
-    " -- awesome git wrapper
-    " ISSUE: high startup time.
-    " Plug 'tpope/vim-fugitive'
     " -- show git diff asynchronously
     Plug 'mhinz/vim-signify'
 
@@ -430,46 +417,6 @@ endif
 
 " Python {
 if count(g:bundle_groups, 'python')
-    " - Binding to autocompletion library: jedi
-    "   also supports navigation and documentation viewing
-    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-    " -- mappings --
-    let g:jedi#completions_command = "<C-C>"
-    " follow identifier as far as possible,
-    let g:jedi#goto_command = "<leader>d"
-    " typical goto function
-    let g:jedi#goto_assignments_command = "<leader>g"
-    " show documentation
-    let g:jedi#documentation_command = "K"
-    " rename in current file
-    let g:jedi#rename_command = "<leader>r"
-    " show usages in current file
-    let g:jedi#usages_command = "<leader>z"
-    " -- settings --
-    let g:jedi#auto_initialization = 1
-    let g:jedi#auto_vim_configuration = 0
-    " disable auto pop on dot
-    let g:jedi#popup_on_dot = 0
-    " default select the first one
-    let g:jedi#popup_select_first = 1
-    " close doc after completion
-    let g:auto_close_doc = 1
-    " disable function call signatures in insert mode in real-time
-    let g:jedi#show_call_signatures = 0
-    " open new split for 'go to' result
-    let g:jedi#use_splits_not_buffers = "winwidth"
-    " set python interpreter version
-    " default use sys.version_info from 'python' in your $PATH
-    " call jedi#force_py_version(py_version) to set directly
-    let g:jedi#force_py_version = "auto"
-
-    " - Better folding for python
-    Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
-    " show docstring in fold mode
-    let g:SimpylFold_docstring_preview = 1
-    " autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-    " autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
-
     " - Sort python imports
     Plug 'fisadev/vim-isort', { 'for': 'python' }
     " disable mapping
@@ -563,22 +510,16 @@ if count(g:bundle_groups, 'test')
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
     Plug 'liuchengxu/vim-clap'
 
-    " - Language server protocol (LSP) support
-    Plug 'autozimu/LanguageClient-neovim', {
-                \ 'branch': 'next',
-                \ 'do': 'bash install.sh',
-                \ }
-    " required for operations modifying multiple buffers like rename.
-    set hidden
-    let g:LanguageClient_serverCommands = {
-                \ 'c': ['clangd'],
-                \ 'cpp': ['clangd'],
-                \ 'go': ['gopls'],
-                \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-                \ }
-    let g:LanguageClient_diagnosticsEnable = 0
-    let g:LanguageClient_fzfContextMenu = 0
-    let g:LanguageClient_useVirtualText = 0
+    " - Async Language Server Protocol plugin for vim8 and neovim
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/vim-lsp'
+    " disable diagnostics support
+    let g:lsp_diagnostics_enabled = 0
+
+    " - Auto configurations for LSP for vim-lsp
+    Plug 'mattn/vim-lsp-settings'
+    " directory to install LSP servers.
+    let g:lsp_settings_servers_dir = "~/.local/share/lsp_servers"
 
     " - Reveal the commit messages under the cursor
     Plug 'rhysd/git-messenger.vim'
@@ -589,6 +530,67 @@ if count(g:bundle_groups, 'test')
 endif
 
 " --- }
+"
+" --- Backup ---------------------------------------------- {
+
+    " - Binding to autocompletion library: jedi
+    "   also supports navigation and documentation viewing
+    " Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+    " " -- mappings --
+    " let g:jedi#completions_command = "<C-C>"
+    " " follow identifier as far as possible,
+    " let g:jedi#goto_command = "<leader>d"
+    " " typical goto function
+    " let g:jedi#goto_assignments_command = "<leader>g"
+    " " show documentation
+    " let g:jedi#documentation_command = "K"
+    " " rename in current file
+    " let g:jedi#rename_command = "<leader>r"
+    " " show usages in current file
+    " let g:jedi#usages_command = "<leader>z"
+    " " -- settings --
+    " let g:jedi#auto_initialization = 1
+    " let g:jedi#auto_vim_configuration = 0
+    " " disable auto pop on dot
+    " let g:jedi#popup_on_dot = 0
+    " " default select the first one
+    " let g:jedi#popup_select_first = 1
+    " " close doc after completion
+    " let g:auto_close_doc = 1
+    " " disable function call signatures in insert mode in real-time
+    " let g:jedi#show_call_signatures = 0
+    " " open new split for 'go to' result
+    " let g:jedi#use_splits_not_buffers = "winwidth"
+    " " set python interpreter version
+    " " default use sys.version_info from 'python' in your $PATH
+    " " call jedi#force_py_version(py_version) to set directly
+    " let g:jedi#force_py_version = "auto"
+
+    " - Better folding for python
+    " Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
+    " " show docstring in fold mode
+    " let g:SimpylFold_docstring_preview = 1
+    " " autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+    " " autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+
+    " Plug 'autozimu/LanguageClient-neovim', {
+    "             \ 'branch': 'next',
+    "             \ 'do': 'bash install.sh',
+    "             \ }
+    " " required for operations modifying multiple buffers like rename.
+    " set hidden
+    " let g:LanguageClient_serverCommands = {
+    "             \ 'c': ['clangd'],
+    "             \ 'cpp': ['clangd'],
+    "             \ 'go': ['gopls'],
+    "             \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+    "             \ 'python': ['/bin/pyls'],
+    "             \ }
+    " let g:LanguageClient_diagnosticsEnable = 0
+    " let g:LanguageClient_fzfContextMenu = 0
+    " let g:LanguageClient_useVirtualText = 0
+
+"  }
 
 
 " -------------------- End Config --------------------

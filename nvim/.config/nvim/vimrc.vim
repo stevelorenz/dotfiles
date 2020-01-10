@@ -432,14 +432,6 @@ let g:mapleader = " "
 " map ; to :
 nnoremap ; :
 
-" save and exit
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q<CR>
-nnoremap <leader>Q :q!<CR>
-
-" map <space> for searching
-"noremap <space> /
-
 " tap jk quickly to normal mode
 inoremap jk <Esc>
 xnoremap jk <Esc>
@@ -592,8 +584,7 @@ nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 " F4: Preview a tag circularly
 nnoremap <F4> :PreviewTag<CR>
 
-" F5: LSP client context menu
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" F5: unused
 
 " F6: toggle nerdtree file explorer
 nnoremap <F6> :NERDTreeToggle<CR>
