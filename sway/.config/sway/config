@@ -277,6 +277,7 @@ bindsym $mod+Shift+f mode $mode_fcitx
 # Read `man 5 sway-bar` for more information about this section.
 bar {
      position top
+     height 25
      # font pango:Monaco Regular 18
      font pango:Hack Regular 13
      # tray_output eDP1

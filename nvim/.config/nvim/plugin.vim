@@ -18,6 +18,7 @@
 "    -> Documentation and Writing
 "    -> Colorscheme
 "    -> Test: plugins under test
+"    -> Backup: configuration backup of currently disabled/removed plugins.
 "
 " MARK: Currently there are too many plugins and I plan to DISABLE some that are not essential for
 " my daily usage. After some testing, I will remove some of them in the next stable version.
@@ -227,6 +228,17 @@ endif
 
 if count(g:bundle_groups, 'general_programming')
 
+    " - Async Language Server Protocol plugin for vim8 and neovim
+    Plug 'prabirshrestha/async.vim'
+    Plug 'prabirshrestha/vim-lsp'
+    " disable diagnostics support
+    let g:lsp_diagnostics_enabled = 0
+
+    " - Auto configurations for LSP for vim-lsp
+    Plug 'mattn/vim-lsp-settings'
+    " directory to install LSP servers.
+    let g:lsp_settings_servers_dir = "~/.local/share/lsp_servers"
+
     " - Collection of language packs
     Plug 'sheerun/vim-polyglot'
     " -- settings for filetypes
@@ -241,7 +253,7 @@ if count(g:bundle_groups, 'general_programming')
     " - Asynchronous Lint Engine (ALE)
     if has('nvim') || v:version >= 800
         Plug 'w0rp/ale'
-        let g:ale_enabled=0
+        let g:ale_enabled=1
         let g:ale_sign_column_always = 1
         " ALE automatically updates the loclist which makes it impossible to use some other plugins
         " such as GV
@@ -509,17 +521,6 @@ if count(g:bundle_groups, 'test')
 
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
     Plug 'liuchengxu/vim-clap'
-
-    " - Async Language Server Protocol plugin for vim8 and neovim
-    Plug 'prabirshrestha/async.vim'
-    Plug 'prabirshrestha/vim-lsp'
-    " disable diagnostics support
-    let g:lsp_diagnostics_enabled = 0
-
-    " - Auto configurations for LSP for vim-lsp
-    Plug 'mattn/vim-lsp-settings'
-    " directory to install LSP servers.
-    let g:lsp_settings_servers_dir = "~/.local/share/lsp_servers"
 
     " - Reveal the commit messages under the cursor
     Plug 'rhysd/git-messenger.vim'
