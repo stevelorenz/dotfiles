@@ -22,14 +22,14 @@ set $mod Mod4
 font pango: Hack Regular 13
 
 # Start terminal emulator
-set $term_1 termite
+set $term_1 xfce4-terminal
 set $term_2 urxvt
-set $term_3 st
-set $term_4 xfce4-terminal
-bindsym $mod+t exec $term_1
-bindsym $mod+Shift+t exec $term_1 -e tmux
-bindsym $mod+Return exec $term_4
-bindsym $mod+Shift+Return exec $term_4 -e tmux
+set $term_3 termite
+set $term_4 alacritty
+bindsym $mod+Return exec $term_1
+bindsym $mod+Shift+Return exec $term_1 -e tmux
+bindsym $mod+t exec $term_4
+bindsym $mod+Shift+t exec $term_4 -e tmux
 
 # Avoid exiting FF or other APP accidentally
 bindsym Ctrl+q exec echo "hug" > /dev/null
@@ -52,9 +52,9 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # Wallpaper (feh)
 # Auto set wallpapers after login in, random all mode
-exec --no-startup-id feh --bg-scale --randomize $HOME/photo/Wallpaper
+exec --no-startup-id feh --bg-scale --randomize $HOME/Pictures/Wallpaper
 # change wallpaper with random all mode
-bindsym $mod+Shift+w  exec --no-startup-id feh --bg-scale --randomize $HOME/photo/Wallpaper
+bindsym $mod+Shift+w  exec --no-startup-id feh --bg-scale --randomize $HOME/Pictures/Wallpaper
 
 # Auto start programs
 set $psst --no-startup-id
@@ -63,7 +63,7 @@ exec --no-startup-id nm-applet  # network manager tray
 exec --no-startup-id pamac-tray  # pamac package manager tray
 exec --no-startup-id xfce4-power-manager  # xfce4 power manager
 exec --no-startup-id xfce4-clipman  # xfce4 clipboard manager
-exec --no-startup-id workrave # prevention and recovery of Repetitive Strain Injury
+# exec --no-startup-id workrave # prevention and recovery of Repetitive Strain Injury
 exec --no-startup-id volumeicon # alsa volume icon
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id xautolock -time 10 -locker blurlock
@@ -300,30 +300,32 @@ set $base0F #fcc09e
 # }
 
 # === Status Bar === {
+
 # Launch polybar as status bar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-# bar {
-#     position top
-#     # font pango:Monaco Regular 18
-#     font pango:Hack Regular 18
-#     # tray_output eDP1
-#     tray_padding 3
-#     strip_workspace_numbers yes
-#
-#     # Use i3blocks instead of the default i3status
-#     status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
-#
-#     colors {
-#         separator $base03
-#         background $base01
-#         statusline $base05
-#         #object, border, background, text
-#         focused_workspace  $base01 $base01 $base07
-#         active_workspace   $base01 $base02 $base03
-#         inactive_workspace $base01 $base01 $base03
-#         urgent_workspace   $base01 $base01 $base08
-#     }
-# }
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+bar {
+    position top
+    height 25
+    font pango:Hack Regular 13
+    # tray_output eDP1
+    tray_padding 3
+    strip_workspace_numbers yes
+
+    # Use i3blocks instead of the default i3status
+    status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
+
+    colors {
+        separator $base03
+        background $base01
+        statusline $base05
+        #object, border, background, text
+        focused_workspace  $base01 $base01 $base07
+        active_workspace   $base01 $base02 $base03
+        inactive_workspace $base01 $base01 $base03
+        urgent_workspace   $base01 $base01 $base08
+    }
+}
 # }
 
 # === Gap === {
@@ -341,8 +343,8 @@ set $default_gaps_outer 10
 # Remove and restore gaps
 set $mode_gaps (0) remove gaps (d) default gaps (i) modify inner gaps (o) modify outer gaps
 mode "$mode_gaps" {
-    bindsym 0 mode "default", exec --no-startup-id i3-msg "gaps inner current set 0" && i3-msg "gaps outer current set 0"
-    bindsym d mode "default", exec --no-startup-id i3-msg "gaps inner current set $default_gaps_inner" && i3-msg "gaps outer current set $default_gaps_outer"
+    bindsym 0 mode "default", exec i3-msg "gaps inner current set 0" && i3-msg "gaps outer current set 0"
+    bindsym d mode "default", exec i3-msg "gaps inner current set $default_gaps_inner" && i3-msg "gaps outer current set $default_gaps_outer"
     bindsym o mode "$mode_gaps_outer"
     bindsym i mode "$mode_gaps_inner"
     bindsym Return mode "default"

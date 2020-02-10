@@ -155,9 +155,8 @@ set completeopt=menu,menuone,noinsert,noselect
 " do not scan included files
 set complete-=i
 
-" - built-in omni completion
-" SyntaxComplete.vim
-" setup SyntaxComplete for filetype that does not have specific OMNI script
+" - built-in Omni completion
+" use SyntaxComplete for filetype that does not have specific OMNI script
 if has("autocmd") && exists("+omnifunc")
     autocmd Filetype *
                 \ if &omnifunc == "" |

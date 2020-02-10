@@ -9,16 +9,20 @@
 "    -> General Editing
 "    -> Snippet and General Auto Complete
 "    -> Programming Language Specific
-"      -> C, CPP
-"      -> Python
-"      -> Rust
-"      -> (X)HTML
-"      -> Javascript
-"      -> (La)Tex
 "    -> Documentation and Writing
 "    -> Colorscheme
 "    -> Test: plugins under test
 "    -> Backup: configuration backup of currently disabled/removed plugins.
+"
+" Notes:
+"    -> vim-mucomplete is used for general auto-completion.
+"    -> General programming language features are supported by using Language Server Protocol (LSP).
+"       Currently used client plugin is prabirshrestha/vim-lsp.
+"       The Programming Language Specific section includes plugins that provide additional
+"       functions which are not provided by LSP.
+"       Some programming languages use vim-lsp for auto-completion. The omnifunc integration of
+"       vim-lsp is used to work with vim-mucomplete.
+"       Check the configuration of vim-lsp plugin for details.
 "
 " MARK: Currently there are too many plugins and I plan to DISABLE some that are not essential for
 " my daily usage. After some testing, I will remove some of them in the next stable version.
@@ -233,6 +237,14 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'prabirshrestha/vim-lsp'
     " disable diagnostics support
     let g:lsp_diagnostics_enabled = 0
+    " enable basic lsp-based auto-completion with omnifunc
+    " this works with vim-mucomplete enabled.
+    autocmd FileType c setlocal omnifunc=lsp#complete
+    autocmd FileType cpp setlocal omnifunc=lsp#complete
+    autocmd FileType go setlocal omnifunc=lsp#complete
+    autocmd FileType java setlocal omnifunc=lsp#complete
+    autocmd FileType python setlocal omnifunc=lsp#complete
+    autocmd FileType rust setlocal omnifunc=lsp#complete
 
     " - Auto configurations for LSP for vim-lsp
     Plug 'mattn/vim-lsp-settings'
