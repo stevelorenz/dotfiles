@@ -243,6 +243,7 @@ if count(g:bundle_groups, 'general_programming')
     autocmd FileType cpp setlocal omnifunc=lsp#complete
     autocmd FileType go setlocal omnifunc=lsp#complete
     autocmd FileType java setlocal omnifunc=lsp#complete
+    autocmd FileType javascript setlocal omnifunc=lsp#complete
     autocmd FileType python setlocal omnifunc=lsp#complete
     autocmd FileType rust setlocal omnifunc=lsp#complete
 
