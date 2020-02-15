@@ -66,7 +66,7 @@ exec --no-startup-id xfce4-clipman  # xfce4 clipboard manager
 # exec --no-startup-id workrave # prevention and recovery of Repetitive Strain Injury
 exec --no-startup-id volumeicon # alsa volume icon
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id xautolock -time 10 -locker blurlock
+exec --no-startup-id xautolock -time 10 -locker ~/.config/i3/blurlock.sh
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 # exec $pass xrandr --dpi 192  # better for HDPI screen
@@ -92,7 +92,7 @@ mode $keyboard_mode{
 bindsym $mod+Shift+i mode $keyboard_mode
 
 # system operations
-set $locker i3exit lock
+set $locker ~/.config/i3/blurlock.sh
 set $mode_system "system operation: (l) lock, (e) logout, (s) lock & suspend, (h) lock & hibernate, (r) reboot, (shift+s) shutdown"
 mode $mode_system {
     bindsym l exec --no-startup-id "$locker", mode "default"

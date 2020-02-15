@@ -25,4 +25,4 @@
     # Reset all uncommitted changes
     unstage = reset --hard HEAD
 [commit]
-	template = /home/zuo/.git_commit_msg.txt
+	template = ~/.git_commit_msg.txt
