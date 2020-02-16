@@ -282,8 +282,9 @@ bar {
      tray_padding 3
      strip_workspace_numbers yes
 
-    swaybar_command swaybar
-    status_command i3blocks -c $HOME/.config/sway/i3blocks.conf
+    # swaybar_command swaybar
+    # status_command i3blocks -c $HOME/.config/sway/i3blocks.conf
+    swaybar_command waybar
 
     colors {
         statusline #ffffff
