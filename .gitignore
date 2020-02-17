@@ -1,20 +1,4 @@
-bin/bin/nvim
-bin/bin/Cutter
-nvim/.config/nvim/bundle/
-cmus/.config/cmus/*
-!cmus/.config/cmus/rc
-emacs/**/elpa/
-emacs/**/auto-save-list/
-emacs/**/init.el/~
-
-# Tmux
-# ------------------
-tmux/resurrect
-# plugins installed with tpm
-tmux/plugins
-# ------------------
-
-# Vim, Neovim
+# Vim, Neovim, Emacs
 # ------------------
 shada/
 # vim-plug plugin manager
@@ -27,6 +11,26 @@ spell/
 .netrwhist
 # dirs for backup, swap, undo and viminfo
 dirs/
+nvim/.config/nvim/bundle/
+emacs/**/elpa/
+emacs/**/auto-save-list/
+emacs/**/init.el/~
+# ------------------
+
+# Tmux
+# ------------------
+tmux/resurrect
+# plugins installed with tpm
+tmux/plugins
+# ------------------
+
+# MISC
+# ------------------
+cmus/.config/cmus/*
+!cmus/.config/cmus/rc
+*.appimage
+*.Appimage
+*.AppImage
 # ------------------
 
 # Backup, temp files
