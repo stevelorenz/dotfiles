@@ -448,7 +448,7 @@ if count(g:bundle_groups, 'python')
     let g:vim_isort_map = ''
 
     " - Generate python docstring
-    Plug 'heavenshell/vim-pydocstring', { 'for': 'python' }
+    Plug 'heavenshell/vim-pydocstring', { 'for': 'python', 'tag': '1.0.0'}
     " disable key mappings
     let g:pydocstring_enable_mapping = 0
 endif

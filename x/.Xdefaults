@@ -91,7 +91,7 @@ urxvt.keysym.C-equal:  font-size:reset
 
 ! --- Color Scheme ---
 ! ------------------------------
-urxvt.background:  #333333
+urxvt.background:  #000000
 urxvt.foreground:  #EBEBFF
 
 *cursorcolor:   #66FF66

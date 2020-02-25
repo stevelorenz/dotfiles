@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+#
+# This file runs when a DM logs you into a graphical session.
+#
+
+# Set the default Chinese input method
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+
+# dunst for notifications
+dunst &
+# Remove mouse when idle
+unclutter &
+# Speed xrate up
+xset r rate 300 50 &
+# Restore the wallpaper
+nitrogen --restore
+# Use conky for dwm statusbar
+(conky | while read LINE; do xsetroot -name "$LINE"; done) &

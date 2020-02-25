@@ -1,9 +1,8 @@
 default-timeout=10000
-anchor=top-center
-
-font=Hack 16
-border-size=0
+anchor=top-right
+font=monospace 10
+width=600
+height=200
+border-size=1
 border-radius=15
 background-color=#333333AA
-margin=20
-padding=15
