@@ -14,10 +14,11 @@ set $mod Mod4
 font pango: Hack Regular 13
 
 # Start terminal emulator
-set $term_1 urxvt
-set $term_2 xfce4-terminal
-set $term_3 alacritty
-set $term_4 termite
+set $term_1 st
+set $term_2 urxvt
+set $term_3 xfce4-terminal
+set $term_4 alacritty
+set $term_5 termite
 bindsym $mod+Return exec $term_1
 bindsym $mod+Shift+Return exec $term_2
 bindsym $mod+t exec $term_3
@@ -50,18 +51,14 @@ bindsym $mod+Shift+w  exec --no-startup-id feh --bg-scale --randomize /usr/share
 
 # Auto start programs
 set $psst --no-startup-id
+exec --no-startup-id /usr/bin/lxpolkit  # run polkit for authentication.
 exec --no-startup-id unclutter  # auto hide cursor
 exec --no-startup-id nm-applet  # network manager tray
 exec --no-startup-id pamac-tray  # pamac package manager tray
 exec --no-startup-id xfce4-power-manager  # xfce4 power manager
 exec --no-startup-id clipit  # clipboard manager
-exec --no-startup-id volumeicon # alsa volume icon
 exec --no-startup-id redshift-gtk  # screen temperature
-# default polkit for APP authentication
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id xautolock -time 15 -locker ~/.config/i3/blurlock.sh
-exec_always --no-startup-id ff-theme-util
-exec_always --no-startup-id fix_xcursor
 # exec $pass xrandr --dpi 192  # better for HDPI screen
 
 # Backlight control (xbacklight)
@@ -84,7 +81,7 @@ mode $keyboard_mode{
 }
 bindsym $mod+Shift+i mode $keyboard_mode
 
-# system operations
+# System operations
 set $locker ~/.config/i3/blurlock.sh
 set $mode_system "system operation: (l) lock, (e) logout, (s) lock & suspend, (h) lock & hibernate, (r) reboot, (shift+s) shutdown"
 mode $mode_system {

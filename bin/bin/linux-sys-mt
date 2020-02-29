@@ -22,6 +22,7 @@ function Usage() {
     echo "Usage: command options"
     echo ""
     echo "Options:"
+    printf "  -b\tBackup all explicitly installed packages into ~/.pacman_list.laptop.\n"
     printf "  -c\tCheck OS common errors.\n"
     printf "  -m\tScan malwares.\n"
     printf "  -t\tTrim SSD (mount point of root and home).\n"
@@ -65,8 +66,8 @@ function trim_ssd() {
     LOG=/var/log/trim.log
     echo "*** $(date -R) ***" | sudo tee --append $LOG >/dev/null
     sudo fstrim -v / | sudo tee --append $LOG >/dev/null
-    sudo fstrim -v /home | sudo tee --append $LOG >/dev/null
     echo $'\n' | sudo tee --append $LOG >/dev/null
+    sudo fstrim -v /home | sudo tee --append $LOG >/dev/null
     cat /var/log/trim.log
     echo "---------------------"
     printf "${GREEN}[OK] ${NC}Trim finished."
@@ -94,14 +95,23 @@ function check_hd_health() {
     smartctl -H /dev/sda
 }
 
+function backup_pacman_list() {
+    echo "[Backup] Backup all the explicitly installed packages by Pacman to ~/.pacman_list.laptop"
+    sudo pacman -Qqe > ~/.pacman_list.laptop
+}
+
 # --- Option processing --------------------------------------------
 if [ $# == 0 ]; then
     Usage
     exit 1
 fi
 
-while getopts ":cvhHmts" optname; do
+while getopts ":bcvhHmts" optname; do
     case "$optname" in
+    "b")
+        backup_pacman_list
+        exit 0
+        ;;
     "c")
         check_error
         exit 0
