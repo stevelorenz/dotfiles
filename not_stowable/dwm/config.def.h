@@ -114,6 +114,7 @@ static Key keys[] = {
 	/* { MODKEY|ShiftMask,		XK_q,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_w,		spawn,		SHCMD("$BROWSER") },
 	/* { MODKEY|ShiftMask,		XK_w,		spawn,		SHCMD("") }, */
+	{ MODKEY,			XK_p,		spawn,		SHCMD("rofi -show run") },
 	{ MODKEY,			XK_r,		spawn,		SHCMD("st -e $FILE") },
 	/* { MODKEY|ShiftMask,		XK_r,		spawn,		SHCMD("") }, */
 	{ MODKEY,			XK_t,		setlayout,	{.v = &layouts[0]} },

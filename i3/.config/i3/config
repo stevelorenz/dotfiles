@@ -29,7 +29,7 @@ bindsym Ctrl+q exec echo "hug" > /dev/null
 
 # Start program launcher Rofi
 # Use rofi, configs saved in ~/.Xresources
-bindsym $mod+d exec rofi -show run -eh 1
+bindsym $mod+d exec rofi -show run
 
 # Start Dmenu
 bindsym $mod+Shift+m exec dmenu_run
