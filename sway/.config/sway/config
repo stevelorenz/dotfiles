@@ -16,14 +16,12 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-# set $term xfce4-terminal
-set $term alacritty
-set $term2 xfce4-terminal
+set $term st
+set $term2 alacritty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-# set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu rofi -show run
-set $locker swaylock -f -c 000000
+set $menu dmenu_run -l 20 | xargs swaymsg exec --
+# set $menu rofi -show run | xargs swaymsg exec --
 
 ### Output configuration
 #
@@ -70,11 +68,12 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 ### Auto start programs
 # To be checked, if trays (of following tools) work on wayland...
 exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec_always mako
-exec_always nm-applet
-exec_always pamac-tray
-# exec_always volumeicon
+exec /usr/bin/lxpolkit  # run polkit for authentication.
+exec mako  # notification daemon for wayland
+# Does not work on wayland.
+# exec nm-applet
+# exec pamac-tray
+# exec redshift-gtk  # screen temperature
 
 ### Key bindings
 #
@@ -93,9 +92,6 @@ exec_always pamac-tray
     # Start your launcher
     bindsym $mod+d exec $menu
 
-    # Start Dmenu
-    bindsym $mod+Shift+m exec dmenu_run
-
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -104,7 +100,7 @@ exec_always pamac-tray
     floating_modifier $mod normal
 
     # Reload the configuration file
-    bindsym $mod+Shift+c reload
+    bindsym $mod+Shift+r reload
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
@@ -221,6 +217,7 @@ exec_always pamac-tray
     # Screenshots
     bindsym Print exec grim \"$HOME/Pictures/Screenshot_$(date +%Y%m%d)_$(date +%H%M%S).png"
     bindsym Shift+Print exec exec grim -g "$(slurp)" - | wl-copy
+    bindsym $mod+Shift+p exec grim -g "$(slurp)" \"$HOME/Pictures/Screenshot_$(date +%Y%m%d)_$(date +%H%M%S).png"
 
 #
 # Resizing containers:
@@ -248,6 +245,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # System operations
+set $locker swaylock -f -c 000000
 set $mode_system "System operations: (l) lock, (e) logout, (s) lock & suspend, (h) lock & hibernate, (r) reboot, (shift+s) shutdown"
 mode $mode_system {
     bindsym l exec "$locker", mode "default"
@@ -283,8 +281,8 @@ bar {
      strip_workspace_numbers yes
 
     # swaybar_command swaybar
-    # status_command i3blocks -c $HOME/.config/sway/i3blocks.conf
-    swaybar_command waybar
+    status_command i3blocks -c $HOME/.config/sway/i3blocks.conf
+    # swaybar_command waybar
 
     colors {
         statusline #ffffff

@@ -32,7 +32,7 @@ bindsym Ctrl+q exec echo "hug" > /dev/null
 bindsym $mod+d exec rofi -show run
 
 # Start Dmenu
-bindsym $mod+Shift+m exec dmenu_run
+bindsym $mod+Shift+m exec dmenu_run -l 20
 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
@@ -50,7 +50,6 @@ exec --no-startup-id feh --bg-scale --randomize /usr/share/backgrounds/
 bindsym $mod+Shift+w  exec --no-startup-id feh --bg-scale --randomize /usr/share/backgrounds/
 
 # Auto start programs
-set $psst --no-startup-id
 exec --no-startup-id /usr/bin/lxpolkit  # run polkit for authentication.
 exec --no-startup-id unclutter  # auto hide cursor
 exec --no-startup-id nm-applet  # network manager tray
@@ -291,9 +290,10 @@ set $base0F #fcc09e
 
 # === Status Bar === {
 
-# Launch polybar as status bar
+# Launch polybar as the status bar
 # exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
+# Use the i3wm's built-in status bar.
 bar {
     position top
     height 25
