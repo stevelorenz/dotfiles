@@ -436,12 +436,6 @@ inoremap jk <Esc>
 xnoremap jk <Esc>
 cnoremap jk <C-c>
 
-" close arrow keys in insert mode
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
-
 " delete lines (not cut)
 nnoremap <leader><leader>x "_dd
 vnoremap <leader><leader>x "_dd
@@ -536,8 +530,8 @@ nnoremap <leader>l :ls<CR>
 " switch buffer
 nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
-noremap <left> :bprevious<CR>
-noremap <right> :bnext<CR>
+noremap <C-left> :bprevious<CR>
+noremap <C-right> :bnext<CR>
 nnoremap ]B :blast<CR>
 nnoremap [B :bfirst<CR>
 " close the current buffer
@@ -588,14 +582,13 @@ nnoremap <F4> :PreviewTag<CR>
 " F6: toggle nerdtree file explorer
 nnoremap <F6> :NERDTreeToggle<CR>
 
-" F7: insert ipdb trace point
-" Python configs in autoload
+" F7: unused
 
 " F8: toggle undo tree visualizer
 nnoremap <F8> :UndotreeToggle<CR>
 
 " F9: list available snippets
-" Check config of UltiSnips in plugin.vim
+" > Check config of UltiSnips in plugin.vim
 
 " F10: toggle vista (Tag/Symbols viewer)
 nnoremap <F10> :Vista!!<CR>

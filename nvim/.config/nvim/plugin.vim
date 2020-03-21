@@ -23,6 +23,7 @@
 "       Some programming languages use vim-lsp for auto-completion. The omnifunc integration of
 "       vim-lsp is used to work with vim-mucomplete.
 "       Check the configuration of vim-lsp plugin for details.
+"       Vim-lsp-settings plugin is used to install lsp servers.
 "
 " MARK: Currently there are too many plugins and I plan to DISABLE some that are not essential for
 " my daily usage. After some testing, I will remove some of them in the next stable version.
@@ -45,10 +46,11 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 " remove element in the list to disable a collection of plugins.
 " for example, remove 'python' will disable all plugins in the python section.
 if !exists('g:bundle_groups')
-    " All available groups
+    " All available groups.
     "let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-    "            \ 'c_cpp', 'python', 'go', '(x)html', 'javascript', 'text', 'colorscheme']
+    "            \ 'c_cpp', 'python', 'rust', 'go', '(x)html', 'javascript', 'text', 'colorscheme', 'test']
     "
+    " Enabled groups for Zuo's development tasks.
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
                 \ 'c_cpp', 'python', 'rust', 'text', 'colorscheme', 'test']
 endif
@@ -96,37 +98,7 @@ if count(g:bundle_groups, 'general')
         " LeaderF with tags
         let g:Lf_GtagsAutoGenerate = 0
         let g:Lf_WindowPosition = 'popup'
-    else
-        " - Fuzzy file, buffer and MRU finder
-        Plug 'ctrlpvim/ctrlp.vim'
-        " map it to space plus p, use <C-P> for multiple search plugins
-        let g:ctrlp_map = '<space>p'
-        let g:ctrlp_cmd = 'CtrlP'
-        " use the dir of the current file as searching root
-        " unless it is a subdir of the cwd
-        let g:ctrlp_working_path_mode = 'a'
-        let g:ctrlp_match_window_bottom = 1
-        let g:ctrlp_max_height = 15
-        " from bottom to top
-        let g:ctrlp_match_window_reversed = 1
-        " buffer of most recently used files
-        let g:ctrlp_mruf_max = 500
-        let g:ctrlp_follow_symlinks = 1
-        " use ack as backend if available
-        if executable('ag')
-            " can use a local or global .agignore to ignore files
-            let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -f -g ""'
-        elseif executable('ack')
-            let g:ctrlp_user_command = 'ack %s --nocolor -f'
-        else
-            " use default grep, ignore files in .gitignore
-            let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-        endif
-        " - Extension to ctrlp, for fuzzy command finder
-        Plug 'fisadev/vim-ctrlp-cmdpalette', { 'on': 'CtrlPCmdPalette' }
-        nnoremap <C-P>c :CtrlPCmdPalette<CR>
     endif
-
 
     " - Undo history visualizer
     Plug 'mbbill/undotree', { 'on':  'UndotreeToggle' }
@@ -134,8 +106,6 @@ if count(g:bundle_groups, 'general')
 
     " - Fast and easy cursor motion
     " -- inter lines
-    Plug 'justinmk/vim-sneak'
-    let g:sneak#label = 1
     " -- intra line
     Plug 'unblevable/quick-scope'
     let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -211,11 +181,8 @@ if count(g:bundle_groups, 'general_editing')
     " - Underlines the word under the cursor
     Plug 'itchyny/vim-cursorword'
 
-    " - Better whitespace highlighting
+    " - Better white space highlighting
     Plug 'ntpeters/vim-better-whitespace'
-
-    " - Show contents of the registers
-    Plug 'junegunn/vim-peekaboo'
 
     " - Text objects
     Plug 'kana/vim-textobj-user'
@@ -266,7 +233,7 @@ if count(g:bundle_groups, 'general_programming')
     " - Asynchronous Lint Engine (ALE)
     if has('nvim') || v:version >= 800
         Plug 'w0rp/ale'
-        let g:ale_enabled=1
+        let g:ale_enabled=0
         let g:ale_sign_column_always = 1
         " ALE automatically updates the loclist which makes it impossible to use some other plugins
         " such as GV
@@ -282,7 +249,7 @@ if count(g:bundle_groups, 'general_programming')
                     \   'python': ['flake8', 'pylint'],
                     \}
 
-        " language specfic settings
+        " language specific settings
         let g:ale_python_flake8_args = '--ignore=E501,E226,E126'
         let g:ale_python_flake8_options = '--ignore=E501,E226,E126'
         let g:ale_python_pylint_args = '-E'
@@ -312,7 +279,7 @@ if count(g:bundle_groups, 'general_programming')
     set tags=./.tags;,.tags
     let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
     let g:gutentags_ctags_tagfile = '.tags'
-    " Add suppport for ctags and gtags, gtags is disabled by default
+    " Add support for ctags and gtags, gtags is disabled by default
     let g:gutentags_modules = []
     if executable('ctags')
         let g:gutentags_modules += ['ctags']
@@ -371,7 +338,6 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'skywind3000/asyncrun.vim'
 
     " - Easy code formatting
-    " Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat'}
     Plug 'sbdchd/neoformat', {'on': 'Neoformat'}
     let g:neoformat_enabled_python = ['black', 'autopep8', 'docformatter']
 
@@ -412,13 +378,6 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     let g:mucomplete#enable_auto_at_startup = 1
     let g:mucomplete#completion_delay = 1
 
-    " - Speed up vim by updating folds only when called-for.
-    Plug 'Konfekt/FastFold'
-    nmap zuz <Plug>(FastFoldUpdate)
-    let g:fastfold_savehook = 1
-    let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
-    let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-
 endif
 
 " --- }
@@ -428,7 +387,7 @@ endif
 
 " C, CPP {
 if count(g:bundle_groups, 'c_cpp')
-    " - Linux coding style
+    " - Linux coding style for C
     Plug 'vivien/vim-linux-coding-style', { 'for': ['c', 'cpp'] }
 
     " - Simplify Doxygen documentation
@@ -459,15 +418,11 @@ if count(g:bundle_groups, 'rust')
     " - Configuration for rust.
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 endif
+" }
 
-" Golang {
+" Go(lang) {
 if count(g:bundle_groups, 'go')
-    "- MARK: vim-go plans to drop support for Neovim
-    " So the gopls is used via LSP client for go development
-    " - Go development plugin for Vim
-    " Plug 'fatih/vim-go', { 'for': ['go'], 'do': ':GoUpdateBinaries' }
-    " Run GoUpdateBinaries  manually, it takes time during every update
-    " Plug 'fatih/vim-go', { 'for': ['go']}
+
 endif
 " }
 
@@ -525,9 +480,6 @@ endif
 
 if count(g:bundle_groups, 'test')
 
-    " - Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
-    Plug 'gyim/vim-boxdraw'
-
     " - Vim Markdown mode
     Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown'
@@ -544,7 +496,8 @@ if count(g:bundle_groups, 'test')
 endif
 
 " --- }
-"
+
+
 " --- Backup ---------------------------------------------- {
 
     " - Binding to autocompletion library: jedi
@@ -603,6 +556,41 @@ endif
     " let g:LanguageClient_diagnosticsEnable = 0
     " let g:LanguageClient_fzfContextMenu = 0
     " let g:LanguageClient_useVirtualText = 0
+
+
+    " - Fuzzy file, buffer and MRU finder
+    " Plug 'ctrlpvim/ctrlp.vim'
+    " " map it to space plus p, use <C-P> for multiple search plugins
+    " let g:ctrlp_map = '<space>p'
+    " let g:ctrlp_cmd = 'CtrlP'
+    " " use the dir of the current file as searching root
+    " " unless it is a subdir of the cwd
+    " let g:ctrlp_working_path_mode = 'a'
+    " let g:ctrlp_match_window_bottom = 1
+    " let g:ctrlp_max_height = 15
+    " " from bottom to top
+    " let g:ctrlp_match_window_reversed = 1
+    " " buffer of most recently used files
+    " let g:ctrlp_mruf_max = 500
+    " let g:ctrlp_follow_symlinks = 1
+    " " use ack as backend if available
+    " if executable('ag')
+    "     " can use a local or global .agignore to ignore files
+    "     let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -f -g ""'
+    " elseif executable('ack')
+    "     let g:ctrlp_user_command = 'ack %s --nocolor -f'
+    " else
+    "     " use default grep, ignore files in .gitignore
+    "     let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+    " endif
+    " " - Extension to ctrlp, for fuzzy command finder
+    " Plug 'fisadev/vim-ctrlp-cmdpalette', { 'on': 'CtrlPCmdPalette' }
+    " nnoremap <C-P>c :CtrlPCmdPalette<CR>
+
+    " - Fast and easy cursor motion
+    " -- inter lines
+    " Plug 'justinmk/vim-sneak'
+    " let g:sneak#label = 1
 
 "  }
 
