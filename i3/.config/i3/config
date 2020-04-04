@@ -10,7 +10,6 @@
 set $mod Mod4
 
 # Default font
-# font pango: Monaco Regular 16
 font pango: Hack Regular 13
 
 # Start terminal emulator
@@ -55,7 +54,7 @@ exec --no-startup-id unclutter  # auto hide cursor
 exec --no-startup-id nm-applet  # network manager tray
 exec --no-startup-id pamac-tray  # pamac package manager tray
 exec --no-startup-id xfce4-power-manager  # xfce4 power manager
-exec --no-startup-id clipit  # clipboard manager
+exec --no-startup-id xfce4-clipman  # xfce4 clipboard manager
 exec --no-startup-id redshift-gtk  # screen temperature
 exec --no-startup-id xautolock -time 15 -locker ~/.config/i3/blurlock.sh
 # exec $pass xrandr --dpi 192  # better for HDPI screen
