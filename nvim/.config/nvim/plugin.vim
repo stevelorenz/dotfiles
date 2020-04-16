@@ -48,11 +48,11 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 if !exists('g:bundle_groups')
     " All available groups.
     "let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-    "            \ 'c_cpp', 'python', 'rust', 'go', '(x)html', 'javascript', 'text', 'colorscheme', 'test']
+    "            \ 'c_cpp', 'python', 'rust', 'go', 'web_frontend', 'text', 'colorscheme', 'test']
     "
     " Enabled groups for Zuo's development tasks.
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', 'rust', 'text', 'colorscheme', 'test']
+                \ 'c_cpp', 'python', 'rust', 'web_frontend', 'text', 'colorscheme', 'test']
 endif
 
 " --- General --------------------------------------------- {
@@ -218,17 +218,6 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'mattn/vim-lsp-settings'
     " directory to install LSP servers.
     let g:lsp_settings_servers_dir = "~/.local/share/lsp_servers"
-
-    " - Collection of language packs
-    Plug 'sheerun/vim-polyglot'
-    " -- settings for filetypes
-    " --- python
-    let g:python_highlight_all = 1
-    " --- javascript
-    let g:javascript_plugin_jsdoc = 1
-    " -- disable individual packs
-    " --- use vimtex plugin, disable latex-box
-    let g:polyglot_disabled = ['latex']
 
     " - Asynchronous Lint Engine (ALE)
     if has('nvim') || v:version >= 800
@@ -426,21 +415,14 @@ if count(g:bundle_groups, 'go')
 endif
 " }
 
-" (X)HTML {
-if count(g:bundle_groups, '(x)html')
+" Web Frontend {
+if count(g:bundle_groups, 'web_frontend')
     " - Emmet support
     Plug 'mattn/emmet-vim', { 'for': ['xml', 'html', 'css', 'javascript'] }
     let g:user_emmet_leader_key='<C-E>'
 
     " - Highlight matched tags
     Plug 'Valloric/MatchTagAlways', { 'for': ['xml', 'html', 'css', 'javascript'] }
-endif
-" }
-
-" Javascript {
-if count(g:bundle_groups, 'javascript')
-    " - Syntax for javascript libraries
-    Plug 'othree/javascript-libraries-syntax.vim', { 'for': ['html', 'css', 'javascript'] }
 endif
 " }
 
@@ -479,10 +461,6 @@ endif
 " --- Plugins Under Test ---------------------------------- {
 
 if count(g:bundle_groups, 'test')
-
-    " - Vim Markdown mode
-    Plug 'godlygeek/tabular'
-    Plug 'plasticboy/vim-markdown'
 
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
     Plug 'liuchengxu/vim-clap'
