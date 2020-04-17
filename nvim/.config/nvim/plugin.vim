@@ -120,15 +120,6 @@ if count(g:bundle_groups, 'general')
     " + expand selection
     " _ shrink selection
 
-    " - Light wrapper for ack, ag, grep etc
-    Plug 'mileszs/ack.vim', { 'on': ['Ack', 'Ack!'] }
-    " do not move the cursor to the first result automatically
-    cnoreabbrev Ack Ack!
-    " use ag as backend if available
-    if executable('ag')
-        let g:ackprg = 'ag --vimgrep'
-    endif
-
     "- Display the indention levels
     "Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
     Plug 'Yggdroot/indentLine',
@@ -144,10 +135,6 @@ if count(g:bundle_groups, 'general')
 
     " - Beakdown VIM's --startuptime output
     Plug 'tweekmonster/startuptime.vim'
-
-    " - Changes Vim working directory to project root
-    Plug 'airblade/vim-rooter'
-    let g:rooter_manual_only = 1
 
 endif
 
@@ -184,12 +171,6 @@ if count(g:bundle_groups, 'general_editing')
     " - Better white space highlighting
     Plug 'ntpeters/vim-better-whitespace'
 
-    " - Text objects
-    Plug 'kana/vim-textobj-user'
-    Plug 'kana/vim-textobj-indent'"
-    Plug 'kana/vim-textobj-function', { 'for':['c', 'cpp', 'vim', 'java'] }
-    Plug 'sgur/vim-textobj-parameter'
-
 endif
 
 "  --- }
@@ -208,9 +189,12 @@ if count(g:bundle_groups, 'general_programming')
     " this works with vim-mucomplete enabled.
     autocmd FileType c setlocal omnifunc=lsp#complete
     autocmd FileType cpp setlocal omnifunc=lsp#complete
+    autocmd FileType css setlocal omnifunc=lsp#complete
     autocmd FileType go setlocal omnifunc=lsp#complete
+    autocmd FileType html setlocal omnifunc=lsp#complete
     autocmd FileType java setlocal omnifunc=lsp#complete
     autocmd FileType javascript setlocal omnifunc=lsp#complete
+    autocmd FileType typescript setlocal omnifunc=lsp#complete
     autocmd FileType python setlocal omnifunc=lsp#complete
     autocmd FileType rust setlocal omnifunc=lsp#complete
 
@@ -224,39 +208,15 @@ if count(g:bundle_groups, 'general_programming')
         Plug 'w0rp/ale'
         let g:ale_enabled=0
         let g:ale_sign_column_always = 1
-        " ALE automatically updates the loclist which makes it impossible to use some other plugins
-        " such as GV
+        " ALE automatically updates the loclist which makes it impossible to
+        " use some other plugins.
         let g:ale_set_loclist = 0
         let g:ale_set_quickfix = 1
-        "let g:ale_open_list = 1
+        let g:ale_open_list = 0
+        " Trigger linting manually.
         let g:ale_lint_on_save = 0
         let g:ale_lint_on_text_changed = 'never'
         let g:ale_lint_on_enter = 'never'
-
-        " declare enabled linters
-        let g:ale_linters = {
-                    \   'python': ['flake8', 'pylint'],
-                    \}
-
-        " language specific settings
-        let g:ale_python_flake8_args = '--ignore=E501,E226,E126'
-        let g:ale_python_flake8_options = '--ignore=E501,E226,E126'
-        let g:ale_python_pylint_args = '-E'
-        let g:ale_python_pylint_options = '-E'
-
-        " Add default fixers
-        let g:ale_fixers = {
-                    \   'javascript': ['prettier'],
-                    \   'javascript.jsx': ['prettier'],
-                    \   'json': ['prettier'],
-                    \   'scss': ['prettier'],
-                    \   'bash': ['shfmt'],
-                    \   'zsh': ['shfmt'],
-                    \   'elixir': ['mix_format'],
-                    \   'ruby': ['rubocop'],
-                    \   'rust': ['rustfmt'],
-                    \   'elm': ['elm-format'],
-                    \}
     endif
 
     " - Viewer & Finder for LSP symbols and tags
@@ -390,11 +350,6 @@ endif
 
 " Python {
 if count(g:bundle_groups, 'python')
-    " - Sort python imports
-    Plug 'fisadev/vim-isort', { 'for': 'python' }
-    " disable mapping
-    let g:vim_isort_map = ''
-
     " - Generate python docstring
     Plug 'heavenshell/vim-pydocstring', { 'for': 'python', 'tag': '1.0.0'}
     " disable key mappings
@@ -467,9 +422,6 @@ if count(g:bundle_groups, 'test')
 
     " - Reveal the commit messages under the cursor
     Plug 'rhysd/git-messenger.vim'
-
-    " - A Vim wrapper for running tests on different granularities
-    Plug 'janko/vim-test'
 
 endif
 
