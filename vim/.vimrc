@@ -1,7 +1,10 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 "==========================================
-" About: Sensible VIM configuration file without any plugins
-"        This is used for simple text editing. Neovim is used by me for development.
+" About: Sensible Vim configuration file without any plugins
+"
+" Currently, I use Vim (without any plugins) for regular text editing.
+" Neovim (with some selected plugins) is used for development.
+" Please check my Neovim configuration file for details.
 "
 " Maintainer: Xiang, Zuo
 " Email: xianglinks@gmail.com
@@ -29,7 +32,7 @@ set nobackup
 set nowb
 set noswapfile
 
-" no uganda
+" no Uganda
 set shortmess=atI
 
 " correct backspace
@@ -264,7 +267,7 @@ endif
 
 " GUI specific {
 if has('gui_running')
-    set guifont=Monaco\ 10
+    set guifont=Hack\ 13
     set guicursor=a:blinkon0
     set gcr=a:block-blinkon0
     " hide menu bars

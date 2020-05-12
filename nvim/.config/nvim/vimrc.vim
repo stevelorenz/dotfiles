@@ -378,13 +378,11 @@ set listchars=tab:→\ ,eol:↵,trail:·,extends:↷,precedes:↶
 " highlight fenced code blocks in markdown
 let g:markdown_fenced_languages = [
             \ 'html',
-            \ 'elm',
             \ 'vim',
             \ 'js=javascript',
             \ 'json',
             \ 'python',
             \ 'ruby',
-            \ 'elixir',
             \ 'sql',
             \ 'bash=sh'
             \ ]
