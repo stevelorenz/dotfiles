@@ -48,11 +48,11 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 if !exists('g:bundle_groups')
     " All available groups.
     "let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-    "            \ 'c_cpp', 'python', 'rust', 'go', 'web_frontend', 'text', 'colorscheme', 'test']
+    "            \ 'c_cpp', 'python', 'rust', 'go', 'haskell', 'web_frontend', 'text', 'colorscheme', 'test']
     "
     " Enabled groups for Zuo's development tasks.
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', 'rust', 'web_frontend', 'text', 'colorscheme', 'test']
+                \ 'c_cpp', 'python', 'rust', 'haskell', 'web_frontend', 'text', 'colorscheme', 'test']
 endif
 
 " --- General --------------------------------------------- {
@@ -367,6 +367,12 @@ endif
 " Go(lang) {
 if count(g:bundle_groups, 'go')
 
+endif
+" }
+
+" Haskell {
+if count(g:bundle_groups, 'haskell')
+    Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 endif
 " }
 
