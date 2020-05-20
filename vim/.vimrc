@@ -17,6 +17,10 @@
 " turn off compatible mode to vi
 set nocompatible
 
+if has('autocmd')
+  filetype plugin indent on
+endif
+
 " enable syntax highlighting
 syntax enable
 syntax on
@@ -125,6 +129,10 @@ set wildmenu
 set hlsearch  " highlight results
 " searching when you type the first character of the search string.
 set incsearch
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
 " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set ignorecase
 set smartcase
@@ -191,6 +199,21 @@ set lazyredraw
 
 " cursor can be positioned where there is no actual character
 set virtualedit=all
+
+set nrformats-=octal
+
+if !has('nvim') && &ttimeoutlen == -1
+  set ttimeout
+  set ttimeoutlen=100
+endif
+
+if !&scrolloff
+  set scrolloff=1
+endif
+if !&sidescrolloff
+  set sidescrolloff=5
+endif
+set display+=lastline
 " }
 
 "==========================================
@@ -348,11 +371,6 @@ let g:mapleader = " "
 " map ; to :
 nnoremap ; :
 
-" save and exit
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q<CR>
-nnoremap <leader>Q :q!<CR>
-
 " map <space> for searching
 "noremap <space> /
 
@@ -360,12 +378,6 @@ nnoremap <leader>Q :q!<CR>
 inoremap jk <Esc>
 xnoremap jk <Esc>
 cnoremap jk <C-c>
-
-" close arrow keys in insert mode
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
 
 " delete lines (not cut)
 nnoremap <leader><leader>x "_dd
@@ -418,25 +430,8 @@ nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
-" add empty lines
-" i.e. use 5[<space> to add 5 empty lines above current line
-nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
-nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
-
 " toggle spell checking
 noremap <leader>ss :setlocal spell!<cr>
-
-" move lines
-nnoremap <silent> <C-k> :move-2<cr>
-nnoremap <silent> <C-j> :move+<cr>
-nnoremap <silent> <C-h> <<
-nnoremap <silent> <C-l> >>
-xnoremap <silent> <C-k> :move-2<cr>gv
-xnoremap <silent> <C-j> :move'>+<cr>gv
-xnoremap <silent> <C-h> <gv
-xnoremap <silent> <C-l> >gv
-xnoremap < <gv
-xnoremap > >gv
 
 " tags
 nnoremap <C-]> g<C-]>
@@ -446,9 +441,6 @@ nnoremap g[ :pop<cr>
 noremap <leader>c :copen<cr>
 noremap <leader><leader>c :cclose<bar>lclose<cr>
 
-" qq to record, Q to replay
-nnoremap Q @q
-
 " === Tab and Buffer===
 " ---------------------------------------------------------
 " --- Buffer---
@@ -457,8 +449,6 @@ nnoremap <leader>l :ls<CR>
 " switch buffer
 nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
-noremap <left> :bprevious<CR>
-noremap <right> :bnext<CR>
 nnoremap ]B :blast<CR>
 nnoremap [B :bfirst<CR>
 " close the current buffer
@@ -494,7 +484,6 @@ nnoremap <leader>tm :tabm<cr>
 " File Type Custom Settings
 "==========================================
 " {
-" -- c/cpp --
 autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
             \ set tabstop=8 |
             \ set shiftwidth=8 |
@@ -503,16 +492,17 @@ autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
             \ set expandtab ! |
             \ set foldmethod=syntax |
 
-" -- python --
-autocmd BufNewFile,BufRead *.py
-            \ set filetype=python |
-            \ set textwidth=80 |
+autocmd BufNewFile,BufRead *.ini,*.conf
+            \ set filetype=dosini
 
-" -- web dev --
-autocmd BufNewFile,BufRead *.js,*.html,*.css
-            \ set expandtab!
+autocmd BufNewFile,BufRead *.tex
+            \ set filetype=tex |
+            \ set textwidth=120 |
+            \ set spell |
 
-" -- markdown --
+autocmd BufNewFile,BufRead *.lua
+            \ let g:lua_complete_omni=1
+
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set filetype=markdown |
             \ set textwidth=120 |
@@ -521,7 +511,10 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set softtabstop=2 |
             \ set spell |
 
-" -- restructured text --
+autocmd BufNewFile,BufRead *.py
+            \ set filetype=python |
+            \ set textwidth=80 |
+
 autocmd BufNewFile,BufRead *.rst
             \ set textwidth=120 |
             \ set tabstop=2 |
@@ -529,65 +522,18 @@ autocmd BufNewFile,BufRead *.rst
             \ set softtabstop=2 |
             \ set spell |
 
-" -- tex --
-autocmd BufNewFile,BufRead *.tex
-            \ set filetype=tex |
-            \ set textwidth=120 |
-            \ set spell |
-
-" -- web dev --
 autocmd BufNewFile,BufRead *.js,*.html,*.css
             \ set expandtab!
-
-" -- config file --
-autocmd BufNewFile,BufRead *.ini,*.conf
-            \ set filetype=dosini
-
-" }
-
-"==========================================
-" Neovim Specific
-"==========================================
-" {
-if has('nvim')
-    " python provider program
-    " this points neovim to a specific python interpreter
-    " ISSUE: If python_host_prog is set, the neovim searches for python2 neovim module when open a new
-    " python file and throw exception, even if python3 neovim module is already installed.
-    "let g:python_host_prog = '/usr/bin/python2'
-    let g:python3_host_prog = '/usr/bin/python3'
-
-    " terminal emulator key-mapping
-    " ---------------------------------------------------------
-    " esc for changing terminal to normal mode
-    tnoremap <Esc> <C-\><C-n>
-
-    " using `alt + {h,j,k,l}` to navigate between windows
-    " include terminal windows
-    tnoremap <A-h> <C-\><C-n><C-w>h
-    tnoremap <A-j> <C-\><C-n><C-w>j
-    tnoremap <A-k> <C-\><C-n><C-w>k
-    tnoremap <A-l> <C-\><C-n><C-w>l
-    nnoremap <A-h> <C-w>h
-    nnoremap <A-j> <C-w>j
-    nnoremap <A-k> <C-w>k
-    nnoremap <A-l> <C-w>l
-
-    " interactive find replace preview
-    set inccommand=nosplit
-endif
-" ---------------------------------------------------------
 " }
 
 "==========================================
 " Dev Tools Settings
 "==========================================
 " {
-" Gtags {
-let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = expand('~/.gtags.conf')
-" }
-
+" Ctags
+if has('path_extra')
+  setglobal tags-=./tags tags-=./tags; tags^=./tags;
+endif
 " }
 
 "==========================================
@@ -704,29 +650,6 @@ function! ToggleBG()
     else
         set background=dark
     endif
-endfunction
-" }
-
-" Dev {
-" generate database for ctags and cscope
-function! GeDBCC()
-    !find ./ -name "*.c" -o -name "*.h" > ./cscope.files
-    " -b: quite mode
-    " -q: generate cscope.in.out and cscope.po.out to make it faster
-    !cscope -Rbq -i ./cscope.files
-    !ctags -R --exclude=.git
-endfunction
-
-" extract variable
-function! ExtractVariable()
-    let name = input("Variable name: ")
-    if name == ''
-        return
-    endif
-    normal! gv
-    exec "normal c" . name
-    exec "normal! O" . name . " = "
-    normal! $p
 endfunction
 " }
 " }

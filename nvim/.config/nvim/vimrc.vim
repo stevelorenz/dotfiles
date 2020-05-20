@@ -601,7 +601,6 @@ inoremap <F12> <C-o>:syntax sync fromstart<CR>
 " File Type Custom Settings
 "==========================================
 " {
-" -- c/cpp --
 autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
             \ set tabstop=8 |
             \ set shiftwidth=8 |
@@ -610,21 +609,17 @@ autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
             \ set expandtab ! |
             \ set foldmethod=syntax |
 
-" -- config file --
 autocmd BufNewFile,BufRead *.ini,*.conf
             \ set filetype=dosini
 
-" -- latex --
 autocmd BufNewFile,BufRead *.tex
             \ set filetype=tex |
             \ set textwidth=120 |
             \ set spell |
 
-" -- lua --
 autocmd BufNewFile,BufRead *.lua
             \ let g:lua_complete_omni=1
 
-" -- markdown --
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set filetype=markdown |
             \ set textwidth=120 |
@@ -633,12 +628,10 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set softtabstop=2 |
             \ set spell |
 
-" -- python --
 autocmd BufNewFile,BufRead *.py
             \ set filetype=python |
             \ set textwidth=80 |
 
-" -- restructured text --
 autocmd BufNewFile,BufRead *.rst
             \ set textwidth=120 |
             \ set tabstop=2 |
@@ -646,10 +639,8 @@ autocmd BufNewFile,BufRead *.rst
             \ set softtabstop=2 |
             \ set spell |
 
-" -- web dev --
 autocmd BufNewFile,BufRead *.js,*.html,*.css
             \ set expandtab!
-
 " }
 
 "==========================================
