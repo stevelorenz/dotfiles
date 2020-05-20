@@ -97,8 +97,6 @@ bindsym $mod+Shift+s mode $mode_system
 # Shortcut for running some useful programs
 # Screenshooter
 bindsym $mod+p exec xfce4-screenshooter
-# Compositing manager
-bindsym $mod+c exec compton -b
 # System monitor
 bindsym $mod+i exec $term -e htop
 # Ranger file manager
