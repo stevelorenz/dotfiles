@@ -269,6 +269,8 @@ set ruler
 
 "default stop line breaking
 set nowrap
+" disable long line auto broken
+set tw=0
 
 set showcmd  " show command in normal mode
 set showmode  " show vim mode
@@ -641,6 +643,10 @@ autocmd BufNewFile,BufRead *.rst
 
 autocmd BufNewFile,BufRead *.js,*.html,*.css
             \ set expandtab!
+
+autocmd BufNewFile,BufRead *.go
+            \ set textwidth=120 |
+            \ set expandtab ! |
 " }
 
 "==========================================
