@@ -5,7 +5,7 @@
     "modules-left": ["sway/workspaces", "sway/mode"],
     // "modules-center": ["custom/media"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "idle_inhibitor", "pulseaudio", "custom/cpu_speed", "custom/storage","network", "battery"],
+    "modules-right": ["tray", "pulseaudio", "custom/cpu_speed", "custom/storage","network", "battery"],
     "sway/mode": {
         "format": " {}"
     },
