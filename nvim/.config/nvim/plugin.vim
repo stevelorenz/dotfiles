@@ -183,6 +183,7 @@ if count(g:bundle_groups, 'general_programming')
     " - Async Language Server Protocol plugin for vim8 and neovim
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
+    let g:lsp_auto_enable = 0
     " disable diagnostics support
     let g:lsp_diagnostics_enabled = 0
     " enable basic lsp-based auto-completion with omnifunc
@@ -324,7 +325,8 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     " shut off completion messages and disable beep
     set shortmess+=c
     set belloff+=ctrlg
-    let g:mucomplete#enable_auto_at_startup = 1
+    " Use MUcompleteAutoToggle to enable it manually.
+    let g:mucomplete#enable_auto_at_startup = 0
     let g:mucomplete#completion_delay = 1
 
 endif

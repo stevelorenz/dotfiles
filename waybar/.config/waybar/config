@@ -1,111 +1,115 @@
 {
-    "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar at the bottom of your screen
-    "height": 25, // Waybar height
-    // "width": 1280, // Waybar width
-    // Choose the order of the modules
-    "modules-left": ["custom/menu","sway/workspaces","custom/right-arrow-dark","sway/mode"],
-    "modules-center": [],
-    "modules-right": ["custom/left-arrow-dark","idle_inhibitor","pulseaudio","cpu","memory","temperature","custom/pacman","network","custom/vpn","custom/bluetooth","battery","custom/right-arrow-dark","clock","tray"],
-    "gtk-layer-shell": true,
-    // Modules configuration
-     "sway/workspaces": {
-         "disable-scroll": true,
-         "format": "{name}"
-     },
+    "layer": "top",
+    "position": "top",
+    "height": 35,
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    // "modules-center": ["custom/media"],
+    "modules-center": ["clock"],
+    "modules-right": ["tray", "idle_inhibitor", "pulseaudio", "custom/cpu_speed", "custom/storage","network", "battery"],
     "sway/mode": {
-        "format": " {}"
+        "format": " {}"
     },
-    "clock": {
-        "format": "{:%a, %b %-d %H:%M}"
+    "sway/workspaces": {
+        "format": "{name}",
+        "disable-scroll": true
     },
-    "cpu": {
-        "interval": 10,
-        "format": "{usage}% "
-    },
-    "memory": {
-        "interval": 10,
-        "format": "{used:0.1f}G/{total:0.1f}G "
-    },
-    "battery": {
-    "bat": "BAT0",
-    "interval": 60,
-    "states": {
-        "warning": 30,
-        "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-icons": ["", "", "", "", ""],
-        "max-length": 25
-    },
-    "custom/vpn": {
-    "interval": 5,
-    "format": "{}",
-    "return-type": "json",
-    "exec": "~/.config/waybar/modules/vpn.sh",
-    "on-click": "env XDG_CURRENT_DESKTOP=GNOME gnome-control-center network"
-    },
-    "network": {
-        "format-wifi": "",
-        "format-ethernet": "",
-        "format-disconnected": "",
-        "on-click": "env XDG_CURRENT_DESKTOP=GNOME gnome-control-center wifi"
-    },
-    "custom/bluetooth": {
-        "format": "",
-        "interval": 5,
-        "return-type": "json",
-        "exec": "~/.config/waybar/modules/bluetooth.sh",
-        "on-click": "blueberry"
-    },
-    "pulseaudio": {
-        "scroll-step": 5,
-        "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon}",
-        "format-muted": "",
-        "format-icons": {
-            "headphones": "",
-            "handsfree": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", ""]
-        },
-        "on-click": "pavucontrol"
-    },
-    "custom/pacman": {
-        "format": "{}  ",
-        "interval": 3600,                     // every hour
-        "exec": "pamac checkupdates -a -q | wc -l",       // # of updates
-        "on-click": "pamac-manager", // update system
+    "sway/window": {
+        "max-length": 80,
         "tooltip": false
     },
-    "temperature": {
-        // "thermal-zone": 2,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 60,
-        "format-critical": "{temperatureC}°C  ",
-        "format": "{temperatureC}°C  "
+    "clock": {
+        "format": "{:%a %d %b - %H:%M}",
+        "tooltip": false,
+        "on-click": "gnome-calendar"
     },
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
-
+    "custom/cpu_speed": {
+        "interval": 5,
+        "return-type": "json",
+        "exec": "~/.config/waybar/modules/cpu_speed.sh",
+        "format": "<span font='Font Awesome 5 Free 11'>{icon}</span>  {}",
+        "format-icons": [""],
+        "escape": true,
+        "on-click": "urxvt -e htop"
+    },
+    "battery": {
+        "format": "<span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}% - {time}",
+        "format-icons": ["", "", "", "", ""],
+        "format-charging": "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}% - {time}",
+        "format-full":  "<span font='Font Awesome 5 Free'></span>  <span font='Font Awesome 5 Free 11'>{icon}</span>  {capacity}% - Charged",
+        "interval": 30,
+        "states": {
+            "warning": 25,
+            "critical": 10
+        },
+        "tooltip": false,
+        "on-click": "gnome-power-statistics"
+    },
+    "network": {
+        "format": "{icon}",
+        "format-alt": "{ipaddr}/{cidr} {icon}",
+        "format-alt-click": "click-right",
+        "format-wifi": "<span font='Font Awesome 5 Free 10'></span>  {essid} ({signalStrength}%)",
+        "format-ethernet": " {ifname}",
+        "format-disconnected": "⚠ Disconnected",
+        "on-click": "urxvt -e ~/sway/scripts/network-manager",
+        // "on-click": "gnome-control-center wifi",
+        "tooltip": false
+    },
+    "pulseaudio": {
+        "format": "<span font='Font Awesome 5 Free 11'>{icon:2}</span> {volume:4}%",
+        "format-alt": "<span font='Font Awesome 5 Free 11'>{icon:2}</span> {volume:4}%",
+        "format-alt-click": "click-right",
+        "format-muted": "<span font='Font Awesome 5 Free 11'></span>",
+        "format-icons": {
+            "phone": [" ", " ", " ", " "],
+            "default": ["", "", "", ""]
+        },
+        "scroll-step": 2,
+        "on-click": "gnome-control-center sound",
+        //"on-click": "pavucontrol",
+        "tooltip": false
+    },
+    "custom/storage": {
+        "format": "{} ",
+        "format-alt": "{percentage}% ",
+        "format-alt-click": "click-right",
+        "return-type": "json",
+        "interval": 60,
+        "exec": "~/.config/waybar/modules/storage.sh"
+    },
+    "backlight": {
+        "format": "{icon}",
+        "format-alt": "{percent}% {icon}",
+        "format-alt-click": "click-right",
+        "format-icons": ["", ""],
+        "on-scroll-down": "light -A 1",
+        "on-scroll-up": "light -U 1"
+    },
+    "temperature": {
+        "format": "<span font='Font Awesome 5 Free 9'></span> {temperatureC:3}°C",
+        //"hwmon-path": "/sys/devices/platform/coretemp.0/hwmon/hwmon3/temp1_input",
+        "hwmon-path": "/sys/class/thermal/thermal_zone0/temp",
+        //"on-click": "urxvt -e 'watch -n1 sensors'"
+        "on-click": "psensor"
     },
     "idle_inhibitor": {
         "format": "{icon}",
+        "format-alt": "{icon} idle {status}",
+        "format-alt-click": "click-right",
         "format-icons": {
-           "activated": "",
-           "deactivated": ""
-        }
-    },
-    "custom/left-arrow-dark": {
-        "format": "",
+            "activated": "<span font='Font Awesome 5 Free 9'></span>",
+            "deactivated": "<span font='Font Awesome 5 Free 9'></span>"
+        },
         "tooltip": false
     },
-    "custom/right-arrow-dark": {
-        "format": "",
-        "tooltip": false
+    "custom/test": {
+        "format": "{}",
+        "exec": "/tmp/test blub",
+        "param": "blah",
+        "interval": 5
+    },
+    "tray": {
+        "icon-size": 18,
+        "spacing": 18
     }
 }

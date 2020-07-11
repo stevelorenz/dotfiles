@@ -77,8 +77,8 @@ input type:keyboard {
 exec dbus-daemon --session --address=unix:path=$XDG_RUNTIME_DIR/bus
 exec /usr/bin/lxpolkit  # run polkit for authentication.
 exec mako  # notification daemon for wayland
+exec nm-applet --indicator
 # Does not work on wayland.
-# exec nm-applet
 # exec pamac-tray
 # exec redshift-gtk  # screen temperature
 
@@ -288,8 +288,10 @@ bar {
      strip_workspace_numbers yes
 
     # swaybar_command swaybar
-    status_command i3blocks -c $HOME/.config/sway/i3blocks.conf
-    # swaybar_command waybar
+    # status_command i3blocks -c $HOME/.config/sway/i3blocks.conf
+
+    # Waybar supports clickable tray.
+    swaybar_command waybar
 
     colors {
         statusline #ffffff
