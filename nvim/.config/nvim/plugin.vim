@@ -63,7 +63,7 @@ if count(g:bundle_groups, 'general')
     " -- lightline: a light and configurable statusline/tabline plugin for Vim
     Plug 'itchyny/lightline.vim'
     let g:lightline = {
-                \ 'colorscheme': 'one',
+                \ 'colorscheme': 'onedark',
                 \ 'active': {
                 \   'left': [ [ 'mode', 'paste' ],
                 \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -183,7 +183,8 @@ if count(g:bundle_groups, 'general_programming')
     " - Async Language Server Protocol plugin for vim8 and neovim
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
-    let g:lsp_auto_enable = 0
+    " call lsp#disable() when speed-up is required.
+    let g:lsp_auto_enable = 1
     " disable diagnostics support
     let g:lsp_diagnostics_enabled = 0
     " enable basic lsp-based auto-completion with omnifunc
@@ -414,6 +415,16 @@ if count(g:bundle_groups, 'colorscheme')
     let g:solarized_italics = 0
 
     Plug 'joshdick/onedark.vim'
+    if (has("nvim"))
+        "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    endif
+    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+    if (has("termguicolors"))
+        set termguicolors
+    endif
 
     Plug 'liuchengxu/space-vim-dark'
 endif

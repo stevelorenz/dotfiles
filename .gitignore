@@ -31,6 +31,7 @@ cmus/.config/cmus/*
 *.appimage
 *.Appimage
 *.AppImage
+bin/bin/nvim
 # ------------------
 
 # Backup, temp files
