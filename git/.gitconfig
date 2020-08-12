@@ -12,7 +12,12 @@
 [push]
     default = simple
 [merge]
-    tool = vimdiff
+	tool = nvimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = true
+[mergetool "nvimdiff"]
+  cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [alias]
     br = branch
     co = checkout

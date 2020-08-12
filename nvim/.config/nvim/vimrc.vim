@@ -431,6 +431,8 @@ let g:mapleader = " "
 " map ; to :
 nnoremap ; :
 
+nnoremap <leader>q :q<CR>
+
 " tap jk quickly to normal mode
 inoremap jk <Esc>
 xnoremap jk <Esc>
@@ -521,6 +523,8 @@ noremap <leader><leader>c :cclose<bar>lclose<cr>
 
 " qq to record, Q to replay
 nnoremap Q @q
+
+noremap <leader>C :Clap<cr>
 
 " === Tab and Buffer===
 " ---------------------------------------------------------

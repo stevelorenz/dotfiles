@@ -183,8 +183,8 @@ if count(g:bundle_groups, 'general_programming')
     " - Async Language Server Protocol plugin for vim8 and neovim
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
-    " call lsp#disable() when speed-up is required.
-    let g:lsp_auto_enable = 1
+    " call lsp#enable() to enable it.
+    let g:lsp_auto_enable = 0
     " disable diagnostics support
     let g:lsp_diagnostics_enabled = 0
     " enable basic lsp-based auto-completion with omnifunc
@@ -228,6 +228,9 @@ if count(g:bundle_groups, 'general_programming')
     " - Tags management
     Plug 'ludovicchabant/vim-gutentags'
     set tags=./.tags;,.tags
+    let g:gutentags_enabled = 0
+    let g:gutentags_generate_on_new = 0
+    let g:gutentags_generate_on_write = 0
     let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
     let g:gutentags_ctags_tagfile = '.tags'
     " Add support for ctags and gtags, gtags is disabled by default
@@ -351,6 +354,11 @@ if count(g:bundle_groups, 'c_cpp')
 endif
 " }
 
+" Java {
+if count(g:bundle_groups, 'java')
+endif
+" }
+
 " Python {
 if count(g:bundle_groups, 'python')
     " - Generate python docstring
@@ -415,6 +423,9 @@ if count(g:bundle_groups, 'colorscheme')
     let g:solarized_italics = 0
 
     Plug 'joshdick/onedark.vim'
+
+    Plug 'liuchengxu/space-vim-dark'
+
     if (has("nvim"))
         "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
         let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -425,8 +436,6 @@ if count(g:bundle_groups, 'colorscheme')
     if (has("termguicolors"))
         set termguicolors
     endif
-
-    Plug 'liuchengxu/space-vim-dark'
 endif
 
 " --- }
