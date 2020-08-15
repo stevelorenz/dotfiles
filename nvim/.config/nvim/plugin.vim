@@ -88,17 +88,9 @@ if count(g:bundle_groups, 'general')
     let g:netrw_browse_split = 4
     let g:netrw_altv = 1
 
-    if has('python') || has('python3')
-        " An asynchronous fuzzy finder which is used to quickly locate files, buffers, mrus, tags, etc. in large project.
-        Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-        noremap <m-f> :cclose<cr>:LeaderfFunction!<cr>
-        noremap <m-t> :cclose<cr>:LeaderfBufTag!<cr>
-        let g:Lf_MruMaxFiles = 2048
-        let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-        " LeaderF with tags
-        let g:Lf_GtagsAutoGenerate = 0
-        let g:Lf_WindowPosition = 'popup'
-    endif
+
+    " - Modern generic interactive finder and dispatcher for Vim and NeoVim
+    Plug 'liuchengxu/vim-clap'
 
     " - Undo history visualizer
     Plug 'mbbill/undotree', { 'on':  'UndotreeToggle' }
@@ -114,11 +106,6 @@ if count(g:bundle_groups, 'general')
 
     " - Show marks
     Plug 'kshenoy/vim-signature'
-
-    " - Visually select increasingly larger regions of text
-    Plug 'terryma/vim-expand-region'
-    " + expand selection
-    " _ shrink selection
 
     "- Display the indention levels
     "Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
@@ -164,9 +151,6 @@ if count(g:bundle_groups, 'general_editing')
     let g:multi_cursor_prev_key = '<C-p>'
     let g:multi_cursor_skip_key = '<C-x>'
     let g:multi_cursor_quit_key = '<Esc>'
-
-    " - Underlines the word under the cursor
-    Plug 'itchyny/vim-cursorword'
 
     " - Better white space highlighting
     Plug 'ntpeters/vim-better-whitespace'
@@ -405,9 +389,6 @@ endif
 
 " - Editing latex files
 if count(g:bundle_groups, 'text')
-    Plug 'lervag/vimtex', { 'for': 'tex' }
-    let g:tex_flavor = 'tex'  " default tex type
-    let g:vimtex_compiler_progname = 'nvr'
 endif
 
 " --- }
@@ -444,12 +425,6 @@ endif
 " --- Plugins Under Test ---------------------------------- {
 
 if count(g:bundle_groups, 'test')
-
-    " - Modern generic interactive finder and dispatcher for Vim and NeoVim
-    Plug 'liuchengxu/vim-clap'
-
-    " - Reveal the commit messages under the cursor
-    Plug 'rhysd/git-messenger.vim'
 
 endif
 
@@ -549,6 +524,25 @@ endif
     " -- inter lines
     " Plug 'justinmk/vim-sneak'
     " let g:sneak#label = 1
+    "
+
+    " if has('python') || has('python3')
+    "     " An asynchronous fuzzy finder which is used to quickly locate files, buffers, mrus, tags, etc. in large project.
+    "     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+    "     noremap <m-f> :cclose<cr>:LeaderfFunction!<cr>
+    "     noremap <m-t> :cclose<cr>:LeaderfBufTag!<cr>
+    "     let g:Lf_MruMaxFiles = 2048
+    "     let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+    "     " LeaderF with tags
+    "     let g:Lf_GtagsAutoGenerate = 0
+    "     let g:Lf_WindowPosition = 'popup'
+    " endif
+
+    " - Visually select increasingly larger regions of text
+    " Plug 'terryma/vim-expand-region'
+    " + expand selection
+    " _ shrink selection
+
 
 "  }
 

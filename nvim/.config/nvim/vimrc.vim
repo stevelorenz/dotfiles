@@ -524,7 +524,7 @@ noremap <leader><leader>c :cclose<bar>lclose<cr>
 " qq to record, Q to replay
 nnoremap Q @q
 
-noremap <leader>C :Clap<cr>
+noremap <leader>f :Clap<cr>
 
 " === Tab and Buffer===
 " ---------------------------------------------------------
