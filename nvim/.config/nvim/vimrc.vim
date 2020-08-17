@@ -525,6 +525,7 @@ noremap <leader><leader>c :cclose<bar>lclose<cr>
 nnoremap Q @q
 
 noremap <leader>f :Clap<cr>
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
 " === Tab and Buffer===
 " ---------------------------------------------------------

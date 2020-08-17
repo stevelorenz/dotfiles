@@ -96,23 +96,8 @@ if count(g:bundle_groups, 'general')
     Plug 'mbbill/undotree', { 'on':  'UndotreeToggle' }
     let g:undotree_SetFocusWhenToggle = 1
 
-    " - Fast and easy cursor motion
-    " -- inter lines
-    " -- intra line
-    Plug 'unblevable/quick-scope'
-    let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-    "let g:qs_first_occurrence_highlight_color = 155
-    "let g:qs_second_occurrence_highlight_color = 81
-
     " - Show marks
     Plug 'kshenoy/vim-signature'
-
-    "- Display the indention levels
-    "Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesToggle' }
-    Plug 'Yggdroot/indentLine',
-    let g:indentLine_enabled = 1
-    let g:indentLine_char = '¦'
-    let g:indentLine_setConceal = 0
 
     " - Search results counter
     Plug 'vim-scripts/IndexedSearch'
@@ -136,24 +121,6 @@ if count(g:bundle_groups, 'general_editing')
     Plug 'Raimondi/delimitMate'
     au FileType python let b:delimitMate_nesting_quotes = ['"']
     au FileType mail let b:delimitMate_expand_inside_quotes = 1
-
-    " - Surroundings editing
-    Plug 'tpope/vim-surround'
-
-    " - Enable repeating supported plugin maps with "."
-    Plug 'tpope/vim-repeat'
-
-    " - Multiple cursor editing
-    Plug 'terryma/vim-multiple-cursors'
-    " use default mapping
-    let g:multi_cursor_use_default_mapping=1
-    let g:multi_cursor_next_key = '<C-n>'
-    let g:multi_cursor_prev_key = '<C-p>'
-    let g:multi_cursor_skip_key = '<C-x>'
-    let g:multi_cursor_quit_key = '<Esc>'
-
-    " - Better white space highlighting
-    Plug 'ntpeters/vim-better-whitespace'
 
 endif
 
@@ -425,7 +392,8 @@ endif
 " --- Plugins Under Test ---------------------------------- {
 
 if count(g:bundle_groups, 'test')
-
+    " On-demand lazy load
+    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 endif
 
 " --- }
