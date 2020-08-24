@@ -348,18 +348,19 @@ if has('gui_running')
 endif
 " }
 
+" MARK: Do not need these in true color mode.
 " better highlight
-hi! link SignColumn   LineNr
-hi! link ShowMarksHLl DiffAdd
-hi! link ShowMarksHLu DiffChange
-highlight clear SpellBad
-highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-highlight clear SpellCap
-highlight SpellCap term=underline cterm=underline
-highlight clear SpellRare
-highlight SpellRare term=underline cterm=underline
-highlight clear SpellLocal
-highlight SpellLocal term=underline cterm=underline
+" hi! link SignColumn   LineNr
+" hi! link ShowMarksHLl DiffAdd
+" hi! link ShowMarksHLu DiffChange
+" highlight clear SpellBad
+" highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
+" highlight clear SpellCap
+" highlight SpellCap term=underline cterm=underline
+" highlight clear SpellRare
+" highlight SpellRare term=underline cterm=underline
+" highlight clear SpellLocal
+" highlight SpellLocal term=underline cterm=underline
 
 " 80 characters line
 set colorcolumn=81
@@ -582,7 +583,8 @@ nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 " F4: Preview a tag circularly
 nnoremap <F4> :PreviewTag<CR>
 
-" F5: unused
+" F5: Hide everything to have a presentation mode.
+nnoremap <F5> : set relativenumber! number! showmode! showcmd! hidden! ruler!<CR>
 
 " F6: toggle nerdtree file explorer
 nnoremap <F6> :NERDTreeToggle<CR>

@@ -91,6 +91,7 @@ if count(g:bundle_groups, 'general')
 
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
     Plug 'liuchengxu/vim-clap'
+    let g:clap_theme = 'material_design_dark'
 
     " - Undo history visualizer
     Plug 'mbbill/undotree', { 'on':  'UndotreeToggle' }
@@ -99,8 +100,11 @@ if count(g:bundle_groups, 'general')
     " - Show marks
     Plug 'kshenoy/vim-signature'
 
-    " - Search results counter
-    Plug 'vim-scripts/IndexedSearch'
+    " - Show thin vertical lines at each indentation level for code indented with spaces.
+    Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
+        autocmd! User indentLine doautocmd indentLine Syntax
+    let g:indentLine_color_term = 239
+    let g:indentLine_color_gui = '#616161'
 
     " - Enhancing in-buffer search experience
     Plug 'junegunn/vim-slash'
@@ -117,10 +121,15 @@ endif
 
 if count(g:bundle_groups, 'general_editing')
 
+    " ISSUE: It slows the moving of the cursor in normal and insert mode...
     " - Insert mode auto-completion for quotes, parentheses, brackets
-    Plug 'Raimondi/delimitMate'
-    au FileType python let b:delimitMate_nesting_quotes = ['"']
-    au FileType mail let b:delimitMate_expand_inside_quotes = 1
+    " Plug 'Raimondi/delimitMate'
+    " au FileType python let b:delimitMate_nesting_quotes = ['"']
+    " au FileType mail let b:delimitMate_expand_inside_quotes = 1
+
+    " - Handle surroundings
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-surround'
 
 endif
 
@@ -394,6 +403,8 @@ endif
 if count(g:bundle_groups, 'test')
     " On-demand lazy load
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+
+    Plug 'easymotion/vim-easymotion'
 endif
 
 " --- }
