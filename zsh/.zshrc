@@ -66,8 +66,10 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(colored-man-pages extract git golang python pip rust tmux vagrant z
-    zsh-completions zsh-autosuggestions)
+plugins=(
+    archlinux colored-man-pages extract git golang python pip rust tmux vagrant
+    z zsh-completions zsh-autosuggestions
+)
 
 # Auto load and init completions
 source $ZSH/oh-my-zsh.sh

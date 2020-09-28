@@ -121,12 +121,6 @@ endif
 
 if count(g:bundle_groups, 'general_editing')
 
-    " ISSUE: It slows the moving of the cursor in normal and insert mode...
-    " - Insert mode auto-completion for quotes, parentheses, brackets
-    " Plug 'Raimondi/delimitMate'
-    " au FileType python let b:delimitMate_nesting_quotes = ['"']
-    " au FileType mail let b:delimitMate_expand_inside_quotes = 1
-
     " - Handle surroundings
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
@@ -404,7 +398,16 @@ if count(g:bundle_groups, 'test')
     " On-demand lazy load
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
+    " Vim motions on speed!
     Plug 'easymotion/vim-easymotion'
+
+    " True Sublime Text style multiple selections for Vim
+    Plug 'terryma/vim-multiple-cursors'
+
+    " Underlines the word under the cursor
+    Plug 'itchyny/vim-cursorword'
+    let g:cursorword_delay = 400
+
 endif
 
 " --- }
@@ -521,6 +524,12 @@ endif
     " Plug 'terryma/vim-expand-region'
     " + expand selection
     " _ shrink selection
+
+    " ISSUE: It slows the moving of the cursor in normal and insert mode...
+    " - Insert mode auto-completion for quotes, parentheses, brackets
+    " Plug 'Raimondi/delimitMate'
+    " au FileType python let b:delimitMate_nesting_quotes = ['"']
+    " au FileType mail let b:delimitMate_expand_inside_quotes = 1
 
 
 "  }

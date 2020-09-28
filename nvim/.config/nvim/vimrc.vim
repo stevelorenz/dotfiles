@@ -631,7 +631,7 @@ autocmd BufNewFile,BufRead *.lua
 
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set filetype=markdown |
-            \ set textwidth=120 |
+            \ set textwidth=170 |
             \ set tabstop=2 |
             \ set shiftwidth=2 |
             \ set softtabstop=2 |
