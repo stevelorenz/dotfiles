@@ -138,7 +138,7 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
     " call lsp#enable() to enable it.
-    let g:lsp_auto_enable = 0
+    let g:lsp_auto_enable = 1
     " disable diagnostics support
     let g:lsp_diagnostics_enabled = 0
     " enable basic lsp-based auto-completion with omnifunc

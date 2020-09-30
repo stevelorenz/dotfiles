@@ -528,6 +528,15 @@ nnoremap Q @q
 noremap <leader>f :Clap<cr>
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
+" auto-close pairs
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+
 " === Tab and Buffer===
 " ---------------------------------------------------------
 " --- Buffer---
