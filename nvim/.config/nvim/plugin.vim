@@ -162,7 +162,7 @@ if count(g:bundle_groups, 'general_programming')
     " - Asynchronous Lint Engine (ALE)
     if has('nvim') || v:version >= 800
         Plug 'w0rp/ale'
-        let g:ale_enabled=0
+        let g:ale_enabled=1
         let g:ale_sign_column_always = 1
         " ALE automatically updates the loclist which makes it impossible to
         " use some other plugins.
@@ -170,7 +170,7 @@ if count(g:bundle_groups, 'general_programming')
         let g:ale_set_quickfix = 1
         let g:ale_open_list = 0
         " Trigger linting manually.
-        let g:ale_lint_on_save = 0
+        let g:ale_lint_on_save = 1
         let g:ale_lint_on_text_changed = 'never'
         let g:ale_lint_on_enter = 'never'
     endif
