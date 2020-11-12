@@ -87,6 +87,8 @@ set backspace=eol,start,indent
 
 " auto wrap to following lines
 set whichwrap=b,s,h,l,<,>,[,]
+" do not automatically wrap text when typing
+set formatoptions-=t
 
 " show contents on screen after exit
 set t_ti= t_te=
@@ -536,6 +538,10 @@ inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
+
+" Open tags in new tab and new vertical split
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " === Tab and Buffer===
 " ---------------------------------------------------------

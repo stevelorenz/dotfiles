@@ -13,11 +13,11 @@ set $mod Mod4
 font pango: Hack Regular 13
 
 # Start terminal emulator
-set $term_1 st
+set $term_1 alacritty
 set $term_2 urxvt
 set $term_3 xfce4-terminal
-set $term_4 alacritty
-set $term_5 termite
+set $term_4 termite
+set $term_5 st
 bindsym $mod+Return exec $term_1
 bindsym $mod+Shift+Return exec $term_2
 bindsym $mod+t exec $term_3
