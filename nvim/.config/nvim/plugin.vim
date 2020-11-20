@@ -408,6 +408,11 @@ if count(g:bundle_groups, 'test')
     Plug 'itchyny/vim-cursorword'
     let g:cursorword_delay = 400
 
+    " Rainbow parentheses improved
+    Plug 'luochen1990/rainbow'
+    " enable it later via :RainbowToggle
+    let g:rainbow_active = 0
+
 endif
 
 " --- }

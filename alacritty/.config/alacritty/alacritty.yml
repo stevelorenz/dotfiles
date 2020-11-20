@@ -80,7 +80,7 @@ font:
     y: 0
 
 # Should display the render timer
-debug.render_timer: false
+debug.render_timer: true
 
 # Colors (xterm theme + custom)
 colors:
@@ -138,7 +138,7 @@ colors:
 #
 bell:
   animation: EaseOutExpo
-  duration: 75
+  duration: 0
 
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
@@ -217,7 +217,7 @@ key_bindings:
   - { key: Insert,   mods: Shift,   action: PasteSelection               }
   - { key: Key0,     mods: Control, action: ResetFontSize                }
   - { key: Equals,   mods: Control, action: IncreaseFontSize             }
-  - { key: Subtract, mods: Control, action: DecreaseFontSize             }
+  - { key: Minus,    mods: Control, action: DecreaseFontSize             }
   - { key: Home,                    chars: "\x1bOH",   mode: AppCursor   }
   - { key: Home,                    chars: "\x1b[H",   mode: ~AppCursor  }
   - { key: End,                     chars: "\x1bOF",   mode: AppCursor   }
