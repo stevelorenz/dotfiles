@@ -283,8 +283,8 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     " shut off completion messages and disable beep
     set shortmess+=c
     set belloff+=ctrlg
-    " Use MUcompleteAutoToggle to enable it manually.
-    let g:mucomplete#enable_auto_at_startup = 0
+    " Use MUcompleteAutoToggle to enable/disable it manually.
+    let g:mucomplete#enable_auto_at_startup = 1
     let g:mucomplete#completion_delay = 1
 
 endif

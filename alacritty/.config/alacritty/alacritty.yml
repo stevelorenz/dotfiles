@@ -87,6 +87,7 @@ colors:
   # Default colors
   primary:
     background: '0x000000'
+    background_opacity: 0.9
     # Standard light gray
     foreground: '0xeaeaea'
     # This is the green foreground color that we sometimes like to use.
