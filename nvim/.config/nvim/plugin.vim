@@ -15,13 +15,11 @@
 "    -> Backup: configuration backup of currently disabled/removed plugins.
 "
 " Notes:
-"    -> vim-mucomplete is used for general auto-completion.
 "    -> General programming language features are supported by using Language Server Protocol (LSP).
 "       Currently used client plugin is prabirshrestha/vim-lsp.
 "       The Programming Language Specific section includes plugins that provide additional
 "       functions which are not provided by LSP.
 "       Some programming languages use vim-lsp for auto-completion. The omnifunc integration of
-"       vim-lsp is used to work with vim-mucomplete.
 "       Check the configuration of vim-lsp plugin for details.
 "       Vim-lsp-settings plugin is used to install lsp servers.
 "
@@ -48,11 +46,11 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 if !exists('g:bundle_groups')
     " All available groups.
     "let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-    "            \ 'c_cpp', 'python', 'rust', 'go', 'haskell', 'web_frontend', 'text', 'colorscheme', 'test']
+    "            \ 'c_cpp', 'python', 'rust', 'web_frontend', 'text', 'colorscheme', 'test']
     "
     " Enabled groups for Zuo's development tasks.
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', 'rust', 'haskell', 'web_frontend', 'text', 'colorscheme', 'test']
+                \ 'c_cpp', 'python', 'rust', 'web_frontend', 'text', 'colorscheme', 'test']
 endif
 
 " --- General --------------------------------------------- {
@@ -135,24 +133,16 @@ endif
 if count(g:bundle_groups, 'general_programming')
 
     " - Async Language Server Protocol plugin for vim8 and neovim
-    Plug 'prabirshrestha/async.vim'
     Plug 'prabirshrestha/vim-lsp'
     " call lsp#enable() to enable it.
     let g:lsp_auto_enable = 1
     " disable diagnostics support
     let g:lsp_diagnostics_enabled = 0
-    " enable basic lsp-based auto-completion with omnifunc
-    " this works with vim-mucomplete enabled.
-    autocmd FileType c setlocal omnifunc=lsp#complete
-    autocmd FileType cpp setlocal omnifunc=lsp#complete
-    autocmd FileType css setlocal omnifunc=lsp#complete
-    autocmd FileType go setlocal omnifunc=lsp#complete
-    autocmd FileType html setlocal omnifunc=lsp#complete
-    autocmd FileType java setlocal omnifunc=lsp#complete
-    autocmd FileType javascript setlocal omnifunc=lsp#complete
-    autocmd FileType typescript setlocal omnifunc=lsp#complete
-    autocmd FileType python setlocal omnifunc=lsp#complete
-    autocmd FileType rust setlocal omnifunc=lsp#complete
+    " let lsp automatically handle folding.
+    set foldmethod=expr
+        \ foldexpr=lsp#ui#vim#folding#foldexpr()
+        \ foldtext=lsp#ui#vim#folding#foldtext()
+    let g:lsp_highlight_references_enabled = 1
 
     " - Auto configurations for LSP for vim-lsp
     Plug 'mattn/vim-lsp-settings'
@@ -277,15 +267,30 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
     " - Autocomplete framework
-    " Lightweight chained completion
-    Plug 'lifepillar/vim-mucomplete'
-    set completeopt+=menuone,noselect,noinsert
-    " shut off completion messages and disable beep
-    set shortmess+=c
-    set belloff+=ctrlg
-    " Use MUcompleteAutoToggle to enable/disable it manually.
-    let g:mucomplete#enable_auto_at_startup = 1
-    let g:mucomplete#completion_delay = 1
+    " Async completion in pure vim script for vim8 and neovim
+    Plug 'prabirshrestha/asyncomplete.vim'
+    inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+    let g:asyncomplete_auto_popup = 0
+
+    " disable auto-popup, use tab to show autocomplete.
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~ '\s'
+    endfunction
+
+    inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ asyncomplete#force_refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+    " allow modifying the completeopt variable, or it will be overridden all the time.
+    let g:asyncomplete_auto_completeopt = 0
+    set completeopt=menuone,noinsert,noselect,preview
+    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+    " completion sources
+    Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 endif
 
@@ -308,11 +313,6 @@ if count(g:bundle_groups, 'c_cpp')
 endif
 " }
 
-" Java {
-if count(g:bundle_groups, 'java')
-endif
-" }
-
 " Python {
 if count(g:bundle_groups, 'python')
     " - Generate python docstring
@@ -329,17 +329,8 @@ if count(g:bundle_groups, 'rust')
 endif
 " }
 
-" Go(lang) {
-if count(g:bundle_groups, 'go')
-
-endif
 " }
 
-" Haskell {
-if count(g:bundle_groups, 'haskell')
-    Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
-endif
-" }
 
 " Web Frontend {
 if count(g:bundle_groups, 'web_frontend')
@@ -412,6 +403,10 @@ if count(g:bundle_groups, 'test')
     Plug 'luochen1990/rainbow'
     " enable it later via :RainbowToggle
     let g:rainbow_active = 0
+
+    " Language Server Protocol snippets in vim using vim-lsp and UltiSnips
+    Plug 'thomasfaingnaert/vim-lsp-snippets'
+    Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
 endif
 
@@ -536,6 +531,15 @@ endif
     " au FileType python let b:delimitMate_nesting_quotes = ['"']
     " au FileType mail let b:delimitMate_expand_inside_quotes = 1
 
+    " Lightweight chained completion
+    " Plug 'lifepillar/vim-mucomplete'
+    " set completeopt+=menuone,noselect,noinsert
+    " shut off completion messages and disable beep
+    " set shortmess+=c
+    " set belloff+=ctrlg
+    " Use MUcompleteAutoToggle to enable/disable it manually.
+    " let g:mucomplete#enable_auto_at_startup = 1
+    " let g:mucomplete#completion_delay = 1
 
 "  }
 

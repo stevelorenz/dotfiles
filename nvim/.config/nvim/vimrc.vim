@@ -252,6 +252,9 @@ set report=0
 set wildignore+=*swp,*.class,*.pyc
 set wildignore+=*/tmp/*,*.o,*.obj,*.so     " Unix
 set wildignore+=*\\tmp\\*,*.exe            " Windows
+
+" enable built-in debugger
+packadd termdebug
 " }
 
 "==========================================

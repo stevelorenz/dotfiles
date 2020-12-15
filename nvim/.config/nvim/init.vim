@@ -5,7 +5,6 @@
 "
 " Maintainer: Xiang, Zuo
 " Email: xianglinks@gmail.com
-" Version: 1.3
 " Sections:
 "    -> Initial Plugin
 "    -> General Settings
