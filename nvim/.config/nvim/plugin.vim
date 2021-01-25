@@ -393,7 +393,8 @@ if count(g:bundle_groups, 'test')
     Plug 'easymotion/vim-easymotion'
 
     " True Sublime Text style multiple selections for Vim
-    Plug 'terryma/vim-multiple-cursors'
+    " Plug 'terryma/vim-multiple-cursors'
+    Plug 'mg979/vim-visual-multi'
 
     " Underlines the word under the cursor
     Plug 'itchyny/vim-cursorword'
