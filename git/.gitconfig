@@ -33,3 +33,9 @@
 	template = ~/.git_commit_msg.txt
 [pull]
 	rebase = false
+
+
+# Commands for faster ZSH in big git repos:
+#
+# - git config oh-my-zsh.hide-status 1
+# - git config oh-my-zsh.hide-status 1 --global

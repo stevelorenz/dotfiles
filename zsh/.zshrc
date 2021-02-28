@@ -67,8 +67,8 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    archlinux colored-man-pages extract git golang python pip rust tmux vagrant
-    z zsh-completions zsh-autosuggestions
+    extract
+    zsh-completions zsh-autosuggestions
 )
 
 # Auto load and init completions

@@ -32,6 +32,7 @@ cmus/.config/cmus/*
 *.Appimage
 *.AppImage
 bin/bin/nvim
+bin/bin/Joplin
 # ------------------
 
 # Backup, temp files
