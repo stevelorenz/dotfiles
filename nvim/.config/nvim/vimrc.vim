@@ -143,7 +143,6 @@ set shiftwidth=4   " noc for re-indent operations
 set softtabstop=4  " noc for tapping tab key
 " if softtabstop=12 and tabstop=8 then a tab key will converted into one tab and 4 whitespaces
 set smarttab       " insert tabs on the start of a line according to shiftwidth, not tabstop
-set expandtab      " convert tab to whitespace, using ctrl-v for real tab
 set shiftround     " use multiple of shift width when indenting with '<' and '>'
 set autoindent     " indent at the same level of the previous line
 
@@ -352,20 +351,6 @@ if has('gui_running')
     set noimd
 endif
 " }
-
-" MARK: Do not need these in true color mode.
-" better highlight
-" hi! link SignColumn   LineNr
-" hi! link ShowMarksHLl DiffAdd
-" hi! link ShowMarksHLu DiffChange
-" highlight clear SpellBad
-" highlight SpellBad term=standout ctermfg=1 term=underline cterm=underline
-" highlight clear SpellCap
-" highlight SpellCap term=underline cterm=underline
-" highlight clear SpellRare
-" highlight SpellRare term=underline cterm=underline
-" highlight clear SpellLocal
-" highlight SpellLocal term=underline cterm=underline
 
 " 80 characters line
 set colorcolumn=81
@@ -628,15 +613,15 @@ inoremap <F12> <C-o>:syntax sync fromstart<CR>
 " File Type Custom Settings
 "==========================================
 " {
-autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
+autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp,*.cc
             \ set tabstop=4 |
             \ set shiftwidth=4 |
             \ set softtabstop=4 |
-            \ set textwidth=80 |
+            \ set textwidth=120 |
             \ set expandtab ! |
             \ set foldmethod=syntax |
 
-autocmd BufNewFile,BufRead *.ini,*.conf
+autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg
             \ set filetype=dosini
 
 autocmd BufNewFile,BufRead *.tex
@@ -650,14 +635,15 @@ autocmd BufNewFile,BufRead *.lua
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set filetype=markdown |
             \ set textwidth=170 |
-            \ set tabstop=2 |
-            \ set shiftwidth=2 |
-            \ set softtabstop=2 |
+            \ set tabstop=4 |
+            \ set shiftwidth=4 |
+            \ set softtabstop=4 |
             \ set spell |
 
 autocmd BufNewFile,BufRead *.py
             \ set filetype=python |
-            \ set textwidth=80 |
+            \ set textwidth=120 |
+            \ set expandtab |
 
 autocmd BufNewFile,BufRead *.rst
             \ set textwidth=120 |

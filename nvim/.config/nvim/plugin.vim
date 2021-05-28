@@ -132,11 +132,13 @@ endif
 
 if count(g:bundle_groups, 'general_programming')
 
+    " - MARK: Will explore the built-in LSP client in neovim when 0.5 is officially released.
+
     " - Async Language Server Protocol plugin for vim8 and neovim
     Plug 'prabirshrestha/vim-lsp'
     " call lsp#enable() to enable it.
     let g:lsp_auto_enable = 1
-    " disable diagnostics support
+    " disable diagnostics support, I use ale instead.
     let g:lsp_diagnostics_enabled = 0
     " let lsp automatically handle folding.
     set foldmethod=expr
@@ -185,15 +187,7 @@ if count(g:bundle_groups, 'general_programming')
         let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
         let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
     endif
-    " if executable('cscope')
-    "     let g:gutentags_modules += ['cscope']
-    " endif
-    "if executable('gtags-cscope') && executable('gtags')
-    "    let g:gutentags_modules += ['gtags_cscope']
-    "    let g:gutentags_auto_add_gtags_cscope = 0
-    "endif
-
-    " put tags file to the cache directory
+    " put tags file to the tmpfs cache directory
     let s:vim_tags = expand('~/.cache/tags')
     let g:gutentags_cache_dir = s:vim_tags
     if !isdirectory(s:vim_tags)
@@ -208,6 +202,7 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'tpope/vim-commentary'
 
     " - Code search, view with edit mode
+    "   It is used mainly for refactorring.
     Plug 'dyng/ctrlsf.vim'
     " --- mappings ---
     nmap <C-P>f <Plug>CtrlSFPrompt
@@ -267,13 +262,13 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
     " - Autocomplete framework
+    "   Maybe need to move to another more lightweight framework for neovim's built-in LSP.
     " Async completion in pure vim script for vim8 and neovim
     Plug 'prabirshrestha/asyncomplete.vim'
     inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
     inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
     let g:asyncomplete_auto_popup = 0
-
     " disable auto-popup, use tab to show autocomplete.
     function! s:check_back_space() abort
         let col = col('.') - 1
@@ -307,9 +302,6 @@ if count(g:bundle_groups, 'c_cpp')
     " - Simplify Doxygen documentation
     Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c', 'cpp'] }
     let g:DoxygenToolkit_briefTag_funcName = "yes"
-
-    "- Additional Vim syntax highlighting for C++
-    Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['cpp'] }
 endif
 " }
 
@@ -418,135 +410,6 @@ endif
 
 
 " --- Backup ---------------------------------------------- {
-
-    " - Binding to autocompletion library: jedi
-    "   also supports navigation and documentation viewing
-    " Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-    " " -- mappings --
-    " let g:jedi#completions_command = "<C-C>"
-    " " follow identifier as far as possible,
-    " let g:jedi#goto_command = "<leader>d"
-    " " typical goto function
-    " let g:jedi#goto_assignments_command = "<leader>g"
-    " " show documentation
-    " let g:jedi#documentation_command = "K"
-    " " rename in current file
-    " let g:jedi#rename_command = "<leader>r"
-    " " show usages in current file
-    " let g:jedi#usages_command = "<leader>z"
-    " " -- settings --
-    " let g:jedi#auto_initialization = 1
-    " let g:jedi#auto_vim_configuration = 0
-    " " disable auto pop on dot
-    " let g:jedi#popup_on_dot = 0
-    " " default select the first one
-    " let g:jedi#popup_select_first = 1
-    " " close doc after completion
-    " let g:auto_close_doc = 1
-    " " disable function call signatures in insert mode in real-time
-    " let g:jedi#show_call_signatures = 0
-    " " open new split for 'go to' result
-    " let g:jedi#use_splits_not_buffers = "winwidth"
-    " " set python interpreter version
-    " " default use sys.version_info from 'python' in your $PATH
-    " " call jedi#force_py_version(py_version) to set directly
-    " let g:jedi#force_py_version = "auto"
-
-    " - Better folding for python
-    " Plug 'tmhedberg/SimpylFold', { 'for': 'python' }
-    " " show docstring in fold mode
-    " let g:SimpylFold_docstring_preview = 1
-    " " autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-    " " autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
-
-    " Plug 'autozimu/LanguageClient-neovim', {
-    "             \ 'branch': 'next',
-    "             \ 'do': 'bash install.sh',
-    "             \ }
-    " " required for operations modifying multiple buffers like rename.
-    " set hidden
-    " let g:LanguageClient_serverCommands = {
-    "             \ 'c': ['clangd'],
-    "             \ 'cpp': ['clangd'],
-    "             \ 'go': ['gopls'],
-    "             \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-    "             \ 'python': ['/bin/pyls'],
-    "             \ }
-    " let g:LanguageClient_diagnosticsEnable = 0
-    " let g:LanguageClient_fzfContextMenu = 0
-    " let g:LanguageClient_useVirtualText = 0
-
-
-    " - Fuzzy file, buffer and MRU finder
-    " Plug 'ctrlpvim/ctrlp.vim'
-    " " map it to space plus p, use <C-P> for multiple search plugins
-    " let g:ctrlp_map = '<space>p'
-    " let g:ctrlp_cmd = 'CtrlP'
-    " " use the dir of the current file as searching root
-    " " unless it is a subdir of the cwd
-    " let g:ctrlp_working_path_mode = 'a'
-    " let g:ctrlp_match_window_bottom = 1
-    " let g:ctrlp_max_height = 15
-    " " from bottom to top
-    " let g:ctrlp_match_window_reversed = 1
-    " " buffer of most recently used files
-    " let g:ctrlp_mruf_max = 500
-    " let g:ctrlp_follow_symlinks = 1
-    " " use ack as backend if available
-    " if executable('ag')
-    "     " can use a local or global .agignore to ignore files
-    "     let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -f -g ""'
-    " elseif executable('ack')
-    "     let g:ctrlp_user_command = 'ack %s --nocolor -f'
-    " else
-    "     " use default grep, ignore files in .gitignore
-    "     let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-    " endif
-    " " - Extension to ctrlp, for fuzzy command finder
-    " Plug 'fisadev/vim-ctrlp-cmdpalette', { 'on': 'CtrlPCmdPalette' }
-    " nnoremap <C-P>c :CtrlPCmdPalette<CR>
-
-    " - Fast and easy cursor motion
-    " -- inter lines
-    " Plug 'justinmk/vim-sneak'
-    " let g:sneak#label = 1
-    "
-
-    " if has('python') || has('python3')
-    "     " An asynchronous fuzzy finder which is used to quickly locate files, buffers, mrus, tags, etc. in large project.
-    "     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-    "     noremap <m-f> :cclose<cr>:LeaderfFunction!<cr>
-    "     noremap <m-t> :cclose<cr>:LeaderfBufTag!<cr>
-    "     let g:Lf_MruMaxFiles = 2048
-    "     let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-    "     " LeaderF with tags
-    "     let g:Lf_GtagsAutoGenerate = 0
-    "     let g:Lf_WindowPosition = 'popup'
-    " endif
-
-    " - Visually select increasingly larger regions of text
-    " Plug 'terryma/vim-expand-region'
-    " + expand selection
-    " _ shrink selection
-
-    " ISSUE: It slows the moving of the cursor in normal and insert mode...
-    " - Insert mode auto-completion for quotes, parentheses, brackets
-    " Plug 'Raimondi/delimitMate'
-    " au FileType python let b:delimitMate_nesting_quotes = ['"']
-    " au FileType mail let b:delimitMate_expand_inside_quotes = 1
-
-    " Lightweight chained completion
-    " Plug 'lifepillar/vim-mucomplete'
-    " set completeopt+=menuone,noselect,noinsert
-    " shut off completion messages and disable beep
-    " set shortmess+=c
-    " set belloff+=ctrlg
-    " Use MUcompleteAutoToggle to enable/disable it manually.
-    " let g:mucomplete#enable_auto_at_startup = 1
-    " let g:mucomplete#completion_delay = 1
-
-"  }
-
 
 " -------------------- End Config --------------------
 
