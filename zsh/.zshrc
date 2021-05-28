@@ -69,6 +69,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(
     extract
     zsh-completions zsh-autosuggestions
+    z
 )
 
 # Auto load and init completions

@@ -604,7 +604,7 @@ nnoremap <F4> :PreviewTag<CR>
 " F5: Hide everything to have a presentation mode.
 nnoremap <F5> : set relativenumber! number! showmode! showcmd! hidden! ruler!<CR>
 
-" F6: toggle nerdtree file explorer
+" F6: Open nerdtree file explorer
 nnoremap <F6> :NERDTreeMirror<CR>:NERDTreeFocus<CR>
 
 " F7: unused

@@ -89,6 +89,7 @@ if count(g:bundle_groups, 'general')
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
     Plug 'liuchengxu/vim-clap'
     let g:clap_theme = 'material_design_dark'
+    let g:clap_layout = { 'relative': 'editor' }
 
     " - Undo history visualizer
     Plug 'mbbill/undotree', { 'on':  'UndotreeToggle' }
@@ -171,7 +172,7 @@ if count(g:bundle_groups, 'general_programming')
     " - Tags management
     Plug 'ludovicchabant/vim-gutentags'
     set tags=./.tags;,.tags
-    let g:gutentags_enabled = 0
+    let g:gutentags_enabled = 1
     let g:gutentags_generate_on_new = 0
     let g:gutentags_generate_on_write = 0
     let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']

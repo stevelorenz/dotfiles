@@ -1,13 +1,13 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator
 
-#env:
+env:
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for
   # each instance of Alacritty. If it is not present, alacritty will
   # check the local terminfo database and use `alacritty` if it is
   # available, otherwise `xterm-256color` is used.
-  #TERM: xterm-256color
+  TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -23,17 +23,22 @@ window:
   # Blank space added around the window in pixels. This padding is not scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 2
-    y: 2
+    x: 0
+    y: 0
 
   # Window decorations
   #
   # Values for `decorations`:
   #     - full: Borders and title bar
   #     - none: Neither borders nor title bar
-  decorations: none
+  decorations: full
 
   startup_mode: Maximized
+
+  title: Alacritty
+
+  # Not work on Wayland...
+  gtk_theme_variant: dark
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -288,7 +293,7 @@ key_bindings:
   - { key: F8,       mods: Control, chars: "\x1b[19;5~"                  }
   - { key: F9,       mods: Control, chars: "\x1b[20;5~"                  }
   - { key: F10,      mods: Control, chars: "\x1b[21;5~"                  }
-  - { key: F11,      mods: Control, chars: "\x1b[23;5~"                  }
+  - { key: F11,      mods: Control, action: ToggleFullscreen             }
   - { key: F12,      mods: Control, chars: "\x1b[24;5~"                  }
   - { key: F1,       mods: Alt,     chars: "\x1b[1;6P"                   }
   - { key: F2,       mods: Alt,     chars: "\x1b[1;6Q"                   }
