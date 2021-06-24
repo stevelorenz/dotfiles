@@ -1,0 +1,21 @@
+# Full class defination with the rule of five.
+snippet clf "class .. (class)"
+class ${1:`!p snip.rv = snip.basename or "name"`}
+{
+public:
+	${1/(\w+).*/$1/} (${2:arguments});
+	virtual ~${1/(\w+).*/$1/} ();
+
+	// Copy and move constructor
+	${1/(\w+).*/$1/}(const ${1/(\w+).*/$1/} &) = delete;
+	${1/(\w+).*/$1/}(${1/(\w+).*/$1/} &&) = delete;
+
+	// Copy and move operator
+	${1/(\w+).*/$1/} &operator=(const ${1/(\w+).*/$1/} &) = delete;
+	${1/(\w+).*/$1/} &operator=(${1/(\w+).*/$1/} &&) = delete;
+
+
+private:
+	${0:/* data */}
+};
+endsnippet

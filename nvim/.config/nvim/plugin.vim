@@ -57,24 +57,10 @@ endif
 
 if count(g:bundle_groups, 'general')
 
-    " - Status line enhancement
-    " -- lightline: a light and configurable statusline/tabline plugin for Vim
-    Plug 'itchyny/lightline.vim'
-    let g:lightline = {
-                \ 'colorscheme': 'onedark',
-                \ 'active': {
-                \   'left': [ [ 'mode', 'paste' ],
-                \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-                \ },
-                \ 'component_function': {
-                \ },
-                \ }
-
-    " lightline plugin for buffer line
-    Plug 'mengelbrecht/lightline-bufferline'
-    let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
-    let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-    let g:lightline.component_type   = {'buffers': 'tabsel'}
+    " - Lean & mean status/tabline for vim that's light as air
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    let g:airline#extensions#tabline#enabled = 1
 
     " - Built-in directory browser: netrw
     " use tree view
@@ -110,6 +96,9 @@ if count(g:bundle_groups, 'general')
     " - Beakdown VIM's --startuptime output
     Plug 'tweekmonster/startuptime.vim'
 
+    " - A tree explorer plugin for vim.
+    Plug 'preservim/nerdtree'
+
 endif
 
 "  --- }
@@ -122,6 +111,9 @@ if count(g:bundle_groups, 'general_editing')
     " - Handle surroundings
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
+
+    " - True Sublime Text style multiple selections for Vim
+    Plug 'mg979/vim-visual-multi'
 
 endif
 
@@ -145,6 +137,17 @@ if count(g:bundle_groups, 'general_programming')
         \ foldexpr=lsp#ui#vim#folding#foldexpr()
         \ foldtext=lsp#ui#vim#folding#foldtext()
     let g:lsp_highlight_references_enabled = 1
+
+    " Register special language servers if they exist.
+    if executable('ccls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'ccls',
+        \ 'cmd': {server_info->['ccls']},
+        \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+        \ 'initialization_options': {},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+        \ })
+    endif
 
     " - Auto configurations for LSP for vim-lsp
     Plug 'mattn/vim-lsp-settings'
@@ -353,12 +356,9 @@ endif
 " Stable and inactive ones are stored in colors dir
 
 if count(g:bundle_groups, 'colorscheme')
-    Plug 'lifepillar/vim-solarized8'
-    let g:solarized_italics = 0
-
+    Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'joshdick/onedark.vim'
-
-    Plug 'liuchengxu/space-vim-dark'
+    Plug 'lifepillar/vim-solarized8'
 
     if (has("nvim"))
         "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
@@ -378,32 +378,30 @@ endif
 " --- Plugins Under Test ---------------------------------- {
 
 if count(g:bundle_groups, 'test')
-    " On-demand lazy load
+    " - Vim plugin that shows keybindings in popup
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
-    " Vim motions on speed!
+    " - Vim motions on speed!
     Plug 'easymotion/vim-easymotion'
 
-    " True Sublime Text style multiple selections for Vim
-    " Plug 'terryma/vim-multiple-cursors'
-    Plug 'mg979/vim-visual-multi'
-
-    " Underlines the word under the cursor
+    " - Underlines the word under the cursor
     Plug 'itchyny/vim-cursorword'
     let g:cursorword_delay = 400
 
-    " Rainbow parentheses improved
+    " - Rainbow parentheses improved
     Plug 'luochen1990/rainbow'
     " enable it later via :RainbowToggle
     let g:rainbow_active = 0
 
-    " Language Server Protocol snippets in vim using vim-lsp and UltiSnips
+    " - Language Server Protocol snippets in vim using vim-lsp and UltiSnips
     Plug 'thomasfaingnaert/vim-lsp-snippets'
     Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
-    " - A tree explorer plugin for vim.
-    Plug 'preservim/nerdtree'
+    " - Adds file type icons to Vim plugins
+    Plug 'ryanoasis/vim-devicons'
 
+    " - Nvim Treesitter configurations and abstraction layer
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 endif
 
 " --- }

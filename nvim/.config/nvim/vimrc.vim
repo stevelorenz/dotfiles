@@ -592,7 +592,8 @@ nnoremap <F5> : set relativenumber! number! showmode! showcmd! hidden! ruler!<CR
 " F6: Open nerdtree file explorer
 nnoremap <F6> :NERDTreeMirror<CR>:NERDTreeFocus<CR>
 
-" F7: unused
+" F7: Open vim-clap
+nnoremap <F7> :Clap<CR>
 
 " F8: toggle undo tree visualizer
 nnoremap <F8> :UndotreeToggle<CR>
@@ -689,10 +690,21 @@ if has('nvim')
 
     " interactive find replace preview
     set inccommand=nosplit
+
+    " Treesitter related.
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+    highlight = {
+        enable = true,              -- false will disable the whole extension
+        disable = {},  -- list of language that will be disabled
+    },
+}
+EOF
+
 endif
 " ---------------------------------------------------------
 " }
-
+"
 "==========================================
 " Dev Tools Settings
 "==========================================
