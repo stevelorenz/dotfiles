@@ -33,6 +33,7 @@ cmus/.config/cmus/*
 *.AppImage
 bin/bin/nvim
 bin/bin/Joplin
+bin/bin/gdbgui
 # ------------------
 
 # Backup, temp files

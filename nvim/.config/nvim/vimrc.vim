@@ -138,6 +138,7 @@ set nofoldenable  " do not fold by opening file
 set hidden
 
 " tab indent default settings
+set noexpandtab
 set tabstop=4      " noc (number of columns) of each tab
 set shiftwidth=4   " noc for re-indent operations
 set softtabstop=4  " noc for tapping tab key
@@ -216,15 +217,6 @@ if !isdirectory(&directory)
 endif
 if !isdirectory(&undodir)
     call mkdir(&undodir, "p")
-endif
-
-" system clipboard
-if has('clipboard')
-    if has('unnamedplus')  " When possible use + register for copy-paste
-        set clipboard=unnamed,unnamedplus
-    else         " On mac and Windows, use * register for copy-paste
-        set clipboard=unnamed
-    endif
 endif
 
 " new splits
@@ -515,7 +507,7 @@ noremap <leader><leader>c :cclose<bar>lclose<cr>
 " qq to record, Q to replay
 nnoremap Q @q
 
-noremap <leader>f :Clap<cr>
+noremap <leader>f :Clap files<cr>
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
 " auto-close pairs
@@ -619,7 +611,7 @@ autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp,*.cc
             \ set shiftwidth=4 |
             \ set softtabstop=4 |
             \ set textwidth=120 |
-            \ set expandtab ! |
+            \ set noexpandtab |
             \ set foldmethod=syntax |
 
 autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg
@@ -648,17 +640,17 @@ autocmd BufNewFile,BufRead *.py
 
 autocmd BufNewFile,BufRead *.rst
             \ set textwidth=120 |
-            \ set tabstop=2 |
-            \ set shiftwidth=2 |
-            \ set softtabstop=2 |
+            \ set tabstop=4 |
+            \ set shiftwidth=4 |
+            \ set softtabstop=4 |
             \ set spell |
 
 autocmd BufNewFile,BufRead *.js,*.html,*.css
-            \ set expandtab!
+            \ set noexpandtab
 
 autocmd BufNewFile,BufRead *.go
             \ set textwidth=120 |
-            \ set expandtab ! |
+            \ set noexpandtab
 " }
 
 "==========================================
