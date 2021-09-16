@@ -99,6 +99,8 @@ if count(g:bundle_groups, 'general')
     " - A tree explorer plugin for vim.
     Plug 'preservim/nerdtree'
 
+    " - Adds file type icons to Vim plugins
+    Plug 'ryanoasis/vim-devicons'
 endif
 
 "  --- }
@@ -139,6 +141,7 @@ if count(g:bundle_groups, 'general_programming')
     let g:lsp_highlight_references_enabled = 1
 
     " Register special language servers if they exist.
+    " Special language servers are ones that are not managed by vim-lsp-settings
     if executable('ccls')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'ccls',
@@ -268,11 +271,9 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     "   Maybe need to move to another more lightweight framework for neovim's built-in LSP.
     " Async completion in pure vim script for vim8 and neovim
     Plug 'prabirshrestha/asyncomplete.vim'
-    inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-    inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+    " disable autopop up menu and use tap to show the autocomplete
     let g:asyncomplete_auto_popup = 0
-    " disable auto-popup, use tab to show autocomplete.
+
     function! s:check_back_space() abort
         let col = col('.') - 1
         return !col || getline('.')[col - 1]  =~ '\s'
@@ -283,11 +284,12 @@ if count(g:bundle_groups, 'snippet_autocomplete')
         \ <SID>check_back_space() ? "\<TAB>" :
         \ asyncomplete#force_refresh()
     inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+    imap <c-space> <Plug>(asyncomplete_force_refresh)
     " allow modifying the completeopt variable, or it will be overridden all the time.
     let g:asyncomplete_auto_completeopt = 0
     set completeopt=menuone,noinsert,noselect,preview
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-    " completion sources
+    " completion sources, mainly just use the vim-lsp
     Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 endif
@@ -397,11 +399,11 @@ if count(g:bundle_groups, 'test')
     Plug 'thomasfaingnaert/vim-lsp-snippets'
     Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
-    " - Adds file type icons to Vim plugins
-    Plug 'ryanoasis/vim-devicons'
-
     " - Nvim Treesitter configurations and abstraction layer
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+
+    " - Visually select increasingly larger regions of text
+    Plug 'terryma/vim-expand-region'
 endif
 
 " --- }
