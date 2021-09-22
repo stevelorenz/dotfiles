@@ -1,31 +1,9 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 "=========================================
-" About: Plugin Configs for NeoVim
-" Maintainer: Xiang, Zuo
+" About: Plugin Configuration for NeoVIM
+"        Plugins are chosen ONLY for my PERSONAL workflow
+" Maintainer: 相佐 (Zuo Xiang)
 " Email: xianglinks@gmail.com
-" Sections:
-"    -> General
-"    -> General Programming
-"    -> General Editing
-"    -> Snippet and General Auto Complete
-"    -> Programming Language Specific
-"    -> Documentation and Writing
-"    -> Colorscheme
-"    -> Test: plugins under test
-"    -> Backup: configuration backup of currently disabled/removed plugins.
-"
-" Notes:
-"    -> General programming language features are supported by using Language Server Protocol (LSP).
-"       Currently used client plugin is prabirshrestha/vim-lsp.
-"       The Programming Language Specific section includes plugins that provide additional
-"       functions which are not provided by LSP.
-"       Some programming languages use vim-lsp for auto-completion. The omnifunc integration of
-"       Check the configuration of vim-lsp plugin for details.
-"       Vim-lsp-settings plugin is used to install lsp servers.
-"
-" MARK: Currently there are too many plugins and I plan to DISABLE some that are not essential for
-" my daily usage. After some testing, I will remove some of them in the next stable version.
-" "Old" or disabled plugins's configuration is only commented out for potential backwark hopping.
 "=========================================
 
 " - Use Vim-Plug Plugin Manager -
@@ -44,11 +22,6 @@ call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 " remove element in the list to disable a collection of plugins.
 " for example, remove 'python' will disable all plugins in the python section.
 if !exists('g:bundle_groups')
-    " All available groups.
-    "let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-    "            \ 'c_cpp', 'python', 'rust', 'web_frontend', 'text', 'colorscheme', 'test']
-    "
-    " Enabled groups for Zuo's development tasks.
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
                 \ 'c_cpp', 'python', 'rust', 'web_frontend', 'text', 'colorscheme', 'test']
 endif
@@ -73,6 +46,7 @@ if count(g:bundle_groups, 'general')
 
 
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
+    "   TODO: Consider nvim-telescope/telescope.nvim ?
     Plug 'liuchengxu/vim-clap'
     let g:clap_theme = 'material_design_dark'
     let g:clap_layout = { 'relative': 'editor' }
@@ -81,11 +55,8 @@ if count(g:bundle_groups, 'general')
     Plug 'mbbill/undotree', { 'on':  'UndotreeToggle' }
     let g:undotree_SetFocusWhenToggle = 1
 
-    " - Show marks
-    Plug 'kshenoy/vim-signature'
-
     " - Show thin vertical lines at each indentation level for code indented with spaces.
-    Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
+    Plug 'Yggdroot/indentLine'
         autocmd! User indentLine doautocmd indentLine Syntax
     let g:indentLine_color_term = 239
     let g:indentLine_color_gui = '#616161'
@@ -101,6 +72,9 @@ if count(g:bundle_groups, 'general')
 
     " - Adds file type icons to Vim plugins
     Plug 'ryanoasis/vim-devicons'
+
+    " - Nvim Treesitter configurations and abstraction layer
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 
 "  --- }
@@ -126,73 +100,41 @@ endif
 
 if count(g:bundle_groups, 'general_programming')
 
-    " - MARK: Will explore the built-in LSP client in neovim when 0.5 is officially released.
-
-    " - Async Language Server Protocol plugin for vim8 and neovim
-    Plug 'prabirshrestha/vim-lsp'
-    " call lsp#enable() to enable it.
-    let g:lsp_auto_enable = 1
-    " disable diagnostics support, I use ale instead.
-    let g:lsp_diagnostics_enabled = 0
-    " let lsp automatically handle folding.
-    set foldmethod=expr
-        \ foldexpr=lsp#ui#vim#folding#foldexpr()
-        \ foldtext=lsp#ui#vim#folding#foldtext()
-    let g:lsp_highlight_references_enabled = 1
-
-    " keybindings for common functions
-    nmap <buffer> gd <plug>(lsp-definition)
-    nmap <buffer> gs <plug>(lsp-document-symbol-search)
-    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
-    nmap <buffer> gr <plug>(lsp-references)
-    nmap <buffer> gi <plug>(lsp-implementation)
-    nmap <buffer> gt <plug>(lsp-type-definition)
-    nmap <buffer> <leader>rn <plug>(lsp-rename)
-    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
-    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
-    nmap <buffer> K <plug>(lsp-hover)
-    inoremap <buffer> <expr><c-f> lsp#scroll(+4)
-    inoremap <buffer> <expr><c-d> lsp#scroll(-4)
-
-    " Register special language servers if they exist.
-    " Special language servers are ones that are not managed by vim-lsp-settings
-    if executable('ccls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'ccls',
-        \ 'cmd': {server_info->['ccls']},
-        \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
-        \ 'initialization_options': {'cache': {'directory': expand('~/.cache/ccls') }},
-        \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-        \ })
-    endif
-
-    " - Auto configurations for LSP for vim-lsp
-    Plug 'mattn/vim-lsp-settings'
-    " directory to install LSP servers.
-    let g:lsp_settings_servers_dir = "~/.local/share/lsp_servers"
+    " - Built-in lsp related plugins
+    "   These plugins are configured with lua and current Configuration is in ./vimrc.vim
+    "   It does not work when I put the lua <<EOF here
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'kabouzeid/nvim-lspinstall'
+    Plug 'glepnir/lspsaga.nvim'
+    nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+    nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+    nnoremap <silent> K :Lspsaga hover_doc<CR>
+    nnoremap <silent> gh :Lspsaga lsp_finder<CR>
+    nnoremap <silent> gs :Lspsaga signature_help<CR>
+    nnoremap <silent> gr :Lspsaga rename<CR>
+    nnoremap <silent> gd :Lspsaga preview_definition<CR>
 
     " - Asynchronous Lint Engine (ALE)
-    if has('nvim') || v:version >= 800
-        " TODO: Consider if remove ale and use LSP's built-in diagnostics functions
-        Plug 'w0rp/ale'
-        let g:ale_enabled=1
-        let g:ale_sign_column_always = 1
-        " ALE automatically updates the loclist which makes it impossible to
-        " use some other plugins.
-        let g:ale_set_loclist = 0
-        let g:ale_set_quickfix = 1
-        let g:ale_open_list = 0
-        " Trigger linting manually.
-        let g:ale_lint_on_save = 1
-        let g:ale_lint_on_text_changed = 'never'
-        let g:ale_lint_on_enter = 'never'
-    endif
+    " TODO: Consider if remove ale and ONLY use LSP's built-in diagnostics functions
+    Plug 'w0rp/ale'
+    let g:ale_enabled=1
+    let g:ale_sign_column_always = 1
+    " ALE automatically updates the loclist which makes it impossible to
+    " use some other plugins.
+    let g:ale_set_loclist = 0
+    let g:ale_set_quickfix = 1
+    let g:ale_open_list = 0
+    " Trigger linting manually.
+    let g:ale_lint_on_save = 1
+    let g:ale_lint_on_text_changed = 'never'
+    let g:ale_lint_on_enter = 'never'
 
     " - Viewer & Finder for LSP symbols and tags
     Plug 'liuchengxu/vista.vim'
     let g:vista_sidebar_position= 'vertical topleft'
 
     " - Tags management
+    " TODO: Check if ctags is needed with LSP config.
     Plug 'ludovicchabant/vim-gutentags'
     set tags=./.tags;,.tags
     let g:gutentags_enabled = 1
@@ -254,11 +196,8 @@ if count(g:bundle_groups, 'general_programming')
     " - Easy code formatting
     Plug 'sbdchd/neoformat', {'on': 'Neoformat'}
     let g:neoformat_enabled_python = ['black', 'autopep8', 'docformatter']
-
-    " - Preview tags, files and functions
-    Plug 'skywind3000/vim-preview'
-    autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-    autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+    " enable trimmming of trailing whitespace
+    let g:neoformat_basic_format_trim = 1
 
 endif
 
@@ -282,30 +221,9 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     " searching paths
     let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
-    " - Autocomplete framework
-    "   Maybe need to move to another more lightweight framework for neovim's built-in LSP.
-    " Async completion in pure vim script for vim8 and neovim
-    Plug 'prabirshrestha/asyncomplete.vim'
-    " disable autopop up menu and use tap to show the autocomplete
-    let g:asyncomplete_auto_popup = 0
-
-    function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
-    endfunction
-
-    inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ asyncomplete#force_refresh()
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-    imap <c-space> <Plug>(asyncomplete_force_refresh)
-    " allow modifying the completeopt variable, or it will be overridden all the time.
-    let g:asyncomplete_auto_completeopt = 0
-    set completeopt=menuone,noinsert,noselect,preview
-    autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-    " completion sources, mainly just use the vim-lsp
-    Plug 'prabirshrestha/asyncomplete-lsp.vim'
+    " - AutoComplete
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-nvim-lsp'
 
 endif
 
@@ -398,9 +316,6 @@ if count(g:bundle_groups, 'test')
     " - Vim plugin that shows keybindings in popup
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
-    " - Vim motions on speed!
-    Plug 'easymotion/vim-easymotion'
-
     " - Underlines the word under the cursor
     Plug 'itchyny/vim-cursorword'
     let g:cursorword_delay = 400
@@ -410,21 +325,11 @@ if count(g:bundle_groups, 'test')
     " enable it later via :RainbowToggle
     let g:rainbow_active = 0
 
-    " - Language Server Protocol snippets in vim using vim-lsp and UltiSnips
-    Plug 'thomasfaingnaert/vim-lsp-snippets'
-    Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-
-    " - Nvim Treesitter configurations and abstraction layer
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-
     " - Visually select increasingly larger regions of text
     Plug 'terryma/vim-expand-region'
 endif
 
 " --- }
-
-
-" --- Backup ---------------------------------------------- {
 
 " -------------------- End Config --------------------
 

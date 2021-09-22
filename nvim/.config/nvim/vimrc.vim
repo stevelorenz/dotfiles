@@ -1,23 +1,11 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 "==========================================
 " About: Zuo's Configuration File for NeoVIM
-"        Neovim is used for all my program development tasks.
+"        NeoVIM is currently my daily driver for development and writing
 "
-" Maintainer: Xiang, Zuo
+" Maintainer: 相佐 (Zuo Xiang)
 " Email: xianglinks@gmail.com
-" Sections:
-"    -> Initial Plugin
-"    -> General Settings
-"    -> Display Settings
-"    -> File Encode Settings
-"    -> Keyboard Mapping Settings
-"    -> File Type Custom Settings
-"    -> NeoVIM Specific
-"    -> Dev Tools Settings
-"    -> Theme Settings
-"    -> Helper Functions
 "==========================================
-
 
 "==========================================
 " Initial Plugin: Vim-Plug
@@ -27,22 +15,12 @@
 set nocompatible
 
 " use curl to get plug.vim if not exists
-if has('nvim')
-    let vim_plug_path = expand('~/.config/nvim/autoload/plug.vim')
-    if empty(glob(vim_plug_path))
-        silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        autocmd VimEnter * PlugInstall --sync
-        source ~/.config/nvim/vimrc.vim
-    endif
-else
-    let vim_plug_path = expand("~/.vim/autoload/plug.vim")
-    if empty(glob(vim_plug_path))
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-            \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        autocmd VimEnter * PlugInstall --sync
-        source ~/.vimrc
-    endif
+let vim_plug_path = expand('~/.config/nvim/autoload/plug.vim')
+if empty(glob(vim_plug_path))
+    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync
+    source ~/.config/nvim/vimrc.vim
 endif
 
 " enable syntax highlighting
@@ -51,11 +29,7 @@ syntax on
 
 " load plugins and configurations in plugin.vim
 " MARK: comment this part to disable all plugins
-if has('nvim')
-    let plugrc = expand("~/.config/nvim/plugin.vim")
-else
-    let plugrc = expand("~/.vim/plugin.vim")
-endif
+let plugrc = expand("~/.config/nvim/plugin.vim")
 if filereadable(plugrc)
     :execute 'source '.fnameescape(plugrc)
 endif
@@ -78,9 +52,6 @@ set autoread
 set nobackup
 set nowb
 set noswapfile
-
-" no uganda
-set shortmess=atI
 
 " correct backspace
 set backspace=eol,start,indent
@@ -198,15 +169,12 @@ set lazyredraw
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
-" better swap, backup and undo storage
-" neovim also put these files in .vim/dirs
-set directory=~/.vim/dirs/tmp
-set backupdir=~/.vim/dirs/backups
 " persistent undos
+" default path for undo files: "$XDG_DATA_HOME/nvim/undo//"
+" XDG_DATA_HOME: ~/.local/share/
 set undofile
 set undolevels=1000      " maximum number of changes that can be undone
 set undoreload=10000     " maximum number lines to save for undo on a buffer reload
-set undodir=~/.vim/dirs/undos
 
 " create needed directories if they don't exist
 if !isdirectory(&backupdir)
@@ -324,25 +292,6 @@ if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
 else
     colorscheme onedark
 endif
-
-" GUI specific {
-if has('gui_running')
-    set guifont=Monaco\ 10
-    set guicursor=a:blinkon0
-    set gcr=a:block-blinkon0
-    " hide menu bars
-    set guioptions-=l
-    set guioptions-=L
-    set guioptions-=r
-    set guioptions-=R
-    set guioptions-=m
-    set guioptions-=T
-    set guitablabel=%M\ %t
-    set showtabline=2
-    set linespace=2
-    set noimd
-endif
-" }
 
 " 80 characters line
 set colorcolumn=81
@@ -510,21 +459,11 @@ nnoremap Q @q
 noremap <leader>f :Clap files<cr>
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
-" auto-close pairs
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
-
 " Open tags in new tab and new vertical split
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " === Tab and Buffer===
-" ---------------------------------------------------------
 " --- Buffer---
 " list all buffers
 nnoremap <leader>l :ls<CR>
@@ -561,16 +500,11 @@ nnoremap <leader>tp :tabprev<cr>
 nnoremap <leader>te :tabedit<cr>
 nnoremap <leader>td :tabclose<cr>
 nnoremap <leader>tm :tabm<cr>
-" ---------------------------------------------------------
 
 " === F1 - F10 ===
-" ---------------------------------------------------------
 " F1: avoid to open help info
 nnoremap <F1> :echo<CR>
 inoremap <F1> <C-o>:echo<CR>
-
-" F2: toggle line number
-nnoremap <F2> :call HideNumber()<CR>
 
 " F3: toggle syntax highlight
 nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
@@ -599,14 +533,13 @@ nnoremap <F10> :Vista!!<CR>
 " F12: Reload sytax highlighting
 noremap <F12> <Esc>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
-" ---------------------------------------------------------
 " }
 
 "==========================================
 " File Type Custom Settings
 "==========================================
 " {
-autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp,*.cc
+autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp,*.cc,*.cxx
             \ set tabstop=4 |
             \ set shiftwidth=4 |
             \ set softtabstop=4 |
@@ -627,7 +560,7 @@ autocmd BufNewFile,BufRead *.lua
 
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set filetype=markdown |
-            \ set textwidth=170 |
+            \ set textwidth=120 |
             \ set tabstop=4 |
             \ set shiftwidth=4 |
             \ set softtabstop=4 |
@@ -657,83 +590,120 @@ autocmd BufNewFile,BufRead *.go
 " Neovim Specific
 "==========================================
 " {
-if has('nvim')
-    " Neovim Python integration
-    " disable Python2 support
-    let g:loaded_python_provider = 0
-    let g:python_host_prog = '/usr/bin/python2'
-    let g:python3_host_prog = '/usr/bin/python3'
+" Neovim Python integration
+" disable Python2 support
+let g:loaded_python_provider = 0
+let g:python_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python3'
 
-    " terminal emulator key-mapping
-    " ---------------------------------------------------------
-    " esc for changing terminal to normal mode
-    tnoremap <Esc> <C-\><C-n>
+" terminal emulator key-mapping
+" esc for changing terminal to normal mode
+tnoremap <Esc> <C-\><C-n>
 
-    " using `alt + {h,j,k,l}` to navigate between windows
-    " include terminal windows
-    tnoremap <A-h> <C-\><C-n><C-w>h
-    tnoremap <A-j> <C-\><C-n><C-w>j
-    tnoremap <A-k> <C-\><C-n><C-w>k
-    tnoremap <A-l> <C-\><C-n><C-w>l
-    nnoremap <A-h> <C-w>h
-    nnoremap <A-j> <C-w>j
-    nnoremap <A-k> <C-w>k
-    nnoremap <A-l> <C-w>l
+" using `alt + {h,j,k,l}` to navigate between windows
+" include terminal windows
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-l> <C-\><C-n><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
 
-    " interactive find replace preview
-    set inccommand=nosplit
-
-    " Treesitter related.
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-    highlight = {
-        enable = true,              -- false will disable the whole extension
-        disable = {},  -- list of language that will be disabled
-    },
-}
-EOF
-
-endif
-" ---------------------------------------------------------
+" interactive find replace preview
+set inccommand=nosplit
 " }
-"
+
 "==========================================
-" Dev Tools Settings
+" Lua Configuration
 "==========================================
 " {
-" Gtags {
-let $GTAGSLABEL = 'native-pygments'
-let $GTAGSCONF = expand('~/.gtags.conf')
-" }
+lua <<EOF
+-- setup nvim treesitter
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = {"c", "cpp", "go", "lua", "python", "rust"},
+    highlight = {
+        enable = true,  -- false will disable the whole extension
+        disable = {},   -- list of language that will be disabled
+    },
+}
 
+-- setup built-in lsp client support
+-- lspinstall plugin is used to install and setup servers
+local on_attach = function(client, bufnr)
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+end
+
+local function setup_servers()
+    require'lspinstall'.setup()
+    local servers = require'lspinstall'.installed_servers()
+    -- add extra servers
+    table.insert(servers, "ccls")
+    for _, server in pairs(servers) do
+        require'lspconfig'[server].setup{}
+    end
+end
+
+setup_servers()
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+    setup_servers()
+    vim.cmd("bufdo e")
+end
+
+-- init lsp saga
+local saga = require 'lspsaga'
+saga.init_lsp_saga()
+
+-- setup autocompletion
+-- copy/paste from https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
+local cmp = require 'cmp'
+cmp.setup {
+    completion = {
+        -- not perform autocompletion, use cmp.mapping.complete() to trigger completion.
+        autocomplete = false,
+        completeopt = 'menu,menuone,noinsert',
+    },
+    mapping = {
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        },
+        ['<Tab>'] = function(fallback)
+            if vim.fn.pumvisible() == 1 then
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+            else
+                fallback()
+            end
+        end,
+        ['<S-Tab>'] = function(fallback)
+            if vim.fn.pumvisible() == 1 then
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+            else
+                fallback()
+            end
+        end,
+  },
+  sources = {
+      { name = 'nvim_lsp' },
+  },
+}
+EOF
 " }
 
 "==========================================
 " Helper Functions
 "==========================================
 " {
-" General {
-" toggle line number type
-function! NumberToggle()
-    if(&relativenumber == 1)
-        set norelativenumber number
-    else
-        set relativenumber
-    endif
-endfunc
-
-" hide line number
-function! HideNumber()
-    if(&relativenumber == &number)
-        set relativenumber! number!
-    elseif(&number)
-        set number!
-    else
-        set relativenumber!
-    endif
-    set number?
-endfunc
-
 " removes trailing spaces
 function! TrimWhiteSpace()
     %s/\s\+$//e
@@ -761,15 +731,6 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
-" h, hpp header file add gates
-function! s:insert_gates()
-    let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
-    execute "normal! i#ifndef " . gatename
-    execute "normal! o#define " . gatename . " "
-    execute "normal! Go#endif /* " . gatename . " */"
-    normal! kk
-endfunction
-
 " don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
@@ -790,61 +751,4 @@ function! <SID>BufcloseCloseIt()
         execute("bdelete! ".l:currentBufNum)
     endif
 endfunction
-
-" replace function.
-" - confirm: if confirm for every replace
-" - wholeword: if match the whole word
-" - replace: string to be replaced
-function! Replace(confirm, wholeword, replace)
-    wa
-    let flag = ''
-    if a:confirm
-        let flag .= 'gec'
-    else
-        let flag .= 'ge'
-    endif
-    let search = ''
-    if a:wholeword
-        let search .= '\<' . escape(expand('<cword>'), '/\.*$^~[') . '\>'
-    else
-        let search .= expand('<cword>')
-    endif
-    let replace = escape(a:replace, '/\&~')
-    execute 'argdo %s/' . search . '/' . replace . '/' . flag . '| update'
-endfunction
-
-" toggle background, only used for presentation
-function! ToggleBG()
-    let s:tbg = &background
-    " Inversion
-    if s:tbg == "dark"
-        set background=light
-    else
-        set background=dark
-    endif
-endfunction
-" }
-
-" Dev {
-" generate database for ctags and cscope
-function! GeDBCC()
-    !find ./ -name "*.c" -o -name "*.h" > ./cscope.files
-    " -b: quite mode
-    " -q: generate cscope.in.out and cscope.po.out to make it faster
-    !cscope -Rbq -i ./cscope.files
-    !ctags -R --exclude=.git
-endfunction
-
-" extract variable
-function! ExtractVariable()
-    let name = input("Variable name: ")
-    if name == ''
-        return
-    endif
-    normal! gv
-    exec "normal c" . name
-    exec "normal! O" . name . " = "
-    normal! $p
-endfunction
-" }
 " }

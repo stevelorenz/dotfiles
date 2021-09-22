@@ -77,7 +77,6 @@ source $ZSH/oh-my-zsh.sh
 autoload -U compinit && compinit
 # ----------------------------------------------------------
 
-
 # Custom Configuration
 # ----------------------------------------------------------
 # Set language environment
@@ -120,7 +119,7 @@ fi
 
 # GO PATH
 export GOPATH="$HOME/.go"
-export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
 
 # Ruby PATH
 export RUBYPATH="$HOME/.gem/ruby/2.6.0/"
