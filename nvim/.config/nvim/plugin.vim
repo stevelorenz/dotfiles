@@ -34,6 +34,7 @@ if count(g:bundle_groups, 'general')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     let g:airline#extensions#tabline#enabled = 1
+    let g:airline_theme='onedark'
 
     " - Built-in directory browser: netrw
     " use tree view
@@ -75,6 +76,11 @@ if count(g:bundle_groups, 'general')
 
     " - Nvim Treesitter configurations and abstraction layer
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+    " - Rainbow parentheses improved
+    Plug 'luochen1990/rainbow'
+    " enable it later via :RainbowToggle
+    let g:rainbow_active = 0
 endif
 
 "  --- }
@@ -102,7 +108,7 @@ if count(g:bundle_groups, 'general_programming')
 
     " - Built-in lsp related plugins
     "   These plugins are configured with lua and current Configuration is in ./vimrc.vim
-    "   It does not work when I put the lua <<EOF here
+    "   It does not work when I put the lua <<EOF in ./vimrc.vim
     Plug 'neovim/nvim-lspconfig'
     Plug 'kabouzeid/nvim-lspinstall'
     Plug 'glepnir/lspsaga.nvim'
@@ -115,7 +121,6 @@ if count(g:bundle_groups, 'general_programming')
     nnoremap <silent> gd :Lspsaga preview_definition<CR>
 
     " - Asynchronous Lint Engine (ALE)
-    " TODO: Consider if remove ale and ONLY use LSP's built-in diagnostics functions
     Plug 'w0rp/ale'
     let g:ale_enabled=1
     let g:ale_sign_column_always = 1
@@ -319,11 +324,6 @@ if count(g:bundle_groups, 'test')
     " - Underlines the word under the cursor
     Plug 'itchyny/vim-cursorword'
     let g:cursorword_delay = 400
-
-    " - Rainbow parentheses improved
-    Plug 'luochen1990/rainbow'
-    " enable it later via :RainbowToggle
-    let g:rainbow_active = 0
 
     " - Visually select increasingly larger regions of text
     Plug 'terryma/vim-expand-region'

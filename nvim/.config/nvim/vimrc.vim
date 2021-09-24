@@ -20,7 +20,7 @@ if empty(glob(vim_plug_path))
     silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync
-    source ~/.config/nvim/vimrc.vim
+    source $MYVIMRC
 endif
 
 " enable syntax highlighting
@@ -28,7 +28,6 @@ syntax enable
 syntax on
 
 " load plugins and configurations in plugin.vim
-" MARK: comment this part to disable all plugins
 let plugrc = expand("~/.config/nvim/plugin.vim")
 if filereadable(plugrc)
     :execute 'source '.fnameescape(plugrc)
@@ -60,14 +59,6 @@ set backspace=eol,start,indent
 set whichwrap=b,s,h,l,<,>,[,]
 " do not automatically wrap text when typing
 set formatoptions-=t
-
-" show contents on screen after exit
-set t_ti= t_te=
-
-" to fix vim-multicurse selection bug
-" the character under cursor will also be selected
-set selection=inclusive
-set selectmode=key
 
 " enable mouse and hide mouse while typing
 set mouse=a
@@ -118,25 +109,6 @@ set smarttab       " insert tabs on the start of a line according to shiftwidth,
 set shiftround     " use multiple of shift width when indenting with '<' and '>'
 set autoindent     " indent at the same level of the previous line
 
-" - completeopt: A comma separated list of options for insert mode completion
-" menu: Use a popup menu to show the possible completions.
-" menuone: Use menu also when there is only one match.
-" noinsert and noselect: force user to select and insert text
-set completeopt=menu,menuone,noinsert,noselect
-
-" - keyword completion
-" do not scan included files
-set complete-=i
-
-" - built-in Omni completion
-" use SyntaxComplete for filetype that does not have specific OMNI script
-if has("autocmd") && exists("+omnifunc")
-    autocmd Filetype *
-                \ if &omnifunc == "" |
-                \ setlocal omnifunc=syntaxcomplete#Complete |
-                \ endif
-endif
-
 " use single line to show the completion in command line
 set wildmenu
 
@@ -152,11 +124,6 @@ set smartcase
 " e.g. (ctrl + F + n), the wait time after enter ctrl + f is set with ttimeoutlen
 set ttimeout
 set ttimeoutlen=100
-
-" delete comment character when joining commented lines
-if v:version > 703 || v:version == 703 && has("patch541")
-    set formatoptions+=j
-endif
 
 " :W sudo saves the file (useful for handling the permission-denied error)
 command! W w !sudo tee % > /dev/null
@@ -176,27 +143,9 @@ set undofile
 set undolevels=1000      " maximum number of changes that can be undone
 set undoreload=10000     " maximum number lines to save for undo on a buffer reload
 
-" create needed directories if they don't exist
-if !isdirectory(&backupdir)
-    call mkdir(&backupdir, "p")
-endif
-if !isdirectory(&directory)
-    call mkdir(&directory, "p")
-endif
-if !isdirectory(&undodir)
-    call mkdir(&undodir, "p")
-endif
-
 " new splits
 set splitright " puts new vsplit windows to the right of the current
 set splitbelow " puts new split windows to the bottom of the current
-
-" treat dash separated words as a word text object
-set iskeyword+=-
-
-" make scrolling faster
-set ttyfast
-set lazyredraw
 
 " cursor can be positioned where there is no actual character
 set virtualedit=all
@@ -207,13 +156,11 @@ set autowrite
 " always report changed lines
 set report=0
 
-" ignore pattern for expanding wildcards
-set wildignore+=*swp,*.class,*.pyc
-set wildignore+=*/tmp/*,*.o,*.obj,*.so     " Unix
-set wildignore+=*\\tmp\\*,*.exe            " Windows
-
 " enable built-in debugger
 packadd termdebug
+
+" use system clipboard by default
+set clipboard+=unnamedplus
 " }
 
 "==========================================
@@ -293,8 +240,7 @@ else
     colorscheme onedark
 endif
 
-" 80 characters line
-set colorcolumn=81
+set colorcolumn=120
 
 " always show the sign column
 set signcolumn=yes
@@ -308,21 +254,6 @@ let g:tex_conceal = ""
 set list
 " display extra whitespace
 set listchars=tab:→\ ,eol:↵,trail:·,extends:↷,precedes:↶
-
-" highlight fenced code blocks in markdown
-let g:markdown_fenced_languages = [
-            \ 'html',
-            \ 'vim',
-            \ 'js=javascript',
-            \ 'json',
-            \ 'python',
-            \ 'ruby',
-            \ 'sql',
-            \ 'bash=sh'
-            \ ]
-
-" enable folding in bash files
-let g:sh_fold_enabled=1
 
 " always show tabline
 set showtabline=2
@@ -342,6 +273,7 @@ set encoding=utf-8
 set fileencoding=utf-8
 " alternative list of encodings
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+set emoji
 
 " help texts
 set helplang=en
@@ -370,20 +302,6 @@ inoremap jk <Esc>
 xnoremap jk <Esc>
 cnoremap jk <C-c>
 
-" delete lines (not cut)
-nnoremap <leader><leader>x "_dd
-vnoremap <leader><leader>x "_dd
-
-" mimic emacs line editing in insert mode
-inoremap <C-A> <Home>
-inoremap <C-B> <Left>
-inoremap <C-E> <End>
-inoremap <C-F> <Right>
-inoremap <C-K> <Esc>lDa
-inoremap <C-U> <Esc>d0xi
-inoremap <C-Y> <Esc>Pa
-inoremap <C-X><C-S> <Esc>:w<CR>a
-
 " command line shortcut, emacs like
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
@@ -400,12 +318,6 @@ nnoremap gk k
 nnoremap j gj
 nnoremap gj j
 
-" select all in visual mode
-nnoremap <leader>sa ggVG"
-
-" copy all to system clipboard
-nnoremap <leader><leader>ca :%y+<CR>
-
 " change window size
 " horizontal: = -
 " vertical: , .
@@ -420,11 +332,6 @@ nnoremap <silent> N Nzz
 nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
-
-" add empty lines
-" i.e. use 5[<space> to add 5 empty lines above current line
-nnoremap [<space>  :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[
-nnoremap ]<space>  :<c-u>put =repeat(nr2char(10), v:count1)<cr>
 
 " toggle spell checking
 noremap <leader>ss :setlocal spell!<cr>
@@ -479,28 +386,6 @@ nnoremap <leader>bd :Bclose<cr>:tabclose<cr>gT
 " close all buffers
 nnoremap <leader>ba :bufdo bd<cr>
 
-" quick switching with buffer number
-nnoremap <leader>1 :b 1<CR>
-nnoremap <leader>2 :b 2<CR>
-nnoremap <leader>3 :b 3<CR>
-nnoremap <leader>4 :b 4<CR>
-nnoremap <leader>5 :b 5<CR>
-nnoremap <leader>6 :b 6<CR>
-nnoremap <leader>7 :b 7<CR>
-nnoremap <leader>8 :b 8<CR>
-nnoremap <leader>9 :b 9<CR>
-
-" --- Tab ---
-nnoremap <leader>th :tabfirst<cr>
-nnoremap <leader>tl :tablast<cr>
-nnoremap <leader>tj :tabnext<cr>
-nnoremap <leader>tk :tabprev<cr>
-nnoremap <leader>tn :tabnext<cr>
-nnoremap <leader>tp :tabprev<cr>
-nnoremap <leader>te :tabedit<cr>
-nnoremap <leader>td :tabclose<cr>
-nnoremap <leader>tm :tabm<cr>
-
 " === F1 - F10 ===
 " F1: avoid to open help info
 nnoremap <F1> :echo<CR>
@@ -540,11 +425,6 @@ inoremap <F12> <C-o>:syntax sync fromstart<CR>
 "==========================================
 " {
 autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp,*.cc,*.cxx
-            \ set tabstop=4 |
-            \ set shiftwidth=4 |
-            \ set softtabstop=4 |
-            \ set textwidth=120 |
-            \ set noexpandtab |
             \ set foldmethod=syntax |
 
 autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg
@@ -552,38 +432,14 @@ autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg
 
 autocmd BufNewFile,BufRead *.tex
             \ set filetype=tex |
-            \ set textwidth=120 |
             \ set spell |
-
-autocmd BufNewFile,BufRead *.lua
-            \ let g:lua_complete_omni=1
 
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set filetype=markdown |
-            \ set textwidth=120 |
-            \ set tabstop=4 |
-            \ set shiftwidth=4 |
-            \ set softtabstop=4 |
             \ set spell |
 
 autocmd BufNewFile,BufRead *.py
-            \ set filetype=python |
-            \ set textwidth=120 |
             \ set expandtab |
-
-autocmd BufNewFile,BufRead *.rst
-            \ set textwidth=120 |
-            \ set tabstop=4 |
-            \ set shiftwidth=4 |
-            \ set softtabstop=4 |
-            \ set spell |
-
-autocmd BufNewFile,BufRead *.js,*.html,*.css
-            \ set noexpandtab
-
-autocmd BufNewFile,BufRead *.go
-            \ set textwidth=120 |
-            \ set noexpandtab
 " }
 
 "==========================================
@@ -595,21 +451,6 @@ autocmd BufNewFile,BufRead *.go
 let g:loaded_python_provider = 0
 let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = '/usr/bin/python3'
-
-" terminal emulator key-mapping
-" esc for changing terminal to normal mode
-tnoremap <Esc> <C-\><C-n>
-
-" using `alt + {h,j,k,l}` to navigate between windows
-" include terminal windows
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-l> <C-\><C-n><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
 
 " interactive find replace preview
 set inccommand=nosplit
@@ -698,6 +539,9 @@ cmp.setup {
   },
 }
 EOF
+
+" disable diagnostics entirely, use ale to do it on-demand
+lua vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 " }
 
 "==========================================
