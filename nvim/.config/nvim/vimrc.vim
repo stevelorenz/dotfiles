@@ -85,13 +85,6 @@ autocmd BufReadPost *
 
 " default folding settings
 set foldenable
-" foldmethod:
-" - manual
-" - indent
-" - expr
-" - syntax
-" - diff
-" - marker
 set foldmethod=indent
 set foldlevel=99
 set nofoldenable  " do not fold by opening file
@@ -232,13 +225,8 @@ endif
 
 " use dark background
 set background=dark
-" use 256 colors when possible
-if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
-    let &t_Co = 256
-    colorscheme onedark
-else
-    colorscheme onedark
-endif
+let &t_Co = 256
+colorscheme onedark
 
 set colorcolumn=120
 
@@ -364,7 +352,6 @@ noremap <leader><leader>c :cclose<bar>lclose<cr>
 nnoremap Q @q
 
 noremap <leader>f :Clap files<cr>
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
 " Open tags in new tab and new vertical split
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
@@ -372,15 +359,9 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " === Tab and Buffer===
 " --- Buffer---
-" list all buffers
-nnoremap <leader>l :ls<CR>
 " switch buffer
-nnoremap [b :bprevious<CR>
-nnoremap ]b :bnext<CR>
 noremap <C-left> :bprevious<CR>
 noremap <C-right> :bnext<CR>
-nnoremap ]B :blast<CR>
-nnoremap [B :bfirst<CR>
 " close the current buffer
 nnoremap <leader>bd :Bclose<cr>:tabclose<cr>gT
 " close all buffers
@@ -393,9 +374,6 @@ inoremap <F1> <C-o>:echo<CR>
 
 " F3: toggle syntax highlight
 nnoremap <F3> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
-
-" F4: Preview a tag circularly
-nnoremap <F4> :PreviewTag<CR>
 
 " F5: Hide everything to have a presentation mode.
 nnoremap <F5> : set relativenumber! number! showmode! showcmd! hidden! ruler!<CR>
@@ -429,6 +407,7 @@ autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp,*.cc,*.cxx
 
 autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg
             \ set filetype=dosini
+            \ set spell |
 
 autocmd BufNewFile,BufRead *.tex
             \ set filetype=tex |
@@ -446,102 +425,13 @@ autocmd BufNewFile,BufRead *.py
 " Neovim Specific
 "==========================================
 " {
-" Neovim Python integration
-" disable Python2 support
+" disable Python2 support, use python3
 let g:loaded_python_provider = 0
 let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = '/usr/bin/python3'
 
 " interactive find replace preview
 set inccommand=nosplit
-" }
-
-"==========================================
-" Lua Configuration
-"==========================================
-" {
-lua <<EOF
--- setup nvim treesitter
-require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"c", "cpp", "go", "lua", "python", "rust"},
-    highlight = {
-        enable = true,  -- false will disable the whole extension
-        disable = {},   -- list of language that will be disabled
-    },
-}
-
--- setup built-in lsp client support
--- lspinstall plugin is used to install and setup servers
-local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-end
-
-local function setup_servers()
-    require'lspinstall'.setup()
-    local servers = require'lspinstall'.installed_servers()
-    -- add extra servers
-    table.insert(servers, "ccls")
-    for _, server in pairs(servers) do
-        require'lspconfig'[server].setup{}
-    end
-end
-
-setup_servers()
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-    setup_servers()
-    vim.cmd("bufdo e")
-end
-
--- init lsp saga
-local saga = require 'lspsaga'
-saga.init_lsp_saga()
-
--- setup autocompletion
--- copy/paste from https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
-local cmp = require 'cmp'
-cmp.setup {
-    completion = {
-        -- not perform autocompletion, use cmp.mapping.complete() to trigger completion.
-        autocomplete = false,
-        completeopt = 'menu,menuone,noinsert',
-    },
-    mapping = {
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-        },
-        ['<Tab>'] = function(fallback)
-            if vim.fn.pumvisible() == 1 then
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
-            else
-                fallback()
-            end
-        end,
-        ['<S-Tab>'] = function(fallback)
-            if vim.fn.pumvisible() == 1 then
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
-            else
-                fallback()
-            end
-        end,
-  },
-  sources = {
-      { name = 'nvim_lsp' },
-  },
-}
-EOF
-
-" disable diagnostics entirely, use ale to do it on-demand
-lua vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 " }
 
 "==========================================

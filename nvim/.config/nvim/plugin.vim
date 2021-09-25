@@ -47,7 +47,6 @@ if count(g:bundle_groups, 'general')
 
 
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
-    "   TODO: Consider nvim-telescope/telescope.nvim ?
     Plug 'liuchengxu/vim-clap'
     let g:clap_theme = 'material_design_dark'
     let g:clap_layout = { 'relative': 'editor' }
@@ -61,9 +60,6 @@ if count(g:bundle_groups, 'general')
         autocmd! User indentLine doautocmd indentLine Syntax
     let g:indentLine_color_term = 239
     let g:indentLine_color_gui = '#616161'
-
-    " - Enhancing in-buffer search experience
-    Plug 'junegunn/vim-slash'
 
     " - Beakdown VIM's --startuptime output
     Plug 'tweekmonster/startuptime.vim'
@@ -139,7 +135,7 @@ if count(g:bundle_groups, 'general_programming')
     let g:vista_sidebar_position= 'vertical topleft'
 
     " - Tags management
-    " TODO: Check if ctags is needed with LSP config.
+    " TODO: Check if ctags is still needed with LSP config.
     Plug 'ludovicchabant/vim-gutentags'
     set tags=./.tags;,.tags
     let g:gutentags_enabled = 1
@@ -283,7 +279,6 @@ endif
 
 " --- Documentation and Writing --------------------------- {
 
-" - Editing latex files
 if count(g:bundle_groups, 'text')
 endif
 
@@ -300,16 +295,8 @@ if count(g:bundle_groups, 'colorscheme')
     Plug 'joshdick/onedark.vim'
     Plug 'lifepillar/vim-solarized8'
 
-    if (has("nvim"))
-        "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    endif
-    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-    if (has("termguicolors"))
-        set termguicolors
-    endif
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    set termguicolors
 endif
 
 " --- }
@@ -318,20 +305,107 @@ endif
 " --- Plugins Under Test ---------------------------------- {
 
 if count(g:bundle_groups, 'test')
-    " - Vim plugin that shows keybindings in popup
-    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-
     " - Underlines the word under the cursor
     Plug 'itchyny/vim-cursorword'
     let g:cursorword_delay = 400
 
     " - Visually select increasingly larger regions of text
     Plug 'terryma/vim-expand-region'
+
 endif
 
 " --- }
-
-" -------------------- End Config --------------------
-
+"
 " Load plugins
 call plug#end()
+
+"==========================================
+" Lua Plugin Configuration
+"==========================================
+" MARK: lua configs must be added after `call plug#end()`
+" {
+lua <<EOF
+-- setup nvim treesitter
+require'nvim-treesitter.configs'.setup {
+    ensure_installed = {"c", "cpp", "go", "lua", "python", "rust"},
+    highlight = {
+        enable = true,  -- false will disable the whole extension
+        disable = {},   -- list of language that will be disabled
+    },
+}
+
+-- setup built-in lsp client support
+-- lspinstall plugin is used to install and setup servers
+local on_attach = function(client, bufnr)
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+end
+
+local function setup_servers()
+    require'lspinstall'.setup()
+    local servers = require'lspinstall'.installed_servers()
+    -- add extra servers
+    table.insert(servers, "ccls")
+    for _, server in pairs(servers) do
+        require'lspconfig'[server].setup{}
+    end
+end
+
+setup_servers()
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+    setup_servers()
+    vim.cmd("bufdo e")
+end
+
+-- init lsp saga
+local saga = require 'lspsaga'
+saga.init_lsp_saga()
+
+-- setup autocompletion
+-- copy/paste from https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
+local cmp = require 'cmp'
+cmp.setup {
+    completion = {
+        -- not perform autocompletion, use cmp.mapping.complete() to trigger completion.
+        autocomplete = false,
+        completeopt = 'menu,menuone,noinsert',
+    },
+    mapping = {
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true,
+        },
+        ['<Tab>'] = function(fallback)
+            if vim.fn.pumvisible() == 1 then
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+            else
+                fallback()
+            end
+        end,
+        ['<S-Tab>'] = function(fallback)
+            if vim.fn.pumvisible() == 1 then
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+            else
+                fallback()
+            end
+        end,
+  },
+  sources = {
+      { name = 'nvim_lsp' },
+  },
+}
+EOF
+
+" disable diagnostics entirely, use ale to do it on-demand
+lua vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+" }
+" -------------------- End Config --------------------
+
