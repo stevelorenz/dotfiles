@@ -406,7 +406,7 @@ autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp,*.cc,*.cxx
             \ set foldmethod=syntax |
 
 autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg
-            \ set filetype=dosini
+            \ set filetype=dosini |
             \ set spell |
 
 autocmd BufNewFile,BufRead *.tex
