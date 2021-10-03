@@ -1,20 +1,3 @@
-# ================================================
-# ZSH Configuration File
-#   > Uses robbyrussell/oh-my-zsh framework
-#
-# Custom Aliases:
-#   > Source ~/.custom_aliases.sh file
-#
-# General Custom Plugins:
-#     -> fzf: Fast fuzzy finder
-#          source ~/.fzf.zsh
-#
-# ZSH Custom Plugins:
-#   > Uses oh-my-zsh custom plugins support: ~/.oh-my-zsh/custom/plugins/
-#     -> zsh-completions: Additional completion definitions
-#     -> zsh-autosuggestions: Fish-like autosuggestions
-# ================================================
-
 # Oh_My_Zsh Configuration
 # ----------------------------------------------------------
 # Location on oh my zsh dir
@@ -105,40 +88,28 @@ export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 # Load custom aliases
 [ -f ~/.custom_aliases.sh ] && source ~/.custom_aliases.sh
 
-# Setup fast fuzzy finder, fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# # Cheat for cheat sheets
-# export CHEATCOLORS=true
-
 # BCC tracing tools and man pages
 if [[ -d /usr/share/bcc ]]; then
     export MANPATH="/usr/share/bcc/man:$MANPATH"
     export PATH="/usr/share/bcc/tools:$PATH"
 fi
 
-# GO PATH
+# Add paths of programming environments
 export GOPATH="$HOME/.go"
 export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
-
-# Ruby PATH
 export RUBYPATH="$HOME/.gem/ruby/2.6.0/"
 export PATH="$PATH:$RUBYPATH/bin"
-
-# Rust Cargo PATH
 export CARGOPATH="$HOME/.cargo/"
 export PATH="$PATH:$CARGOPATH/bin"
-
-# Dotnet PATH
 export DOTNETPATH="$HOME/.dotnet/tools"
 export PATH="$PATH:$DOTNETPATH"
 
-# Deno PATH
 if [[ -d $HOME/.deno ]]; then
     export DENO_INSTALL="$HOME/.deno"
     export PATH="$DENO_INSTALL/bin:$PATH"
 fi
 
+# Use ibus for Chinese input
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus

@@ -312,6 +312,9 @@ if count(g:bundle_groups, 'test')
     " - Visually select increasingly larger regions of text
     Plug 'terryma/vim-expand-region'
 
+    " - LSP signature hint as you type
+    Plug 'ray-x/lsp_signature.nvim'
+
 endif
 
 " --- }
@@ -402,6 +405,10 @@ cmp.setup {
       { name = 'nvim_lsp' },
   },
 }
+
+-- setup lsp_signature
+require "lsp_signature".setup()
+
 EOF
 
 " disable diagnostics entirely, use ale to do it on-demand
