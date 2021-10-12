@@ -20,8 +20,8 @@ NC='\033[0m' # No Color
 
 # --- Sandboxing ---
 function setup_firejail() {
-    printf "${GREEN} --- [Firejail] ${NC} Configure Firejail.\n"
-    cp /etc/firejail/*.profile ~/.config/firejail/
+	printf "${GREEN} --- [Firejail] ${NC} Configure Firejail.\n"
+	cp /etc/firejail/*.profile ~/.config/firejail/
 }
 
 setup_firejail

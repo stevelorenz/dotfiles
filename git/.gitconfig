@@ -39,3 +39,5 @@
 #
 # - git config oh-my-zsh.hide-status 1
 # - git config oh-my-zsh.hide-status 1 --global
+[url "ssh://git@git.comnets.net"]
+	insteadOf = https://git.comnets.net

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# About: Check if there are updates that require a reboot
+
+reboot="(ucode|cryptsetup|linux|nvidia|mesa|systemd|wayland|xf86-video|xorg)"
+if [[ $(which yay) =~ (yay) ]]; then
+	updates=$(
+	checkupdates
+	yay -Qua
+)
+else
+	updates=$(checkupdates)
+fi
+
+if [[ -z "$updates" ]]; then
+	echo "* No updates."
+	exit 0
+fi
+
+echo "* Available updates:"
+echo "$updates"
+if [[ $updates =~ $reboot ]]; then
+	echo "* Updating possibly requires system restart ..."
+fi

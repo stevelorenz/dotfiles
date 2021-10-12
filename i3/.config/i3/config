@@ -14,14 +14,7 @@ font pango: Hack Regular 13
 
 # Start terminal emulator
 set $term_1 alacritty
-set $term_2 urxvt
-set $term_3 xfce4-terminal
-set $term_4 termite
-set $term_5 st
 bindsym $mod+Return exec $term_1
-bindsym $mod+Shift+Return exec $term_2
-bindsym $mod+t exec $term_3
-bindsym $mod+Shift+t exec $term_4
 
 # Avoid exiting FF or other APP accidentally
 bindsym Ctrl+q exec echo "hug" > /dev/null
@@ -49,7 +42,7 @@ exec --no-startup-id feh --bg-scale --randomize /usr/share/backgrounds/
 bindsym $mod+Shift+w  exec --no-startup-id feh --bg-scale --randomize /usr/share/backgrounds/
 
 # Auto start programs
-exec --no-startup-id /usr/bin/lxpolkit  # run polkit for authentication.
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id unclutter  # auto hide cursor
 exec --no-startup-id nm-applet  # network manager tray
 exec --no-startup-id pamac-tray  # pamac package manager tray
@@ -71,9 +64,9 @@ bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
 # Switch keyboard layout (setxkbmap)
 set $keyboard_mode "switch keyboard: c=ch, d=de, u=us"
 mode $keyboard_mode{
-    bindsym c exec --no-startup-id "setxkbmap ch && fcitx", mode "default"
-    bindsym d exec --no-startup-id "killall fcitx; setxkbmap de", mode "default"
-    bindsym u exec --no-startup-id "killall fcitx; setxkbmap us", mode "default"
+    bindsym c exec --no-startup-id "setxkbmap ch", mode "default"
+    bindsym d exec --no-startup-id "setxkbmap de", mode "default"
+    bindsym u exec --no-startup-id "setxkbmap us", mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
@@ -101,16 +94,6 @@ bindsym $mod+p exec xfce4-screenshooter
 bindsym $mod+i exec $term -e htop
 # Ranger file manager
 bindsym $mod+m exec $term -e ranger
-
-# Fcitx input method
-set $mode_fcitx "fcitx: (r) un, (q)uit "
-mode $mode_fcitx {
-    bindsym r exec --no-startup-id "fcitx", mode "default"
-    bindsym q exec --no-startup-id "killall fcitx", mode "default"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+Shift+f mode $mode_fcitx
 
 # Function buttons
 bindsym $mod+F2	exec --no-startup-id arandr

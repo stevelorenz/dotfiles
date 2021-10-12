@@ -315,6 +315,12 @@ if count(g:bundle_groups, 'test')
     " - LSP signature hint as you type
     Plug 'ray-x/lsp_signature.nvim'
 
+    " - Dashboard
+    Plug 'glepnir/dashboard-nvim'
+
+    " - Better quickfix window
+    Plug 'kevinhwang91/nvim-bqf'
+
 endif
 
 " --- }

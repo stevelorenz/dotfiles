@@ -16,146 +16,146 @@ NC='\033[0m' # No Color
 
 # --- Function Definition ------------------------------------------
 function Usage() {
-    echo
-    printf "${GREEN}Common System Maintenances${NC} for ${RED}Linux${NC} Distros.\n"
-    echo ""
-    echo "Usage: command options"
-    echo ""
-    echo "Options:"
-    printf "  -b\tBackup all explicitly installed packages into ~/.pacman_list.laptop.\n"
-    printf "  -c\tCheck OS common errors.\n"
-    printf "  -m\tScan malwares.\n"
-    printf "  -t\tTrim SSD (mount point of root and home).\n"
-    printf "  -s\tShow multiple system statistics.\n"
-    printf "  -H\tCheck hardware health.\n"
+	echo
+	printf "${GREEN}Common System Maintenances${NC} for ${RED}Linux${NC} Distros.\n"
+	echo ""
+	echo "Usage: command options"
+	echo ""
+	echo "Options:"
+	printf "  -b\tBackup all explicitly installed packages into ~/.pacman_list.laptop.\n"
+	printf "  -c\tCheck OS common errors.\n"
+	printf "  -m\tScan malwares.\n"
+	printf "  -t\tTrim SSD (mount point of root and home).\n"
+	printf "  -s\tShow multiple system statistics.\n"
+	printf "  -H\tCheck hardware health.\n"
 }
 
 function check_root() {
-    if [[ $EUID -ne 0 ]]; then
-        echo "This command must be run as root!"
-        exit 1
-    fi
+	if [[ $EUID -ne 0 ]]; then
+		echo "This command must be run as root!"
+		exit 1
+	fi
 }
 
 function check_error() {
-    printf "[...] Check for errors.\n\n"
-    printf "(1) Check if systemd services have entered in a failed state:\n"
-    systemctl --failed
-    printf "(2) List all broken symlinks:\n"
-    find ./ -xtype l -print
+	printf "[...] Check for errors.\n\n"
+	printf "(1) Check if systemd services have entered in a failed state:\n"
+	systemctl --failed
+	printf "(2) List all broken symlinks:\n"
+	find ./ -xtype l -print
 }
 
 function anti_malware() {
-    printf "(1) Scan virsuses with clamAV.\n"
-    printf "[...] Update clamAV database.\n"
-    sudo freshclam
+	printf "(1) Scan virsuses with clamAV.\n"
+	printf "[...] Update clamAV database.\n"
+	sudo freshclam
 
-    read -rp "Do you want to scan the home dir (y/n) " choice
-    if [[ $choice == 'y' ]]; then
-        sudo clamscan -r "$HOME" -l "/var/log/clamav/last_scan.log"
-    fi
+	read -rp "Do you want to scan the home dir (y/n) " choice
+	if [[ $choice == 'y' ]]; then
+		sudo clamscan -r "$HOME" -l "/var/log/clamav/last_scan.log"
+	fi
 
-    printf "(1) Scan Rootkit with Rkhunter.\n"
-    sudo rkhunter --update
-    sudo rkhunter --check --sk
+	printf "(1) Scan Rootkit with Rkhunter.\n"
+	sudo rkhunter --update
+	sudo rkhunter --check --sk
 }
 
 function trim_ssd() {
-    echo "[...] Trim root and home dirs"
-    echo "---------------------"
-    LOG=/var/log/trim.log
-    echo "*** $(date -R) ***" | sudo tee --append $LOG >/dev/null
-    sudo fstrim -v / | sudo tee --append $LOG >/dev/null
-    echo $'\n' | sudo tee --append $LOG >/dev/null
-    sudo fstrim -v /home | sudo tee --append $LOG >/dev/null
-    cat /var/log/trim.log
-    echo "---------------------"
-    printf "${GREEN}[OK] ${NC}Trim finished."
+	echo "[...] Trim root and home dirs"
+	echo "---------------------"
+	LOG=/var/log/trim.log
+	echo "*** $(date -R) ***" | sudo tee --append $LOG >/dev/null
+	sudo fstrim -v / | sudo tee --append $LOG >/dev/null
+	echo $'\n' | sudo tee --append $LOG >/dev/null
+	sudo fstrim -v /home | sudo tee --append $LOG >/dev/null
+	cat /var/log/trim.log
+	echo "---------------------"
+	printf "${GREEN}[OK] ${NC}Trim finished."
 
-    choose=n
-    echo
-    read -rp "Do you want to clean trim.log (y/n default n)? > " choose
-    if [[ $choose == y ]]; then
-        echo | sudo tee $LOG >/dev/null
-    fi
+	choose=n
+	echo
+	read -rp "Do you want to clean trim.log (y/n default n)? > " choose
+	if [[ $choose == y ]]; then
+		echo | sudo tee $LOG >/dev/null
+	fi
 }
 
 function sys_stats() {
-    echo "[Stats] IO Stats"
-    iostat
+	echo "[Stats] IO Stats"
+	iostat
 }
 
 function check_hd_health() {
-    echo "[HD Health Check]"
-    check_root
+	echo "[HD Health Check]"
+	check_root
 
-    # - Check storage device with S.M.A.R.T
-    echo "---------------------"
-    echo "# Storage Device:"
-    smartctl -H /dev/sda
+	# - Check storage device with S.M.A.R.T
+	echo "---------------------"
+	echo "# Storage Device:"
+	smartctl -H /dev/sda
 }
 
 function backup_pacman_list() {
-    echo "[Backup] Backup all the explicitly installed packages by Pacman to ~/.pacman_list.laptop"
-    sudo pacman -Qqe > ~/.pacman_list.laptop
+	echo "[Backup] Backup all the explicitly installed packages by Pacman to ~/.pacman_list.laptop"
+	sudo pacman -Qqe > ~/.pacman_list.laptop
 }
 
 # --- Option processing --------------------------------------------
 if [ $# == 0 ]; then
-    Usage
-    exit 1
+	Usage
+	exit 1
 fi
 
 while getopts ":bcvhHmts" optname; do
-    case "$optname" in
-    "b")
-        backup_pacman_list
-        exit 0
-        ;;
-    "c")
-        check_error
-        exit 0
-        ;;
-    "m")
-        anti_malware
-        exit 0
-        ;;
-    "h")
-        Usage
-        exit 0
-        ;;
-    "t")
-        trim_ssd
-        exit 0
-        ;;
-    "s")
-        sys_stats
-        exit 0
-        ;;
-    "H")
-        check_hd_health
-        exit 0
-        ;;
-    "v")
-        echo "Version $VERSION"
-        exit 0
-        ;;
-    "?")
-        echo "Unknown option $OPTARG"
-        USAGE
-        exit 0
-        ;;
-    ":")
-        echo "No argument value for option $OPTARG"
-        USAGE
-        exit 0
-        ;;
-    *)
-        echo "Unknown error while processing options"
-        USAGE
-        exit 0
-        ;;
-    esac
+	case "$optname" in
+		"b")
+			backup_pacman_list
+			exit 0
+			;;
+		"c")
+			check_error
+			exit 0
+			;;
+		"m")
+			anti_malware
+			exit 0
+			;;
+		"h")
+			Usage
+			exit 0
+			;;
+		"t")
+			trim_ssd
+			exit 0
+			;;
+		"s")
+			sys_stats
+			exit 0
+			;;
+		"H")
+			check_hd_health
+			exit 0
+			;;
+		"v")
+			echo "Version $VERSION"
+			exit 0
+			;;
+		"?")
+			echo "Unknown option $OPTARG"
+			USAGE
+			exit 0
+			;;
+		":")
+			echo "No argument value for option $OPTARG"
+			USAGE
+			exit 0
+			;;
+		*)
+			echo "Unknown error while processing options"
+			USAGE
+			exit 0
+			;;
+	esac
 done
 
 shift $(($OPTIND - 1))

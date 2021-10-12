@@ -60,8 +60,8 @@ shittyfiles = [
 
 
 def yesno(question, default="n"):
-    """ Asks the user for YES or NO, always case insensitive.
-        Returns True for YES and False for NO.
+    """Asks the user for YES or NO, always case insensitive.
+    Returns True for YES and False for NO.
     """
     prompt = "%s (y/[n]) " % question
 

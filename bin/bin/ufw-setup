@@ -1,4 +1,12 @@
-echo "*** Setup general rules for UFW..."
+#!/bin/bash
+# About: Setup UFW
+
+if [ "$EUID" -ne 0 ]; then
+	echo "* Please run with sudo"
+	exit
+fi
+
+echo "* Setup UFW for my PC"
 
 ufw status verbose
 
@@ -6,34 +14,43 @@ ufw status verbose
 #  Incoming Traffic  #
 ######################
 
-sudo ufw default deny incoming comment 'deny all incoming traffic'
+echo "* Setup incoming rules"
+ufw default deny incoming comment 'deny all incoming traffic'
 
 ######################
 #  Outgoing Traffic  #
 ######################
 
+echo "* Setup outgoing rules"
+
 if [[ $1 == "strict" ]]; then
-    echo "*** Strict Mode"
-    sudo ufw default deny outgoing comment 'deny all outgoing traffic'
-    # allow traffic out on port 53 -- DNS
-    sudo ufw allow out 53 comment 'allow DNS calls out'
-    # allow traffic out on port 123 -- NTP
-    sudo ufw allow out 123 comment 'allow NTP out'
-    # allow traffic out for HTTP, HTTPS, or FTP
-    # apt might needs these depending on which sources you're using
-    sudo ufw allow out http comment 'allow HTTP traffic out'
-    sudo ufw allow out https comment 'allow HTTPS traffic out'
-    sudo ufw allow out ftp comment 'allow FTP traffic out'
-    # allow whois
-    sudo ufw allow out whois comment 'allow whois'
-    # allow traffic out on port 68 -- the DHCP client
-    # you only need this if you're using DHCP
-    sudo ufw allow out 68 comment 'allow the DHCP client to update'
+	ufw default deny outgoing comment 'deny all outgoing traffic'
+	# allow traffic out on port 53 -- DNS
+	ufw allow out 53 comment 'allow DNS calls out'
+	# allow traffic out on port 123 -- NTP
+	ufw allow out 123 comment 'allow NTP out'
+	# allow traffic out for HTTP, HTTPS, or FTP
+	# apt might needs these depending on which sources you're using
+	ufw allow out http comment 'allow HTTP traffic out'
+	ufw allow out https comment 'allow HTTPS traffic out'
+	ufw allow out ftp comment 'allow FTP traffic out'
+	# allow whois
+	ufw allow out whois comment 'allow whois'
+	# allow traffic out on port 68 -- the DHCP client
+	# you only need this if you're using DHCP
+	ufw allow out 68 comment 'allow the DHCP client to update'
 else
-    echo "*** Normal Mode"
-    sudo ufw default allow outgoing comment 'allow all outgoing traffic'
+	ufw default allow outgoing comment 'allow all outgoing traffic'
 fi
 
+echo "* Add special rules"
+echo "- Add rules for KDE Connect: "
 
-echo "*** The current status of UFW after setup:"
+ufw allow 1714:1764/udp
+ufw allow 1714:1764/tcp
+
+echo "* The current status of UFW after setup:"
 ufw status verbose
+
+echo "* Reload UFW"
+ufw reload
