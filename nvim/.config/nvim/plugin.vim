@@ -34,7 +34,7 @@ if count(g:bundle_groups, 'general')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     let g:airline#extensions#tabline#enabled = 1
-    let g:airline_theme='onedark'
+    let g:airline_theme='dracula'
 
     " - Built-in directory browser: netrw
     " use tree view
@@ -321,6 +321,9 @@ if count(g:bundle_groups, 'test')
     " - Better quickfix window
     Plug 'kevinhwang91/nvim-bqf'
 
+    " - Autopairs for neovim
+    Plug 'windwp/nvim-autopairs'
+
 endif
 
 " --- }
@@ -415,6 +418,8 @@ cmp.setup {
 -- setup lsp_signature
 require "lsp_signature".setup()
 
+-- setup nvim-autopairs
+require('nvim-autopairs').setup{}
 EOF
 
 " disable diagnostics entirely, use ale to do it on-demand
