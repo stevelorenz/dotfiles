@@ -34,7 +34,7 @@ if count(g:bundle_groups, 'general')
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     let g:airline#extensions#tabline#enabled = 1
-    let g:airline_theme='dracula'
+    let g:airline_theme='onedark'
 
     " - Built-in directory browser: netrw
     " use tree view
@@ -106,7 +106,7 @@ if count(g:bundle_groups, 'general_programming')
     "   These plugins are configured with lua and current Configuration is in ./vimrc.vim
     "   It does not work when I put the lua <<EOF in ./vimrc.vim
     Plug 'neovim/nvim-lspconfig'
-    Plug 'kabouzeid/nvim-lspinstall'
+    Plug 'williamboman/nvim-lsp-installer'
     Plug 'glepnir/lspsaga.nvim'
     nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
     nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
@@ -195,10 +195,15 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'skywind3000/asyncrun.vim'
 
     " - Easy code formatting
-    Plug 'sbdchd/neoformat', {'on': 'Neoformat'}
+    Plug 'sbdchd/neoformat',
     let g:neoformat_enabled_python = ['black', 'autopep8', 'docformatter']
     " enable trimmming of trailing whitespace
     let g:neoformat_basic_format_trim = 1
+    " run neoformat on save
+    augroup fmt
+        autocmd!
+        autocmd BufWritePre * undojoin | Neoformat
+    augroup END
 
 endif
 
@@ -347,29 +352,26 @@ require'nvim-treesitter.configs'.setup {
 }
 
 -- setup built-in lsp client support
--- lspinstall plugin is used to install and setup servers
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
-local function setup_servers()
-    require'lspinstall'.setup()
-    local servers = require'lspinstall'.installed_servers()
-    -- add extra servers
-    table.insert(servers, "ccls")
-    for _, server in pairs(servers) do
-        require'lspconfig'[server].setup{}
-    end
-end
+-- setup lsp servers with nvim-lsp_installer
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
 
-setup_servers()
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-    setup_servers()
-    vim.cmd("bufdo e")
-end
+    -- (optional) Customize the options passed to the server
+    -- if server.name == "tsserver" then
+    --     opts.root_dir = function() ... end
+    -- end
+
+    -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+    server:setup(opts)
+    vim.cmd [[ do User LspAttachBuffers ]]
+end)
 
 -- init lsp saga
 local saga = require 'lspsaga'

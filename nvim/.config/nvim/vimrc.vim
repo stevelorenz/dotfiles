@@ -226,7 +226,7 @@ endif
 " use dark background
 set background=dark
 let &t_Co = 256
-colorscheme dracula
+colorscheme onedark
 
 set colorcolumn=120
 
