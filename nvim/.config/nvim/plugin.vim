@@ -1,5 +1,6 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 "=========================================
+" TODO: Check new plugins designed for NeoVIM
 " About: Plugin Configuration for NeoVIM
 "        Plugins are chosen ONLY for my PERSONAL workflow
 " Maintainer: 相佐 (Zuo Xiang)
@@ -91,7 +92,12 @@ if count(g:bundle_groups, 'general_editing')
     Plug 'tpope/vim-surround'
 
     " - True Sublime Text style multiple selections for Vim
+    " MARK: NeoVIM has the plan to support this feature, then this plugin is not needed.
     Plug 'mg979/vim-visual-multi'
+
+    " - Underlines the word under the cursor
+    Plug 'itchyny/vim-cursorword'
+    let g:cursorword_delay = 400
 
 endif
 
@@ -199,11 +205,6 @@ if count(g:bundle_groups, 'general_programming')
     let g:neoformat_enabled_python = ['black', 'autopep8', 'docformatter']
     " enable trimmming of trailing whitespace
     let g:neoformat_basic_format_trim = 1
-    " run neoformat on save
-    augroup fmt
-        autocmd!
-        autocmd BufWritePre * undojoin | Neoformat
-    augroup END
 
 endif
 
@@ -228,6 +229,7 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
     " - AutoComplete
+    " TODO: Use AI power ;) ?
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-nvim-lsp'
 
@@ -252,7 +254,8 @@ endif
 " Python {
 if count(g:bundle_groups, 'python')
     " - Generate python docstring
-    Plug 'heavenshell/vim-pydocstring', { 'for': 'python', 'tag': '1.0.0'}
+    " 'make install' install doq package in a Python venv in the plugin's directory
+    Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
     " disable key mappings
     let g:pydocstring_enable_mapping = 0
 endif
@@ -310,10 +313,6 @@ endif
 " --- Plugins Under Test ---------------------------------- {
 
 if count(g:bundle_groups, 'test')
-    " - Underlines the word under the cursor
-    Plug 'itchyny/vim-cursorword'
-    let g:cursorword_delay = 400
-
     " - Visually select increasingly larger regions of text
     Plug 'terryma/vim-expand-region'
 
@@ -344,7 +343,7 @@ call plug#end()
 lua <<EOF
 -- setup nvim treesitter
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"c", "cpp", "go", "lua", "python", "rust"},
+    ensure_installed = {"c", "cpp", "go", "javascript", "latex","lua", "python", "rust"},
     highlight = {
         enable = true,  -- false will disable the whole extension
         disable = {},   -- list of language that will be disabled
@@ -362,18 +361,12 @@ end
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
     local opts = {}
-
-    -- (optional) Customize the options passed to the server
-    -- if server.name == "tsserver" then
-    --     opts.root_dir = function() ... end
-    -- end
-
     -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
     server:setup(opts)
     vim.cmd [[ do User LspAttachBuffers ]]
 end)
 
--- init lsp saga
+-- setup lsp saga
 local saga = require 'lspsaga'
 saga.init_lsp_saga()
 
@@ -397,24 +390,10 @@ cmp.setup {
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
         },
-        ['<Tab>'] = function(fallback)
-            if vim.fn.pumvisible() == 1 then
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
-            else
-                fallback()
-            end
-        end,
-        ['<S-Tab>'] = function(fallback)
-            if vim.fn.pumvisible() == 1 then
-                vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
-            else
-                fallback()
-            end
-        end,
-  },
-  sources = {
-      { name = 'nvim_lsp' },
-  },
+    },
+    sources = {
+        { name = 'nvim_lsp', keyword_length=3 },
+    },
 }
 
 -- setup lsp_signature

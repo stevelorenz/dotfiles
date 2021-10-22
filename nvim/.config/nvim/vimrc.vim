@@ -1,5 +1,7 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 "==========================================
+" TODO: Check the guide to use Lua in NeoVIM, then migrate init.vim to init.lua if needed
+"
 " About: Zuo's Configuration File for NeoVIM
 "        NeoVIM is currently my daily driver for development and writing
 "
