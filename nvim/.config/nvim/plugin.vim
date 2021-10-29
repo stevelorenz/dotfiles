@@ -328,6 +328,9 @@ if count(g:bundle_groups, 'test')
     " - Autopairs for neovim
     Plug 'windwp/nvim-autopairs'
 
+    " Vim syntax file & snippets for Docker's Dockerfile
+    Plug 'ekalinin/Dockerfile.vim'
+
 endif
 
 " --- }

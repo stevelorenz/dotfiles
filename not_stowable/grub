@@ -1,8 +1,9 @@
 GRUB_DEFAULT=saved
-GRUB_TIMEOUT=3
+GRUB_TIMEOUT=5
 GRUB_TIMEOUT_STYLE=hidden
 GRUB_DISTRIBUTOR="Manjaro"
-GRUB_CMDLINE_LINUX_DEFAULT="quiet udev.log_priority=3 apparmor=1 security=apparmor iommu=force"
+# pcie_aspm, ath10k_core are used to fix the evil WiFi card on my Alienware laptop
+GRUB_CMDLINE_LINUX_DEFAULT="quiet udev.log_priority=3 pcie_aspm=off ath10k_core.skip_otp=y"
 GRUB_CMDLINE_LINUX=""
 
 # If you want to enable the save default function, uncomment the following
@@ -36,6 +37,9 @@ GRUB_GFXPAYLOAD_LINUX=keep
 # Uncomment to disable generation of recovery mode menu entries
 GRUB_DISABLE_RECOVERY=true
 
+# Uncomment this option to enable os-prober execution in the grub-mkconfig command
+GRUB_DISABLE_OS_PROBER=false
+
 # Uncomment and set to the desired menu colors.  Used by normal and wallpaper
 # modes only.  Entries specified as foreground/background.
 GRUB_COLOR_NORMAL="light-gray/black"
@@ -47,3 +51,10 @@ GRUB_COLOR_HIGHLIGHT="green/black"
 
 # Uncomment to get a beep at GRUB start
 #GRUB_INIT_TUNE="480 440 1"
+
+# Uncomment to ensure that the root filesystem is mounted read-only so that
+# systemd-fsck can run the check automatically. We use 'fsck' by default, which
+# needs 'rw' as boot parameter, to avoid delay in boot-time. 'fsck' needs to be
+# removed from 'mkinitcpio.conf' to make 'systemd-fsck' work.
+# See also Arch-Wiki: https://wiki.archlinux.org/index.php/Fsck#Boot_time_checking
+#GRUB_ROOT_FS_RO=true
