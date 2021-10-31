@@ -1,20 +1,15 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 "=========================================
-" TODO: Check new plugins designed for NeoVIM
-" About: Plugin Configuration for NeoVIM
+" About: Zuo's Plugin Configuration for Neovim
 "        Plugins are chosen ONLY for my PERSONAL workflow
 " Maintainer: 相佐 (Zuo Xiang)
 " Email: xianglinks@gmail.com
+"
+" Configurations for some new plugins using Lua are placed at the end of this file
+" They are in a lua block (lua << EOF) and must be placed after `call plug#end()`
 "=========================================
 
-" - Use Vim-Plug Plugin Manager -
-"
-" ------ Vim-Plug Commands ------
-"    :PlugInstall     install
-"    :PlugUpdate      update
-"    :PlugUpgrade     upgrade
-"    :PlugClean       clean
-
+" - Use Vim-Plug Plugin Manager
 call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
 
 " -------------------- Start Config --------------------
@@ -32,6 +27,7 @@ endif
 if count(g:bundle_groups, 'general')
 
     " - Lean & mean status/tabline for vim that's light as air
+    " TODO: Maybe replace airline with a lighter and faster alternative ?
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     let g:airline#extensions#tabline#enabled = 1
@@ -92,7 +88,7 @@ if count(g:bundle_groups, 'general_editing')
     Plug 'tpope/vim-surround'
 
     " - True Sublime Text style multiple selections for Vim
-    " MARK: NeoVIM has the plan to support this feature, then this plugin is not needed.
+    " MARK: Neovim has the plan to support this feature, then this plugin is not needed.
     Plug 'mg979/vim-visual-multi'
 
     " - Underlines the word under the cursor
@@ -172,7 +168,7 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'tpope/vim-commentary'
 
     " - Code search, view with edit mode
-    "   It is used mainly for refactorring.
+    "   It is used mainly for basic refactorring (in the era without LSP ;)).
     Plug 'dyng/ctrlsf.vim'
     " --- mappings ---
     nmap <C-P>f <Plug>CtrlSFPrompt
@@ -229,7 +225,7 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
 
     " - AutoComplete
-    " TODO: Use AI power ;) ?
+    " TODO: Use AI power ;) ? Check tabnine or copilot ? nvim-cmp has a source for tabnine
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-nvim-lsp'
 
@@ -295,9 +291,6 @@ endif
 
 " --- Colorscheme ----------------------------------------- {
 
-" Colorscheme that are active updated
-" Stable and inactive ones are stored in colors dir
-
 if count(g:bundle_groups, 'colorscheme')
     Plug 'dracula/vim', { 'as': 'dracula' }
     Plug 'joshdick/onedark.vim'
@@ -346,7 +339,8 @@ call plug#end()
 lua <<EOF
 -- setup nvim treesitter
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = {"c", "cpp", "go", "javascript", "latex","lua", "python", "rust"},
+    --- only install langugages that I often use
+    ensure_installed = {"c", "cpp", "go", "javascript", "latex", "lua", "python", "rust"},
     highlight = {
         enable = true,  -- false will disable the whole extension
         disable = {},   -- list of language that will be disabled

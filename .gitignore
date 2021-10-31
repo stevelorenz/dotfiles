@@ -1,9 +1,9 @@
-# Vim, Neovim, Emacs
+# Vim and Neovim
 # ------------------
 shada/
 # vim-plug plugin manager
 plug.vim
-plug.vim.old
+plug.vim.*
 # dir for plugins installed with vim-plug
 bundle/
 .init.vim-rplugin~
@@ -11,13 +11,9 @@ spell/
 .netrwhist
 # dirs for backup, swap, undo and viminfo
 dirs/
-nvim/.config/nvim/bundle/
-emacs/**/elpa/
-emacs/**/auto-save-list/
-emacs/**/init.el/~
 # ------------------
 
-# Tmux
+# Tmux TPM
 # ------------------
 tmux/resurrect
 # plugins installed with tpm
@@ -28,6 +24,7 @@ tmux/plugins
 # ------------------
 cmus/.config/cmus/*
 !cmus/.config/cmus/rc
+# Appimages in the bin folder
 *.appimage
 *.Appimage
 *.AppImage
@@ -36,7 +33,7 @@ bin/bin/Joplin
 bin/bin/gdbgui
 # ------------------
 
-# Backup, temp files
+# Backup, temporary files
 # ------------------
 config_backup/
 *.pyc
