@@ -10,7 +10,7 @@
 "=========================================
 
 " - Use Vim-Plug Plugin Manager
-call plug#begin('~/.config/nvim/bundle')  " dir for plugin files
+call plug#begin(stdpath('data') . '/plugged')  " dir for plugin files
 
 " -------------------- Start Config --------------------
 
@@ -70,10 +70,6 @@ if count(g:bundle_groups, 'general')
     " - Nvim Treesitter configurations and abstraction layer
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-    " - Rainbow parentheses improved
-    Plug 'luochen1990/rainbow'
-    " enable it later via :RainbowToggle
-    let g:rainbow_active = 0
 endif
 
 "  --- }
@@ -145,7 +141,6 @@ if count(g:bundle_groups, 'general_programming')
     let g:gutentags_generate_on_write = 0
     let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
     let g:gutentags_ctags_tagfile = '.tags'
-    " Add support for ctags and gtags, gtags is disabled by default
     let g:gutentags_modules = []
     if executable('ctags')
         let g:gutentags_modules += ['ctags']
@@ -273,8 +268,6 @@ if count(g:bundle_groups, 'web_frontend')
     Plug 'mattn/emmet-vim', { 'for': ['xml', 'html', 'css', 'javascript'] }
     let g:user_emmet_leader_key='<C-E>'
 
-    " - Highlight matched tags
-    Plug 'Valloric/MatchTagAlways', { 'for': ['xml', 'html', 'css', 'javascript'] }
 endif
 " }
 
@@ -340,7 +333,7 @@ lua <<EOF
 -- setup nvim treesitter
 require'nvim-treesitter.configs'.setup {
     --- only install langugages that I often use
-    ensure_installed = {"c", "cpp", "go", "javascript", "latex", "lua", "python", "rust"},
+    ensure_installed = {"c", "cpp", "go", "javascript", "latex", "lua", "python", "rust", "vim"},
     highlight = {
         enable = true,  -- false will disable the whole extension
         disable = {},   -- list of language that will be disabled

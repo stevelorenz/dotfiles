@@ -17,24 +17,21 @@
 " Initial Plugin: Vim-Plug
 "==========================================
 " {
-" turn off compatible mode to vi
-set nocompatible
 
-" use curl to get plug.vim if not exists
-let vim_plug_path = expand('~/.config/nvim/autoload/plug.vim')
-if empty(glob(vim_plug_path))
-    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync
-    source $MYVIMRC
+" Use curl to get plug.vim if not exists
+let data_dir = stdpath('data') . '/site'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " enable syntax highlighting
 syntax enable
 syntax on
 
-" load plugins and configurations in plugin.vim
-let plugrc = expand("~/.config/nvim/plugin.vim")
+" load plugins and configurations in ./plugin.vim
+let plugrc = stdpath('config') . '/plugin.vim'
+" expand("~/.config/nvim/plugin.vim")
 if filereadable(plugrc)
     :execute 'source '.fnameescape(plugrc)
 endif
@@ -61,11 +58,6 @@ set noswapfile
 " correct backspace
 set backspace=eol,start,indent
 
-" auto wrap to following lines
-set whichwrap=b,s,h,l,<,>,[,]
-" do not automatically wrap text when typing
-set formatoptions-=t
-
 " enable mouse and hide mouse while typing
 set mouse=a
 set mousehide
@@ -83,7 +75,6 @@ set t_vb=
 set tm=500
 
 " restore cursor position when opening file
-" based on viminfo file
 autocmd BufReadPost *
             \ if line("'\"") > 1 && line("'\"") <= line("$") |
             \   exe "normal! g`\"" |
@@ -119,25 +110,7 @@ set incsearch
 set ignorecase
 set smartcase
 
-" set time in ms to wait for a mapping to complete
-" e.g. (ctrl + F + n), the wait time after enter ctrl + f is set with ttimeoutlen
-set ttimeout
-set ttimeoutlen=100
-
-" :W sudo saves the file (useful for handling the permission-denied error)
-command! W w !sudo tee % > /dev/null
-
-" don't redraw while executing macros (good performance config)
-set lazyredraw
-
-" visual mode pressing * or # searches for the current selection
-" super useful! from an idea by michael naumann
-vnoremap <silent> * :call VisualSelection('f', '')<CR>
-vnoremap <silent> # :call VisualSelection('b', '')<CR>
-
 " persistent undos
-" default path for undo files: "$XDG_DATA_HOME/nvim/undo//"
-" XDG_DATA_HOME: ~/.local/share/
 set undofile
 set undolevels=1000      " maximum number of changes that can be undone
 set undoreload=10000     " maximum number lines to save for undo on a buffer reload
@@ -154,9 +127,6 @@ set autowrite
 
 " always report changed lines
 set report=0
-
-" enable built-in debugger
-packadd termdebug
 
 " use system clipboard by default
 set clipboard+=unnamedplus
@@ -195,10 +165,6 @@ set showmatch
 " how many tenths of a second to blink when matching brackets
 set matchtime=5
 
-" always show the status line - use 2 lines for the status bar
-set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
-set laststatus=2
-
 " highlight current row and column
 set cursorline
 set cursorcolumn
@@ -220,18 +186,9 @@ au FocusGained * :set relativenumber
 autocmd InsertEnter * :set norelativenumber number
 autocmd InsertLeave * :set relativenumber
 
-" fix vim color problem in tmux
-" Refer: http://sunaku.github.io/vim-256color-bce.html
-if &term =~ '256color'
-    " disable Background Color Erase (BCE) so that color schemes
-    " render properly when inside 256-color tmux and GNU screen.
-    " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-    set t_ut=
-endif
-
 " use dark background
 set background=dark
-let &t_Co = 256
+set termguicolors
 colorscheme onedark
 
 set colorcolumn=120
@@ -241,9 +198,6 @@ set signcolumn=yes
 " signcolumn should match background
 highlight clear SignColumn
 
-" disable concealing
-let g:tex_conceal = ""
-
 " show invisible characters
 set list
 " display extra whitespace
@@ -251,8 +205,6 @@ set listchars=tab:→\ ,eol:↵,trail:·,extends:↷,precedes:↶
 
 " always show tabline
 set showtabline=2
-
-set linespace=0
 
 " avoid the pop up menu occupying the whole screen
 set pumheight=20
@@ -275,7 +227,6 @@ set termencoding=utf-8
 
 " use unix as the default file type
 set fileformats=unix,dos,mac
-set formatoptions+=m
 " }
 
 "==========================================
@@ -295,12 +246,6 @@ nnoremap <leader>q :q<CR>
 inoremap jk <Esc>
 xnoremap jk <Esc>
 cnoremap jk <C-c>
-
-" command line shortcut, emacs like
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
 
 " use system clipboard
 vnoremap <leader>y "+y
@@ -346,7 +291,7 @@ xnoremap > >gv
 nnoremap <C-]> g<C-]>
 nnoremap g[ :pop<cr>
 
-" ctrl+s for update
+" ctrl+s for update: save the file
 inoremap <C-s> <C-O>:update<cr>
 nnoremap <C-s> :update<cr>
 
@@ -354,14 +299,8 @@ nnoremap <C-s> :update<cr>
 noremap <leader>c :copen<cr>
 noremap <leader><leader>c :cclose<bar>lclose<cr>
 
-" qq to record, Q to replay
-nnoremap Q @q
-
+" fuzzy finder for files
 noremap <leader>f :Clap files<cr>
-
-" Open tags in new tab and new vertical split
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " === Tab and Buffer===
 " --- Buffer---
@@ -398,17 +337,13 @@ nnoremap <F8> :UndotreeToggle<CR>
 
 " F10: toggle vista (Tag/Symbols viewer)
 nnoremap <F10> :Vista!!<CR>
-
-" F12: Reload sytax highlighting
-noremap <F12> <Esc>:syntax sync fromstart<CR>
-inoremap <F12> <C-o>:syntax sync fromstart<CR>
 " }
 
 "==========================================
 " File Type Custom Settings
 "==========================================
 " {
-autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp,*.cc,*.cxx
+autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hh,*.hpp,*.cc,*.cxx
             \ set foldmethod=syntax |
 
 autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg
@@ -425,6 +360,9 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
 
 autocmd BufNewFile,BufRead *.py
             \ set expandtab |
+
+autocmd BufNewFile,BufRead meson.build
+            \ set expandtab |
 " }
 
 "==========================================
@@ -435,9 +373,6 @@ autocmd BufNewFile,BufRead *.py
 let g:loaded_python_provider = 0
 let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = '/usr/bin/python3'
-
-" interactive find replace preview
-set inccommand=nosplit
 " }
 
 "==========================================
@@ -447,48 +382,5 @@ set inccommand=nosplit
 " removes trailing spaces
 function! TrimWhiteSpace()
     %s/\s\+$//e
-endfunction
-
-" selection in visual mode
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("Ag \"" . l:pattern . "\" " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
-" don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-    let l:currentBufNum = bufnr("%")
-    let l:alternateBufNum = bufnr("#")
-
-    if buflisted(l:alternateBufNum)
-        buffer #
-    else
-        bnext
-    endif
-
-    if bufnr("%") == l:currentBufNum
-        new
-    endif
-
-    if buflisted(l:currentBufNum)
-        execute("bdelete! ".l:currentBufNum)
-    endif
 endfunction
 " }
