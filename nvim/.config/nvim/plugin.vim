@@ -105,6 +105,7 @@ if count(g:bundle_groups, 'general_programming')
     "   It does not work when I put the lua <<EOF in ./vimrc.vim
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/nvim-lsp-installer'
+    "ISSUE: lspsaga does not seem to be maintained
     Plug 'glepnir/lspsaga.nvim'
     nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
     nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
@@ -155,15 +156,12 @@ if count(g:bundle_groups, 'general_programming')
         silent! call mkdir(s:vim_tags, 'p')
     endif
 
-    " - Git integration and enhancement
-    " -- show git diff asynchronously
-    Plug 'mhinz/vim-signify'
-
     " - Comment stuff out
     Plug 'tpope/vim-commentary'
 
     " - Code search, view with edit mode
     "   It is used mainly for basic refactorring (in the era without LSP ;)).
+    "   Maybe it's not needed anymore... check it
     Plug 'dyng/ctrlsf.vim'
     " --- mappings ---
     nmap <C-P>f <Plug>CtrlSFPrompt
@@ -305,9 +303,6 @@ if count(g:bundle_groups, 'test')
     " - LSP signature hint as you type
     Plug 'ray-x/lsp_signature.nvim'
 
-    " - Dashboard
-    Plug 'glepnir/dashboard-nvim'
-
     " - Better quickfix window
     Plug 'kevinhwang91/nvim-bqf'
 
@@ -316,6 +311,9 @@ if count(g:bundle_groups, 'test')
 
     " Vim syntax file & snippets for Docker's Dockerfile
     Plug 'ekalinin/Dockerfile.vim'
+
+    Plug 'liuchengxu/vim-which-key'
+    nnoremap <leader> :WhichKey '<Space>'<CR>
 
 endif
 
@@ -328,6 +326,8 @@ call plug#end()
 " Lua Plugin Configuration
 "==========================================
 " MARK: lua configs must be added after `call plug#end()`
+" TODO: Check https://github.com/nanotee/nvim-lua-guide to learn how to configure nvim
+" with lua modules to avoid embed lua scripts in vimscript files.
 " {
 lua <<EOF
 -- setup nvim treesitter
@@ -340,17 +340,18 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
--- setup built-in lsp client support
+-- setup lsp servers with nvim-lsp-installer
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
--- setup lsp servers with nvim-lsp_installer
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
-    local opts = {}
+    local opts = {
+        on_attach = on_attach,
+    }
     -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
     server:setup(opts)
     vim.cmd [[ do User LspAttachBuffers ]]
