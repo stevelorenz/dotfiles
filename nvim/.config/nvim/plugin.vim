@@ -14,9 +14,8 @@ call plug#begin(stdpath('data') . '/plugged')  " dir for plugin files
 
 " -------------------- Start Config --------------------
 
-" Inspired by spf13, choose collections of plugins to be installed.
-" remove element in the list to disable a collection of plugins.
-" for example, remove 'python' will disable all plugins in the python section.
+" Inspired by spf13's vim config, installed plugins are divided into several groups.
+" Remove element in the bundle_groups to disable a group of plugins.
 if !exists('g:bundle_groups')
     let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
                 \ 'c_cpp', 'python', 'rust', 'web_frontend', 'text', 'colorscheme', 'test']
@@ -25,23 +24,12 @@ endif
 " --- General --------------------------------------------- {
 
 if count(g:bundle_groups, 'general')
-
     " - Lean & mean status/tabline for vim that's light as air
     " TODO: Maybe replace airline with a lighter and faster alternative ?
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     let g:airline#extensions#tabline#enabled = 1
     let g:airline_theme='onedark'
-
-    " - Built-in directory browser: netrw
-    " use tree view
-    let g:netrw_liststyle = 3
-    let g:netrw_banner = 1
-    " set width to 25% of the page
-    let g:netrw_winsize = 25
-    let g:netrw_browse_split = 4
-    let g:netrw_altv = 1
-
 
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
     Plug 'liuchengxu/vim-clap'
@@ -70,15 +58,18 @@ if count(g:bundle_groups, 'general')
     " - Nvim Treesitter configurations and abstraction layer
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-endif
+    " - A collection of common lua functions
+    Plug 'nvim-lua/plenary.nvim'
 
+    " - Super fast git decorations
+    Plug 'lewis6991/gitsigns.nvim'
+endif
 "  --- }
 
 
 " --- General Editing ------------------------------------- {
 
 if count(g:bundle_groups, 'general_editing')
-
     " - Handle surroundings
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
@@ -90,30 +81,21 @@ if count(g:bundle_groups, 'general_editing')
     " - Underlines the word under the cursor
     Plug 'itchyny/vim-cursorword'
     let g:cursorword_delay = 400
-
 endif
-
 "  --- }
 
 
 " --- General Programming --------------------------------- {
 
 if count(g:bundle_groups, 'general_programming')
-
     " - Built-in lsp related plugins
     "   These plugins are configured with lua and current Configuration is in ./vimrc.vim
     "   It does not work when I put the lua <<EOF in ./vimrc.vim
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/nvim-lsp-installer'
-    "ISSUE: lspsaga does not seem to be maintained
-    Plug 'glepnir/lspsaga.nvim'
-    nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
-    nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
-    nnoremap <silent> K :Lspsaga hover_doc<CR>
-    nnoremap <silent> gh :Lspsaga lsp_finder<CR>
-    nnoremap <silent> gs :Lspsaga signature_help<CR>
-    nnoremap <silent> gr :Lspsaga rename<CR>
-    nnoremap <silent> gd :Lspsaga preview_definition<CR>
+
+    " - LSP signature hint as you type
+    Plug 'ray-x/lsp_signature.nvim'
 
     " - Asynchronous Lint Engine (ALE)
     Plug 'w0rp/ale'
@@ -134,7 +116,7 @@ if count(g:bundle_groups, 'general_programming')
     let g:vista_sidebar_position= 'vertical topleft'
 
     " - Tags management
-    " TODO: Check if ctags is still needed with LSP config.
+    "   ctags are used when there is no LSP support
     Plug 'ludovicchabant/vim-gutentags'
     set tags=./.tags;,.tags
     let g:gutentags_enabled = 1
@@ -186,7 +168,7 @@ if count(g:bundle_groups, 'general_programming')
     " disable auto insertion
     let g:templates_no_autocmd = 1
 
-    " - Run commands quickly
+    " - Run commands asynchronously
     Plug 'skywind3000/asyncrun.vim'
 
     " - Easy code formatting
@@ -194,16 +176,13 @@ if count(g:bundle_groups, 'general_programming')
     let g:neoformat_enabled_python = ['black', 'autopep8', 'docformatter']
     " enable trimmming of trailing whitespace
     let g:neoformat_basic_format_trim = 1
-
 endif
-
 " --- }
 
 
-" --- Snippet and General AutoComplete ----------------------------- {
+" --- Snippet and General Autocompletion ----------------------------- {
 
 if count(g:bundle_groups, 'snippet_autocomplete')
-
     " - Code snippets
     Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
     " set triggers -> <leader><tab>
@@ -221,9 +200,7 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     " TODO: Use AI power ;) ? Check tabnine or copilot ? nvim-cmp has a source for tabnine
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-nvim-lsp'
-
 endif
-
 " --- }
 
 
@@ -242,6 +219,7 @@ endif
 
 " Python {
 if count(g:bundle_groups, 'python')
+
     " - Generate python docstring
     " 'make install' install doq package in a Python venv in the plugin's directory
     Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
@@ -265,17 +243,8 @@ if count(g:bundle_groups, 'web_frontend')
     " - Emmet support
     Plug 'mattn/emmet-vim', { 'for': ['xml', 'html', 'css', 'javascript'] }
     let g:user_emmet_leader_key='<C-E>'
-
 endif
 " }
-
-" --- }
-
-
-" --- Documentation and Writing --------------------------- {
-
-if count(g:bundle_groups, 'text')
-endif
 
 " --- }
 
@@ -290,7 +259,6 @@ if count(g:bundle_groups, 'colorscheme')
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     set termguicolors
 endif
-
 " --- }
 
 
@@ -299,9 +267,6 @@ endif
 if count(g:bundle_groups, 'test')
     " - Visually select increasingly larger regions of text
     Plug 'terryma/vim-expand-region'
-
-    " - LSP signature hint as you type
-    Plug 'ray-x/lsp_signature.nvim'
 
     " - Better quickfix window
     Plug 'kevinhwang91/nvim-bqf'
@@ -312,9 +277,8 @@ if count(g:bundle_groups, 'test')
     " Vim syntax file & snippets for Docker's Dockerfile
     Plug 'ekalinin/Dockerfile.vim'
 
-    Plug 'liuchengxu/vim-which-key'
-    nnoremap <leader> :WhichKey '<Space>'<CR>
-
+    " Displays available keybindings in popup
+    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 endif
 
 " --- }
@@ -330,7 +294,8 @@ call plug#end()
 " with lua modules to avoid embed lua scripts in vimscript files.
 " {
 lua <<EOF
--- setup nvim treesitter
+
+-- Setup treesitter
 require'nvim-treesitter.configs'.setup {
     --- only install langugages that I often use
     ensure_installed = {"c", "cpp", "go", "javascript", "latex", "lua", "python", "rust", "vim"},
@@ -338,30 +303,40 @@ require'nvim-treesitter.configs'.setup {
         enable = true,  -- false will disable the whole extension
         disable = {},   -- list of language that will be disabled
     },
+    additional_vim_regex_highlighting = false,
 }
 
--- setup lsp servers with nvim-lsp-installer
+-- Use nvim-lsp-installer to setup all installed LSP servers
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    -- Enable completion triggered by <c-x><c-o>
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+    -- Key mappings
+    local opts = { noremap=true, silent=true }
+    -- Less key bindings, less problems... Should be less than ten...
+    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 end
 
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
-    local opts = {
+    local server_opts = {
         on_attach = on_attach,
     }
-    -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
-    server:setup(opts)
+    server:setup(server_opts)
     vim.cmd [[ do User LspAttachBuffers ]]
 end)
 
--- setup lsp saga
-local saga = require 'lspsaga'
-saga.init_lsp_saga()
-
--- setup autocompletion
+-- Setup autocompletion
 -- copy/paste from https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
 local cmp = require 'cmp'
 cmp.setup {
@@ -382,20 +357,23 @@ cmp.setup {
             select = true,
         },
     },
+    -- Currenly ONLY use LSP sources
     sources = {
         { name = 'nvim_lsp', keyword_length=3 },
     },
 }
 
--- setup lsp_signature
+-- Setup lsp_signature
 require "lsp_signature".setup()
 
--- setup nvim-autopairs
+-- Setup nvim-autopairs
 require('nvim-autopairs').setup{}
+
+-- Setup gitsigns
+require('gitsigns').setup()
 EOF
 
-" disable diagnostics entirely, use ale to do it on-demand
+" Disable auto diagnostics entirely, use ale to do it on-demand
 lua vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 " }
 " -------------------- End Config --------------------
-

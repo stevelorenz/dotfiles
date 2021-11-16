@@ -14,10 +14,9 @@
 " Currently I'm busy for PhD thesis, so would like to look into this later...
 
 "==========================================
-" Initial Plugin: Vim-Plug
+" Plugin Manager Settings
 "==========================================
 " {
-
 " If plug.vim does not exist in the standard data path, curl is used to get it.
 let data_dir = stdpath('data') . '/site'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -53,6 +52,8 @@ autocmd BufReadPost *
 
 " Form folds with indent
 set foldmethod=indent
+" Dot not form folds when opening the file
+set nofoldenable
 
 " Allow switching buffer without saving
 set hidden
@@ -89,7 +90,6 @@ set clipboard+=unnamedplus
 " Display Settings
 "==========================================
 " {
-
 " Show line number
 set number
 
@@ -153,9 +153,9 @@ set fileformats=unix,dos,mac
 " Keyboard Mapping Settings
 "==========================================
 " {
-" Set leader key to space
-let mapleader = " "
-let g:mapleader = " "
+" Set global leader key to space
+let mapleader = "\<Space>"
+let g:mapleader = "\<Space>"
 
 " For quicker :
 nnoremap ; :
