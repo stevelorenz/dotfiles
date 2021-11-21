@@ -221,15 +221,14 @@ noremap <leader>c :copen<cr>
 " Fuzzy finder for files
 noremap <leader>f :Clap files<cr>
 
-" === Tab and Buffer===
-" --- Buffer---
+" === Tab and Buffer ===
 " switch buffer
 noremap <C-left> :bprevious<CR>
 noremap <C-right> :bnext<CR>
-" close the current buffer
-nnoremap <leader>bd :Bclose<cr>:tabclose<cr>gT
-" close all buffers
-nnoremap <leader>ba :bufdo bd<cr>
+" close (or delete) the current buffer
+nnoremap <leader>bq :bp <BAR> bd #<CR>
+" show all open buffers and their status
+nnoremap <leader>bl :ls<CR>
 
 " === F1 - F10 ===
 " F1: avoid to open help info
