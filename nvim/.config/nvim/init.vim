@@ -226,7 +226,7 @@ noremap <leader>f :Clap files<cr>
 noremap <C-left> :bprevious<CR>
 noremap <C-right> :bnext<CR>
 " close (or delete) the current buffer
-nnoremap <leader>bq :bp <BAR> bd #<CR>
+nnoremap <leader>bd :bp <BAR> bd #<CR>
 " show all open buffers and their status
 nnoremap <leader>bl :ls<CR>
 

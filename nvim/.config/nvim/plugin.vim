@@ -4,9 +4,6 @@
 "        Plugins are chosen ONLY for my PERSONAL workflow
 " Maintainer: 相佐 (Zuo Xiang)
 " Email: xianglinks@gmail.com
-"
-" Configurations for some new plugins using Lua are placed at the end of this file
-" They are in a lua block (lua << EOF) and must be placed after `call plug#end()`
 "=========================================
 
 " - Use Vim-Plug Plugin Manager
@@ -265,9 +262,6 @@ endif
 " --- Plugins Under Test ---------------------------------- {
 
 if count(g:bundle_groups, 'test')
-    " - Visually select increasingly larger regions of text
-    Plug 'terryma/vim-expand-region'
-
     " - Better quickfix window
     Plug 'kevinhwang91/nvim-bqf'
 
@@ -290,90 +284,14 @@ call plug#end()
 " Lua Plugin Configuration
 "==========================================
 " MARK: lua configs must be added after `call plug#end()`
-" TODO: Check https://github.com/nanotee/nvim-lua-guide to learn how to configure nvim
-" with lua modules to avoid embed lua scripts in vimscript files.
 " {
-lua <<EOF
 
--- Setup treesitter
-require'nvim-treesitter.configs'.setup {
-    --- only install langugages that I often use
-    ensure_installed = {"c", "cpp", "go", "javascript", "latex", "lua", "python", "rust", "vim"},
-    highlight = {
-        enable = true,  -- false will disable the whole extension
-        disable = {},   -- list of language that will be disabled
-    },
-    additional_vim_regex_highlighting = false,
-}
+" Load the lua module in path: ./lua/plugin.lua
+lua require('plugin')
 
--- Use nvim-lsp-installer to setup all installed LSP servers
-local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-    -- Enable completion triggered by <c-x><c-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- Key mappings
-    local opts = { noremap=true, silent=true }
-    -- Less key bindings, less problems... Should be less than ten...
-    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-end
-
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(function(server)
-    local server_opts = {
-        on_attach = on_attach,
-    }
-    server:setup(server_opts)
-    vim.cmd [[ do User LspAttachBuffers ]]
-end)
-
--- Setup autocompletion
--- copy/paste from https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
-local cmp = require 'cmp'
-cmp.setup {
-    completion = {
-        -- not perform autocompletion, use cmp.mapping.complete() to trigger completion.
-        autocomplete = false,
-        completeopt = 'menu,menuone,noinsert',
-    },
-    mapping = {
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-Space>'] = cmp.mapping.complete(),
-        ['<C-e>'] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-        },
-    },
-    -- Currenly ONLY use LSP sources
-    sources = {
-        { name = 'nvim_lsp', keyword_length=3 },
-    },
-}
-
--- Setup lsp_signature
-require "lsp_signature".setup()
-
--- Setup nvim-autopairs
-require('nvim-autopairs').setup{}
-
--- Setup gitsigns
-require('gitsigns').setup()
-EOF
-
-" Disable auto diagnostics entirely, use ale to do it on-demand
+" Disable automatic diagnostics completely and use ALE for on-demand diagnostics
 lua vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
+
 " }
+
 " -------------------- End Config --------------------
