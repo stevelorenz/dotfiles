@@ -1,6 +1,6 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 "==========================================
-" About: Zuo's Configuration File for Neovim
+" About: Zuo's Configuration File for Neovim (v0.6.0)
 "        Neovim is currently my daily driver for software development and text writing
 "        All configurations are made for my PERSONAL workflow
 "
@@ -160,8 +160,6 @@ let g:mapleader = "\<Space>"
 " For quicker :
 nnoremap ; :
 
-nnoremap <leader>q :q<CR>
-
 " Type jk quickly and enter normal mode
 inoremap jk <Esc>
 xnoremap jk <Esc>
@@ -195,23 +193,11 @@ nnoremap <silent> g* g*zz
 " Toggle spell checking
 noremap <leader>ss :setlocal spell!<cr>
 
-" Move lines
-nnoremap <silent> <C-k> :move-2<cr>
-nnoremap <silent> <C-j> :move+<cr>
-nnoremap <silent> <C-h> <<
-nnoremap <silent> <C-l> >>
-xnoremap <silent> <C-k> :move-2<cr>gv
-xnoremap <silent> <C-j> :move'>+<cr>gv
-xnoremap <silent> <C-h> <gv
-xnoremap <silent> <C-l> >gv
-xnoremap < <gv
-xnoremap > >gv
-
 " Jump between tags
 nnoremap <C-]> g<C-]>
 nnoremap g[ :pop<cr>
 
-" ctrl+s for update: save the file
+" Ctrl+s for update: save the file
 inoremap <C-s> <C-O>:update<cr>
 nnoremap <C-s> :update<cr>
 
@@ -243,8 +229,7 @@ inoremap <F1> <C-o>:echo<CR>
 
 " F5: TODO
 
-" F6: Open nerdtree file explorer
-nnoremap <F6> :NERDTreeMirror<CR>:NERDTreeFocus<CR>
+" F6: TODO
 
 " F7: Open vim-clap
 nnoremap <F7> :Clap<CR>

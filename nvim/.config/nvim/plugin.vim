@@ -1,6 +1,6 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 "=========================================
-" About: Zuo's Plugin Configuration for Neovim
+" About: Zuo's Plugin Configuration for Neovim (v0.6.0)
 "        Plugins are chosen ONLY for my PERSONAL workflow
 " Maintainer: 相佐 (Zuo Xiang)
 " Email: xianglinks@gmail.com
@@ -21,14 +21,12 @@ endif
 " --- General --------------------------------------------- {
 
 if count(g:bundle_groups, 'general')
-    " - Lean & mean status/tabline for vim that's light as air
-    " TODO: Maybe replace airline with a lighter and faster alternative ?
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline_theme='onedark'
+
+    " - A collection of common lua functions
+    Plug 'nvim-lua/plenary.nvim'
 
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
+    " TODO: Check nvim-telescope/telescope.nvim
     Plug 'liuchengxu/vim-clap'
     let g:clap_theme = 'material_design_dark'
     let g:clap_layout = { 'relative': 'editor' }
@@ -46,17 +44,12 @@ if count(g:bundle_groups, 'general')
     " - Beakdown VIM's --startuptime output
     Plug 'tweekmonster/startuptime.vim'
 
-    " - A tree explorer plugin for vim.
-    Plug 'preservim/nerdtree'
-
     " - Adds file type icons to Vim plugins
     Plug 'ryanoasis/vim-devicons'
 
     " - Nvim Treesitter configurations and abstraction layer
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
-    " - A collection of common lua functions
-    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-treesitter/nvim-treesitter-refactor'
 
     " - Super fast git decorations
     Plug 'lewis6991/gitsigns.nvim'
@@ -85,35 +78,22 @@ endif
 " --- General Programming --------------------------------- {
 
 if count(g:bundle_groups, 'general_programming')
-    " - Built-in lsp related plugins
+    " - Built-in LSP related plugins
     "   These plugins are configured with lua and current Configuration is in ./vimrc.vim
     "   It does not work when I put the lua <<EOF in ./vimrc.vim
+    "   nvim-lsp-installer is used to install language servers automatically (default in '~/.local/share/nvim/lsp_servers/')
     Plug 'neovim/nvim-lspconfig'
     Plug 'williamboman/nvim-lsp-installer'
 
     " - LSP signature hint as you type
     Plug 'ray-x/lsp_signature.nvim'
 
-    " - Asynchronous Lint Engine (ALE)
-    Plug 'w0rp/ale'
-    let g:ale_enabled=1
-    let g:ale_sign_column_always = 1
-    " ALE automatically updates the loclist which makes it impossible to
-    " use some other plugins.
-    let g:ale_set_loclist = 0
-    let g:ale_set_quickfix = 1
-    let g:ale_open_list = 0
-    " Trigger linting manually.
-    let g:ale_lint_on_save = 1
-    let g:ale_lint_on_text_changed = 'never'
-    let g:ale_lint_on_enter = 'never'
-
     " - Viewer & Finder for LSP symbols and tags
     Plug 'liuchengxu/vista.vim'
     let g:vista_sidebar_position= 'vertical topleft'
 
     " - Tags management
-    "   ctags are used when there is no LSP support
+    "   ctags are still used when there is no LSP support
     Plug 'ludovicchabant/vim-gutentags'
     set tags=./.tags;,.tags
     let g:gutentags_enabled = 1
@@ -137,28 +117,6 @@ if count(g:bundle_groups, 'general_programming')
 
     " - Comment stuff out
     Plug 'tpope/vim-commentary'
-
-    " - Code search, view with edit mode
-    "   It is used mainly for basic refactorring (in the era without LSP ;)).
-    "   Maybe it's not needed anymore... check it
-    Plug 'dyng/ctrlsf.vim'
-    " --- mappings ---
-    nmap <C-P>f <Plug>CtrlSFPrompt
-    vmap <C-P>f <Plug>CtrlSFVwordPath
-    vmap <C-P>F <Plug>CtrlSFVwordExec
-    nmap <C-P>n <Plug>CtrlSFCwordPath
-    nmap <C-P>p <Plug>CtrlSFPwordPath
-    " open the result of last search
-    nnoremap <C-P>o :CtrlSFOpen<CR>
-    autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hpp
-                \ let g:ctrlsf_indent = 8
-    " default use regex pattern
-    let g:ctrlsf_regex_pattern = 1
-    let g:ctrlsf_case_sensitive = 'smart'
-    " use ag as backend if available
-    if executable('ag')
-        let g:ctrlsf_ackprg = 'ag'
-    endif
 
     " - Simple template plugin
     Plug 'aperezdc/vim-template'
@@ -197,6 +155,7 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     " TODO: Use AI power ;) ? Check tabnine or copilot ? nvim-cmp has a source for tabnine
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-buffer'
 endif
 " --- }
 
@@ -268,11 +227,18 @@ if count(g:bundle_groups, 'test')
     " - Autopairs for neovim
     Plug 'windwp/nvim-autopairs'
 
-    " Vim syntax file & snippets for Docker's Dockerfile
+    " - Vim syntax file & snippets for Docker's Dockerfile
     Plug 'ekalinin/Dockerfile.vim'
 
-    " Displays available keybindings in popup
+    " - Displays available keybindings in popup
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+
+    " - An asynchronous linter plugin
+    Plug 'mfussenegger/nvim-lint'
+
+    " - A blazing fast and easy to configure Neovim statusline written in Lua
+    Plug 'nvim-lualine/lualine.nvim'
+
 endif
 
 " --- }
@@ -288,9 +254,6 @@ call plug#end()
 
 " Load the lua module in path: ./lua/plugin.lua
 lua require('plugin')
-
-" Disable automatic diagnostics completely and use ALE for on-demand diagnostics
-lua vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
 
 " }
 
