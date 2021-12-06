@@ -106,7 +106,7 @@ cmp.setup {
 require "lsp_signature".setup()
 
 -- Setup nvim-autopairs
-require("nvim-autopairs").setup {}
+require("nvim-autopairs").setup()
 
 -- Setup gitsigns
 require("gitsigns").setup()
@@ -126,3 +126,11 @@ require("lualine").setup({
 		lualine_z = {'tabs'}
 	}
 })
+
+-- Setup indent_blankline
+require("indent_blankline").setup({
+	show_current_context_start = true,
+})
+
+-- Setup which-key
+require("which-key").setup({})

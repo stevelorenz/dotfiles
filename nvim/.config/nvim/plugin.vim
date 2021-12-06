@@ -21,12 +21,10 @@ endif
 " --- General --------------------------------------------- {
 
 if count(g:bundle_groups, 'general')
-
     " - A collection of common lua functions
     Plug 'nvim-lua/plenary.nvim'
 
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
-    " TODO: Check nvim-telescope/telescope.nvim
     Plug 'liuchengxu/vim-clap'
     let g:clap_theme = 'material_design_dark'
     let g:clap_layout = { 'relative': 'editor' }
@@ -35,11 +33,8 @@ if count(g:bundle_groups, 'general')
     Plug 'mbbill/undotree', { 'on':  'UndotreeToggle' }
     let g:undotree_SetFocusWhenToggle = 1
 
-    " - Show thin vertical lines at each indentation level for code indented with spaces.
-    Plug 'Yggdroot/indentLine'
-        autocmd! User indentLine doautocmd indentLine Syntax
-    let g:indentLine_color_term = 239
-    let g:indentLine_color_gui = '#616161'
+    "- This plugin adds indentation guides to all lines (including empty lines).
+    Plug 'lukas-reineke/indent-blankline.nvim'
 
     " - Beakdown VIM's --startuptime output
     Plug 'tweekmonster/startuptime.vim'
@@ -63,14 +58,6 @@ if count(g:bundle_groups, 'general_editing')
     " - Handle surroundings
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
-
-    " - True Sublime Text style multiple selections for Vim
-    " MARK: Neovim has the plan to support this feature, then this plugin is not needed.
-    Plug 'mg979/vim-visual-multi'
-
-    " - Underlines the word under the cursor
-    Plug 'itchyny/vim-cursorword'
-    let g:cursorword_delay = 400
 endif
 "  --- }
 
@@ -175,7 +162,6 @@ endif
 
 " Python {
 if count(g:bundle_groups, 'python')
-
     " - Generate python docstring
     " 'make install' install doq package in a Python venv in the plugin's directory
     Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
@@ -208,10 +194,7 @@ endif
 " --- Colorscheme ----------------------------------------- {
 
 if count(g:bundle_groups, 'colorscheme')
-    Plug 'dracula/vim', { 'as': 'dracula' }
-    Plug 'joshdick/onedark.vim'
-    Plug 'lifepillar/vim-solarized8'
-
+    Plug 'navarasu/onedark.nvim'
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     set termguicolors
 endif
@@ -231,7 +214,7 @@ if count(g:bundle_groups, 'test')
     Plug 'ekalinin/Dockerfile.vim'
 
     " - Displays available keybindings in popup
-    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+    Plug 'folke/which-key.nvim'
 
     " - An asynchronous linter plugin
     Plug 'mfussenegger/nvim-lint'

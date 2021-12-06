@@ -116,7 +116,7 @@ set termguicolors
 colorscheme onedark
 
 " Show screen column
-set colorcolumn=120
+set colorcolumn=100
 
 " Always show the sign column
 set signcolumn=yes
@@ -165,16 +165,6 @@ inoremap jk <Esc>
 xnoremap jk <Esc>
 cnoremap jk <C-c>
 
-" Use system clipboard
-vnoremap <leader>y "+y
-nnoremap <leader>p "+p
-
-" Treat long lines as break lines (useful when moving around in them)
-nnoremap k gk
-nnoremap gk k
-nnoremap j gj
-nnoremap gj j
-
 " Change window size
 " horizontal: = -
 " vertical: , .
@@ -182,13 +172,6 @@ nnoremap w=  :resize +3<CR>
 nnoremap w-  :resize -3<CR>
 nnoremap w,  :vertical resize -3<CR>
 nnoremap w.  :vertical resize +3<CR>
-
-" Show searching results at middle of screen
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
 
 " Toggle spell checking
 noremap <leader>ss :setlocal spell!<cr>
@@ -231,8 +214,7 @@ inoremap <F1> <C-o>:echo<CR>
 
 " F6: TODO
 
-" F7: Open vim-clap
-nnoremap <F7> :Clap<CR>
+" F7: TODO
 
 " F8: toggle undo tree visualizer
 nnoremap <F8> :UndotreeToggle<CR>
@@ -266,7 +248,7 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
 autocmd BufNewFile,BufRead *.py
             \ set expandtab |
 
-autocmd BufNewFile,BufRead meson.build
+autocmd BufNewFile,BufRead meson.build, meson_options.txt
             \ set expandtab |
 " }
 
@@ -279,6 +261,13 @@ let g:loaded_python_provider = 0
 let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = '/usr/bin/python3'
 " }
+
+"==========================================
+" Terminal
+"==========================================
+"{
+tnoremap <Esc> <C-\><C-n>
+"}
 
 "==========================================
 " Helper Functions
