@@ -153,9 +153,9 @@ set fileformats=unix,dos,mac
 " Keyboard Mapping Settings
 "==========================================
 " {
-" Set global leader key to space
-let mapleader = "\<Space>"
-let g:mapleader = "\<Space>"
+" Set global leader key
+let mapleader = ","
+let g:mapleader = ","
 
 " For quicker :
 nnoremap ; :
@@ -212,7 +212,8 @@ inoremap <F1> <C-o>:echo<CR>
 
 " F5: TODO
 
-" F6: TODO
+" F6: toggle nvim-tree
+nnoremap <F6> :NvimTreeToggle<CR>
 
 " F7: TODO
 
@@ -230,8 +231,9 @@ nnoremap <F10> :Vista!!<CR>
 " File Type Custom Settings
 "==========================================
 " {
+" TODO: Check how to do this with Lua
 autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hh,*.hpp,*.cc,*.cxx
-            \ set foldmethod=syntax |
+            \ set foldmethod=indent |
 
 autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg
             \ set filetype=dosini |
@@ -248,8 +250,12 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
 autocmd BufNewFile,BufRead *.py
             \ set expandtab |
 
-autocmd BufNewFile,BufRead meson.build, meson_options.txt
+autocmd BufNewFile,BufRead meson.build
             \ set expandtab |
+
+autocmd BufNewFile,BufRead meson_options.txt
+            \ set expandtab |
+            \ set spell |
 " }
 
 "==========================================

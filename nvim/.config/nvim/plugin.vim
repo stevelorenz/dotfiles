@@ -222,6 +222,9 @@ if count(g:bundle_groups, 'test')
     " - A blazing fast and easy to configure Neovim statusline written in Lua
     Plug 'nvim-lualine/lualine.nvim'
 
+    " - A file explorer for neovim written in lua
+    Plug 'kyazdani42/nvim-tree.lua'
+
 endif
 
 " --- }

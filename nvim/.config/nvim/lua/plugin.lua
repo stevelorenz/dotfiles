@@ -134,3 +134,6 @@ require("indent_blankline").setup({
 
 -- Setup which-key
 require("which-key").setup({})
+
+-- Setup nvim-tree
+require("nvim-tree").setup({})
