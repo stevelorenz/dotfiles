@@ -46,7 +46,7 @@ exec --no-startup-id nm-applet  # network manager tray
 exec --no-startup-id pamac-tray  # pamac package manager tray
 exec --no-startup-id xfce4-power-manager  # xfce4 power manager
 exec --no-startup-id xfce4-clipman  # xfce4 clipboard manager
-exec --no-startup-id ibus-daemon --xim -d -r  # ibus input method
+exec --no-startup-id ibus-daemon --xim -d -r  # ibus input method, for chinese
 
 # System operations
 set $locker ~/.config/i3/blurlock.sh
@@ -235,8 +235,7 @@ bar {
     tray_padding 3
     strip_workspace_numbers yes
 
-    # Use i3blocks instead of the default i3status
-    status_command i3blocks -c $HOME/.config/i3/i3blocks.conf
+    status_command i3status
 
     # Use official dracula theme
     colors {

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-KERNEL=$(uname -a | awk '{print $3}')
-echo -n "Kernel $KERNEL"
-echo ""
