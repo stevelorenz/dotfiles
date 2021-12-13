@@ -204,7 +204,8 @@ nnoremap <leader>bl :ls<CR>
 nnoremap <F1> :echo<CR>
 inoremap <F1> <C-o>:echo<CR>
 
-" F2: TODO
+" F2: list all commands with Clap
+noremap <F2> :Clap command<cr>
 
 " F3: TODO
 "

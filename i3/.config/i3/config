@@ -1,7 +1,8 @@
 # vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 # ================================================
-# About: i3wm configuration file
-# Maintainer: Xiang, Zuo
+# About: i3 configuration file
+#        I use Gnome alongside i3.
+# Maintainer: 相佐 (Zuo Xiang)
 # Email: xianglinks@gmail.com
 # ================================================
 
@@ -10,18 +11,21 @@
 set $mod Mod4
 
 # Default font
-font pango: Hack Regular 13
+font pango: Cascadia Code Regular 16
 
 # Start terminal emulator
+# Use alacritty for GPU acceleration
 set $term_1 alacritty
 bindsym $mod+Return exec $term_1
 
-# Avoid exiting FF or other APP accidentally
+# Avoid exiting FF or other APPs accidentally
 bindsym Ctrl+q exec echo "hug" > /dev/null
 
 # Start program launcher Rofi
-# Use rofi, configs saved in ~/.Xresources
 bindsym $mod+d exec rofi -show run
+
+# Start gnome control center
+bindsym $mod+F2 exec gnome-control-center
 
 # Start Dmenu
 bindsym $mod+Shift+m exec dmenu_run -l 20
@@ -35,12 +39,6 @@ bindsym $mod+Shift+r restart
 # Exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# Wallpaper (feh)
-# Auto set wallpapers after login in, random all mode
-exec --no-startup-id feh --bg-scale --randomize /usr/share/backgrounds/
-# change wallpaper with random all mode
-bindsym $mod+Shift+w  exec --no-startup-id feh --bg-scale --randomize /usr/share/backgrounds/
-
 # Auto start programs
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id unclutter  # auto hide cursor
@@ -48,29 +46,7 @@ exec --no-startup-id nm-applet  # network manager tray
 exec --no-startup-id pamac-tray  # pamac package manager tray
 exec --no-startup-id xfce4-power-manager  # xfce4 power manager
 exec --no-startup-id xfce4-clipman  # xfce4 clipboard manager
-exec --no-startup-id redshift-gtk  # screen temperature
-exec --no-startup-id xautolock -time 15 -locker ~/.config/i3/blurlock.sh
-# exec $pass xrandr --dpi 192  # better for HDPI screen
-
-# Backlight control (xbacklight)
-bindsym $mod+Shift+b exec --no-startup-id xbacklight +5
-bindsym $mod+Shift+d exec --no-startup-id xbacklight -5
-
-# Volume control (alsa)
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q sset Master 5%+ unmute
-bindsym XF86AudioLowerVolume  exec --no-startup-id amixer -q sset Master 5%- unmute
-bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
-
-# Switch keyboard layout (setxkbmap)
-set $keyboard_mode "switch keyboard: c=ch, d=de, u=us"
-mode $keyboard_mode{
-    bindsym c exec --no-startup-id "setxkbmap ch", mode "default"
-    bindsym d exec --no-startup-id "setxkbmap de", mode "default"
-    bindsym u exec --no-startup-id "setxkbmap us", mode "default"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+Shift+i mode $keyboard_mode
+exec --no-startup-id ibus-daemon --xim -d -r  # ibus input method
 
 # System operations
 set $locker ~/.config/i3/blurlock.sh
@@ -87,17 +63,6 @@ mode $mode_system {
 }
 bindsym $mod+Shift+s mode $mode_system
 
-# Shortcut for running some useful programs
-# Screenshooter
-bindsym $mod+p exec xfce4-screenshooter
-# System monitor
-bindsym $mod+i exec $term -e htop
-# Ranger file manager
-bindsym $mod+m exec $term -e ranger
-
-# Function buttons
-bindsym $mod+F2	exec --no-startup-id arandr
-bindsym $mod+F5	exec --no-startup-id sudo systemctl restart NetworkManager
 # }
 
 # === Border === {
@@ -200,9 +165,6 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
-
-# Flash the current focused window
-bindsym $mod+grave exec --no-startup-id bash ~/.config/i3/flash_win.sh
 # }
 
 # === Workspace === {
@@ -245,9 +207,6 @@ bindsym $mod+Shift+0 move container to $workspace0
 # Workspace back and forth (with/without active container)
 workspace_auto_back_and_forth yes
 bindsym $mod+Tab workspace back_and_forth
-
-# Rename workspace
-# bindsym Ctrl+Shift+r exec i3-input -F 'rename workspace to "%s"' -P 'rename current workspace: '
 # }
 
 # === Colors === {
@@ -276,8 +235,8 @@ set $base0F #fcc09e
 # Use the i3wm's built-in status bar.
 bar {
     position top
-    height 25
-    font pango:Hack Regular 13
+    height 30
+    font pango:Cascadia Code Regular 16
     # tray_output eDP1
     tray_padding 3
     strip_workspace_numbers yes
@@ -300,8 +259,8 @@ bar {
 
 # === Gap === {
 # Default no gaps
-gaps inner 0
-gaps outer 0
+gaps inner 5
+gaps outer 5
 
 # Enable gaps to only be used if there is more than one container on the workspace
 smart_gaps on
