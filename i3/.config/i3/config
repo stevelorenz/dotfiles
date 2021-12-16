@@ -11,12 +11,15 @@
 set $mod Mod4
 
 # Default font
-font pango: Cascadia Code Regular 16
+set $font_family Cascadia Code Regular
+set $font_size 18
+font pango: $font_family $font_size
 
 # Start terminal emulator
 # Use alacritty for GPU acceleration
+set $term alacritty
 set $term_1 alacritty
-bindsym $mod+Return exec $term_1
+bindsym $mod+Return exec $term
 
 # Avoid exiting FF or other APPs accidentally
 bindsym Ctrl+q exec echo "hug" > /dev/null
@@ -31,22 +34,24 @@ bindsym $mod+F2 exec gnome-control-center
 bindsym $mod+Shift+m exec dmenu_run -l 20
 
 # Reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c reload;exec notify-send 'Reload i3 configuration file'
 
 # Restart i3 in place (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r restart;exec notify-send 'Restart i3 session'
 
 # Exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Auto start programs
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id unclutter  # auto hide cursor
-exec --no-startup-id nm-applet  # network manager tray
-exec --no-startup-id pamac-tray  # pamac package manager tray
-exec --no-startup-id xfce4-power-manager  # xfce4 power manager
-exec --no-startup-id xfce4-clipman  # xfce4 clipboard manager
-exec --no-startup-id ibus-daemon --xim -d -r  # ibus input method, for chinese
+exec --no-startup-id dunst # replacement for desktop notification
+exec --no-startup-id ibus-daemon --xim -d -r # ibus input method, for Chinese and German
+exec --no-startup-id nm-applet # network manager tray
+exec --no-startup-id pamac-tray # manjaro pamac package manager tray
+exec --no-startup-id picom --config ~/.config/picom/picom.conf -b # provide compositing
+exec --no-startup-id unclutter # auto hide cursor
+exec --no-startup-id xfce4-clipman # xfce4 clipboard manager
+exec --no-startup-id xfce4-power-manager # xfce4 power manager
 
 # System operations
 set $locker ~/.config/i3/blurlock.sh
@@ -113,7 +118,7 @@ bindsym $mod+Shift+Right move right
 # split orientation
 bindsym $mod+apostrophe split h;exec notify-send 'tile horizontally'
 bindsym $mod+slash split v;exec notify-send 'tile vertically'
-bindsym $mod+q split toggle
+bindsym $mod+q split toggle; exec notify-send 'split toggle'
 
 # Enter full screen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -230,8 +235,7 @@ client.background       #F8F8F2
 bar {
     position top
     height 30
-    font pango:Cascadia Code Regular 16
-    # tray_output eDP1
+    font pango: $font_family $font_size
     tray_padding 3
     strip_workspace_numbers yes
 

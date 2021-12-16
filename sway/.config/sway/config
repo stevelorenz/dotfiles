@@ -1,5 +1,7 @@
 # Default config for sway
 #
+# MARK: I currently don't use sway since I get a laptop with Nvidia card... No wayland support yet.
+#
 # Copy this to ~/.config/sway/config and edit it to your liking.
 #
 # Read `man 5 sway` for a complete reference.
@@ -286,9 +288,6 @@ bar {
      font pango:Hack Regular 13
      tray_padding 3
      strip_workspace_numbers yes
-
-    # swaybar_command swaybar
-    # status_command i3blocks -c $HOME/.config/sway/i3blocks.conf
 
     # Waybar supports clickable tray.
     swaybar_command waybar

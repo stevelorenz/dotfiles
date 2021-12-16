@@ -80,7 +80,7 @@ if count(g:bundle_groups, 'general_programming')
     let g:vista_sidebar_position= 'vertical topleft'
 
     " - Tags management
-    "   ctags are still used when there is no LSP support
+    "   ctags are still used when there is no LSP support (or when LSP sucks ;))
     Plug 'ludovicchabant/vim-gutentags'
     set tags=./.tags;,.tags
     let g:gutentags_enabled = 1
@@ -151,9 +151,6 @@ endif
 
 " C, CPP {
 if count(g:bundle_groups, 'c_cpp')
-    " - Linux coding style for C
-    Plug 'vivien/vim-linux-coding-style', { 'for': ['c', 'cpp'] }
-
     " - Simplify Doxygen documentation
     Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c', 'cpp'] }
     let g:DoxygenToolkit_briefTag_funcName = "yes"
