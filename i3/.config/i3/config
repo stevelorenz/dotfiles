@@ -239,7 +239,7 @@ bar {
     tray_padding 3
     strip_workspace_numbers yes
 
-    status_command i3status
+    status_command i3status-rs
 
     # Use official dracula theme
     colors {

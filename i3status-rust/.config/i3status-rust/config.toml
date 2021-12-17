@@ -1,0 +1,38 @@
+theme = "modern"
+icons = "awesome"
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{mem_used_percents}"
+format_swap = "{swap_used_percents}"
+clickable = true
+interval = 3
+
+[[block]]
+block = "cpu"
+interval = 3
+format = "{utilization} {frequency}"
+
+[[block]]
+block = "nvidia_gpu"
+label = ""
+show_memory = false
+show_clocks = false
+show_power_draw = true
+interval = 3
+
+[[block]]
+block = "networkmanager"
+on_click = "alacritty -e nmtui"
+interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
+interface_name_include = []
+ap_format = "{ssid^10}"
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "time"
+interval = 5
+format = "%a %d/%m %R"

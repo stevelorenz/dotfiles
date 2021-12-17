@@ -2,6 +2,9 @@
 "=========================================
 " About: Zuo's Plugin Configuration for Neovim (v0.6.0)
 "        Plugins are chosen ONLY for my PERSONAL workflow
+"        In general, less plugins, less "problems" (currently also security risks since NeoVim does
+"        not have an official security checking/control for plugins).
+"        The number of installed plugins should be minimized.
 " Maintainer: 相佐 (Zuo Xiang)
 " Email: xianglinks@gmail.com
 "=========================================

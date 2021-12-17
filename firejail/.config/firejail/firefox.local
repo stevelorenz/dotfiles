@@ -1,5 +1,0 @@
-noblacklist ${HOME}/tmp
-whitelist ${HOME}/tmp
-
-# Require this to use fcitx input method.
-ignore nodbus
