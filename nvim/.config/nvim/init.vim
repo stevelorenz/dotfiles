@@ -17,7 +17,7 @@
 " Plugin Manager Settings
 "==========================================
 " {
-" If plug.vim does not exist in the standard data path, curl is used to get it.
+" If vim-plug does not exist in the standard data path, curl is used to get it.
 let data_dir = stdpath('data') . '/site'
 if empty(glob(data_dir . '/autoload/plug.vim'))
     silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -211,7 +211,8 @@ noremap <F2> :Clap command<cr>
 "
 " F4: TODO
 
-" F5: TODO
+" F5: trigger linting
+nnoremap <F5> :lua require('lint').try_lint()<CR>
 
 " F6: toggle nvim-tree
 nnoremap <F6> :NvimTreeToggle<CR>
@@ -285,3 +286,10 @@ function! TrimWhiteSpace()
     %s/\s\+$//e
 endfunction
 " }
+
+"==========================================
+" Lua Configuration
+"==========================================
+" {
+" }
+

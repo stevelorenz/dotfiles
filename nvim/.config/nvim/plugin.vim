@@ -2,9 +2,8 @@
 "=========================================
 " About: Zuo's Plugin Configuration for Neovim (v0.6.0)
 "        Plugins are chosen ONLY for my PERSONAL workflow
-"        In general, less plugins, less "problems" (currently also security risks since NeoVim does
-"        not have an official security checking/control for plugins).
-"        The number of installed plugins should be minimized.
+"        In general, less plugins, less "problems".
+"        The number of installed plugins should be MINIMIZED.
 " Maintainer: 相佐 (Zuo Xiang)
 " Email: xianglinks@gmail.com
 "=========================================
@@ -235,10 +234,9 @@ call plug#end()
 "==========================================
 " Lua Plugin Configuration
 "==========================================
-" MARK: lua configs must be added after `call plug#end()`
+" MARK: For Vim-Plug, lua configs MUST be added after `call plug#end()`
 " {
 
-" Load the lua module in path: ./lua/plugin.lua
 lua require('plugin')
 
 " }

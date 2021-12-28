@@ -138,3 +138,9 @@ require("which-key").setup({})
 
 -- Setup nvim-tree
 require("nvim-tree").setup({})
+
+-- Setup nvim-lint
+require('lint').linters_by_ft = {
+	bash = {'shellcheck',},
+	lua = {'luacheck',}
+}
