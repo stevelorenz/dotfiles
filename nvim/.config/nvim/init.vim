@@ -211,6 +211,7 @@ endfunction
 " Lua Configuration
 "==========================================
 " {
+lua require('options')
 lua require('keymaps')
 " }
 "
