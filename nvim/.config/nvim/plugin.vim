@@ -238,7 +238,7 @@ call plug#end()
 " MARK: For Vim-Plug, lua configs MUST be added after `call plug#end()`
 " {
 
-lua require('plugin')
+lua require('plugins')
 
 " }
 

@@ -150,86 +150,6 @@ set fileformats=unix,dos,mac
 " }
 
 "==========================================
-" Keyboard Mapping Settings
-"==========================================
-" {
-" Set global leader key
-let mapleader = ","
-let g:mapleader = ","
-
-" For quicker :
-nnoremap ; :
-
-" Type jk quickly and enter normal mode
-inoremap jk <Esc>
-xnoremap jk <Esc>
-cnoremap jk <C-c>
-
-" Change window size
-" horizontal: = -
-" vertical: , .
-nnoremap w=  :resize +3<CR>
-nnoremap w-  :resize -3<CR>
-nnoremap w,  :vertical resize -3<CR>
-nnoremap w.  :vertical resize +3<CR>
-
-" Toggle spell checking
-noremap <leader>ss :setlocal spell!<cr>
-
-" Jump between tags
-nnoremap <C-]> g<C-]>
-nnoremap g[ :pop<cr>
-
-" Ctrl+s for update: save the file
-inoremap <C-s> <C-O>:update<cr>
-nnoremap <C-s> :update<cr>
-
-" Open/close quickfix/location window
-noremap <leader>c :copen<cr>
-
-" Fuzzy finder for files
-noremap <leader>f :Clap files<cr>
-
-" === Tab and Buffer ===
-" switch buffer
-noremap <C-left> :bprevious<CR>
-noremap <C-right> :bnext<CR>
-" close (or delete) the current buffer
-nnoremap <leader>bd :bp <BAR> bd #<CR>
-" show all open buffers and their status
-nnoremap <leader>bl :ls<CR>
-
-" === F1 - F10 ===
-" F1: avoid to open help info
-nnoremap <F1> :echo<CR>
-inoremap <F1> <C-o>:echo<CR>
-
-" F2: list all commands with Clap
-noremap <F2> :Clap command<cr>
-
-" F3: TODO
-"
-" F4: TODO
-
-" F5: trigger linting
-nnoremap <F5> :lua require('lint').try_lint()<CR>
-
-" F6: toggle nvim-tree
-nnoremap <F6> :NvimTreeToggle<CR>
-
-" F7: TODO
-
-" F8: toggle undo tree visualizer
-nnoremap <F8> :UndotreeToggle<CR>
-
-" F9: list available snippets, used by UltiSnips by default
-" > Check config of UltiSnips in plugin.vim
-
-" F10: toggle vista (Tag/Symbols viewer)
-nnoremap <F10> :Vista!!<CR>
-" }
-
-"==========================================
 " File Type Custom Settings
 "==========================================
 " {
@@ -291,5 +211,6 @@ endfunction
 " Lua Configuration
 "==========================================
 " {
+lua require('keymaps')
 " }
-
+"

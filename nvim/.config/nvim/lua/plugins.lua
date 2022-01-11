@@ -1,7 +1,7 @@
 --
--- plugin.lua
+-- plugins.lua
 --
--- About: Zuo's Plugin Configuration for Neovim
+-- About: Zuo's Lua Plugin Configuration for Neovim
 --        Plugins are chosen ONLY for my PERSONAL workflow
 -- Maintainer: 相佐 (Zuo Xiang)
 -- Email: xianglinks@gmail.com
@@ -28,6 +28,7 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
+-- Setup LSP servers and configurations
 -- Use nvim-lsp-installer to setup all installed LSP servers
 -- reference: https://github.com/neovim/nvim-lspconfig/blob/master/README.md
 local on_attach = function(client, bufnr)
