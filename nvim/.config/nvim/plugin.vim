@@ -9,6 +9,7 @@
 "=========================================
 
 " - Use Vim-Plug Plugin Manager
+" TODO: Check packer.nvim, the de facto standard packet manager for Neovim
 call plug#begin(stdpath('data') . '/plugged')  " dir for plugin files
 
 " -------------------- Start Config --------------------
@@ -25,6 +26,9 @@ endif
 if count(g:bundle_groups, 'general')
     " - A collection of common lua functions
     Plug 'nvim-lua/plenary.nvim'
+
+    " - A blazing fast and easy to configure Neovim statusline written in Lua
+    Plug 'nvim-lualine/lualine.nvim'
 
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
     Plug 'liuchengxu/vim-clap'
@@ -50,6 +54,9 @@ if count(g:bundle_groups, 'general')
 
     " - Super fast git decorations
     Plug 'lewis6991/gitsigns.nvim'
+
+    " - Displays available keybindings in popup
+    Plug 'folke/which-key.nvim'
 endif
 "  --- }
 
@@ -117,7 +124,7 @@ if count(g:bundle_groups, 'general_programming')
 
     " - Easy code formatting
     Plug 'sbdchd/neoformat',
-    let g:neoformat_enabled_python = ['black', 'autopep8', 'docformatter']
+    let g:neoformat_enabled_python = ['black']
     " enable trimmming of trailing whitespace
     let g:neoformat_basic_format_trim = 1
 endif
@@ -212,17 +219,11 @@ if count(g:bundle_groups, 'test')
     " - Vim syntax file & snippets for Docker's Dockerfile
     Plug 'ekalinin/Dockerfile.vim'
 
-    " - Displays available keybindings in popup
-    Plug 'folke/which-key.nvim'
-
-    " - An asynchronous linter plugin
-    Plug 'mfussenegger/nvim-lint'
-
-    " - A blazing fast and easy to configure Neovim statusline written in Lua
-    Plug 'nvim-lualine/lualine.nvim'
-
     " - A file explorer for neovim written in lua
     Plug 'kyazdani42/nvim-tree.lua'
+
+    " Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
+    Plug 'jose-elias-alvarez/null-ls.nvim'
 
 endif
 
