@@ -32,125 +32,17 @@ endif
 " }
 
 "==========================================
-" General Settings
+" Lua Configuration
 "==========================================
 " {
-" No backup and swap files
-set nobackup
-set nowritebackup
-set noswapfile
-
-" Enable mouse and hide mouse while typing
-set mouse=a
-set mousehide
-
-" Restore the cursor position when opening file
-autocmd BufReadPost *
-            \ if line("'\"") > 1 && line("'\"") <= line("$") |
-            \   exe "normal! g`\"" |
-            \ endif
-
-" Form folds with indent
-set foldmethod=indent
-" Dot not form folds when opening the file
-set nofoldenable
-
-" Allow switching buffer without saving
-set hidden
-
-" Tab indent settings
-" if softtabstop=12 and tabstop=8 then a tab key will converted into one tab and 4 whitespaces
-set noexpandtab
-set tabstop=4      " noc (number of columns) of each tab
-set shiftwidth=4   " noc for re-indent operations
-set softtabstop=4  " noc for tapping tab key
-
-" Searching settings
-set ignorecase
-set smartcase
-
-" Save undo history to persistent files
-set undofile
-
-" For new splits
-set splitright
-set splitbelow
-
-" Cursor can be positioned where there is no actual character
-set virtualedit=all
-
-" Always report changed lines
-set report=0
-
-" Use system clipboard by default
-set clipboard+=unnamedplus
+" I'm now incrementally migrating vimscript configurations to lua
+lua require('options')
+lua require('keymaps')
+lua require('colorscheme')
 " }
 
 "==========================================
-" Display Settings
-"==========================================
-" {
-" Show line number
-set number
-
-" Do not auto wrap the line when it is longer than the width of the window.
-set nowrap
-
-" Minimal number of screen lines to keep above and below the cursor
-set scrolloff=999
-
-" Highlight current row and column
-set cursorline
-set cursorcolumn
-
-" Relative line number in normal mode, absolute line number in insert mode
-set relativenumber number
-au FocusLost * :set norelativenumber number
-au FocusGained * :set relativenumber
-autocmd InsertEnter * :set norelativenumber number
-autocmd InsertLeave * :set relativenumber
-
-" Use dark background
-set background=dark
-set termguicolors
-colorscheme onedark
-
-" Show screen column
-set colorcolumn=100
-
-" Always show the sign column
-set signcolumn=yes
-highlight clear SignColumn
-
-" Show some invisible characters
-set list
-set listchars=tab:→\ ,eol:↵,trail:·,extends:↷,precedes:↶
-
-" Always show tabline
-set showtabline=2
-
-" Avoid the pop up menu occupying the whole screen
-set pumheight=20
-" }
-
-"==========================================
-" File General Settings
-"==========================================
-" {
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-set emoji
-
-set helplang=en
-set termencoding=utf-8
-
-" Use unix as the default file type
-set fileformats=unix,dos,mac
-" }
-
-"==========================================
-" File Type Custom Settings
+" File Type Customization Settings
 "==========================================
 " {
 " TODO: Check how to do this with Lua
@@ -179,39 +71,3 @@ autocmd BufNewFile,BufRead meson_options.txt
             \ set expandtab |
             \ set spell |
 " }
-
-"==========================================
-" Providers
-"==========================================
-" {
-" Disable Python 2 support, use the system Python 3 interpreter
-let g:loaded_python_provider = 0
-let g:python_host_prog = '/usr/bin/python2'
-let g:python3_host_prog = '/usr/bin/python3'
-" }
-
-"==========================================
-" Terminal
-"==========================================
-"{
-tnoremap <Esc> <C-\><C-n>
-"}
-
-"==========================================
-" Helper Functions
-"==========================================
-" {
-" removes trailing spaces
-function! TrimWhiteSpace()
-    %s/\s\+$//e
-endfunction
-" }
-
-"==========================================
-" Lua Configuration
-"==========================================
-" {
-lua require('options')
-lua require('keymaps')
-" }
-"

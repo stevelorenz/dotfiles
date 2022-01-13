@@ -28,8 +28,8 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
--- Setup LSP servers and configurations
--- Use nvim-lsp-installer to setup all installed LSP servers
+-- Setup LSP servers and the built-in LSP client
+-- Use nvim-lsp-installer to install and setup all LSP servers
 -- reference: https://github.com/neovim/nvim-lspconfig/blob/master/README.md
 local on_attach = function(client, bufnr)
 	local function buf_set_keymap(...)
