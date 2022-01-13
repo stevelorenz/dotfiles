@@ -39,35 +39,5 @@ endif
 lua require('options')
 lua require('keymaps')
 lua require('colorscheme')
-" }
-
-"==========================================
-" File Type Customization Settings
-"==========================================
-" {
-" TODO: Check how to do this with Lua
-autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hh,*.hpp,*.cc,*.cxx
-            \ set foldmethod=indent |
-
-autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg
-            \ set filetype=dosini |
-            \ set spell |
-
-autocmd BufNewFile,BufRead *.tex
-            \ set filetype=tex |
-            \ set spell |
-
-autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
-            \ set filetype=markdown |
-            \ set spell |
-
-autocmd BufNewFile,BufRead *.py
-            \ set expandtab |
-
-autocmd BufNewFile,BufRead meson.build
-            \ set expandtab |
-
-autocmd BufNewFile,BufRead meson_options.txt
-            \ set expandtab |
-            \ set spell |
+lua require('autocommands')
 " }
