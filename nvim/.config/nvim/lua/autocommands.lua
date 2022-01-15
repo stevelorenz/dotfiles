@@ -7,13 +7,13 @@ vim.cmd([[
 autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hh,*.hpp,*.cc,*.cxx
             \ set foldmethod=indent |
 
-" ini style configuration files
+" INI style configuration files
 autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg,*.config
             \ set filetype=dosini |
             \ set spell |
 
-" latex editing
-autocmd BufNewFile,BufRead *.tex, *.bib
+" Latex editing
+autocmd BufNewFile,BufRead *.tex,*.bib
             \ set spell |
 
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown

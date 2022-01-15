@@ -43,18 +43,14 @@ local options = {
 	updatetime = 300, -- faster completion (4000ms default)
 	wrap = false, -- display lines as one long line
 	writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
+	wildmenu = true,
 }
 
 for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
-vim.opt.shortmess:append("c")
-
 -- Use vim.cmd to use vimscript-style configuration
-
-vim.cmd("set whichwrap+=<,>,[,],h,l")
-vim.cmd([[set iskeyword+=-]])
 
 -- Dot not form folds when opening the file
 vim.cmd("set nofoldenable")

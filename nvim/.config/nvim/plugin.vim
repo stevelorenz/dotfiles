@@ -17,8 +17,18 @@ call plug#begin(stdpath('data') . '/plugged')  " dir for plugin files
 " Inspired by spf13's vim config, installed plugins are divided into several groups.
 " Remove element in the bundle_groups to disable a group of plugins.
 if !exists('g:bundle_groups')
-    let g:bundle_groups = ['general', 'general_editing', 'general_programming', 'snippet_autocomplete',
-                \ 'c_cpp', 'python', 'rust', 'web_frontend', 'text', 'colorscheme', 'test']
+    let g:bundle_groups = [
+                \ 'general',
+                \ 'general_editing',
+                \ 'general_programming',
+                \ 'snippet_autocomplete',
+                \ 'c_cpp',
+                \ 'python',
+                \ 'rust',
+                \ 'web_frontend',
+                \ 'colorscheme',
+                \ 'test'
+                \]
 endif
 
 " --- General --------------------------------------------- {
@@ -57,6 +67,12 @@ if count(g:bundle_groups, 'general')
 
     " - Displays available keybindings in popup
     Plug 'folke/which-key.nvim'
+
+    " - Autopairs for neovim
+    Plug 'windwp/nvim-autopairs'
+
+    " - A file explorer for neovim written in lua
+    Plug 'kyazdani42/nvim-tree.lua'
 endif
 "  --- }
 
@@ -149,6 +165,8 @@ if count(g:bundle_groups, 'snippet_autocomplete')
 
     " - AutoComplete
     " TODO: Use AI power ;) ? Check tabnine or copilot ? nvim-cmp has a source for tabnine
+    " MARK: nvim-cmp can impact the autocompletion of the cmdline (wildmenu). Check it if wildmenu
+    " does not work
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
@@ -157,7 +175,6 @@ endif
 
 
 " --- Programming Language Specific ----------------------- {
-
 " C, CPP {
 if count(g:bundle_groups, 'c_cpp')
     " - Simplify Doxygen documentation
@@ -182,7 +199,6 @@ if count(g:bundle_groups, 'rust')
     Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 endif
 " }
-
 " }
 
 
@@ -193,16 +209,14 @@ if count(g:bundle_groups, 'web_frontend')
     let g:user_emmet_leader_key='<C-E>'
 endif
 " }
-
 " --- }
 
 
 " --- Colorscheme ----------------------------------------- {
-
 if count(g:bundle_groups, 'colorscheme')
     Plug 'navarasu/onedark.nvim'
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    set termguicolors
+    Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 endif
 " --- }
 
@@ -213,18 +227,11 @@ if count(g:bundle_groups, 'test')
     " - Better quickfix window
     Plug 'kevinhwang91/nvim-bqf'
 
-    " - Autopairs for neovim
-    Plug 'windwp/nvim-autopairs'
-
     " - Vim syntax file & snippets for Docker's Dockerfile
     Plug 'ekalinin/Dockerfile.vim'
 
-    " - A file explorer for neovim written in lua
-    Plug 'kyazdani42/nvim-tree.lua'
-
     " Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
     Plug 'jose-elias-alvarez/null-ls.nvim'
-
 endif
 
 " --- }
@@ -237,9 +244,7 @@ call plug#end()
 "==========================================
 " MARK: For Vim-Plug, lua configs MUST be added after `call plug#end()`
 " {
-
 lua require('plugins')
-
 " }
 
 " -------------------- End Config --------------------

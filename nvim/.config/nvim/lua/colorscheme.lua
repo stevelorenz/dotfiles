@@ -4,5 +4,5 @@
 
 vim.cmd([[
 set background=dark
-colorscheme onedark
+colorscheme tokyonight
 ]])
