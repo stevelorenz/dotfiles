@@ -186,9 +186,10 @@ endif
 " Python {
 if count(g:bundle_groups, 'python')
     " - Generate python docstring
-    " 'make install' install doq package in a Python venv in the plugin's directory
-    Plug 'heavenshell/vim-pydocstring', { 'do': 'make install', 'for': 'python' }
-    " disable key mappings
+    " Do not use virtualenv, use manually installed doq package
+    Plug 'heavenshell/vim-pydocstring'
+    let g:pydocstring_doq_path = '~/.local/bin/doq'
+    let g:pydocstring_formatter = 'sphinx'
     let g:pydocstring_enable_mapping = 0
 endif
 " }
