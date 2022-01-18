@@ -73,15 +73,6 @@ else
     export EDITOR='nvim'
 fi
 
-# # Load pyenv for python version management
-# if [[ -d ~/.pyenv/ ]]; then
-#     export PYENV_ROOT="$HOME/.pyenv"
-#     export PATH="$PYENV_ROOT/bin:$PATH"
-#     # init pyenv and virtualenv plugin
-#     eval "$(pyenv init -)"
-#     eval "$(pyenv virtualenv-init -)"
-# fi
-
 # Add local bin folders
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 
@@ -95,21 +86,38 @@ if [[ -d /usr/share/bcc ]]; then
 fi
 
 # Add paths of programming environments
-export GOPATH="$HOME/.go"
-export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
-export RUBYPATH="$HOME/.gem/ruby/2.6.0/"
-export PATH="$PATH:$RUBYPATH/bin"
-export CARGOPATH="$HOME/.cargo/"
-export PATH="$PATH:$CARGOPATH/bin"
-export DOTNETPATH="$HOME/.dotnet/tools"
-export PATH="$PATH:$DOTNETPATH"
 
+# Golang
+if [[ -d "$HOME/.go" ]]; then
+    export GOPATH="$HOME/.go"
+    export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
+fi
+
+# Ruby Gem
+if [[ -d "$HOME/.gem/ruby/3.0.0/" ]]; then
+    export RUBYPATH="$HOME/.gem/ruby/3.0.0"
+    export PATH="$PATH:$RUBYPATH/bin"
+fi
+
+# Rust Cargo
+if [[ -d "$HOME/.cargo/" ]]; then
+    export CARGOPATH="$HOME/.cargo"
+    export PATH="$PATH:$CARGOPATH/bin"
+fi
+
+# C# Dotnet
+if [[ -d "$HOME/.dotnet/tools" ]]; then
+    export DOTNETPATH="$HOME/.dotnet/tools"
+    export PATH="$PATH:$DOTNETPATH"
+fi
+
+# Typescript Deno
 if [[ -d $HOME/.deno ]]; then
     export DENO_INSTALL="$HOME/.deno"
     export PATH="$DENO_INSTALL/bin:$PATH"
 fi
 
-# Use ibus for Chinese input
+# Use Ibus (I use Gnome and i3wm) for Chinese input
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus

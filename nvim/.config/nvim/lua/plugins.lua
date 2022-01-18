@@ -72,7 +72,7 @@ lsp_installer.on_server_ready(function(server)
 		-- disable automatic addition of #includes
 		-- usually the required bundled the header file is already included...
 		-- I need to manually remove them to avoid duplication and wrong includes...
-		opts.cmd = { "clangd", "-header-insertion=never" }
+		opts.cmd = { "clangd", "--header-insertion=never" }
 	end
 
 	server:setup(opts)
