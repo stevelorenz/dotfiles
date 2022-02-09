@@ -1,10 +1,10 @@
 # ================================================
 # BASH Configuration File
+# TODO: Update the bashrc
 # ================================================
 
-stty -ixon              # Disable ctrl-s and ctrl-q.
-shopt -s autocd         #Allows you to cd into directory merely by typing the directory name.
-HISTSIZE= HISTFILESIZE= # Infinite history.
+stty -ixon      # Disable ctrl-s and ctrl-q.
+shopt -s autocd # Allows you to cd into directory merely by typing the directory name.
 
 # Customised Prompt
 # ----------------------------------------------------------
@@ -20,12 +20,6 @@ export PS1="\[$(tput bold)\]\[$(tput setaf 1)\][\[$(tput setaf 3)\]\u\[$(tput se
 
 # Alias
 # ----------------------------------------------------------
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
-
-alias ee='nvim'
-alias ..='cd ..'
 [ -f "$HOME/.custom_aliases.sh" ] && source "$HOME/.custom_aliases.sh"
 # ----------------------------------------------------------
 

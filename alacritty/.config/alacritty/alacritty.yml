@@ -5,7 +5,7 @@ import:
   - ~/.config/alacritty/dracula.yml
 
 # transparent background
-background_opacity: 0.98  # value range is 0 ~ 1
+window.opacity: 0.98  # value range is 0 ~ 1
 
 env:
   # TERM variable

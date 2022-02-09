@@ -52,6 +52,7 @@ exec --no-startup-id picom --config ~/.config/picom/picom.conf -b # provide comp
 exec --no-startup-id unclutter # auto hide cursor
 exec --no-startup-id xfce4-clipman # xfce4 clipboard manager
 exec --no-startup-id xfce4-power-manager # xfce4 power manager
+exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent # geoclue for location service
 
 # System operations
 set $locker ~/.config/i3/blurlock.sh
