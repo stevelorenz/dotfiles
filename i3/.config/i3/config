@@ -1,7 +1,8 @@
 # vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 # ================================================
-# About: i3 configuration file
+# About: i3wm configuration file
 #        I use Gnome alongside i3.
+#        Some Gnome components (e.g. gnome-control-center) can be re-used in the i3 configuration.
 # Maintainer: 相佐 (Zuo Xiang)
 # Email: xianglinks@gmail.com
 # ================================================
@@ -18,10 +19,9 @@ font pango: $font_family $font_size
 # Start terminal emulator
 # Use alacritty for GPU acceleration
 set $term alacritty
-set $term_1 alacritty
 bindsym $mod+Return exec $term
 
-# Avoid exiting FF or other APPs accidentally
+# Avoid exiting Firefox or other APPs accidentally
 bindsym Ctrl+q exec echo "hug" > /dev/null
 
 # Start program launcher Rofi
@@ -43,7 +43,8 @@ bindsym $mod+Shift+r restart;exec notify-send 'Restart i3 session'
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Auto start programs
-exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent # geoclue for location service
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 # GUI polkit agent
 exec --no-startup-id dunst # replacement for desktop notification
 exec --no-startup-id ibus-daemon --xim -d -r # ibus input method, for Chinese and German
 exec --no-startup-id nm-applet # network manager tray
@@ -52,7 +53,6 @@ exec --no-startup-id picom --config ~/.config/picom/picom.conf -b # provide comp
 exec --no-startup-id unclutter # auto hide cursor
 exec --no-startup-id xfce4-clipman # xfce4 clipboard manager
 exec --no-startup-id xfce4-power-manager # xfce4 power manager
-exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent # geoclue for location service
 
 # System operations
 set $locker ~/.config/i3/blurlock.sh
@@ -140,10 +140,6 @@ bindsym $mod+Shift+minus move scratchpad
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
 
-# Navigate workspaces next / previous
-#bindsym $mod+Ctrl+Right workspace next
-#bindsym $mod+Ctrl+Left workspace prev
-
 # Move focused workspace between monitors
 bindsym $mod+Ctrl+Right move workspace to output right
 bindsym $mod+Ctrl+Left move workspace to output left
@@ -216,7 +212,7 @@ bindsym $mod+Tab workspace back_and_forth
 # }
 
 # === Colors === {
-# Use official dracula theme
+# Use the official dracula theme
 # class                 border  bground text    indicator child_border
 client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
 client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
