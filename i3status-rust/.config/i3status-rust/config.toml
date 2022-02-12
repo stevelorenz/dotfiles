@@ -1,5 +1,15 @@
-theme = "modern"
+theme = "dracula"
 icons = "awesome"
+
+# [[block]]
+# block = "custom"
+# command = "echo `uname` `uname -r | tr - . | cut -d. -f1-2`"
+# interval = "once"
+
+[[block]]
+block = "cpu"
+interval = 3
+format = "{utilization} {frequency}"
 
 [[block]]
 block = "memory"
@@ -10,24 +20,26 @@ clickable = true
 interval = 3
 
 [[block]]
-block = "cpu"
-interval = 3
-format = "{utilization} {frequency}"
-
-[[block]]
 block = "nvidia_gpu"
 label = ""
-show_memory = false
+show_memory = true
 show_clocks = false
 show_power_draw = true
 interval = 3
 
+# Network info is already showed by the network manager applet
+# [[block]
+# block = "networkmanager"
+# on_click = "alacritty -e nmtui"
+# interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
+# interface_name_include = []
+# ap_format = "{ssid^10}"
+
 [[block]]
-block = "networkmanager"
-on_click = "alacritty -e nmtui"
-interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
-interface_name_include = []
-ap_format = "{ssid^10}"
+block = "temperature"
+collapsed = false
+interval = 3
+format = "{average} avg"
 
 [[block]]
 block = "sound"

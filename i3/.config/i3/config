@@ -231,8 +231,9 @@ client.background       #F8F8F2
 # Use the i3wm's built-in status bar.
 bar {
     position top
-    height 30
+    height 35
     font pango: $font_family $font_size
+    tray_output primary
     tray_padding 3
     strip_workspace_numbers yes
 
@@ -254,16 +255,16 @@ bar {
 # }
 
 # === Gap === {
+# Set default inner and outer gap width
+set $default_gaps_inner 10
+set $default_gaps_outer 5
+
 # No gap by default
-gaps inner 0
-gaps outer 0
+gaps inner $default_gaps_inner
+gaps outer $default_gaps_outer
 
 # Enable gaps to only be used if there is more than one container on the workspace
-smart_gaps on
-
-# Set default inner and outer gap width
-set $default_gaps_inner 15
-set $default_gaps_outer 10
+# smart_gaps on
 
 # Remove and restore gaps
 set $mode_gaps (0) remove gaps (d) default gaps (i) modify inner gaps (o) modify outer gaps

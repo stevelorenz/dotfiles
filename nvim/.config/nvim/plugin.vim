@@ -233,6 +233,9 @@ if count(g:bundle_groups, 'test')
 
     " Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
     Plug 'jose-elias-alvarez/null-ls.nvim'
+
+    " Focus on important part of the code. Very nice !
+    Plug 'hoschi/yode-nvim'
 endif
 
 " --- }

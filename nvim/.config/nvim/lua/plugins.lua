@@ -154,3 +154,6 @@ require("null-ls").setup({
 		require("null-ls").builtins.diagnostics.shellcheck,
 	},
 })
+
+-- Setup yode-nvim
+require("yode-nvim").setup({})
