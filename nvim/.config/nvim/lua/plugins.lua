@@ -106,6 +106,7 @@ cmp.setup({
 	sources = {
 		{ name = "nvim_lsp", keyword_length = 3 },
 		{ name = "buffer", keyword_length = 3 },
+		{ name = "nvim_lua", keyword_length = 3 },
 	},
 })
 
@@ -157,3 +158,6 @@ require("null-ls").setup({
 
 -- Setup yode-nvim
 require("yode-nvim").setup({})
+
+-- Setup neogen
+require("neogen").setup({})

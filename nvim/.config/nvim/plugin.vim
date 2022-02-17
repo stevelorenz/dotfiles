@@ -73,6 +73,9 @@ if count(g:bundle_groups, 'general')
 
     " - A file explorer for neovim written in lua
     Plug 'kyazdani42/nvim-tree.lua'
+
+    " - Better quickfix window
+    Plug 'kevinhwang91/nvim-bqf'
 endif
 "  --- }
 
@@ -170,11 +173,17 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-nvim-lua'
 endif
 " --- }
 
 
 " --- Programming Language Specific ----------------------- {
+
+" TODO: Check https://github.com/danymat/neogen.
+" Neogen is a annotation generate for multiple languages.
+" So this can replace the requirement of DoxygenToolkit, vim-pydocstring etc.
+
 " C, CPP {
 if count(g:bundle_groups, 'c_cpp')
     " - Simplify Doxygen documentation
@@ -225,17 +234,21 @@ endif
 " --- Plugins Under Test ---------------------------------- {
 
 if count(g:bundle_groups, 'test')
-    " - Better quickfix window
-    Plug 'kevinhwang91/nvim-bqf'
-
     " - Vim syntax file & snippets for Docker's Dockerfile
     Plug 'ekalinin/Dockerfile.vim'
 
-    " Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
+    " - Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
     Plug 'jose-elias-alvarez/null-ls.nvim'
 
-    " Focus on important part of the code. Very nice !
+    " - Focus on important part of the code. Very nice !
     Plug 'hoschi/yode-nvim'
+
+    " - Catppuccin theme
+    Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+
+    " - A better annotation generator.
+    "   Test this plugin. If it works nicely, then remove DoxygenToolkit and vim-pydocstring
+    Plug 'danymat/neogen'
 endif
 
 " --- }
