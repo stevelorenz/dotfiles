@@ -1,10 +1,8 @@
-theme = "dracula"
-icons = "awesome"
+[theme]
+name = "native"
 
-# [[block]]
-# block = "custom"
-# command = "echo `uname` `uname -r | tr - . | cut -d. -f1-2`"
-# interval = "once"
+[icons]
+name = "awesome"
 
 [[block]]
 block = "cpu"

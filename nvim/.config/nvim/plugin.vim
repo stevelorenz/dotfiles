@@ -249,6 +249,10 @@ if count(g:bundle_groups, 'test')
     " - A better annotation generator.
     "   Test this plugin. If it works nicely, then remove DoxygenToolkit and vim-pydocstring
     Plug 'danymat/neogen'
+
+    " - A grammer checker
+    "   MARK: Need to use it to double-check my PhD thesis...
+    Plug 'rhysd/vim-grammarous'
 endif
 
 " --- }
