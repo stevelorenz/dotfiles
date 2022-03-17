@@ -83,8 +83,8 @@ end)
 local cmp = require("cmp")
 cmp.setup({
 	completion = {
-		-- Disable auto-completion and trigger completion with C-Space
-		autocomplete = false,
+		-- Auto-completion can be disabled here and trigger completion manually with C-Space
+		-- autocomplete = false,
 		completeopt = "menu,menuone,noinsert",
 	},
 	snippet = {

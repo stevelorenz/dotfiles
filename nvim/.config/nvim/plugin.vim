@@ -124,6 +124,7 @@ if count(g:bundle_groups, 'general_programming')
         let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
     endif
     " put tags file to the tmpfs cache directory
+    " do not pollute the source code directory
     let s:vim_tags = expand('~/.cache/tags')
     let g:gutentags_cache_dir = s:vim_tags
     if !isdirectory(s:vim_tags)
@@ -186,9 +187,6 @@ endif
 
 " C, CPP {
 if count(g:bundle_groups, 'c_cpp')
-    " - Simplify Doxygen documentation
-    Plug 'vim-scripts/DoxygenToolkit.vim', { 'for': ['c', 'cpp'] }
-    let g:DoxygenToolkit_briefTag_funcName = "yes"
 endif
 " }
 
@@ -224,9 +222,11 @@ endif
 
 " --- Colorscheme ----------------------------------------- {
 if count(g:bundle_groups, 'colorscheme')
-    Plug 'navarasu/onedark.nvim'
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+    Plug 'catppuccin/nvim', {'as': 'catppuccin'}
     Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+    Plug 'navarasu/onedark.nvim'
 endif
 " --- }
 
@@ -243,15 +243,12 @@ if count(g:bundle_groups, 'test')
     " - Focus on important part of the code. Very nice !
     Plug 'hoschi/yode-nvim'
 
-    " - Catppuccin theme
-    Plug 'catppuccin/nvim', {'as': 'catppuccin'}
-
     " - A better annotation generator.
     "   Test this plugin. If it works nicely, then remove DoxygenToolkit and vim-pydocstring
     Plug 'danymat/neogen'
 
     " - A grammer checker
-    "   MARK: Need to use it to double-check my PhD thesis...
+    "   MARK: Need to use it to double-check my PhD dissertation...
     Plug 'rhysd/vim-grammarous'
 endif
 

@@ -4,6 +4,6 @@
 
 vim.cmd([[
 set background=dark
-colorscheme tokyonight
-" colorscheme catppuccin
+colorscheme catppuccin
+" colorscheme tokyonight
 ]])
