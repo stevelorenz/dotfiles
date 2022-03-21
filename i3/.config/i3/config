@@ -11,6 +11,9 @@
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 
+# Default i3 tiling mode
+workspace_layout default
+
 # Default font
 set $font_family Cascadia Code Regular
 set $font_size 18
@@ -25,7 +28,7 @@ bindsym $mod+Return exec $term
 bindsym Ctrl+q exec echo "hug" > /dev/null
 
 # Start program launcher Rofi
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec rofi -modi drun -show drun
 
 # Start gnome control center
 bindsym $mod+F2 exec gnome-control-center
@@ -72,10 +75,10 @@ bindsym $mod+Shift+s mode $mode_system
 # }
 
 # === Border === {
-# Hide all borders
+# new_window pixel 1
+# Hide all borders (Thin borders)
 hide_edge_borders both
 for_window [class="^.*"] border pixel 3
-# new_window normal
 new_float normal
 # }
 

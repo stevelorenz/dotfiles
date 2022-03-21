@@ -56,7 +56,7 @@ if count(g:bundle_groups, 'general')
     Plug 'tweekmonster/startuptime.vim'
 
     " - Adds file type icons to Vim plugins
-    Plug 'ryanoasis/vim-devicons'
+    Plug 'kyazdani42/nvim-web-devicons'
 
     " - Nvim Treesitter configurations and abstraction layer
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -86,6 +86,9 @@ if count(g:bundle_groups, 'general_editing')
     " - Handle surroundings
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
+
+    " - Focus on important part of the code. Very nice !
+    Plug 'hoschi/yode-nvim'
 endif
 "  --- }
 
@@ -147,6 +150,9 @@ if count(g:bundle_groups, 'general_programming')
     let g:neoformat_enabled_python = ['black']
     " enable trimmming of trailing whitespace
     let g:neoformat_basic_format_trim = 1
+
+    " - Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
+    Plug 'jose-elias-alvarez/null-ls.nvim'
 endif
 " --- }
 
@@ -217,6 +223,7 @@ if count(g:bundle_groups, 'web_frontend')
     let g:user_emmet_leader_key='<C-E>'
 endif
 " }
+
 " --- }
 
 
@@ -236,12 +243,6 @@ endif
 if count(g:bundle_groups, 'test')
     " - Vim syntax file & snippets for Docker's Dockerfile
     Plug 'ekalinin/Dockerfile.vim'
-
-    " - Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
-    Plug 'jose-elias-alvarez/null-ls.nvim'
-
-    " - Focus on important part of the code. Very nice !
-    Plug 'hoschi/yode-nvim'
 
     " - A better annotation generator.
     "   Test this plugin. If it works nicely, then remove DoxygenToolkit and vim-pydocstring
