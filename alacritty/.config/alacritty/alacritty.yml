@@ -1,7 +1,8 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator
 
-# dracula theme
+# Themes
 import:
+  # - ~/.config/alacritty/catppuccin.yml
   - ~/.config/alacritty/dracula.yml
 
 # transparent background
