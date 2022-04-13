@@ -58,7 +58,7 @@ vim.cmd("set nofoldenable")
 -- Show some invisible characters
 vim.cmd([[
 set list
-set listchars=tab:→\ ,eol:↵,trail:·,extends:↷,precedes:↶
+set listchars=space:␣,tab:>-,eol:↵,trail:·,extends:↷,precedes:↶
 ]])
 
 -- Set Python providers

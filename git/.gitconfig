@@ -4,6 +4,12 @@
 [core]
     editor = vim
     whitespace = cr-at-eol
+	pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    line-numbers = true
+    navigate = true  # use n and N to move between diff sections
 [color]
     interactive = auto
     status = auto
@@ -12,10 +18,10 @@
 [push]
     default = simple
 [merge]
-	tool = nvimdiff
-	conflictstyle = diff3
+    tool = nvimdiff
+    conflictstyle = diff3
 [mergetool]
-	prompt = true
+    prompt = true
 [mergetool "nvimdiff"]
   cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [alias]
@@ -30,14 +36,12 @@
     # Reset all uncommitted changes
     unstage = reset --hard HEAD
 [commit]
-	template = ~/.git_commit_msg.txt
+    template = ~/.git_commit_msg.txt
 [pull]
-	rebase = false
+    rebase = false
 
 
 # Commands for faster ZSH in big git repos:
 #
 # - git config oh-my-zsh.hide-status 1
 # - git config oh-my-zsh.hide-status 1 --global
-[url "ssh://git@git.comnets.net"]
-	insteadOf = https://git.comnets.net
