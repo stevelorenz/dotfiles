@@ -20,6 +20,7 @@ local options = {
 	fileformats = { "unix" },
 	hlsearch = true, -- highlight all matches on previous search pattern
 	ignorecase = true, -- ignore case in search patterns
+	laststatus = 3, -- Use global statusline
 	mouse = "a", -- allow the mouse to be used in neovim
 	number = true, -- set numbered lines
 	numberwidth = 4, -- set number column width to 2 {default 4}
@@ -57,8 +58,7 @@ vim.cmd("set nofoldenable")
 
 -- Show some invisible characters
 vim.cmd([[
-set list
-set listchars=space:␣,tab:>-,eol:↵,trail:·,extends:↷,precedes:↶
+set list listchars=space:␣,tab:>-,eol:↵,trail:·,extends:↷,precedes:↶
 ]])
 
 -- Set Python providers

@@ -153,6 +153,9 @@ if count(g:bundle_groups, 'general_programming')
 
     " - Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
     Plug 'jose-elias-alvarez/null-ls.nvim'
+
+    " - A better annotation generator.
+    Plug 'danymat/neogen'
 endif
 " --- }
 
@@ -187,10 +190,6 @@ endif
 
 " --- Programming Language Specific ----------------------- {
 
-" TODO: Check https://github.com/danymat/neogen.
-" Neogen is a annotation generate for multiple languages.
-" So this can replace the requirement of DoxygenToolkit, vim-pydocstring etc.
-
 " C, CPP {
 if count(g:bundle_groups, 'c_cpp')
 endif
@@ -198,12 +197,6 @@ endif
 
 " Python {
 if count(g:bundle_groups, 'python')
-    " - Generate python docstring
-    " Do not use virtualenv, use manually installed doq package
-    Plug 'heavenshell/vim-pydocstring'
-    let g:pydocstring_doq_path = '~/.local/bin/doq'
-    let g:pydocstring_formatter = 'sphinx'
-    let g:pydocstring_enable_mapping = 0
 endif
 " }
 
@@ -243,10 +236,6 @@ endif
 if count(g:bundle_groups, 'test')
     " - Vim syntax file & snippets for Docker's Dockerfile
     Plug 'ekalinin/Dockerfile.vim'
-
-    " - A better annotation generator.
-    "   Test this plugin. If it works nicely, then remove DoxygenToolkit and vim-pydocstring
-    Plug 'danymat/neogen'
 
     " - A grammer checker
     "   MARK: Need to use it to double-check my PhD dissertation...
