@@ -120,11 +120,33 @@ cmp.setup({
 	},
 	-- Currenly ONLY use LSP and buffer sources
 	sources = {
-		{ name = "nvim_lsp", keyword_length = 3 },
 		{ name = "buffer", keyword_length = 3 },
+		{ name = "nvim_lsp", keyword_length = 3 },
 		{ name = "nvim_lua", keyword_length = 3 },
+		{ name = "path", keyword_length = 3 },
 	},
 })
+
+-- nvim-cmp menu appearance
+-- Use vscode dark+ theme
+vim.cmd([[
+" gray
+highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+" blue
+highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
+highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
+" light blue
+highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
+highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
+highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
+" pink
+highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
+highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
+" front
+highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
+highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
+highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
+]])
 
 -- Setup lsp_signature
 require("lsp_signature").setup()

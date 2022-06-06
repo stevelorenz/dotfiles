@@ -1,0 +1,3 @@
+#!/bin/bash
+
+wine ~/.wine/drive_c/Games/Counter-strike\ 1.6\ Original/hl.exe -steam -game cstrike -appid 10 -noipx -nojoy -noforcemspd -noforcemparms -noforcemaccel

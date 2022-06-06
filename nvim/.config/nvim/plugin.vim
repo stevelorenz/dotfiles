@@ -104,6 +104,7 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'williamboman/nvim-lsp-installer'
 
     " - LSP signature hint as you type
+    "   TODO: Check if nvim-cmp has native support for signature, so this plugin is not needed.
     Plug 'ray-x/lsp_signature.nvim'
 
     " - Viewer & Finder for LSP symbols and tags
@@ -146,6 +147,7 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'skywind3000/asyncrun.vim'
 
     " - Easy code formatting
+    "   TODO: Check if this needed when LSP supports formatting
     Plug 'sbdchd/neoformat',
     let g:neoformat_enabled_python = ['black']
     " enable trimmming of trailing whitespace
@@ -184,10 +186,12 @@ if count(g:bundle_groups, 'snippet_autocomplete')
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-nvim-lua'
+    Plug 'hrsh7th/cmp-path'
 endif
 " --- }
 
 
+" MARK: Most language specific plugins are needed nowadays thanks to LSP
 " --- Programming Language Specific ----------------------- {
 
 " C, CPP {
@@ -239,6 +243,7 @@ if count(g:bundle_groups, 'test')
 
     " - A grammer checker
     "   MARK: Need to use it to double-check my PhD dissertation...
+    "   It is a useful plugin to help writing
     Plug 'rhysd/vim-grammarous'
 endif
 
