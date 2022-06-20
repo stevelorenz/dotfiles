@@ -7,6 +7,8 @@
 -- Email: xianglinks@gmail.com
 --
 
+local vim = vim
+
 -- Setup treesitter
 require("nvim-treesitter.configs").setup({
 	-- Install only modules for the languages I use frequently
@@ -71,7 +73,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "clangd", "gopls", "pyright", "rust_analyzer", "sumneko_lua" }
+local servers = { "bashls", "clangd", "gopls", "pyright", "rust_analyzer", "sumneko_lua" }
 for _, lsp in pairs(servers) do
 	require("lspconfig")[lsp].setup({
 		on_attach = on_attach,
@@ -149,7 +151,12 @@ highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
 ]])
 
 -- Setup lsp_signature
-require("lsp_signature").setup()
+require("lsp_signature").setup({
+	bind = true, -- This is mandatory, otherwise border config won't get registered.
+	handler_opts = {
+		border = "rounded",
+	},
+})
 
 -- Setup nvim-autopairs
 require("nvim-autopairs").setup()

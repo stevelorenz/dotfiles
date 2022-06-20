@@ -3,9 +3,9 @@
 -- About: Zuo's Keymap Configuration for Neovim
 --
 
-local opts = { noremap = true, silent = true }
+local vim = vim
 
-local term_opts = { silent = true }
+local opts = { noremap = true, silent = true }
 
 -- Shorten function name
 local keymap = vim.api.nvim_set_keymap

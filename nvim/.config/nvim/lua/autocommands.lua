@@ -2,29 +2,29 @@
 -- autocommands.lua
 --
 
+local vim = vim
+
 vim.cmd([[
-" C/CPP files have different suffixes...
-autocmd BufNewFile,BufRead *.c,*.cpp,*.h,*.hh,*.hpp,*.cc,*.cxx
-            \ set foldmethod=indent |
 
 " INI style configuration files
 autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg,*.config
             \ set filetype=dosini |
             \ set spell |
 
-" Latex editing
-autocmd BufNewFile,BufRead *.tex,*.bib
+" Text files
+autocmd BufNewFile,BufRead *.tex,*.bib,*.rst,*.txt
             \ set spell |
 
+" Markdown files
 autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
             \ set filetype=markdown |
             \ set spell |
 
-" Python sources: convert tabs to spaces
+" Python source files
 autocmd BufNewFile,BufRead *.py
             \ set expandtab |
 
-" Meson build scripts: convert tabs to spaces
+" Meson build script files
 autocmd BufNewFile,BufRead meson.build
             \ set expandtab |
 autocmd BufNewFile,BufRead meson_options.txt

@@ -245,6 +245,19 @@ if count(g:bundle_groups, 'test')
     "   MARK: Need to use it to double-check my PhD dissertation...
     "   It is a useful plugin to help writing
     Plug 'rhysd/vim-grammarous'
+
+    " - A pretty list for showing diagnostics, references, telescope results,
+    "   quickfix and location lists to help you solve all the trouble
+    "   your code is causing.
+    Plug 'folke/trouble.nvim'
+
+    " - A more adventurous wildmenu
+    function UpdateRemotePlugins(...)
+        " Needed to refresh runtime files
+        let &rtp=&rtp
+        UpdateRemotePlugins
+    endfunction
+    Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 endif
 
 " --- }
@@ -258,6 +271,26 @@ call plug#end()
 " MARK: For Vim-Plug, lua configs MUST be added after `call plug#end()`
 " {
 lua require('plugins')
+
+" Lua configuration for plugins under test
+" These configurations should be moved to ./lua/plugins.lua if they pass the test
+if count(g:bundle_groups, 'test')
+
+lua << EOF
+    -- trouble.nvim
+    require("trouble").setup({})
+
+    -- wilder.nvim
+    local wilder = require('wilder')
+    wilder.setup({modes = {':', '/', '?'}})
+    wilder.set_option('renderer', wilder.popupmenu_renderer({
+        highlighter = wilder.basic_highlighter(),
+        left = {' ', wilder.popupmenu_devicons()},
+        right = {' ', wilder.popupmenu_scrollbar()},
+    }))
+EOF
+
+endif
 " }
 
 " -------------------- End Config --------------------

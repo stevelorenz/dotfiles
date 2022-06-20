@@ -3,6 +3,8 @@
 -- About: Zuo's Options Configuration for Neovim
 --
 
+local vim = vim
+
 -- Less options, less problems...
 local options = {
 	backup = false, -- do not create backup file
@@ -18,6 +20,8 @@ local options = {
 	expandtab = false, -- do not convert tabs to spaces
 	fileencoding = "utf-8", -- the encoding written to a file
 	fileformats = { "unix" },
+	foldmethod = "expr",  -- use treesitter for folding
+	foldexpr = "nvim_treesitter#foldexpr()", -- use treesitter for folding
 	hlsearch = true, -- highlight all matches on previous search pattern
 	ignorecase = true, -- ignore case in search patterns
 	laststatus = 3, -- Use global statusline
