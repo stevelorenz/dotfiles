@@ -12,7 +12,7 @@ local vim = vim
 -- Setup treesitter
 require("nvim-treesitter.configs").setup({
 	-- Install only modules for the languages I use frequently
-	ensure_installed = { "c", "cpp", "go", "javascript", "latex", "lua", "python", "rust", "vim" },
+	ensure_installed = { "c", "cpp", "go", "javascript", "latex", "lua", "python", "ruby", "rust", "vim" },
 	highlight = {
 		enable = true, -- false will disable the whole extension
 		disable = {}, -- list of language that will be disabled
@@ -73,7 +73,7 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "bashls", "clangd", "gopls", "pyright", "rust_analyzer", "sumneko_lua" }
+local servers = { "bashls", "clangd", "gopls", "pyright", "rust_analyzer", "solargraph", "sqls", "sumneko_lua" }
 for _, lsp in pairs(servers) do
 	require("lspconfig")[lsp].setup({
 		on_attach = on_attach,
@@ -218,3 +218,15 @@ require("neogen").setup({
 		},
 	},
 })
+
+-- wilder.nvim
+local wilder = require("wilder")
+wilder.setup({ modes = { ":", "/", "?" } })
+wilder.set_option(
+	"renderer",
+	wilder.popupmenu_renderer({
+		highlighter = wilder.basic_highlighter(),
+		left = { " ", wilder.popupmenu_devicons() },
+		right = { " ", wilder.popupmenu_scrollbar() },
+	})
+)

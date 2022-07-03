@@ -31,6 +31,16 @@ if !exists('g:bundle_groups')
                 \]
 endif
 
+" --- Helpers --------------------------------------------- {
+
+function UpdateRemotePlugins(...)
+    " Needed to refresh runtime files
+    let &rtp=&rtp
+    UpdateRemotePlugins
+endfunction
+
+" }
+
 " --- General --------------------------------------------- {
 
 if count(g:bundle_groups, 'general')
@@ -76,6 +86,9 @@ if count(g:bundle_groups, 'general')
 
     " - Better quickfix window
     Plug 'kevinhwang91/nvim-bqf'
+
+    " - A more adventurous wildmenu
+    Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 endif
 "  --- }
 
@@ -251,13 +264,8 @@ if count(g:bundle_groups, 'test')
     "   your code is causing.
     Plug 'folke/trouble.nvim'
 
-    " - A more adventurous wildmenu
-    function UpdateRemotePlugins(...)
-        " Needed to refresh runtime files
-        let &rtp=&rtp
-        UpdateRemotePlugins
-    endfunction
-    Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+    " A light-weight lsp plugin based on neovim's built-in lsp with a highly performant UI
+    Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 endif
 
 " --- }
@@ -280,14 +288,9 @@ lua << EOF
     -- trouble.nvim
     require("trouble").setup({})
 
-    -- wilder.nvim
-    local wilder = require('wilder')
-    wilder.setup({modes = {':', '/', '?'}})
-    wilder.set_option('renderer', wilder.popupmenu_renderer({
-        highlighter = wilder.basic_highlighter(),
-        left = {' ', wilder.popupmenu_devicons()},
-        right = {' ', wilder.popupmenu_scrollbar()},
-    }))
+    -- lspsagal.nvim
+    local saga = require 'lspsaga'
+    saga.init_lsp_saga()
 EOF
 
 endif
