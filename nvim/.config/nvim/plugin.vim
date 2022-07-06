@@ -290,7 +290,15 @@ lua << EOF
 
     -- lspsagal.nvim
     local saga = require 'lspsaga'
-    saga.init_lsp_saga()
+    saga.init_lsp_saga({
+        -- code action prompt does not work properly for e.g. bash sources...
+        code_action_lightbulb = {
+            enable = false,
+            sign = true,
+            sign_priority = 40,
+            virtual_text = true,
+        },
+    })
 EOF
 
 endif
