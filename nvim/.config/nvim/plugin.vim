@@ -241,7 +241,7 @@ endif
 if count(g:bundle_groups, 'colorscheme')
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-    Plug 'catppuccin/nvim', {'as': 'catppuccin'}
+    Plug 'catppuccin/nvim', {'as': 'catppuccin', 'do': 'CatppuccinCompile'}
     Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
     Plug 'navarasu/onedark.nvim'
 endif

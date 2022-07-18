@@ -62,19 +62,19 @@ font:
   normal:
     family: "Cascadia Code"
     # The `style` can be specified to pick a specific face.
-    style: Regular
+    style: DemiLight
 
   # Bold font face
   bold:
     family: "Cascadia Code"
     # The `style` can be specified to pick a specific face.
-    style: Regular
+    style: DemiLight
 
   # Italic font face
   italic:
    family: "Cascadia Code"
    # The `style` can be specified to pick a specific face.
-   style: Regular
+   style: DemiLight
 
   # Point size of the font
   size: 13.0
