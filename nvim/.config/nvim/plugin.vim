@@ -266,6 +266,12 @@ if count(g:bundle_groups, 'test')
 
     " A light-weight lsp plugin based on neovim's built-in lsp with a highly performant UI
     Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
+
+    " A high-performance color highlighter
+    Plug 'norcalli/nvim-colorizer.lua'
+    set termguicolors " required by nvim-colorizer.lua
+    " color: #558817
+    " color: #8080ff
 endif
 
 " --- }
@@ -299,6 +305,9 @@ lua << EOF
             virtual_text = true,
         },
     })
+
+    -- nvim-colorizer.lua
+    require('colorizer').setup()
 EOF
 
 endif

@@ -1,7 +1,7 @@
 " vim: set sw=4 ts=4 sts=4 et tw=100 foldmarker={,} foldlevel=0 foldmethod=marker:
 "==========================================
 " About: Zuo's Configuration File for Neovim (v0.7.0)
-"        Neovim is currently my daily driver for software development and text writing
+"        Neovim is currently my daily driver for software development (I work as a software engineer) and text writing
 "        All configurations are made for my PERSONAL workflow
 "
 " Maintainer: 相佐 (Zuo Xiang)
@@ -29,6 +29,8 @@ endif
 "==========================================
 " Lua Configuration
 "==========================================
+" WARN: Lua configurations are loaded AFTER sourcing the plugin.vim
+"       So options enabled in lua configurations are not available in plugin.vim
 " {
 " I'm now incrementally migrating vimscript configurations to lua
 lua require('options')
