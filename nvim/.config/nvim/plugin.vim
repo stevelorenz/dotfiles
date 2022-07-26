@@ -6,6 +6,7 @@
 "        The number of installed plugins should be MINIMIZED.
 " Maintainer: 相佐 (Zuo Xiang)
 " Email: xianglinks@gmail.com
+" Last update date: 07.2022 (Try to check and update plugins every month)
 "=========================================
 
 " - Use Vim-Plug Plugin Manager
@@ -114,6 +115,9 @@ if count(g:bundle_groups, 'general_programming')
     "   It does not work when I put the lua <<EOF in ./vimrc.vim
     "   nvim-lsp-installer is used to install language servers automatically (default in '~/.local/share/nvim/lsp_servers/')
     Plug 'neovim/nvim-lspconfig'
+
+    " - TODO: Migrate to mason.nvim, which is the portable package manager written by the same
+    "   plugin author
     Plug 'williamboman/nvim-lsp-installer'
 
     " - LSP signature hint as you type
@@ -204,7 +208,7 @@ endif
 " --- }
 
 
-" MARK: Most language specific plugins are needed nowadays thanks to LSP
+" MARK: Thanks to LSP, most language-specific plugins are now UNNECESSARY.
 " --- Programming Language Specific ----------------------- {
 
 " C, CPP {
