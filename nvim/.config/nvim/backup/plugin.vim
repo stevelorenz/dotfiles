@@ -52,6 +52,7 @@ if count(g:bundle_groups, 'general')
     Plug 'nvim-lualine/lualine.nvim'
 
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
+    " TODO: Check if telescope.nvim is a better alternative
     Plug 'liuchengxu/vim-clap'
     let g:clap_theme = 'material_design_dark'
     let g:clap_layout = { 'relative': 'editor' }

@@ -15,7 +15,6 @@ require("catppuccin").setup({
 
 	integration = {
 		lsp_saga = true,
-
 	},
 
 	styles = {},
