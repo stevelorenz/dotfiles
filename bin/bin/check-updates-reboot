@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# About: Check if there are updates that require a reboot
+# About: Check (with checkupdates command and yay) if there are updates that require a reboot
 
 reboot="(ucode|cryptsetup|linux|nvidia|mesa|systemd|wayland|xf86-video|xorg)"
 if [[ $(which yay) =~ (yay) ]]; then
 	updates=$(
-	checkupdates
-	yay -Qua
-)
+		checkupdates
+		yay -Qua
+	)
 else
 	updates=$(checkupdates)
 fi

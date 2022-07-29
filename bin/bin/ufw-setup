@@ -45,7 +45,6 @@ fi
 
 echo "* Add special rules"
 echo "- Add rules for KDE Connect: "
-
 ufw allow 1714:1764/udp
 ufw allow 1714:1764/tcp
 

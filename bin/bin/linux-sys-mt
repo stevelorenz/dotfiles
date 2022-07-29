@@ -97,7 +97,7 @@ function check_hd_health() {
 
 function backup_pacman_list() {
 	echo "[Backup] Backup all the explicitly installed packages by Pacman to ~/.pacman_list.laptop"
-	sudo pacman -Qqe > ~/.pacman_list.laptop
+	sudo pacman -Qqe >~/.pacman_list.laptop
 }
 
 # --- Option processing --------------------------------------------
@@ -108,53 +108,53 @@ fi
 
 while getopts ":bcvhHmts" optname; do
 	case "$optname" in
-		"b")
-			backup_pacman_list
-			exit 0
-			;;
-		"c")
-			check_error
-			exit 0
-			;;
-		"m")
-			anti_malware
-			exit 0
-			;;
-		"h")
-			Usage
-			exit 0
-			;;
-		"t")
-			trim_ssd
-			exit 0
-			;;
-		"s")
-			sys_stats
-			exit 0
-			;;
-		"H")
-			check_hd_health
-			exit 0
-			;;
-		"v")
-			echo "Version $VERSION"
-			exit 0
-			;;
-		"?")
-			echo "Unknown option $OPTARG"
-			USAGE
-			exit 0
-			;;
-		":")
-			echo "No argument value for option $OPTARG"
-			USAGE
-			exit 0
-			;;
-		*)
-			echo "Unknown error while processing options"
-			USAGE
-			exit 0
-			;;
+	"b")
+		backup_pacman_list
+		exit 0
+		;;
+	"c")
+		check_error
+		exit 0
+		;;
+	"m")
+		anti_malware
+		exit 0
+		;;
+	"h")
+		Usage
+		exit 0
+		;;
+	"t")
+		trim_ssd
+		exit 0
+		;;
+	"s")
+		sys_stats
+		exit 0
+		;;
+	"H")
+		check_hd_health
+		exit 0
+		;;
+	"v")
+		echo "Version $VERSION"
+		exit 0
+		;;
+	"?")
+		echo "Unknown option $OPTARG"
+		USAGE
+		exit 0
+		;;
+	":")
+		echo "No argument value for option $OPTARG"
+		USAGE
+		exit 0
+		;;
+	*)
+		echo "Unknown error while processing options"
+		USAGE
+		exit 0
+		;;
 	esac
 done
 

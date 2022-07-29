@@ -26,7 +26,11 @@ endif
 -- The "plugin" must be firstly loaded
 require("plugins")
 
-require("autocommands")
-require("colorschemes")
-require("keymaps")
 require("options")
+require("keymaps")
+require("colorschemes")
+require("autocommands")
+
+if vim.g.neovide then
+	require("neovide")
+end
