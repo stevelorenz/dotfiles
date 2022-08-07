@@ -15,7 +15,7 @@ set $mod Mod4
 workspace_layout default
 
 # Default font
-set $font_family Cascadia Code Regular
+set $font_family Cascadia Code SemiLight
 set $font_size 18
 font pango: $font_family $font_size
 
