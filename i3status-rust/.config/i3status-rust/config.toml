@@ -1,13 +1,18 @@
 [theme]
-name = "native"
+name = "dracula"
 
 [icons]
-name = "awesome"
+name = "awesome6"
+
+[[block]]
+block = "custom"
+command = "uname -r"
+interval = "once"
 
 [[block]]
 block = "cpu"
+format = "{utilization}"
 interval = 3
-format = "{utilization} {frequency}"
 
 [[block]]
 block = "memory"
@@ -25,24 +30,16 @@ show_clocks = false
 show_power_draw = true
 interval = 3
 
-# Network info is already showed by the network manager applet
-# [[block]
-# block = "networkmanager"
-# on_click = "alacritty -e nmtui"
-# interface_name_exclude = ["br\\-[0-9a-f]{12}", "docker\\d+"]
-# interface_name_include = []
-# ap_format = "{ssid^10}"
-
 [[block]]
 block = "temperature"
 collapsed = false
+format = "{average}"
 interval = 3
-format = "{average} avg"
 
 [[block]]
 block = "sound"
 
 [[block]]
 block = "time"
-interval = 3
 format = "%a %d/%m %R"
+interval = 3
