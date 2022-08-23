@@ -280,6 +280,9 @@ if count(g:bundle_groups, 'test')
     set termguicolors " required by nvim-colorizer.lua
     " color: #558817
     " color: #8080ff
+
+	" Neovim motions on speed!
+	Plug 'phaazon/hop.nvim'
 endif
 
 " --- }
@@ -361,7 +364,7 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers =
-	{ "bashls", "clangd", "cmake", "gopls", "pyright", "rust_analyzer", "solargraph", "sqls", "sumneko_lua", "vimls" }
+{ "bashls", "clangd", "cmake", "gopls", "pyright", "rust_analyzer", "solargraph", "sqls", "sumneko_lua", "vimls" }
 for _, lsp in pairs(servers) do
 	require("lspconfig")[lsp].setup({
 		on_attach = on_attach,
@@ -523,6 +526,8 @@ wilder.set_option(
 vim.cmd([[
 if count(g:bundle_groups, 'test')
 lua << EOF
+local vim = vim
+
 -- trouble.nvim
 require("trouble").setup({})
 
@@ -540,6 +545,14 @@ saga.init_lsp_saga({
 
 -- nvim-colorizer.lua
 require("colorizer").setup()
+
+-- hop.nvim
+require("hop").setup()
+vim.api.nvim_set_keymap('', 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+vim.api.nvim_set_keymap('', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+vim.api.nvim_set_keymap('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", {})
+vim.api.nvim_set_keymap('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>", {})
+
 EOF
 endif
 ]])
