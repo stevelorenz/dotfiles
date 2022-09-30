@@ -94,9 +94,6 @@ if count(g:bundle_groups, 'general')
 
     " - Better quickfix window
     Plug 'kevinhwang91/nvim-bqf'
-
-    " - A more adventurous wildmenu
-    Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
 endif
 "  --- }
 
@@ -506,18 +503,6 @@ require("neogen").setup({
 		},
 	},
 })
-
--- wilder.nvim
-local wilder = require("wilder")
-wilder.setup({ modes = { ":", "/", "?" } })
-wilder.set_option(
-	"renderer",
-	wilder.popupmenu_renderer({
-		highlighter = wilder.basic_highlighter(),
-		left = { " ", wilder.popupmenu_devicons() },
-		right = { " ", wilder.popupmenu_scrollbar() },
-	})
-)
 
 -- Here is just a tmp workaround before I migrate the plugin manager to a lua-based one...
 vim.cmd([[
