@@ -50,9 +50,11 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    extract
-    zsh-completions zsh-autosuggestions
-    z
+	colored-man-pages
+	extract
+	z
+	zsh-autosuggestions
+	zsh-completions
 )
 
 # Auto load and init completions
@@ -68,9 +70,9 @@ export LANG=en_US.UTF-8
 # Preferred editor for local and remote sessions
 export SUDO_EDITOR=vim
 if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='vim'
+	export EDITOR='vim'
 else
-    export EDITOR='nvim'
+	export EDITOR='nvim'
 fi
 
 # Add local bin folders
@@ -81,40 +83,40 @@ export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 
 # BCC tracing tools and man pages
 if [[ -d /usr/share/bcc ]]; then
-    export MANPATH="/usr/share/bcc/man:$MANPATH"
-    export PATH="/usr/share/bcc/tools:$PATH"
+	export MANPATH="/usr/share/bcc/man:$MANPATH"
+	export PATH="/usr/share/bcc/tools:$PATH"
 fi
 
 # Add paths of programming environments
 
 # Golang
 if [[ -d "$HOME/.go" ]]; then
-    export GOPATH="$HOME/.go"
-    export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
+	export GOPATH="$HOME/.go"
+	export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
 fi
 
 # Ruby Gem
 if [[ -d "$HOME/.gem/ruby/3.0.0/" ]]; then
-    export RUBYPATH="$HOME/.gem/ruby/3.0.0"
-    export PATH="$PATH:$RUBYPATH/bin"
+	export RUBYPATH="$HOME/.gem/ruby/3.0.0"
+	export PATH="$PATH:$RUBYPATH/bin"
 fi
 
 # Rust Cargo
 if [[ -d "$HOME/.cargo/" ]]; then
-    export CARGOPATH="$HOME/.cargo"
-    export PATH="$PATH:$CARGOPATH/bin"
+	export CARGOPATH="$HOME/.cargo"
+	export PATH="$PATH:$CARGOPATH/bin"
 fi
 
 # C# Dotnet
 if [[ -d "$HOME/.dotnet/tools" ]]; then
-    export DOTNETPATH="$HOME/.dotnet/tools"
-    export PATH="$PATH:$DOTNETPATH"
+	export DOTNETPATH="$HOME/.dotnet/tools"
+	export PATH="$PATH:$DOTNETPATH"
 fi
 
 # Typescript Deno
 if [[ -d $HOME/.deno ]]; then
-    export DENO_INSTALL="$HOME/.deno"
-    export PATH="$DENO_INSTALL/bin:$PATH"
+	export DENO_INSTALL="$HOME/.deno"
+	export PATH="$DENO_INSTALL/bin:$PATH"
 fi
 
 # Use Ibus (I use Gnome and i3wm) for Chinese input
