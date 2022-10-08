@@ -132,30 +132,6 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'liuchengxu/vista.vim'
     let g:vista_sidebar_position= 'vertical topleft'
 
-    " - Tags management
-    "   ctags are still used when there is no LSP support (or when LSP sucks ;))
-    Plug 'ludovicchabant/vim-gutentags'
-    set tags=./.tags;,.tags
-    let g:gutentags_enabled = 1
-    let g:gutentags_generate_on_new = 0
-    let g:gutentags_generate_on_write = 0
-    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-    let g:gutentags_ctags_tagfile = '.tags'
-    let g:gutentags_modules = []
-    if executable('ctags')
-        let g:gutentags_modules += ['ctags']
-        let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-        let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-        let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-    endif
-    " put tags file to the tmpfs cache directory
-    " do not pollute the source code directory
-    let s:vim_tags = expand('~/.cache/tags')
-    let g:gutentags_cache_dir = s:vim_tags
-    if !isdirectory(s:vim_tags)
-        silent! call mkdir(s:vim_tags, 'p')
-    endif
-
     " - Comment stuff out
     Plug 'tpope/vim-commentary'
 
@@ -259,11 +235,6 @@ endif
 " --- Plugins Under Test ---------------------------------- {
 
 if count(g:bundle_groups, 'test')
-    " - A grammer checker
-    "   MARK: Need to use it to double-check my PhD dissertation...
-    "   It is a useful plugin to help writing
-    Plug 'rhysd/vim-grammarous'
-
     " - A pretty list for showing diagnostics, references, telescope results,
     "   quickfix and location lists to help you solve all the trouble
     "   your code is causing.
