@@ -28,8 +28,9 @@ keymap("n", "<leader>ss", ":setlocal spell!<CR>", opts)
 
 keymap("n", "<C-S>", ":update<CR>", opts)
 
-keymap("n", "<C-left>", ":bprevious<CR>", opts)
-keymap("n", "<C-right>", ":bnext<CR>", opts)
+-- Ctrl + left/right is used to switch workspaces on MacOS
+keymap("n", "<A-left>", ":bprevious<CR>", opts)
+keymap("n", "<A-right>", ":bnext<CR>", opts)
 keymap("n", "<leader>bd", ":bp <BAR> bd # <CR>", opts)
 
 keymap("n", "<leader>c", ":copen<CR>", opts)

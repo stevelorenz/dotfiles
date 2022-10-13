@@ -131,6 +131,7 @@ if count(g:bundle_groups, 'general_programming')
     " - Viewer & Finder for LSP symbols and tags
     Plug 'liuchengxu/vista.vim'
     let g:vista_sidebar_position= 'vertical topleft'
+	let g:vista_default_executive = 'nvim_lsp'
 
     " - Comment stuff out
     Plug 'tpope/vim-commentary'
