@@ -14,7 +14,11 @@ require("catppuccin").setup({
 	},
 
 	integration = {
+		gitsigns = true,
+		hop = true,
 		lsp_saga = true,
+		mason = true,
+		treesitter = true,
 	},
 
 	styles = {},

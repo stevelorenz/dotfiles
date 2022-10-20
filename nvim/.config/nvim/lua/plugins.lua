@@ -18,7 +18,8 @@ vim.cmd([[
 " - Use Vim-Plug Plugin Manager
 " TODO: Check packer.nvim, the de facto standard packet manager for Neovim
 call plug#begin(stdpath('data') . '/plugged')  " dir for plugin files
-
+" Use SSH to clone the repo instead of HTTPS. In China, the HTTPS connection to github is ...
+let g:plug_url_format = 'git@github.com:%s.git'
 " -------------------- Start Config --------------------
 
 " Inspired by spf13's vim config, installed plugins are divided into several groups.
@@ -60,7 +61,7 @@ if count(g:bundle_groups, 'general')
     " - Modern generic interactive finder and dispatcher for Vim and NeoVim
     " TODO: Check if telescope.nvim is a better alternative
     Plug 'liuchengxu/vim-clap'
-    let g:clap_theme = 'material_design_dark'
+    let g:clap_theme = 'catppuccin'
     let g:clap_layout = { 'relative': 'editor' }
 
     " - Undo history visualizer
@@ -131,6 +132,7 @@ if count(g:bundle_groups, 'general_programming')
     " - Viewer & Finder for LSP symbols and tags
     Plug 'liuchengxu/vista.vim'
     let g:vista_sidebar_position= 'vertical topleft'
+	" by default, the executable is ctags.
 	let g:vista_default_executive = 'nvim_lsp'
 
     " - Comment stuff out
@@ -145,7 +147,6 @@ if count(g:bundle_groups, 'general_programming')
     Plug 'skywind3000/asyncrun.vim'
 
     " - Easy code formatting
-    "   TODO: Check if this needed when LSP supports formatting
     Plug 'sbdchd/neoformat',
     let g:neoformat_enabled_python = ['black']
     " enable trimmming of trailing whitespace
@@ -244,12 +245,6 @@ if count(g:bundle_groups, 'test')
     " A light-weight lsp plugin based on neovim's built-in lsp with a highly performant UI
     Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 
-    " A high-performance color highlighter
-    Plug 'norcalli/nvim-colorizer.lua'
-    set termguicolors " required by nvim-colorizer.lua
-    " color: #558817
-    " color: #8080ff
-
 	" Neovim motions on speed!
 	Plug 'phaazon/hop.nvim'
 endif
@@ -327,7 +322,7 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "<space>f", "<cmd>lua vim.lsp.buf.format{ async=true }<CR>", opts)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
@@ -499,9 +494,6 @@ saga.init_lsp_saga({
 		virtual_text = true,
 	},
 })
-
--- nvim-colorizer.lua
-require("colorizer").setup()
 
 -- hop.nvim
 require("hop").setup()
