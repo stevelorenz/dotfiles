@@ -6,6 +6,7 @@ local vim = vim
 
 -- catppuccin
 require("catppuccin").setup({
+	flavor = "mocha",
 	-- Pre-compile the configuration and store it in nvim's cache
 	compile = {
 		enabled = true,
@@ -14,16 +15,12 @@ require("catppuccin").setup({
 	},
 
 	integration = {
+		cmp = true,
 		gitsigns = true,
-		hop = true,
-		lsp_saga = true,
-		mason = true,
-		treesitter = true,
 	},
 
 	styles = {},
 })
-vim.g.catppuccin_flavour = "mocha"
 
 -- onedark
 require("onedark").setup({ style = "dark" })

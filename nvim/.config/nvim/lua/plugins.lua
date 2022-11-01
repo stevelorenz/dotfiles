@@ -93,7 +93,7 @@ if count(g:bundle_groups, 'general')
     " - A file explorer for neovim written in lua
     Plug 'kyazdani42/nvim-tree.lua'
 
-    " - Better quickfix window
+    " - Better quickfix(bqf) window
     Plug 'kevinhwang91/nvim-bqf'
 endif
 "  --- }
@@ -155,7 +155,7 @@ if count(g:bundle_groups, 'general_programming')
     " - Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
     Plug 'jose-elias-alvarez/null-ls.nvim'
 
-    " - A better annotation generator.
+    " - A better annotation/documentation generator.
     Plug 'danymat/neogen'
 endif
 " --- }
@@ -344,7 +344,7 @@ end
 local cmp = require("cmp")
 cmp.setup({
 	completion = {
-		-- Auto-completion can be disabled here and trigger completion manually with C-Space
+		-- Uncomment the next line to disable autocompletion (Trigger completion manually)
 		-- autocomplete = false,
 		completeopt = "menu,menuone,noinsert",
 	},
@@ -354,8 +354,8 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.close(),
+		["<A-space>"] = cmp.mapping.complete(),
+		["<A-e>"] = cmp.mapping.close(),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<Tab>"] = function(fallback)
 			if cmp.visible() then
