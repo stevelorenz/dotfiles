@@ -19,6 +19,8 @@ vim.cmd([[
 " TODO: Check packer.nvim, the de facto standard packet manager for Neovim
 call plug#begin(stdpath('data') . '/plugged')  " dir for plugin files
 " Use SSH to clone the repo instead of HTTPS. In China, the HTTPS connection to github is ...
+" WARN: Sometimes, firewalls could block accessing the Github via SSH protocol...The
+" Then you can comment or remove the next line
 let g:plug_url_format = 'git@github.com:%s.git'
 " -------------------- Start Config --------------------
 
@@ -328,14 +330,11 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers =
-{ "bashls", "clangd", "cmake", "gopls", "pyright", "rust_analyzer", "solargraph", "sqls", "sumneko_lua", "vimls" }
+	{ "bashls", "clangd", "cmake", "gopls", "pyright", "rust_analyzer", "solargraph", "sqls", "sumneko_lua", "vimls" }
 for _, lsp in pairs(servers) do
 	require("lspconfig")[lsp].setup({
 		on_attach = on_attach,
-		flags = {
-			-- This will be the default in neovim 0.7+
-			debounce_text_changes = 150,
-		},
+		flags = {},
 	})
 end
 
