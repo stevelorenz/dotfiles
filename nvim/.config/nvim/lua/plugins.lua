@@ -18,10 +18,8 @@ vim.cmd([[
 " - Use Vim-Plug Plugin Manager
 " TODO: Check packer.nvim, the de facto standard packet manager for Neovim
 call plug#begin(stdpath('data') . '/plugged')  " dir for plugin files
-" Use SSH to clone the repo instead of HTTPS. In China, the HTTPS connection to github is ...
-" WARN: Sometimes, firewalls could block accessing the Github via SSH protocol...The
-" Then you can comment or remove the next line
-let g:plug_url_format = 'git@github.com:%s.git'
+" Global git proxy can be configured to enable fast download in e.g. China... 
+" e.g. git config --global http.https://github.com.proxy https://ghproxy.com
 " -------------------- Start Config --------------------
 
 " Inspired by spf13's vim config, installed plugins are divided into several groups.
@@ -229,7 +227,7 @@ endif
 if count(g:bundle_groups, 'colorscheme')
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-    Plug 'catppuccin/nvim', {'as': 'catppuccin', 'do': 'CatppuccinCompile'}
+    Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
     Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
     Plug 'navarasu/onedark.nvim'
 endif
@@ -249,6 +247,12 @@ if count(g:bundle_groups, 'test')
 
 	" Neovim motions on speed!
 	Plug 'phaazon/hop.nvim'
+
+	" View and interact with Vim marks
+	Plug 'chentoast/marks.nvim'
+
+	" A text searching plugin mimics Ctrl-Shift-F on Sublime Text 2
+	Plug 'dyng/ctrlsf.vim'
 endif
 
 " --- }
@@ -500,6 +504,9 @@ vim.api.nvim_set_keymap('', 'f', "<cmd>lua require'hop'.hint_char1({ direction =
 vim.api.nvim_set_keymap('', 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
 vim.api.nvim_set_keymap('', 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", {})
 vim.api.nvim_set_keymap('', 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>", {})
+
+-- marks.nvim
+require("marks").setup()
 
 EOF
 endif
