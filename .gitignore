@@ -11,6 +11,7 @@ spell/
 .netrwhist
 # dirs for backup, swap, undo and viminfo
 dirs/
+packer_compiled.lua
 # ------------------
 
 # Tmux TPM

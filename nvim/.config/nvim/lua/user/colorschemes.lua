@@ -3,6 +3,7 @@
 --
 
 local vim = vim
+vim.cmd.colorscheme "catppuccin"
 
 -- catppuccin
 require("catppuccin").setup({
@@ -21,16 +22,3 @@ require("catppuccin").setup({
 
 	styles = {},
 })
-
--- onedark
-require("onedark").setup({ style = "dark" })
-
--- tokyonight
-vim.g.tokyonight_style = "storm"
-
-vim.cmd([[
-set background=dark
-colorscheme catppuccin
-" colorscheme onedark
-" colorscheme tokyonight
-]])
