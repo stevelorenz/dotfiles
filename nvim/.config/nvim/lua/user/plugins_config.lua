@@ -23,6 +23,23 @@ require("lualine").setup({
 	},
 })
 
+-----------------
+--  Telescope  --
+-----------------
+require("telescope").setup({
+	defaults = {
+		mappings = {
+			i = {
+				["<C-u>"] = false,
+				["<C-d>"] = false,
+			},
+		},
+	},
+})
+
+-- Enable telescope fzf native, if installed
+pcall(require("telescope").load_extension, "fzf")
+
 ----------------
 --  undotree  --
 ----------------
@@ -32,6 +49,8 @@ vim.g.undotree_SetFocusWhenToggle = 1
 --  indent_blankline  --
 ------------------------
 require("indent_blankline").setup({
+	char = "┊",
+	show_trailing_blankline_indent = false,
 	show_current_context_start = true,
 })
 
@@ -140,6 +159,11 @@ for _, lsp in pairs(servers) do
 		flags = {},
 	})
 end
+
+----------------------
+--  fidget.nvim  -  --
+----------------------
+require("fidget").setup({})
 
 ---------------------
 --  lsp_signature  --

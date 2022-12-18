@@ -23,9 +23,17 @@ end
 local packer_bootstrap = ensure_packer()
 
 require("user.plugins")
--- If the packer.nvim is not installed, trigger packer sync and do NOT load other configuration directly.
+
+-- When we are bootstrapping a configuration, it doesn't
+-- make sense to execute the rest of the init.lua.
+-- You'll need to restart nvim, and then it will work.
 if packer_bootstrap then
 	require("packer").sync()
+	print("==================================")
+	print("    Plugins are being installed/synced...")
+	print("    Wait until Packer completes,")
+	print("       then restart neovim")
+	print("==================================")
 else
 	require("user.autocommands")
 	require("user.colorschemes")
@@ -33,6 +41,7 @@ else
 	require("user.options")
 	require("user.plugins_config")
 
+	-- Optional GUI clients
 	if vim.g.neovide then
 		require("neovide")
 	end

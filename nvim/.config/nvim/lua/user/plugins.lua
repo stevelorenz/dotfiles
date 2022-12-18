@@ -19,7 +19,6 @@ vim.cmd([[
 	augroup end
 ]])
 
-
 return require("packer").startup(function(use)
 	-- let packer.nvim manage itself
 	use("wbthomason/packer.nvim")
@@ -36,6 +35,8 @@ return require("packer").startup(function(use)
 		tag = "0.1.0",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
+	-- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make", cond = vim.fn.executable("make") == 1 })
 
 	-- Undo history visualizer
 	use("mbbill/undotree")
@@ -53,8 +54,7 @@ return require("packer").startup(function(use)
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
-			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-			ts_update()
+			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
 		end,
 	})
 
@@ -77,12 +77,18 @@ return require("packer").startup(function(use)
 	use("tpope/vim-repeat")
 	use("tpope/vim-surround")
 
-	-- Portable LSP server/linter manager for Neovim
-	use("williamboman/mason.nvim")
-	use("williamboman/mason-lspconfig.nvim")
-
 	-- Quickstart configs for Nvim LSP
-	use("neovim/nvim-lspconfig")
+	use({
+		"neovim/nvim-lspconfig",
+		requires = {
+			-- Portable LSP server/linter manager for Neovim
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+
+			-- Standalone UI for nvim-lsp progress
+			"j-hui/fidget.nvim",
+		},
+	})
 
 	-- LSP signature
 	use("ray-x/lsp_signature.nvim")
@@ -100,15 +106,18 @@ return require("packer").startup(function(use)
 	use("danymat/neogen")
 
 	-- Code snippets
-	use { "honza/vim-snippets",
-		requires = { { "SirVer/ultisnips" } } }
+	use({ "honza/vim-snippets", requires = { { "SirVer/ultisnips" } } })
 
 	-- A completion plugin for neovim coded in Lua.
-	use("hrsh7th/nvim-cmp")
-	use("hrsh7th/cmp-nvim-lsp")
-	use("hrsh7th/cmp-buffer")
-	use("hrsh7th/cmp-nvim-lua")
-	use("hrsh7th/cmp-path")
+	use({
+		"hrsh7th/nvim-cmp",
+		requires = {
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-nvim-lua",
+			"hrsh7th/cmp-path",
+		},
+	})
 
 	-- A pretty list for showing diagnostics, references, telescope results
 	use("folke/trouble.nvim")

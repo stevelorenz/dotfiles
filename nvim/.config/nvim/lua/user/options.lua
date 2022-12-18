@@ -17,11 +17,12 @@ local options = {
 	cursorline = true, -- highlight the current line
 	emoji = true,
 	encoding = "utf-8",
-	expandtab = false, -- do not convert tabs to spaces
+	expandtab = true, -- expand tabs to spaces
 	fileencoding = "utf-8", -- the encoding written to a file
 	fileformats = { "unix" },
-	foldmethod = "expr", -- use treesitter for folding
-	foldexpr = "nvim_treesitter#foldexpr()", -- use treesitter for folding
+	foldmethod = "indent", -- use indent as the DEFAULT folding method. This method does not require treesitter
+	-- foldmethod = "expr", -- use treesitter for folding
+	-- foldexpr = "nvim_treesitter#foldexpr()", -- use treesitter for folding
 	hlsearch = true, -- highlight all matches on previous search pattern
 	ignorecase = true, -- ignore case in search patterns
 	laststatus = 3, -- Use global statusline
@@ -46,6 +47,7 @@ local options = {
 	timeoutlen = 1000, -- time to wait for a mapped sequence to complete (in milliseconds)
 	undofile = true, -- enable persistent undo
 	updatetime = 300, -- faster completion (4000ms default)
+	whichwrap = "bs<>[]hl", -- which "horizontal" keys are allowed to travel to prev/next line
 	wrap = false, -- display lines as one long line
 	writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 	wildmenu = true,
@@ -55,7 +57,8 @@ for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
--- Use vim.cmd to use vimscript-style configuration
+-- Add flags to shorten vim messages
+vim.opt.shortmess:append("c")
 
 -- Dot not form folds when opening the file
 vim.cmd("set nofoldenable")
