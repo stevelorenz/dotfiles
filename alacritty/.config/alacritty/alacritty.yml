@@ -2,8 +2,8 @@
 
 # Themes
 import:
-  # - ~/.config/alacritty/catppuccin.yml
-  - ~/.config/alacritty/dracula.yml
+  - ~/.config/alacritty/catppuccin.yml
+  # - ~/.config/alacritty/dracula.yml
 
 # transparent background
 window.opacity: 0.98  # value range is 0 ~ 1
@@ -44,9 +44,6 @@ window:
   startup_mode: Maximized
 
   title: Alacritty
-
-  # Not work on Wayland...
-  gtk_theme_variant: dark
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
