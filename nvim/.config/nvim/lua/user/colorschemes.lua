@@ -3,7 +3,9 @@
 --
 
 local vim = vim
-vim.cmd.colorscheme "catppuccin"
+
+-- I like catppuccin theme and use it for terminal, Gnome, Neovim and so on...
+vim.cmd.colorscheme("catppuccin")
 
 -- catppuccin
 require("catppuccin").setup({

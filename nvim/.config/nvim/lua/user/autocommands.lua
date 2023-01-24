@@ -11,7 +11,7 @@ autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg,*.config
 			\ set spell |
 
 " Text files
-autocmd BufNewFile,BufRead *.tex,*.bib,*.rst,*.txt
+autocmd BufNewFile,BufRead *.tex,*.bib,*.rst,*.txt,*.tmp
 			\ set spell |
 
 " Markdown files
@@ -26,6 +26,7 @@ autocmd BufNewFile,BufRead *.py
 " Meson build script files
 autocmd BufNewFile,BufRead meson.build
 			\ set expandtab |
+			\ set spell |
 autocmd BufNewFile,BufRead meson_options.txt
 			\ set expandtab |
 			\ set spell |

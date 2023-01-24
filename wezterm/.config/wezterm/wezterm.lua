@@ -3,7 +3,7 @@ local catppuccin = require("colors/catppuccin").setup({})
 
 return {
 	font_hinting = "Full",
-	font = wezterm.font("Cascadia Code", { weight = "Light", bold = false, italic = false }),
+	font = wezterm.font("Cascadia Code", { weight = "Light", stretch = "Normal", italic = false }),
 	font_size = 16.0,
 
 	-- Use catppuccin theme

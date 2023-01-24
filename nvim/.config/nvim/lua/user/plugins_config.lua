@@ -12,14 +12,16 @@ require("lualine").setup({
 	options = {
 		theme = "catppuccin",
 	},
-	-- Enable traditional bufferline
-	tabline = {
-		lualine_a = { "buffers" },
-		lualine_b = { "branch" },
-		lualine_c = { "filename" },
-		lualine_x = {},
-		lualine_y = {},
-		lualine_z = { "tabs" },
+})
+
+------------------
+--  Bufferline  --
+------------------
+
+vim.opt.termguicolors = true
+require("bufferline").setup({
+	options = {
+		separator_style = "padded_slant",
 	},
 })
 
@@ -272,7 +274,7 @@ require("trouble").setup({})
 ----------------
 --  lspsaga  --
 ----------------
-require("lspsaga").init_lsp_saga({
+require("lspsaga").setup({
 	-- code action prompt does not work properly for e.g. bash sources...
 	code_action_lightbulb = {
 		enable = false,
