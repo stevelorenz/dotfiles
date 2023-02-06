@@ -30,4 +30,8 @@ autocmd BufNewFile,BufRead meson.build
 autocmd BufNewFile,BufRead meson_options.txt
 			\ set expandtab |
 			\ set spell |
+
+" YANG model (For networking)
+autocmd BufNewFile,BufRead *.yang 
+			\ set filetype=yang |
 ]])
