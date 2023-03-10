@@ -34,4 +34,7 @@ autocmd BufNewFile,BufRead meson_options.txt
 " YANG model (For networking)
 autocmd BufNewFile,BufRead *.yang 
 			\ set filetype=yang |
+            \ set tabstop=2 |
+            \ set shiftwidth=2 |
+            \ set expandtab |
 ]])
