@@ -176,7 +176,14 @@ end
 ----------------------
 --  fidget.nvim  -  --
 ----------------------
-require("fidget").setup({})
+require("fidget").setup({
+	sources = {
+		-- erlangls is a little bit TMI...
+		erlangls = {
+			ignore = true,
+		},
+	},
+})
 
 ---------------------
 --  lsp_signature  --
