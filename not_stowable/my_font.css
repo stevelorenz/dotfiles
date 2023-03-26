@@ -1,0 +1,5 @@
+/* Font configuration for Obsidian */
+.markdown-source-view .cm-editor .cm-scroller {
+    font-family: 'Cascadia Code', monospace !important; 
+    font-weight: 300;
+}

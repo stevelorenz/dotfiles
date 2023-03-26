@@ -32,6 +32,7 @@ cmus/.config/cmus/*
 bin/bin/nvim
 bin/bin/Joplin
 bin/bin/gdbgui
+bin/bin/rebar3
 # ------------------
 
 # Backup, temporary files
