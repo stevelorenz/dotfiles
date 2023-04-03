@@ -227,7 +227,7 @@ require("neogen").setup({
 -----------------
 --  ultisnips  --
 -----------------
-vim.cmd([[ 
+vim.cmd([[
 	let g:UltiSnipsExpandTrigger = "<leader><tab>"
 	let g:UltiSnipsListSnippets = "<f9>"
 	let g:UltiSnipsJumpForwardTrigger = "<leader><tab>"

@@ -3,6 +3,13 @@
 --
 
 local vim = vim
+local autocmd = vim.api.nvim_create_autocmd
+
+-- Remove whitespaces on save
+autocmd("BufWritePre", {
+	pattern = "",
+	command = ":%s/\\s\\+$//e",
+})
 
 vim.cmd([[
 " INI style configuration files
@@ -32,9 +39,9 @@ autocmd BufNewFile,BufRead meson_options.txt
 			\ set spell |
 
 " YANG model (For networking)
-autocmd BufNewFile,BufRead *.yang 
+autocmd BufNewFile,BufRead *.yang
 			\ set filetype=yang |
-            \ set tabstop=2 |
-            \ set shiftwidth=2 |
-            \ set expandtab |
+			\ set tabstop=2 |
+			\ set shiftwidth=2 |
+			\ set expandtab |
 ]])
