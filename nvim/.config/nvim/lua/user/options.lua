@@ -17,7 +17,6 @@ local options = {
 	cursorline = true, -- highlight the current line
 	emoji = true,
 	encoding = "utf-8",
-	expandtab = true, -- expand tabs to spaces
 	fileencoding = "utf-8", -- the encoding written to a file
 	fileformats = { "unix" },
 	foldmethod = "indent", -- use indent as the DEFAULT folding method. This method does not require treesitter
@@ -79,10 +78,10 @@ let g:python3_host_prog = '/usr/bin/python3'
 -- Syntax of some special file types
 vim.cmd([[
 augroup filetype
-  au BufRead,BufNewFile *.p4 setfiletype p4
+	au BufRead,BufNewFile *.p4 setfiletype p4
 augroup end
 
 augroup filetype
-  au! BufRead,BufNewFile *.proto setfiletype proto
+	au! BufRead,BufNewFile *.proto setfiletype proto
 augroup end
 ]])

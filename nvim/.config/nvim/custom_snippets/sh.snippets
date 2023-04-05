@@ -39,36 +39,36 @@ endsnippet
 
 snippet ckroot "check the root authority"
 if [[ "$(whoami)" != "root" ]]; then
-  echo "you need root authority to run this script"
-  exit
+	echo "you need root authority to run this script"
+	exit
 fi
 ${1}
 endsnippet
 
 snippet casest "case statement google style"
 case "${1}" in
-  a)
-    variable="..."
-    some_command "${variable}" "${other_expr}" ...
-    ;;
-  absolute)
-    actions="relative"
-    another_command "${actions}" "${other_expr}" ...
-    ;;
-  *)
-    error "Unexpected expression '${expression}'"
-    ;;
+	a)
+		variable="..."
+		some_command "${variable}" "${other_expr}" ...
+		;;
+	absolute)
+		actions="relative"
+		another_command "${actions}" "${other_expr}" ...
+		;;
+	*)
+		error "Unexpected expression '${expression}'"
+		;;
 esac
 endsnippet
 
 snippet getopts "arg parser with getopts"
 while getopts "a${1}" opt; do
-  # case for options
-  case $opt in
-    a)
-      echo "this is -a option the arg is ! $OPTARG"
-      ;;
-  esac
+	# case for options
+	case $opt in
+		a)
+			echo "this is -a option the arg is ! $OPTARG"
+			;;
+	esac
 done
 endsnippet
 
