@@ -1,17 +1,15 @@
+"------------------------------------------------------------------
 " Vim syntax file
 " Language:     YANG
 " Remark:       RFC 7950 http://tools.ietf.org/html/rfc7950
 " Author:       Matt Parker <mparker@computer.org>
 "------------------------------------------------------------------
 
-if v:version < 600
-    syntax clear
-elseif exists('b:current_syntax')
-    finish
+if version < 600
+  syntax clear
+elseif exists("b:current_syntax")
+  finish
 endif
-
-let s:cpo_save = &cpoptions
-set cpoptions&vim
 
 " Enable block folding
 syntax region yangBlock start="{" end="}" fold transparent
@@ -107,6 +105,3 @@ highlight def link yangLengthArg Special
 syntax sync match yangSync grouphere NONE '}$'
 
 let b:current_syntax = 'yang'
-
-let &cpoptions = s:cpo_save
-unlet s:cpo_save

@@ -25,6 +25,7 @@ local options = {
 	hlsearch = true, -- highlight all matches on previous search pattern
 	ignorecase = true, -- ignore case in search patterns
 	laststatus = 3, -- Use global statusline
+	lazyredraw = true, -- Faster scrolling
 	mouse = "a", -- allow the mouse to be used in neovim
 	number = true, -- set numbered lines
 	numberwidth = 4, -- set number column width to 2 {default 4}
@@ -32,6 +33,7 @@ local options = {
 	relativenumber = true, -- set relative numbered lines
 	scrolloff = 8,
 	shiftwidth = 4, -- the number of spaces inserted for each indentation
+	showmatch = true, -- highlight matched parenthesis
 	showmode = true, -- show current mode
 	showtabline = 2, -- always show tabs
 	sidescrolloff = 8,
@@ -83,5 +85,9 @@ augroup end
 
 augroup filetype
 	au! BufRead,BufNewFile *.proto setfiletype proto
+augroup end
+
+augroup filetype
+	au! BufRead,BufNewFile *.tdl setfiletype tdl
 augroup end
 ]])
