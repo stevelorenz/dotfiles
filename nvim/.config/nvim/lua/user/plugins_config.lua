@@ -162,7 +162,7 @@ local servers = {
 	"pyright",
 	"rust_analyzer",
 	"solargraph",
-	"sqls",
+	"sqlls",
 	"lua_ls",
 	"vimls",
 }
