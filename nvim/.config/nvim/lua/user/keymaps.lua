@@ -26,6 +26,7 @@ keymap("n", "w,", ":vertical resize -3<CR>", opts)
 -- Toggle spell checking
 keymap("n", "<leader>ss", ":setlocal spell!<CR>", opts)
 
+-- Ctrl-S to save
 keymap("n", "<C-S>", ":update<CR>", opts)
 
 -- Ctrl + left/right is used to switch workspaces on MacOS
@@ -33,12 +34,17 @@ keymap("n", "<A-left>", ":bprevious<CR>", opts)
 keymap("n", "<A-right>", ":bnext<CR>", opts)
 keymap("n", "<leader>bd", ":bp <BAR> bd # <CR>", opts)
 
+-- Quickfix window
 keymap("n", "<leader>c", ":copen<CR>", opts)
 
+-- F1-F12 keys
 keymap("n", "<F1>", ":echo<CR>", opts)
 keymap("n", "<F6>", ":NvimTreeToggle<CR>", opts)
 keymap("n", "<F8>", ":UndotreeToggle<CR>", opts)
-keymap("n", "<F10>", ":Vista!!<CR>", opts)
+keymap("n", "<F10>", "<cmd>Lspsaga outline<CR>", opts)
+
+-- Telescope
+keymap("n", "<leader>f", "<cmd>Telescope find_files<CR>", opts)
 
 --- Insert Mode ---
 
