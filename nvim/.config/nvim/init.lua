@@ -9,6 +9,29 @@
 
 local vim = vim
 
+----------------------------
+--  Check Neovim Version  --
+----------------------------
+
+local version_is_ok = true
+local nvim_version = vim.version()
+if nvim_version.major >= 1 then
+	version_is_ok = false
+elseif nvim_version.minor < 8 then
+	version_is_ok = false
+end
+if not version_is_ok then
+	vim.api.nvim_err_writeln(
+		"This configuration requires Neovim with the version >= 0.8.0 and < 1.0.0. (Type any key to exit!)"
+	)
+	vim.fn.getchar()
+	vim.cmd("qa!")
+end
+
+------------------------------------------------------------
+--  Bootstrap Neovim with plugins managed by packer.nvim  --
+------------------------------------------------------------
+
 local ensure_packer = function()
 	local fn = vim.fn
 	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
@@ -43,6 +66,6 @@ else
 
 	-- Optional GUI clients
 	if vim.g.neovide then
-		require("neovide")
+		require("user.neovide")
 	end
 end
