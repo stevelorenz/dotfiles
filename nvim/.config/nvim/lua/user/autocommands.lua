@@ -3,21 +3,15 @@
 --
 
 local vim = vim
-local autocmd = vim.api.nvim_create_autocmd
-
--- Remove whitespaces on save
-autocmd("BufWritePre", {
-	pattern = "",
-	command = ":%s/\\s\\+$//e",
-})
 
 vim.cmd([[
 " INI style configuration files
 autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg,*.config
 			\ set filetype=dosini |
+			\ set expandtab |
 			\ set spell |
 
-" Text files
+" Tex and text files
 autocmd BufNewFile,BufRead *.tex,*.bib,*.rst,*.txt,*.tmp
 			\ set spell |
 
@@ -30,17 +24,42 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
 autocmd BufNewFile,BufRead *.py
 			\ set expandtab |
 
-" Meson build script files
+" Meson build configuration files
 autocmd BufNewFile,BufRead meson.build
+			\ set tabstop=2 |
+			\ set shiftwidth=2 |
 			\ set expandtab |
 			\ set spell |
 autocmd BufNewFile,BufRead meson_options.txt
+			\ set tabstop=2 |
+			\ set shiftwidth=2 |
 			\ set expandtab |
 			\ set spell |
 
-" YANG model (For networking)
+" YANG model (for networking)
 autocmd BufNewFile,BufRead *.yang
 			\ set filetype=yang |
+			\ set tabstop=2 |
+			\ set shiftwidth=2 |
+			\ set expandtab |
+
+" TDL (for Cisco IOS-XE)
+autocmd BufNewFile,BufRead *.tdl
+			\ set filetype=tdl |
+			\ set tabstop=2 |
+			\ set shiftwidth=2 |
+			\ set expandtab |
+
+" Protobuf files
+autocmd BufNewFile,BufRead *.proto
+			\ set filetype=proto |
+			\ set tabstop=2 |
+			\ set shiftwidth=2 |
+			\ set expandtab |
+
+" P4 files (for networking)
+autocmd BufNewFile,BufRead *.p4
+			\ set filetype=p4 |
 			\ set tabstop=2 |
 			\ set shiftwidth=2 |
 			\ set expandtab |

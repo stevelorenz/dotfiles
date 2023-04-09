@@ -29,8 +29,8 @@ return require("packer").startup(function(use)
 	-- A blazing fast and easy to configure Neovim statusline written in Lua
 	use("nvim-lualine/lualine.nvim")
 
-    -- A snazzy bufferline for Neovim
-    use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+	-- A snazzy bufferline for Neovim
+	use({ "akinsho/bufferline.nvim", tag = "v3.*", requires = "nvim-tree/nvim-web-devicons" })
 
 	-- Find, Filter, Preview, Pick. All lua, all the time
 	use({

@@ -38,7 +38,6 @@ keymap("n", "<leader>c", ":copen<CR>", opts)
 keymap("n", "<F1>", ":echo<CR>", opts)
 keymap("n", "<F6>", ":NvimTreeToggle<CR>", opts)
 keymap("n", "<F8>", ":UndotreeToggle<CR>", opts)
-keymap("n", "<F10>", ":Vista!!<CR>", opts)
 
 --- Insert Mode ---
 

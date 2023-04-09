@@ -17,7 +17,6 @@ require("lualine").setup({
 ------------------
 --  Bufferline  --
 ------------------
-
 vim.opt.termguicolors = true
 require("bufferline").setup({
 	options = {
@@ -102,6 +101,7 @@ require("nvim-tree").setup({})
 ----------------
 --  nvim-bqf  --
 ----------------
+require("bqf").setup({})
 
 -------------
 --  Mason  --
@@ -124,7 +124,7 @@ vim.api.nvim_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<C
 -- Following configurations are copied from the lspconfig README
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
