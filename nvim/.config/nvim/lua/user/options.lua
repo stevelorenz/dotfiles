@@ -76,18 +76,3 @@ let g:loaded_python_provider = 0
 let g:python_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = '/usr/bin/python3'
 ]])
-
--- Syntax of some special file types
-vim.cmd([[
-augroup filetype
-	au BufRead,BufNewFile *.p4 setfiletype p4
-augroup end
-
-augroup filetype
-	au! BufRead,BufNewFile *.proto setfiletype proto
-augroup end
-
-augroup filetype
-	au! BufRead,BufNewFile *.tdl setfiletype tdl
-augroup end
-]])
