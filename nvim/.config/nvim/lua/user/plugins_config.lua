@@ -60,7 +60,21 @@ require("indent_blankline").setup({
 ------------------
 require("nvim-treesitter.configs").setup({
 	-- Install only modules for the languages I use frequently
-	ensure_installed = { "bash", "c", "cpp", "go", "javascript", "latex", "lua", "python", "ruby", "rust", "vim" },
+	ensure_installed = {
+		"bash",
+		"c",
+		"cpp",
+		"css",
+		"go",
+		"html",
+		"javascript",
+		"latex",
+		"lua",
+		"python",
+		"ruby",
+		"rust",
+		"vim",
+	},
 	highlight = {
 		enable = true, -- false will disable the whole extension
 		disable = {}, -- list of language that will be disabled

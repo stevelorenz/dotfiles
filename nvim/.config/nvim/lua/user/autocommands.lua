@@ -63,4 +63,11 @@ autocmd BufNewFile,BufRead *.p4
 			\ set tabstop=2 |
 			\ set shiftwidth=2 |
 			\ set expandtab |
+
+
+" Jenkins file
+autocmd BufNewFile,BufRead Jenkinsfile,jenkinsfile
+			\ set filetype=groovy |
+			\ set expandtab |
+
 ]])
