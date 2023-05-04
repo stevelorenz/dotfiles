@@ -5,7 +5,6 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # Default prompt theme
 ZSH_THEME="robbyrussell"
-#ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -87,33 +86,45 @@ if [[ -d /usr/share/bcc ]]; then
 	export PATH="/usr/share/bcc/tools:$PATH"
 fi
 
-# Add paths of programming environments
+# Add paths of some common programming languages
 
-# Golang
+## Java
+if [[ -d "/usr/lib/jvm/default" ]]; then
+	export JAVA_HOME=/usr/lib/jvm/default
+	export PATH="$PATH:$JAVA_HOME/bin"
+fi
+
+## Groovy
+if [[ -d "/usr/share/groovy" ]]; then
+	export GROOVY_HOME=/usr/share/groovy
+	export PATH="$PATH:$GROOVY_HOME/bin"
+fi
+
+## Golang
 if [[ -d "$HOME/.go" ]]; then
 	export GOPATH="$HOME/.go"
 	export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
 fi
 
-# Ruby Gem
+## Ruby Gem
 if [[ -d "$HOME/.gem/ruby/3.0.0/" ]]; then
 	export RUBYPATH="$HOME/.gem/ruby/3.0.0"
 	export PATH="$PATH:$RUBYPATH/bin"
 fi
 
-# Rust Cargo
+## Rust Cargo
 if [[ -d "$HOME/.cargo/" ]]; then
 	export CARGOPATH="$HOME/.cargo"
 	export PATH="$PATH:$CARGOPATH/bin"
 fi
 
-# C# Dotnet
+## C# Dotnet
 if [[ -d "$HOME/.dotnet/tools" ]]; then
 	export DOTNETPATH="$HOME/.dotnet/tools"
 	export PATH="$PATH:$DOTNETPATH"
 fi
 
-# Typescript Deno
+## Typescript Deno
 if [[ -d $HOME/.deno ]]; then
 	export DENO_INSTALL="$HOME/.deno"
 	export PATH="$DENO_INSTALL/bin:$PATH"
