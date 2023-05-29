@@ -20,6 +20,10 @@ autocmd BufNewFile,BufRead *.md,*.mkd,*.markdown
 			\ set filetype=markdown |
 			\ set spell |
 
+" CXX source files
+autocmd BufNewFile,BufRead *.c
+			\ set expandtab |
+
 " Python source files
 autocmd BufNewFile,BufRead *.py
 			\ set expandtab |
@@ -65,8 +69,8 @@ autocmd BufNewFile,BufRead *.p4
 			\ set expandtab |
 
 
-" Jenkins file
-autocmd BufNewFile,BufRead Jenkinsfile,jenkinsfile
+" Jenkins file (Multiple Jenkinsfiles can exist in a single repo with the common filename prefix)
+autocmd BufNewFile,BufRead Jenkinsfile*,jenkinsfile*
 			\ set filetype=groovy |
 			\ set expandtab |
 
