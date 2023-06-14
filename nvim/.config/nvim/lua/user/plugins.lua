@@ -80,18 +80,18 @@ return require("packer").startup(function(use)
 	use("tpope/vim-repeat")
 	use("tpope/vim-surround")
 
-	-- Quickstart configs for Nvim LSP
+	-- Configs for Nvim built-in LSP support
 	use({
 		"neovim/nvim-lspconfig",
 		requires = {
 			-- Portable LSP server/linter manager for Neovim
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
-
-			-- Standalone UI for nvim-lsp progress
-			"j-hui/fidget.nvim",
 		},
 	})
+
+	-- Standalone UI for nvim-lsp progress
+	use({ "j-hui/fidget.nvim", tag = "legacy" })
 
 	-- LSP signature
 	use("ray-x/lsp_signature.nvim")
