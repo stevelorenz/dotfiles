@@ -320,3 +320,8 @@ require("lspsaga").setup({
 --  marks.nvim  --
 ------------------
 require("marks").setup()
+
+----------------------
+--  nvim-lastplace  --
+----------------------
+require("nvim-lastplace").setup({})

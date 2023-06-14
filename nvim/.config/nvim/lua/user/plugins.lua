@@ -30,12 +30,12 @@ return require("packer").startup(function(use)
 	use("nvim-lualine/lualine.nvim")
 
 	-- A snazzy bufferline for Neovim
-	use({ "akinsho/bufferline.nvim", tag = "v3.*", requires = "nvim-tree/nvim-web-devicons" })
+	use({ "akinsho/bufferline.nvim", tag = "v4.1.0", requires = "nvim-tree/nvim-web-devicons" })
 
 	-- Find, Filter, Preview, Pick. All lua, all the time
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.0",
+		tag = "0.1.2",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 	-- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
@@ -45,7 +45,7 @@ return require("packer").startup(function(use)
 	use("mbbill/undotree")
 
 	-- This plugin adds indentation guides to all lines (including empty lines)
-	use("lukas-reineke/indent-blankline.nvim")
+	use({ "lukas-reineke/indent-blankline.nvim", tag="v2.20.*"})
 
 	-- Beakdown VIM's --startuptime output
 	use("tweekmonster/startuptime.vim")
@@ -56,6 +56,7 @@ return require("packer").startup(function(use)
 	-- Nvim Treesitter configurations and abstraction layer
 	use({
 		"nvim-treesitter/nvim-treesitter",
+		tag = "v0.9.0",
 		run = function()
 			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
 		end,
@@ -88,6 +89,20 @@ return require("packer").startup(function(use)
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 		},
+	})
+
+	-- Portable package manager for Neovim that runs everywhere Neovim runs.
+	-- Easily install and manage LSP servers, DAP servers, linters, and formatters
+	use({
+		"williamboman/mason.nvim",
+		tags = "1.2.1",
+		run = ":MasonUpdate"
+	})
+
+	-- Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim.
+	use({
+		"williamboman/mason-lspconfig.nvim",
+		tags = "1.7.1"
 	})
 
 	-- Standalone UI for nvim-lsp progress
@@ -139,4 +154,7 @@ return require("packer").startup(function(use)
 
 	-- Catppuccin colorscheme
 	use({ "catppuccin/nvim", as = "catppuccin" })
+
+	-- A Lua rewrite of vim-lastplace
+	use({ "ethanholz/nvim-lastplace" })
 end)
