@@ -45,7 +45,7 @@ return require("packer").startup(function(use)
 	use("mbbill/undotree")
 
 	-- This plugin adds indentation guides to all lines (including empty lines)
-	use({ "lukas-reineke/indent-blankline.nvim", tag="v2.20.*"})
+	use({ "lukas-reineke/indent-blankline.nvim", tag = "v2.20.*" })
 
 	-- Beakdown VIM's --startuptime output
 	use("tweekmonster/startuptime.vim")
@@ -96,13 +96,13 @@ return require("packer").startup(function(use)
 	use({
 		"williamboman/mason.nvim",
 		tags = "1.2.1",
-		run = ":MasonUpdate"
+		run = ":MasonUpdate",
 	})
 
 	-- Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim.
 	use({
 		"williamboman/mason-lspconfig.nvim",
-		tags = "1.7.1"
+		tags = "1.7.1",
 	})
 
 	-- Standalone UI for nvim-lsp progress
@@ -157,4 +157,8 @@ return require("packer").startup(function(use)
 
 	-- A Lua rewrite of vim-lastplace
 	use({ "ethanholz/nvim-lastplace" })
+
+	-- Single tabpage interface for easily cycling through diffs for all modified files for any git rev.
+	use({ "sindrets/diffview.nvim" })
+
 end)
