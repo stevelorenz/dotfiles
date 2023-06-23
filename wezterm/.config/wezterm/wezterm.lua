@@ -3,10 +3,11 @@ local catppuccin = require("colors/catppuccin").setup({})
 
 return {
 	-- Font
-	font = wezterm.font("Cascadia Code", { weight = "Light", stretch = "Normal", italic = false }),
+	font = wezterm.font("Jetbrains Mono",
+		{ weight = "ExtraLight", stretch = "Normal", italic = false }),
 	font_size = 16.0,
 
-	-- Use catppuccin theme
+	-- Colorscheme: use catppuccin theme
 	colors = catppuccin,
 	window_background_opacity = 0.99,
 	default_cursor_style = "SteadyBlock",
@@ -19,5 +20,5 @@ return {
 		top = 2,
 		bottom = 2,
 	},
-	check_for_updates = false
+	check_for_updates = false,
 }
