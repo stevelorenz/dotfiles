@@ -8,6 +8,7 @@
 -- ]]
 
 local vim = vim
+-- local os_name = vim.loop.os_uname().sysname
 
 ----------------------------
 --  Check Neovim Version  --

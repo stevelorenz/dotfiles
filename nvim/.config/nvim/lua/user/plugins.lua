@@ -161,4 +161,7 @@ return require("packer").startup(function(use)
 	-- Single tabpage interface for easily cycling through diffs for all modified files for any git rev.
 	use({ "sindrets/diffview.nvim" })
 
+	-- Not UFO in the sky, but an ultra fold in Neovim
+	use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+
 end)
