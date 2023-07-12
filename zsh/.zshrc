@@ -77,6 +77,8 @@ fi
 # Add local bin folders
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH"
 
+# Add homebrew related paths on MacOS
+
 # Load custom aliases
 [ -f ~/.custom_aliases.sh ] && source ~/.custom_aliases.sh
 

@@ -9,12 +9,6 @@ local vim = vim
 -- Create autocommand
 local autocmd = vim.api.nvim_create_autocmd
 
--- Remove trailing whitespace(s)
-autocmd("BufWritePre", {
-	pattern = "",
-	command = ":%s/\\s\\+$//e",
-})
-
 -- Conventional vimscript configuration
 vim.cmd([[
 
