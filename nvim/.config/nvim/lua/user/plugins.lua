@@ -162,6 +162,6 @@ return require("packer").startup(function(use)
 	use({ "sindrets/diffview.nvim" })
 
 	-- Not UFO in the sky, but an ultra fold in Neovim
-	use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+	use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
 
 end)
