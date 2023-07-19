@@ -80,4 +80,8 @@ autocmd BufNewFile,BufRead *.groovy,Jenkinsfile*,jenkinsfile*
 			\ set filetype=groovy |
 			\ set expandtab |
 
+" Haskell sources
+autocmd BufNewFile,BufRead *.hs
+			\ set expandtab |
+
 ]])
