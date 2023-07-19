@@ -164,4 +164,13 @@ return require("packer").startup(function(use)
 	-- Not UFO in the sky, but an ultra fold in Neovim
 	use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
 
+	-- Neovim dashboard
+	use({
+		"glepnir/dashboard-nvim",
+		event = "VimEnter",
+		requires = { "nvim-tree/nvim-web-devicons" },
+	})
+
+	-- Zen mode
+	use({ "folke/zen-mode.nvim" })
 end)
