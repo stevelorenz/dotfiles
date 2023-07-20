@@ -7,6 +7,7 @@ local vim = vim
 
 -- Less options, less problems...
 local options = {
+	autowrite = true, -- enable auto write
 	backspace = "indent,eol,start",
 	backup = false, -- do not create backup file
 	clipboard = "unnamedplus", -- allows neovim to access the system clipboard

@@ -4,21 +4,38 @@
 
 local vim = vim
 
--- Create autocommand group
--- local augroup = vim.api.nvim_create_augroup
+-- Create augroup
+local function augroup(name)
+	return vim.api.nvim_create_augroup("zz_" .. name, { clear = true })
+end
+
 -- Create autocommand
 local autocmd = vim.api.nvim_create_autocmd
+
+-- Check if need to reload the file
+autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+	group = augroup("checktime"),
+	command = "checktime",
+})
+
+-- Highlight on yank
+autocmd("TextYankPost", {
+	group = augroup("highlight_yank"),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
 
 -- Conventional vimscript configuration
 vim.cmd([[
 
-" INI style configuration files
+" INI-style configuration files
 autocmd BufNewFile,BufRead *.ini,*.conf,*.cfg,*.config
 			\ set filetype=dosini |
 			\ set expandtab |
 			\ set spell |
 
-" Tex and related files
+" Tex and other text files
 autocmd BufNewFile,BufRead *.tex,*.bib,*.rst,*.txt,*.tmp
 			\ set spell |
 

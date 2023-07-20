@@ -69,12 +69,15 @@ require("nvim-treesitter.configs").setup({
 		"haskell",
 		"html",
 		"javascript",
+		"json",
 		"latex",
 		"lua",
+		"markdown",
 		"python",
 		"ruby",
 		"rust",
 		"vim",
+		"yaml",
 	},
 	highlight = {
 		enable = true, -- false will disable the whole extension
@@ -86,7 +89,7 @@ require("nvim-treesitter.configs").setup({
 		enable = true,
 		keymaps = {
 			init_selection = "<CR>",
-			scope_incremental = "<CR>",
+			scope_incremental = false,
 			node_incremental = "<TAB>",
 			node_decremental = "<S-TAB>",
 		},
@@ -136,7 +139,7 @@ vim.api.nvim_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", op
 vim.api.nvim_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 
 -- Setup Neovim's built-in LSP client
--- Following configurations are copied from the lspconfig README
+-- Following configurations are copied from the lspconfig README (May be already outdated...)
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
