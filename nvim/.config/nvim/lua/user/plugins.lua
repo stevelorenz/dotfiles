@@ -173,4 +173,7 @@ return require("packer").startup(function(use)
 
 	-- Zen mode
 	use({ "folke/zen-mode.nvim" })
+
+	-- Highlight, list and search todo comments in your projects
+	use({ "folke/todo-comments.nvim" })
 end)

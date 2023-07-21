@@ -348,3 +348,8 @@ require("ufo").setup({
 		return { "treesitter", "indent" }
 	end,
 })
+
+--------------------------
+--  todo-comments.nvim  --
+--------------------------
+require("todo-comments").setup({})
