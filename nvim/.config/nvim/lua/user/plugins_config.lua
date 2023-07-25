@@ -287,10 +287,10 @@ cmp.setup({
 	},
 	-- Currenly ONLY use LSP and buffer sources
 	sources = {
-		{ name = "buffer", keyword_length = 3 },
+		{ name = "buffer",   keyword_length = 3 },
 		{ name = "nvim_lsp", keyword_length = 3 },
 		{ name = "nvim_lua", keyword_length = 3 },
-		{ name = "path", keyword_length = 3 },
+		{ name = "path",     keyword_length = 3 },
 	},
 })
 
@@ -343,3 +343,8 @@ require("ufo").setup({
 --  todo-comments.nvim  --
 --------------------------
 require("todo-comments").setup({})
+
+-----------------------
+--  mini.animate  -  --
+-----------------------
+require('mini.animate').setup({})

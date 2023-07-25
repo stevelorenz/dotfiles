@@ -173,4 +173,10 @@ return require("packer").startup(function(use)
 
 	-- Highlight, list and search todo comments in your projects
 	use({ "folke/todo-comments.nvim" })
+
+	---------------------------
+	--  mini.nvim collection --
+	---------------------------
+	-- Animate common Neovim actions
+	use({ "echasnovski/mini.animate" })
 end)
