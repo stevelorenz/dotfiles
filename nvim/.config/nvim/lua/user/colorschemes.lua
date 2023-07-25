@@ -10,7 +10,7 @@ if ok then
 	-- I like catppuccin theme and use it for terminal, Gnome, Neovim and so on...
 	vim.cmd.colorscheme("catppuccin")
 
-	-- catppuccin
+	-- Catppuccin
 	require("catppuccin").setup({
 		flavor = "mocha",
 		-- Pre-compile the configuration and store it in nvim's cache

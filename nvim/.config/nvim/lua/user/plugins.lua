@@ -30,7 +30,7 @@ return require("packer").startup(function(use)
 	use("nvim-lualine/lualine.nvim")
 
 	-- A snazzy bufferline for Neovim
-	use({ "akinsho/bufferline.nvim", tag = "v4.1.0", requires = "nvim-tree/nvim-web-devicons" })
+	use({ "akinsho/bufferline.nvim", tag = "v4.3.0", requires = "nvim-tree/nvim-web-devicons" })
 
 	-- Find, Filter, Preview, Pick. All lua, all the time
 	use({
@@ -116,9 +116,6 @@ return require("packer").startup(function(use)
 
 	-- Easy code formatting
 	use("sbdchd/neoformat")
-
-	-- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
-	use("jose-elias-alvarez/null-ls.nvim")
 
 	-- A better annotation/documentation generator
 	use("danymat/neogen")
