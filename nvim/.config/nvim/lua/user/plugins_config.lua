@@ -145,8 +145,6 @@ local servers_default = {
 	"cmake",
 	"erlangls",
 	"gopls",
-	"groovyls",
-	"hls",
 	"lua_ls",
 	"pyright",
 	"rust_analyzer",
