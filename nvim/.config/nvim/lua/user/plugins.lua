@@ -62,6 +62,16 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- Nvim-treesitter-context
+	use("nvim-treesitter/nvim-treesitter-context")
+
+	-- Syntax aware text-objects, select, move, swap, and peek support
+	use({
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+	})
+
 	-- Super fast git decorations
 	use("lewis6991/gitsigns.nvim")
 
