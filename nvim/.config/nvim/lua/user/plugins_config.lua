@@ -78,6 +78,7 @@ require("nvim-treesitter.configs").setup({
 		"ruby",
 		"rust",
 		"vim",
+		"vimdoc",
 		"yaml",
 	},
 	auto_install = true,
@@ -96,10 +97,30 @@ require("nvim-treesitter.configs").setup({
 			scope_incremental = false,
 		},
 	},
+	textobjects = {
+		select = {
+			enable = true,
+			-- Automatically jump forward to textobj, similar to targets.vim
+			lookahead = true,
+			keymaps = {
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ac"] = "@class.outer",
+				["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+				["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+			},
+			selection_modes = {
+				['@parameter.outer'] = 'v', -- charwise
+				['@function.outer'] = 'V', -- linewise
+				['@class.outer'] = '<c-v>', -- blockwise
+			},
+			include_surrounding_whitespace = false,
+		},
+	},
 })
 
 require("treesitter-context").setup({
-	enable = true
+	enable = true,
 })
 
 ----------------
@@ -346,7 +367,12 @@ require("ufo").setup({
 --------------------------
 require("todo-comments").setup({})
 
+----------------------
+--  vim-illuminate  --
+----------------------
+require("illuminate").configure({})
+
 -----------------------
 --  mini.animate  -  --
 -----------------------
-require('mini.animate').setup({})
+require("mini.animate").setup({})

@@ -62,13 +62,16 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Nvim-treesitter-context
-	use("nvim-treesitter/nvim-treesitter-context")
-
 	-- Syntax aware text-objects, select, move, swap, and peek support
 	use({
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		after = "nvim-treesitter",
+		requires = "nvim-treesitter/nvim-treesitter",
+	})
+
+	-- Nvim-treesitter-context
+	use({
+		"nvim-treesitter/nvim-treesitter-context",
 		requires = "nvim-treesitter/nvim-treesitter",
 	})
 
@@ -181,8 +184,14 @@ return require("packer").startup(function(use)
 	-- Zen mode
 	use({ "folke/zen-mode.nvim" })
 
+	-- Dims inactive portions of the code you're editing using Treesitter
+	use({ "folke/twilight.nvim" })
+
 	-- Highlight, list and search todo comments in your projects
 	use({ "folke/todo-comments.nvim" })
+
+	-- Automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching
+	use({ "RRethy/vim-illuminate" })
 
 	---------------------------
 	--  mini.nvim collection --
