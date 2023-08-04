@@ -41,6 +41,9 @@ require("telescope").setup({
 -- Enable telescope fzf native, if installed
 pcall(require("telescope").load_extension, "fzf")
 
+-- Load telescope-file-browser
+require("telescope").load_extension("file_browser")
+
 ----------------
 --  undotree  --
 ----------------
@@ -111,9 +114,9 @@ require("nvim-treesitter.configs").setup({
 				["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
 			},
 			selection_modes = {
-				['@parameter.outer'] = 'v', -- charwise
-				['@function.outer'] = 'V', -- linewise
-				['@class.outer'] = '<c-v>', -- blockwise
+				["@parameter.outer"] = "v", -- charwise
+				["@function.outer"] = "V", -- linewise
+				["@class.outer"] = "<c-v>", -- blockwise
 			},
 			include_surrounding_whitespace = false,
 		},
@@ -164,10 +167,11 @@ require("mason-lspconfig").setup({
 -- Setup Neovim's built-in LSP client
 -- Configs are copied and adapted from lspconfig's README (May be outdated...)
 
+local lspconfig = require("lspconfig")
+
 -- LSP servers that use the default setup, namely without any customized configs
 local servers_default = {
 	"bashls",
-	"clangd",
 	"cmake",
 	"erlangls",
 	"gopls",
@@ -177,10 +181,17 @@ local servers_default = {
 	"solargraph",
 	"sqlls",
 	"vimls",
+	"yamlls",
 }
 for _, lsp in pairs(servers_default) do
-	require("lspconfig")[lsp].setup({})
+	lspconfig[lsp].setup({})
 end
+
+-- LSP servers that use customized setup
+-- clangd: DO NOT auto insert (often wrong) include headers...
+lspconfig.clangd.setup({
+	cmd = { "clangd", "--header-insertion=never" },
+})
 
 -- Global mappings
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
