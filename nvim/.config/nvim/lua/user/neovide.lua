@@ -1,14 +1,18 @@
--- Neovide (GUI for Neovim) configuration
+-- Neovide (No Nonsense Neovim Client in Rust) Configuration
+-- NOTE: Used as my default Neovim GUI. Tested on Linux and MacOS (installed with Homebrew)
+
 local vim = vim
 
-vim.g.neovide_transparency = 1.0
 vim.g.neovide_fullscreen = false
-vim.g.neovide_cursor_vfx_mode = "railgun"
--- vim.g.neovide_profiler = true
+vim.g.neovide_hide_mouse_when_typing = true
+vim.g.neovide_theme = 'auto'
+vim.g.neovide_cursor_animate_in_insert_mode = true
 
-vim.g.gui_font_default_size = 18
+vim.g.neovide_cursor_vfx_mode = "railgun"
+
+vim.g.gui_font_default_size = 20
 vim.g.gui_font_size = vim.g.gui_font_default_size
-vim.g.gui_font_face = "Cascadia Code PL Light"
+vim.g.gui_font_face = "Fira Code Light"
 
 RefreshGuiFont = function()
 	vim.opt.guifont = string.format("%s:h%s", vim.g.gui_font_face, vim.g.gui_font_size)

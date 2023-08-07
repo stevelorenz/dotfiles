@@ -384,6 +384,11 @@ require("todo-comments").setup({})
 ----------------------
 require("illuminate").configure({})
 
+-----------------
+--  colorizer  --
+-----------------
+require("colorizer").setup({})
+
 -----------------------
 --  mini.animate  -  --
 -----------------------

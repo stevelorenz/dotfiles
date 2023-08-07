@@ -199,6 +199,9 @@ return require("packer").startup(function(use)
 	-- Automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching
 	use({ "RRethy/vim-illuminate" })
 
+	-- Maintained fork of the fastest Neovim colorizer
+	use({ "NvChad/nvim-colorizer.lua" })
+
 	---------------------------
 	--  mini.nvim collection --
 	---------------------------
