@@ -3,14 +3,17 @@
 
 local vim = vim
 
+vim.g.neovide_cursor_animate_in_insert_mode = true
+vim.g.neovide_cursor_vfx_mode = "railgun"
 vim.g.neovide_fullscreen = false
 vim.g.neovide_hide_mouse_when_typing = true
-vim.g.neovide_theme = 'auto'
-vim.g.neovide_cursor_animate_in_insert_mode = true
+vim.g.neovide_theme = "auto"
 
-vim.g.neovide_cursor_vfx_mode = "railgun"
+--------------------------
+--  Font Configuration  --
+--------------------------
 
-vim.g.gui_font_default_size = 20
+vim.g.gui_font_default_size = 24
 vim.g.gui_font_size = vim.g.gui_font_default_size
 vim.g.gui_font_face = "Fira Code Light"
 
@@ -28,7 +31,7 @@ ResetGuiFont = function()
 	RefreshGuiFont()
 end
 
--- Call function on startup to set default value
+-- Set the default value on startup
 ResetGuiFont()
 
 local opts = { noremap = true, silent = true }

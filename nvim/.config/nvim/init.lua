@@ -46,6 +46,9 @@ local ensure_packer = function()
 end
 local packer_bootstrap = ensure_packer()
 
+-- Enable fast lua module loader (available since 0.9)
+vim.loader.enable()
+
 require("user.plugins")
 
 -- When we are bootstrapping a configuration, it doesn't
