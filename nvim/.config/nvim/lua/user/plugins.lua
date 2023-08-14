@@ -24,18 +24,17 @@ return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
 	-- A collection of common lua functions
-	use("nvim-lua/plenary.nvim")
+	use({ "nvim-lua/plenary.nvim" })
 
 	-- A blazing fast and easy to configure Neovim statusline written in Lua
 	use("nvim-lualine/lualine.nvim")
 
 	-- A snazzy bufferline for Neovim
-	use({ "akinsho/bufferline.nvim", tag = "v4.3.0", requires = "nvim-tree/nvim-web-devicons" })
+	use({ "akinsho/bufferline.nvim", requires = "nvim-tree/nvim-web-devicons" })
 
 	-- Find, Filter, Preview, Pick. All lua, all the time
 	use({
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.2",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 	-- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
@@ -51,7 +50,7 @@ return require("packer").startup(function(use)
 	use("mbbill/undotree")
 
 	-- This plugin adds indentation guides to all lines (including empty lines)
-	use({ "lukas-reineke/indent-blankline.nvim", tag = "v2.20.*" })
+	use({ "lukas-reineke/indent-blankline.nvim" })
 
 	-- Beakdown VIM's --startuptime output
 	use("tweekmonster/startuptime.vim")
@@ -62,9 +61,9 @@ return require("packer").startup(function(use)
 	-- Nvim Treesitter configurations and abstraction layer
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		tag = "v0.9.0",
 		run = function()
-			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
+			local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+			ts_update()
 		end,
 	})
 
@@ -114,14 +113,12 @@ return require("packer").startup(function(use)
 	-- Easily install and manage LSP servers, DAP servers, linters, and formatters
 	use({
 		"williamboman/mason.nvim",
-		tags = "1.2.1",
 		run = ":MasonUpdate",
 	})
 
 	-- Extension to mason.nvim that makes it easier to use lspconfig with mason.nvim.
 	use({
 		"williamboman/mason-lspconfig.nvim",
-		tags = "1.7.1",
 	})
 
 	-- Standalone UI for nvim-lsp progress
