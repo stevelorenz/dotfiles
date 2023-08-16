@@ -199,6 +199,9 @@ return require("packer").startup(function(use)
 	-- Maintained fork of the fastest Neovim colorizer
 	use({ "NvChad/nvim-colorizer.lua" })
 
+	-- Tokyonight: a clean, dark Neovim theme written in Lua
+	use({ "folke/tokyonight.nvim" })
+
 	---------------------------
 	--  mini.nvim collection --
 	---------------------------
