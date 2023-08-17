@@ -25,7 +25,6 @@ local options = {
 	hlsearch = true, -- highlight all matches on previous search pattern
 	ignorecase = true, -- ignore case in search patterns
 	laststatus = 3, -- Use global statusline
-	lazyredraw = true, -- Faster scrolling
 	list = true, -- Show some common invisible characters
 	listchars = {
 		eol = "↵",

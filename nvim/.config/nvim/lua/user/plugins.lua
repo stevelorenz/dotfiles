@@ -43,7 +43,7 @@ return require("packer").startup(function(use)
 	-- File Browser extension for telescope.nvim
 	use({
 		"nvim-telescope/telescope-file-browser.nvim",
-		requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+		requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 	})
 
 	-- Undo history visualizer
@@ -62,7 +62,7 @@ return require("packer").startup(function(use)
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		run = function()
-			local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
 			ts_update()
 		end,
 	})
@@ -201,6 +201,12 @@ return require("packer").startup(function(use)
 
 	-- Tokyonight: a clean, dark Neovim theme written in Lua
 	use({ "folke/tokyonight.nvim" })
+
+	-- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu
+	use({
+		"folke/noice.nvim",
+		requires = { "MunifTanjim/nui.nvim" },
+	})
 
 	---------------------------
 	--  mini.nvim collection --

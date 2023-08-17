@@ -78,7 +78,9 @@ require("nvim-treesitter.configs").setup({
 		"latex",
 		"lua",
 		"markdown",
+		"markdown_inline",
 		"python",
+		"regex",
 		"ruby",
 		"rust",
 		"vim",
@@ -322,10 +324,10 @@ cmp.setup({
 	},
 	-- Currenly ONLY use LSP and buffer sources
 	sources = {
-		{ name = "buffer",   keyword_length = 3 },
+		{ name = "buffer", keyword_length = 3 },
 		{ name = "nvim_lsp", keyword_length = 3 },
 		{ name = "nvim_lua", keyword_length = 3 },
-		{ name = "path",     keyword_length = 3 },
+		{ name = "path", keyword_length = 3 },
 	},
 })
 
@@ -388,6 +390,25 @@ require("illuminate").configure({})
 --  colorizer  --
 -----------------
 require("colorizer").setup({})
+
+------------------
+--  noice.nvim  --
+------------------
+require("noice").setup({
+	lsp = {
+		signature = {
+			enabled = false,
+		},
+	},
+	-- Define preset for easier configuration
+	presets = {
+		bottom_search = true, -- use a classic bottom cmdline for search
+		command_palette = true, -- position the cmdline and popupmenu together
+		long_message_to_split = true, -- long messages will be sent to a split
+		inc_rename = false, -- enables an input dialog for inc-rename.nvim
+		lsp_doc_border = false, -- add a border to hover docs and signature help
+	},
+})
 
 -----------------------
 --  mini.animate  -  --
