@@ -414,3 +414,8 @@ require("noice").setup({
 --  mini.animate  -  --
 -----------------------
 require("mini.animate").setup({})
+
+-----------------------
+--  mini.trailspace  --
+-----------------------
+require("mini.trailspace").setup()

@@ -213,4 +213,7 @@ return require("packer").startup(function(use)
 	---------------------------
 	-- Animate common Neovim actions
 	use({ "echasnovski/mini.animate" })
+
+	-- Work with trailing whitespace
+	use({ "echasnovski/mini.trailspace" })
 end)
