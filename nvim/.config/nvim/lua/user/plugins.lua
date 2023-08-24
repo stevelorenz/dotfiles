@@ -202,10 +202,13 @@ return require("packer").startup(function(use)
 	-- Tokyonight: a clean, dark Neovim theme written in Lua
 	use({ "folke/tokyonight.nvim" })
 
+	-- A fancy, configurable, notification manager for NeoVim
+	use({ "rcarriga/nvim-notify" })
+
 	-- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu
 	use({
 		"folke/noice.nvim",
-		requires = { "MunifTanjim/nui.nvim" },
+		requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
 	})
 
 	---------------------------
