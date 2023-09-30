@@ -52,7 +52,7 @@ vim.g.undotree_SetFocusWhenToggle = 1
 ------------------------
 --  indent_blankline  --
 ------------------------
-require("indent_blankline").setup({
+require("ibl").setup({
 	char = "┊",
 	show_trailing_blankline_indent = false,
 	show_current_context_start = true,
