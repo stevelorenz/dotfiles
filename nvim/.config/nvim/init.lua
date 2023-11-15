@@ -8,10 +8,9 @@
 -- ]]
 
 local vim = vim
--- local os_name = vim.loop.os_uname().sysname
 
 ----------------------------
---  Check Neovim Version  --
+--  Check Neovim version  --
 ----------------------------
 
 local version_is_ok = true
@@ -29,37 +28,45 @@ if not version_is_ok then
 	vim.cmd("qa!")
 end
 
-------------------------------------------------------------
---  Bootstrap Neovim with plugins managed by packer.nvim  --
-------------------------------------------------------------
+----------------------------------------------
+--  Bootstrap Neovim with a plugin manager  --
+----------------------------------------------
 
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		print("Installing packer.nvim...")
-		vim.cmd([[packadd packer.nvim]])
+local ensure_plugin_manager = function()
+	local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+	if not vim.loop.fs_stat(lazypath) then
+		vim.fn.system({
+			"git",
+			"clone",
+			"--filter=blob:none",
+			"https://github.com/folke/lazy.nvim.git",
+			"--branch=stable", -- latest stable release
+			lazypath,
+		})
+		vim.opt.rtp:prepend(lazypath)
 		return true
 	end
+
+	vim.opt.rtp:prepend(lazypath)
 	return false
 end
-local packer_bootstrap = ensure_packer()
+local plugin_manager_bootstrap = ensure_plugin_manager()
 
 -- Enable fast lua module loader (available since 0.9)
 vim.loader.enable()
 
+-- This module should install all plugins during bootstrapping
 require("user.plugins")
 
 -- When we are bootstrapping a configuration, it doesn't
 -- make sense to execute the rest of the init.lua.
--- You'll need to restart nvim, and then it will work.
-if packer_bootstrap then
-	require("packer").sync()
+-- You'll need to restart Neovim, and then it will work.
+if plugin_manager_bootstrap then
 	print("==================================")
 	print("    Plugins are being installed/synced...")
-	print("    Wait until Packer completes,")
-	print("       then restart neovim")
+	print("    Wait until the plugin manager completes,")
+	print("       then restart Neovim")
 	print("==================================")
 else
 	require("user.autocommands")
