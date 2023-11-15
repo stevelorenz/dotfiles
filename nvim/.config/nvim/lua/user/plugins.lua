@@ -188,10 +188,10 @@ return require("lazy").setup({
 	{ "rcarriga/nvim-notify" },
 
 	-- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu
-	{
-		"folke/noice.nvim",
-		dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
-	},
+	-- {
+	-- 	"folke/noice.nvim",
+	-- 	dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+	-- },
 
 	---------------------------
 	--  mini.nvim collection --
