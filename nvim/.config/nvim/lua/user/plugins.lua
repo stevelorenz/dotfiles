@@ -1,6 +1,6 @@
 -- [[
--- About: Zuo's usein Configuration for Neovim
---        useins are chosen ONLY for my PERSONAL workflow.
+-- About: Zuo's Plugin Configuration for Neovim
+--        Plugins are chosen ONLY for my PERSONAL workflow.
 --        In general, less plugins, less "problems".
 --        The number of installed plugins should be MINIMIZED.
 --        This file ONLY contains the list of plugins, configuration is located in ./plugins_config.lua
@@ -15,10 +15,10 @@ return require("lazy").setup({
 	-- A collection of common lua functions
 	{ "nvim-lua/plenary.nvim" },
 
-	-- A blazing fast and easy to configure Neovim statusline written in Lua
+	-- A blazing fast and easy to configure Neovim status line written in Lua
 	{ "nvim-lualine/lualine.nvim" },
 
-	-- A snazzy bufferline for Neovim
+	-- A snazzy buffer line for Neovim
 	{ "akinsho/bufferline.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
 
 	-- Find, Filter, Preview, Pick. All lua, all the time
@@ -41,7 +41,7 @@ return require("lazy").setup({
 	-- This plugin adds indentation guides to all lines (including empty lines)
 	{ "lukas-reineke/indent-blankline.nvim" },
 
-	-- Beakdown VIM's --startuptime output
+	-- Beakdown VIM's -- startuptime output
 	{ "tweekmonster/startuptime.vim" },
 
 	-- Adds file type icons to Vim plugins

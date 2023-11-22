@@ -4,7 +4,7 @@
 
 local vim = vim
 
--- Create augroup
+-- Create augroup, check help augroup
 local function augroup(name)
 	return vim.api.nvim_create_augroup("zz_" .. name, { clear = true })
 end
@@ -71,7 +71,7 @@ autocmd BufNewFile,BufRead *.yang
 			\ set shiftwidth=2 |
 			\ set expandtab |
 
-" TDL (for Cisco IOS-XE)
+" TDL (for Cisco IOS-XE DEV)
 autocmd BufNewFile,BufRead *.tdl
 			\ set filetype=tdl |
 			\ set tabstop=2 |
