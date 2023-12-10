@@ -104,7 +104,7 @@ return require("lazy").setup({
 	},
 
 	-- Standalone UI for nvim-lsp progress
-	{ "j-hui/fidget.nvim", version = "legacy" },
+	{ "j-hui/fidget.nvim" },
 
 	-- LSP signature
 	{ "ray-x/lsp_signature.nvim" },
@@ -186,6 +186,9 @@ return require("lazy").setup({
 
 	-- A fancy, configurable, notification manager for NeoVim
 	{ "rcarriga/nvim-notify" },
+
+	-- Heuristically set buffer options
+	{ "tpope/vim-sleuth" },
 
 	-- Highly experimental plugin that completely replaces the UI for messages, cmdline and the popupmenu
 	-- {
