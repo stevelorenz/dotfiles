@@ -39,7 +39,7 @@ require("telescope").setup({
 })
 
 -- Enable telescope fzf native, if installed
-pcall(require("telescope").load_extension, "fzf")
+require("telescope").load_extension("fzf")
 
 -- Load telescope-file-browser
 require("telescope").load_extension("file_browser")
@@ -75,6 +75,7 @@ require("nvim-treesitter.configs").setup({
 		"lua",
 		"markdown",
 		"markdown_inline",
+		"perl",
 		"python",
 		"regex",
 		"ruby",
@@ -133,7 +134,9 @@ require("gitsigns").setup({})
 -----------------
 --  which-key  --
 -----------------
-require("which-key").setup({})
+require("which-key").setup({
+	plugins = { spelling = true },
+})
 
 ----------------------
 --  nvim-autopairs  --
@@ -260,57 +263,35 @@ require("neogen").setup({
 	},
 })
 
------------------
---  ultisnips  --
------------------
-vim.cmd([[
-	let g:UltiSnipsExpandTrigger = "<leader><tab>"
-	let g:UltiSnipsListSnippets = "<f9>"
-	let g:UltiSnipsJumpForwardTrigger = "<leader><tab>"
-	let g:UltiSnipsJumpBackwardTrigger = "<leader><s-tab>"
-	let g:UltiSnipsEditSplit = "vertical"
-	" searching paths
-	let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'custom_snippets']
-]])
-
 ----------------
 --  nvim-cmp  --
 ----------------
 -- copy/paste from https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
 local cmp = require("cmp")
+local cmp_defaults = require("cmp.config.default")()
 cmp.setup({
 	completion = {
 		-- Uncomment the next line to disable autocompletion (Trigger completion manually)
 		-- autocomplete = false,
 		completeopt = "menu,menuone,noinsert",
 	},
-	snippet = {
-		expand = function(args)
-			vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-		end,
-	},
-	mapping = {
-		["<A-space>"] = cmp.mapping.complete(),
-		["<A-e>"] = cmp.mapping.close(),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<Tab>"] = function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			else
-				fallback()
-			end
-		end,
-		["<S-Tab>"] = function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			else
-				fallback()
-			end
-		end,
-		-- (b)ack and (f)orward documentation
+	mapping = cmp.mapping.preset.insert({
+		["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+		["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<C-b>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
-	},
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-e>"] = cmp.mapping.abort(),
+		["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+		["<S-CR>"] = cmp.mapping.confirm({
+			behavior = cmp.ConfirmBehavior.Replace,
+			select = true,
+		}), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+		["<C-CR>"] = function(fallback)
+			cmp.abort()
+			fallback()
+		end,
+	}),
 	-- Currenly ONLY use LSP and buffer sources
 	sources = {
 		{ name = "buffer", keyword_length = 3 },
@@ -318,6 +299,7 @@ cmp.setup({
 		{ name = "nvim_lua", keyword_length = 3 },
 		{ name = "path", keyword_length = 3 },
 	},
+	sorting = cmp_defaults.sorting,
 })
 
 ---------------
@@ -373,7 +355,10 @@ require("todo-comments").setup({})
 ----------------------
 --  vim-illuminate  --
 ----------------------
-require("illuminate").configure({})
+require("illuminate").configure({
+	delay = 200,
+	large_file_cutoff = 2000,
+})
 
 -----------------
 --  colorizer  --

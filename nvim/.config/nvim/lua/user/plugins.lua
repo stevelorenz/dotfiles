@@ -27,7 +27,7 @@ return require("lazy").setup({
 		dependencies = { { "nvim-lua/plenary.nvim" } },
 	},
 	-- Fuzzy Finder Algorithm which requires local dependencies to be built.
-	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+	{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", enabled = vim.fn.executable("make") == 1 },
 
 	-- File Browser extension for telescope.nvim
 	{
@@ -69,7 +69,7 @@ return require("lazy").setup({
 	{ "folke/which-key.nvim" },
 
 	-- Autopairs for neovim
-	{ "windwp/nvim-autopairs" },
+	{ "windwp/nvim-autopairs", event = "InsertEnter" },
 
 	-- A file explorer for neovim written in lua
 	{ "kyazdani42/nvim-tree.lua" },
@@ -118,12 +118,11 @@ return require("lazy").setup({
 	-- A better annotation/documentation generator
 	{ "danymat/neogen" },
 
-	-- Code snippets
-	{ "honza/vim-snippets", dependencies = { { "SirVer/ultisnips" } } },
-
 	-- A completion plugin for neovim coded in Lua.
 	{
 		"hrsh7th/nvim-cmp",
+		version = false, -- last release is way too old
+		event = "InsertEnter",
 		dependencies = {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-nvim-lsp",
@@ -195,6 +194,18 @@ return require("lazy").setup({
 	-- 	"folke/noice.nvim",
 	-- 	dependencies = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
 	-- },
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		-- stylua: ignore
+		keys = {
+			{ "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+  		  	{ "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+  		  	{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+  		  	{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+  		  	{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+  		},
+	},
 
 	---------------------------
 	--  mini.nvim collection --
