@@ -11,7 +11,26 @@
 local vim = vim
 
 return require("lazy").setup({
-
+	-- Config for the plugin manager lazy.nvim itself
+	install = {
+		-- install missing plugins on startup. This doesn't increase startup time.
+		missing = false,
+	},
+	performance = {
+		rtp = {
+			-- disable some rtp plugins
+			disabled_plugins = {
+				"gzip",
+				-- "matchit",
+				-- "matchparen",
+				-- "netrwPlugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
 	-- A collection of common lua functions
 	{ "nvim-lua/plenary.nvim" },
 
@@ -128,6 +147,8 @@ return require("lazy").setup({
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-vsnip",
+			"hrsh7th/vim-vsnip",
 		},
 	},
 

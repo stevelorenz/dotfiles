@@ -275,6 +275,14 @@ cmp.setup({
 		-- autocomplete = false,
 		completeopt = "menu,menuone,noinsert",
 	},
+	snippet = {
+		-- REQUIRED - you must specify a snippet engine
+		-- NOTE: Unfortunately, nvim-cmp now requires using a snippet engine even if you don't want to use one... So I
+		-- use the vsnip which is provided by the same author of the nvim-cmp plugin
+		expand = function(args)
+			vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+		end,
+	},
 	mapping = cmp.mapping.preset.insert({
 		["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -292,12 +300,12 @@ cmp.setup({
 			fallback()
 		end,
 	}),
-	-- Currenly ONLY use LSP and buffer sources
 	sources = {
 		{ name = "buffer", keyword_length = 3 },
 		{ name = "nvim_lsp", keyword_length = 3 },
 		{ name = "nvim_lua", keyword_length = 3 },
 		{ name = "path", keyword_length = 3 },
+		{ name = "vsnip", keyword_length = 3 },
 	},
 	sorting = cmp_defaults.sorting,
 })
