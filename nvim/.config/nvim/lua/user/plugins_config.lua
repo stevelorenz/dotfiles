@@ -157,10 +157,19 @@ require("bqf").setup({})
 --  Mason  --
 -------------
 -- Following order is required: mason -> mason-lspconfig -> lspconfig
-require("mason").setup({})
+require("mason").setup({
+	ensure_installed = {
+		"stylua",
+	},
+})
 require("mason-lspconfig").setup({
 	ensure_installed = {},
 })
+
+-------------
+--  Neodev --
+-------------
+require("neodev").setup({})
 
 ----------------
 --  nvim-lsp  --
@@ -266,6 +275,7 @@ require("neogen").setup({
 ----------------
 --  nvim-cmp  --
 ----------------
+vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 -- copy/paste from https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
 local cmp = require("cmp")
 local cmp_defaults = require("cmp.config.default")()
@@ -306,6 +316,11 @@ cmp.setup({
 		{ name = "nvim_lua", keyword_length = 3 },
 		{ name = "path", keyword_length = 3 },
 		{ name = "vsnip", keyword_length = 3 },
+	},
+	experimental = {
+		ghost_text = {
+			hl_group = "CmpGhostText",
+		},
 	},
 	sorting = cmp_defaults.sorting,
 })
@@ -366,6 +381,9 @@ require("todo-comments").setup({})
 require("illuminate").configure({
 	delay = 200,
 	large_file_cutoff = 2000,
+	large_file_overrides = {
+		providers = { "lsp" },
+	},
 })
 
 -----------------
