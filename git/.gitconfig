@@ -39,3 +39,6 @@
     template = ~/.git_commit_msg.txt
 [pull]
     rebase = false
+
+[url "git@github.com:"]
+	insteadOf = https://github.com/
