@@ -1,8 +1,7 @@
-"debug.render_timer" = true
+# Colorscheme
 import = ["/Users/zuoxiang/.config/alacritty/catppuccin.toml"]
+
 live_config_reload = true
-"window.dynamic_title" = true
-"window.opacity" = 0.98
 
 [bell]
 animation = "EaseOutExpo"
@@ -555,16 +554,6 @@ mods = "Super"
 [mouse]
 hide_when_typing = true
 
-[[mouse.bindings]]
-action = "PasteSelection"
-mouse = "Middle"
-
-[mouse.double_click]
-threshold = 300
-
-[mouse.triple_click]
-threshold = 300
-
 [scrolling]
 history = 10000
 
@@ -574,6 +563,8 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [window]
 decorations = "full"
+dynamic_title = true
+opacity = 0.98
 startup_mode = "Maximized"
 title = "Alacritty"
 
