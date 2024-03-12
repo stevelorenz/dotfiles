@@ -1,8 +1,6 @@
 -- Neovide (No Nonsense Neovim Client in Rust) Configuration
 -- NOTE: Used as my default Neovim GUI. Tested on Linux and MacOS (installed with Homebrew)
 
-local vim = vim
-
 vim.g.neovide_cursor_animate_in_insert_mode = true
 vim.g.neovide_cursor_vfx_mode = "railgun"
 vim.g.neovide_fullscreen = false

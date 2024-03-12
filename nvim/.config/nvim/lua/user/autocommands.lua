@@ -2,8 +2,6 @@
 -- autocommands.lua
 --
 
-local vim = vim
-
 -- Create augroup, check help augroup
 local function augroup(name)
 	return vim.api.nvim_create_augroup("zz_" .. name, { clear = true })

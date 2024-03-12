@@ -3,8 +3,6 @@
 -- About: Configuration for all installed plugins. Configuration is separated from plugin management in ./plugins.lua
 --
 
-local vim = vim
-
 ---------------
 --  lualine  --
 ---------------

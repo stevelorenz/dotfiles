@@ -8,8 +8,6 @@
 -- Email: xianglinks@gmail.com
 -- ]]
 
-local vim = vim
-
 return require("lazy").setup(
 	{
 		-- A collection of common lua functions

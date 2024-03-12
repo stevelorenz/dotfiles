@@ -2,8 +2,6 @@
 -- colorscheme.lua
 --
 
-local vim = vim
-
 local ok, _ = pcall(require, "catppuccin")
 
 if ok then

@@ -3,7 +3,17 @@
 -- About: Zuo's Options Configuration for Neovim
 --
 
-local vim = vim
+local utils = require("user.utils")
+
+-- Check OS type
+vim.g.is_win = (utils.has("win32") or utils.has("win64")) and true or false
+vim.g.is_linux = (utils.has("unix") and (not utils.has("macunix"))) and true or false
+vim.g.is_mac = utils.has("macunix") and true or false
+
+-- Globals
+vim.g.logging_level = "info"
+vim.g.did_install_default_menus = 1 -- do not load menu
+vim.g.loaded_sql_completion = 1     -- disable broken SQL omni completion
 
 -- Less options, less problems...
 local options = {
@@ -14,6 +24,7 @@ local options = {
 	colorcolumn = { "80", "120" },
 	completeopt = { "menuone", "noselect" }, -- mostly just for cmp
 	conceallevel = 0, -- so that `` is visible in markdown files
+	confirm = true, -- Ask for confirmation when handling unsaved or read-only files
 	cursorcolumn = true, -- highlight the current column
 	cursorline = true, -- highlight the current line
 	emoji = true,

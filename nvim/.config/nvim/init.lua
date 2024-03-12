@@ -7,7 +7,8 @@
 -- Email: xianglinks@gmail.com
 -- ]]
 
-local vim = vim
+-- Enable the new faster lua loader using byte-compilation
+vim.loader.enable()
 
 ----------------------------
 --  Check Neovim version  --
