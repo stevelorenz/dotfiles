@@ -107,8 +107,8 @@ return require("lazy").setup(
 		-- LSP signature
 		{ "ray-x/lsp_signature.nvim" },
 
-		-- Comment stuff out
-		{ "tpope/vim-commentary" },
+		-- // Smart and powerful comment plugin for neovim
+		{ "numToStr/Comment.nvim" },
 
 		-- Easy code formatting
 		{ "sbdchd/neoformat" },

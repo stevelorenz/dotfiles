@@ -253,6 +253,11 @@ require("lsp_signature").setup({
 	},
 })
 
+-------------------
+--  Comment.nvim --
+-------------------
+require("Comment").setup()
+
 --------------
 --  neogen  --
 --------------
