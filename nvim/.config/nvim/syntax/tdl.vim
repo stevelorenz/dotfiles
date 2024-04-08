@@ -26,6 +26,11 @@ syntax keyword tdlStatement type_def table_def
 syntax keyword tdlStatement message_dispatch table_dispatch
 syntax keyword tdlStatement table_emulation
 
+" GREEN
+syntax keyword tdlStatement execution_context_def table_instance_def path_def
+syntax keyword tdlStatement query_def directed_traversal default_def
+syntax keyword tdlStatement validation_def
+
 highlight def link tdlType Type
 highlight def link tdlStatement Keyword
 
