@@ -13,6 +13,9 @@ endif
 
 syntax case match
 
+syntax region myComment start="/\*\*" end="\*/"
+highlight link myComment Comment
+
 syntax keyword tdlType s_int8 s_int16 s_int32 s_int64 u_int8 u_int16 u_int32 u_int64
 syntax keyword tdlType double float
 syntax keyword tdlType char tdl_vstring
