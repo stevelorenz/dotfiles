@@ -1,5 +1,5 @@
 # Colorscheme
-import = ["/Users/zuoxiang/.config/alacritty/catppuccin.toml"]
+import = ["~/.config/alacritty/catppuccin.toml"]
 
 live_config_reload = true
 

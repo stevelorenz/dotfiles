@@ -1,36 +1,10 @@
-@theme "/usr/share/rofi/themes/glue_pro_blue.rasi"
+/** Basic config file **/
 
-configuration{
-    modi: "run,drun,window";
-    lines: 5;
-    show-icons: true;
-    icon-theme: "Paper Mono";
-    drun-display-format: "{icon} {name}";
-    location: 0;
-    disable-history: false;
-    hide-scrollbar: true;
-    display-drun: "Apps";
+configuration {
+  show-icons: true;
+  icon-theme: "Papirus";
+  display-drun: "  ";
+  display-window: "﩯 ";
+  display-combi: "  ";
 }
-
-listview {
-    border: 0px 0px 0px;
-    padding: 6px 0px 0px;
-    margin: 10px 0px 0px 20px;
-    columns: 2;
-    background-color: @bg-col;
-}
-
-element {
-    padding: 5px;
-    background-color: @bg-col;
-    text-color: @fg-col;
-}
-
-element-icon {
-    size: 25px;
-}
-
-element selected {
-    background-color:  @selected-col;
-    text-color: @fg-col2;
-}
+@theme "themes/sidetab-nord.rasi"
