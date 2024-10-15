@@ -82,7 +82,9 @@ require("nvim-treesitter.configs").setup({
 		"vimdoc",
 		"yaml",
 	},
-	auto_install = true,
+	sync_install = true,
+	ignore_install = {},
+	auto_install = false,
 	highlight = {
 		enable = true, -- false will disable the whole extension
 		disable = {}, -- list of language that will be disabled
