@@ -18,12 +18,12 @@ local version_is_ok = true
 local nvim_version = vim.version()
 if nvim_version.major >= 1 then
 	version_is_ok = false
-elseif nvim_version.minor < 9 then
+elseif nvim_version.minor < 10 then
 	version_is_ok = false
 end
 if not version_is_ok then
 	vim.api.nvim_err_writeln(
-		"This configuration requires Neovim with the version >= 0.9.0 and < 1.0.0. (Type any key to exit!)"
+		"This configuration requires Neovim with the version >= 0.10.0 and < 1.0.0. (Type any key to exit!)"
 	)
 	vim.fn.getchar()
 	vim.cmd("qa!")
