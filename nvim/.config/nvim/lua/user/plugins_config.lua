@@ -186,10 +186,12 @@ local servers_default = {
 	"erlangls",
 	"gopls",
 	"lua_ls",
+	"perlnavigator",
 	"pyright",
 	"rust_analyzer",
 	"solargraph",
 	"sqlls",
+	"texlab",
 	"vimls",
 	"yamlls",
 }
