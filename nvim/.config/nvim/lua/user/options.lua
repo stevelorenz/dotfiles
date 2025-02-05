@@ -13,7 +13,7 @@ vim.g.is_mac = utils.has("macunix") and true or false
 -- Globals
 vim.g.logging_level = "info"
 vim.g.did_install_default_menus = 1 -- do not load menu
-vim.g.loaded_sql_completion = 1     -- disable broken SQL omni completion
+vim.g.loaded_sql_completion = 1 -- disable broken SQL omni completion
 
 -- Less options, less problems...
 local options = {
@@ -22,7 +22,7 @@ local options = {
 	backup = false, -- do not create backup file
 	clipboard = "unnamedplus", -- allows neovim to access the system clipboard
 	colorcolumn = { "80", "120" },
-	completeopt = { "menuone", "noselect" }, -- mostly just for cmp
+	completeopt = { "menu", "menuone", "noselect" }, -- mostly just for cmp
 	conceallevel = 0, -- so that `` is visible in markdown files
 	confirm = true, -- Ask for confirmation when handling unsaved or read-only files
 	cursorcolumn = true, -- highlight the current column
@@ -31,8 +31,16 @@ local options = {
 	encoding = "utf-8",
 	fileencoding = "utf-8", -- the encoding written to a file
 	fileformats = { "unix" },
-	foldmethod = "indent", -- use indent as the DEFAULT folding method. This method does not require treesitter
+	fillchars = {
+		foldopen = "",
+		foldclose = "",
+		fold = " ",
+		foldsep = " ",
+		diff = "╱",
+		eob = " ",
+	},
 	foldenable = false, -- Dot not form folds when opening the file
+	foldmethod = "indent", -- use indent as the DEFAULT folding method. This method does not require treesitter
 	hlsearch = true, -- highlight all matches on previous search pattern
 	ignorecase = true, -- ignore case in search patterns
 	laststatus = 3, -- Use global statusline
