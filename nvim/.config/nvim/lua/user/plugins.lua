@@ -137,7 +137,7 @@ return require("lazy").setup(
 
 		-- Lspsaga
 		{
-			"glepnir/lspsaga.nvim",
+			"nvimdev/lspsaga.nvim",
 			branch = "main",
 		},
 
