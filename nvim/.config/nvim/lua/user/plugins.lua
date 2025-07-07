@@ -159,13 +159,6 @@ return require("lazy").setup(
 		-- Not UFO in the sky, but an ultra fold in Neovim
 		{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
 
-		-- Neovim dashboard
-		{
-			"glepnir/dashboard-nvim",
-			event = "VimEnter",
-			dependencies = { "nvim-tree/nvim-web-devicons" },
-		},
-
 		-- Zen mode
 		{ "folke/zen-mode.nvim" },
 
