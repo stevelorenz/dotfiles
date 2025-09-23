@@ -176,7 +176,7 @@ require("neodev").setup({})
 -- Setup Neovim's built-in LSP client
 -- Configs are copied and adapted from lspconfig's README (May be outdated...)
 
-local lspconfig = require("lspconfig")
+-- local lspconfig = require("lspconfig")
 
 -- LSP servers that use the default setup, namely without any customized configs
 local servers_default = {
@@ -195,12 +195,12 @@ local servers_default = {
 	"yamlls",
 }
 for _, lsp in pairs(servers_default) do
-	lspconfig[lsp].setup({})
+	vim.lsp.enable(lsp)
 end
 
 -- LSP servers that use customized setup
 -- clangd: DO NOT auto insert (often wrong) include headers...
-lspconfig.clangd.setup({
+vim.lsp.config("clangd", {
 	cmd = { "clangd", "--header-insertion=never" },
 })
 
