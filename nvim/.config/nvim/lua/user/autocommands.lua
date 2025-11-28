@@ -3,20 +3,21 @@
 --
 -- Create augroup, check help augroup
 local function augroup(name)
-    return vim.api.nvim_create_augroup("zz_" .. name, {clear = true})
+	return vim.api.nvim_create_augroup("zz_" .. name, { clear = true })
 end
 
 -- Create autocommand
 local autocmd = vim.api.nvim_create_autocmd
 
 -- Check if need to reload the file
-autocmd({"FocusGained", "TermClose", "TermLeave"},
-        {group = augroup("checktime"), command = "checktime"})
+autocmd({ "FocusGained", "TermClose", "TermLeave" }, { group = augroup("checktime"), command = "checktime" })
 
 -- Highlight on yank
 autocmd("TextYankPost", {
-    group = augroup("highlight_yank"),
-    callback = function() vim.highlight.on_yank() end
+	group = augroup("highlight_yank"),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
 })
 
 -- Conventional vimscript configuration

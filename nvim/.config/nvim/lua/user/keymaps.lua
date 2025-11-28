@@ -2,7 +2,7 @@
 -- keymaps.lua
 -- About: Zuo's Keymap Configuration for Neovim
 --
-local opts = {noremap = true, silent = true}
+local opts = { noremap = true, silent = true }
 
 local keymap = vim.api.nvim_set_keymap
 
