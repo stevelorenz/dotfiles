@@ -157,6 +157,7 @@ require("neodev").setup({})
 -- LSP servers that use the default setup, namely without any customized configs
 local servers_default = {
 	"bashls",
+	"clangd",
 	"cmake",
 	"erlangls",
 	"gopls",
