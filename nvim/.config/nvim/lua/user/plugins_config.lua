@@ -366,7 +366,11 @@ require("illuminate").configure({
 -----------------
 --  colorizer  --
 -----------------
-require("colorizer").setup({})
+require("colorizer").setup({
+	user_default_options = {
+		suppress_deprecation = true,
+	},
+})
 
 ------------------
 --  noice.nvim  --
