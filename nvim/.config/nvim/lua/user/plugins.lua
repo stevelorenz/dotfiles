@@ -13,26 +13,30 @@ return require("lazy").setup(
 		{ "nvim-lua/plenary.nvim" },
 
 		-- A blazing fast and easy to configure Neovim status line written in Lua
-		{ "nvim-lualine/lualine.nvim" }, -- A snazzy buffer line for Neovim
+		{ "nvim-lualine/lualine.nvim" },
+		-- A snazzy buffer line for Neovim
 		{ "akinsho/bufferline.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
 
 		-- Find, Filter, Preview, Pick. All lua, all the time
 		{
 			"nvim-telescope/telescope.nvim",
 			dependencies = { { "nvim-lua/plenary.nvim" } },
-		}, -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+		},
+		-- Fuzzy Finder Algorithm which requires local dependencies to be built.
 		{
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
 			enabled = vim.fn.executable("make") == 1,
-		}, -- File Browser extension for telescope.nvim
+		},
+		-- File Browser extension for telescope.nvim
 		{
 			"nvim-telescope/telescope-file-browser.nvim",
 			dependencies = {
 				"nvim-telescope/telescope.nvim",
 				"nvim-lua/plenary.nvim",
 			},
-		}, -- Undo history visualizer
+		},
+		-- Undo history visualizer
 		{ "mbbill/undotree" },
 
 		-- This plugin adds indentation guides to all lines (including empty lines)
@@ -54,11 +58,16 @@ return require("lazy").setup(
 		{
 			"nvim-treesitter/nvim-treesitter-context",
 			dependencies = "nvim-treesitter/nvim-treesitter",
-		}, -- Super fast git decorations
-		{ "lewis6991/gitsigns.nvim" }, -- Displays available keybindings in popup
-		{ "folke/which-key.nvim" }, -- A file explorer for neovim written in lua
-		{ "kyazdani42/nvim-tree.lua" }, -- Better quickfix(bqf) window
-		{ "kevinhwang91/nvim-bqf" }, -- Handle surroundings
+		},
+		-- Super fast git decorations
+		{ "lewis6991/gitsigns.nvim" },
+		-- Displays available keybindings in popup
+		{ "folke/which-key.nvim" },
+		-- A file explorer for neovim written in lua
+		{ "kyazdani42/nvim-tree.lua" },
+		-- Better quickfix(bqf) window
+		{ "kevinhwang91/nvim-bqf" },
+		-- Handle surroundings
 		{ "tpope/vim-repeat" },
 		{ "tpope/vim-surround" },
 
@@ -70,7 +79,8 @@ return require("lazy").setup(
 				"williamboman/mason.nvim",
 				"williamboman/mason-lspconfig.nvim",
 			},
-		}, -- Portable package manager for Neovim that runs everywhere Neovim runs.
+		},
+		-- Portable package manager for Neovim that runs everywhere Neovim runs.
 		-- Easily install and manage LSP servers, DAP servers, linters, and formatters
 		{ "williamboman/mason.nvim", build = ":MasonUpdate" },
 
@@ -81,7 +91,7 @@ return require("lazy").setup(
 		{ "j-hui/fidget.nvim" }, -- LSP signature
 		{ "ray-x/lsp_signature.nvim" },
 
-		-- // Smart and powerful comment plugin for neovim
+		-- Smart and powerful comment plugin for neovim
 		{ "numToStr/Comment.nvim" }, -- Easy code formatting
 		{ "sbdchd/neoformat" }, -- A better annotation/documentation generator
 		{ "danymat/neogen" }, -- A completion plugin for neovim coded in Lua.
@@ -98,7 +108,8 @@ return require("lazy").setup(
 				"hrsh7th/vim-vsnip",
 				"hrsh7th/vim-vsnip-integ",
 			},
-		}, -- A pretty list for showing diagnostics, references, telescope results
+		},
+		-- A pretty list for showing diagnostics, references, telescope results
 		{ "folke/trouble.nvim" }, -- Lspsaga
 		{ "nvimdev/lspsaga.nvim", branch = "main" },
 
