@@ -13,13 +13,15 @@ vim.g.is_mac = utils.has("macunix") and true or false
 vim.g.logging_level = "info"
 vim.g.did_install_default_menus = 1 -- do not load menu
 vim.g.loaded_sql_completion = 1 -- disable broken SQL omni completion
+vim.g.snacks_animate = true -- Enable snacks animations
+vim.g.ai_cmp = true -- if the completion engine supports the AI source, use that instead of inline suggestions
 
 -- Less options, less problems...
 local options = {
 	autowrite = true, -- enable auto write
 	backspace = "indent,eol,start",
 	backup = false, -- do not create backup file
-	clipboard = "unnamedplus", -- allows neovim to access the system clipboard
+	clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus", -- allows neovim to access the system clipboard
 	colorcolumn = { "80", "120" },
 	completeopt = { "menu", "menuone", "noselect" }, -- mostly just for cmp
 	conceallevel = 0, -- so that `` is visible in markdown files
