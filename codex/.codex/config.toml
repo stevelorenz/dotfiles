@@ -1,0 +1,8 @@
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+personality = "pragmatic"
+
+[features]
+rmcp_client = true
+undo = false
+codex_git_commit = true
