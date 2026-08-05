@@ -36,84 +36,6 @@ vim.g.undotree_SetFocusWhenToggle = 1
 ------------------------
 require("ibl").setup({})
 
-------------------
---  treesitter  --
-------------------
--- require("nvim-treesitter.configs").setup({
--- 	-- Install only modules for the languages I use frequently
--- 	ensure_installed = {
--- 		"bash",
--- 		"c",
--- 		"cmake",
--- 		"cpp",
--- 		"css",
--- 		"gitignore",
--- 		"go",
--- 		"haskell",
--- 		"html",
--- 		"javascript",
--- 		"json",
--- 		"lua",
--- 		"markdown",
--- 		"markdown_inline",
--- 		"perl",
--- 		"python",
--- 		"regex",
--- 		"ruby",
--- 		"rust",
--- 		"vim",
--- 		"vimdoc",
--- 		"yaml",
--- 	},
--- 	sync_install = true,
--- 	ignore_install = {},
--- 	auto_install = false,
--- 	highlight = {
--- 		enable = true, -- false will disable the whole extension
--- 		disable = {}, -- list of language that will be disabled
--- 	},
--- 	additional_vim_regex_highlighting = false,
--- 	-- Use built-in "smart select" feature. It's an alternative for the vim-expand-region plugin
--- 	incremental_selection = {
--- 		enable = true,
--- 		keymaps = {
--- 			init_selection = "<CR>",
--- 			node_decremental = "<S-TAB>",
--- 			node_incremental = "<TAB>",
--- 			scope_incremental = false,
--- 		},
--- 	},
--- 	textobjects = {
--- 		select = {
--- 			enable = true,
--- 			-- Automatically jump forward to textobj, similar to targets.vim
--- 			lookahead = true,
--- 			keymaps = {
--- 				["af"] = "@function.outer",
--- 				["if"] = "@function.inner",
--- 				["ac"] = "@class.outer",
--- 				["ic"] = {
--- 					query = "@class.inner",
--- 					desc = "Select inner part of a class region",
--- 				},
--- 				["as"] = {
--- 					query = "@scope",
--- 					query_group = "locals",
--- 					desc = "Select language scope",
--- 				},
--- 			},
--- 			selection_modes = {
--- 				["@parameter.outer"] = "v", -- charwise
--- 				["@function.outer"] = "V", -- linewise
--- 				["@class.outer"] = "<c-v>", -- blockwise
--- 			},
--- 			include_surrounding_whitespace = false,
--- 		},
--- 	},
--- })
-
--- require("treesitter-context").setup({ enable = true })
-
 ----------------
 --  gitsigns  --
 ----------------
@@ -219,7 +141,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 ----------------------
 --  fidget.nvim  -  --
 ----------------------
-require("fidget").setup({})
+require("fidget").setup({
+	notification = {
+		window = {
+			-- Prevent Fidget from drawing over NvimTree
+			avoid = { "NvimTree" },
+		},
+	},
+})
 
 ---------------------
 --  lsp_signature  --

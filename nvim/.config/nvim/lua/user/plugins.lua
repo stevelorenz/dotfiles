@@ -46,21 +46,6 @@ return require("lazy").setup(
 		{ "tweekmonster/startuptime.vim" }, -- Adds file type icons to Vim plugins
 		{ "nvim-tree/nvim-web-devicons" },
 
-		-- NOTE: nvim-treesitter plugin has been public archived on Apr 3, 2026... Need to check the treesitter
-		-- status later...
-		-- -- Nvim Treesitter configurations and abstraction layer
-		-- { { "nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate" } },
-
-		-- -- Syntax aware text-objects, select, move, swap, and peek support
-		-- {
-		-- 	"nvim-treesitter/nvim-treesitter-textobjects",
-		-- 	dependencies = "nvim-treesitter/nvim-treesitter",
-		-- }, --
-		-- -- Nvim-treesitter-context
-		-- {
-		-- 	"nvim-treesitter/nvim-treesitter-context",
-		-- 	dependencies = "nvim-treesitter/nvim-treesitter",
-		-- },
 		-- Super fast git decorations
 		{ "lewis6991/gitsigns.nvim" },
 		-- Displays available keybindings in popup
