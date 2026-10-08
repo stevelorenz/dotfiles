@@ -243,7 +243,7 @@ require("trouble").setup({ modes = { lsp = { win = { position = "right" } } } })
 ----------------
 require("lspsaga").setup({
 	-- code action prompt does not work properly for e.g. bash sources...
-	code_action_lightbulb = {
+	lightbulb = {
 		enable = false,
 		sign = false,
 		sign_priority = 40,
